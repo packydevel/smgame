@@ -17,6 +17,13 @@ public class SMGame {
 
     public static void main(String args[]) {
         currentDeck=Deck.getInstance();
+        
+        System.out.println("Sequenza iniziale di Carte");
+        currentDeck.print();
+
+        System.out.println("");
+
+        System.out.println("Sequenza di Carte dopo mescolamento:");
         currentDeck.shuffle();
         currentDeck.print();
     }
