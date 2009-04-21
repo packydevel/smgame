@@ -15,16 +15,17 @@ public class Deck {
     private final String[] ALL_SUIT = {"Danari", "Spade", "Coppe", "Bastoni"}; //tutti i semi
     private final String[] ALL_POINT = {"Asso", "Due", "Tre", "Quattro", "Cinque",
         "Sei", "Sette", "Donna", "Fante", "Re"};//tutti i punti
+    //TODO: ma ha senso double?
     private final double[] ALL_VALUE = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 0.5, 0.5, 0.5};//tutti i valori
     private final ArrayList<Card> CARDS=new ArrayList<Card>();
     private final int TOTAL_CARDS = 40; //carte totali
     private final int TOTAL_CARDS_PER_SUIT = 10; //carte totali per seme
     
     //variabili
-    int totalRemainingCards = TOTAL_CARDS; //carte rimanenti
+    protected int totalRemainingCards = TOTAL_CARDS; //carte rimanenti
     private static Deck currentDeck = null; //mazzo corrente
     private Iterator<Card> iCard; 
-    private Card nextCard; //prossima carta
+    protected Card nextCard; //prossima carta
 
     //costruttore privato
     private Deck() {
