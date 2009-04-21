@@ -1,41 +1,61 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.smgame.core.card;
 
-/**
- *
- * @author packyuser
+/**Classe Carta
+ * rappresenta la singola carta del mazzo
+ * 
+ * @author pasquale
+ * @author luca
  */
 public class Card {
+    //variabili
+    private String point; //punto
+    private String suit; //seme
+    private double value; //valore
 
-    private String point;
-    private String suit;
-    private double value;
-
+    /**Costruttore con tre parametri
+     * 
+     * @param point punto
+     * @param suit seme 
+     * @param value valore
+     */
     public Card(String point, String suit, double value) {
         this.point = point;
         this.suit = suit;
         this.value = value;
     }
 
+    /**Restituisce il punto
+     * 
+     * @return stringa punto
+     */
     public String getPoint() {
         return this.point;
     }
 
+    
+    /**Restituisce il seme
+     * 
+     * @return stringa seme
+     */
     public String getSuit() {
         return this.suit;
     }
 
+    /**Restituisce il valore della carta
+     * 
+     * @return valore es
+     */
     public double getValue() {
         return this.value;
     }
 
+    
+    /**Restituisce 
+     * 
+     */
     @Override
     public String toString() {
         return point + " di " + suit + " => "+ value;
     }
-
-}
+    
+}//end class
