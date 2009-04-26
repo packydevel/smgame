@@ -11,4 +11,15 @@ package org.smgame.core.player;
  */
 public class CPUPlayer extends Player {
 
+    private final double MAX_CREDIT=100.0;
+
+    private final double MIN_SCORE=4.5;
+
+    public boolean askAnotherCard() {
+        if (score < MIN_SCORE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
