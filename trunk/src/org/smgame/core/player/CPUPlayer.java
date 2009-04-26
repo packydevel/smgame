@@ -22,4 +22,8 @@ public class CPUPlayer extends Player {
             return false;
         }
     }
+
+    public double requestBet() {
+        return credit/10+1;
+    }
 }
