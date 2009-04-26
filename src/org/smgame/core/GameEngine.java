@@ -20,6 +20,8 @@ public class GameEngine {
 
     private static GameEngine gameEngine = null;
     private Game game;
+    private final double MAX_CREDIT = 64000;
+    private final double MAX_SCORE = 7.5;
 
     private GameEngine() {
     }
@@ -43,8 +45,9 @@ public class GameEngine {
                 p = (HumanPlayer) p;
             }
 
-            if (p.getTotalValue()<=(totalValue+minMargin))
+            if (p.getTotalValue() <= (totalValue + minMargin)) {
                 return true;
+            }
         }
         return false;
     }
