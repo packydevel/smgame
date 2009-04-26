@@ -15,7 +15,7 @@ import org.smgame.core.card.Card;
 public abstract class Player {
 
     protected double credit;
-    protected double totalValue;
+    protected double score;
     protected ArrayList<Card> CardList;
     protected GameEngine gameEngine = GameEngine.getInstance();
 
@@ -24,7 +24,7 @@ public abstract class Player {
     }
 
     public double getTotalValue() {
-        return totalValue;
+        return score;
     }
 
     /*
