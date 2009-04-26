@@ -8,8 +8,8 @@ package org.smgame.core.card;
  */
 public class Card {
     //variabili
-    private String point; //punto
-    private String suit; //seme
+    private Point point; //punto
+    private Suit suit; //seme
     private double value; //valore
 
     /**Costruttore con tre parametri
@@ -18,7 +18,7 @@ public class Card {
      * @param suit seme 
      * @param value valore
      */
-    public Card(String point, String suit, double value) {
+    public Card(Point point, Suit suit, double value) {
         this.point = point;
         this.suit = suit;
         this.value = value;
@@ -28,7 +28,7 @@ public class Card {
      * 
      * @return stringa punto
      */
-    public String getPoint() {
+    public Point getPoint() {
         return this.point;
     }
 
@@ -37,7 +37,7 @@ public class Card {
      * 
      * @return stringa seme
      */
-    public String getSuit() {
+    public Suit getSuit() {
         return this.suit;
     }
 
