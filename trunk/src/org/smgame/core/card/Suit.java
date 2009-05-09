@@ -1,14 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.core.card;
 
-/**
+/**Enumerativo Seme
  *
- * @author packyuser
+ * @author pasquale
+ * @author luca
  */
-public enum Suit {
 
+public enum Suit {
     Danari, Spade, Coppe, Bastoni
-}
+} //end enum

@@ -1,28 +1,33 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.core.player;
 
 import java.util.ArrayList;
 import org.smgame.core.GameEngine;
 import org.smgame.core.card.Card;
 
-/**
- *
- * @author packyuser
+/**Classe astratta Giocatore
+ * 
+ * @author luca
+ * @author pasquale
  */
 public abstract class Player {
 
-    protected double credit;
-    protected double score;
+    protected double credit; //credito
+    protected double score; //punteggio
     protected ArrayList<Card> CardList;
     protected GameEngine gameEngine = GameEngine.getInstance();
 
+    /**Restituisce il credito corrente
+     * 
+     * @return credito
+     */
     public double getCredit() {
         return credit;
     }
 
+    /**Restituisce il valore totale???
+     * 
+     * @return
+     */
     public double getTotalValue() {
         return score;
     }
@@ -38,4 +43,4 @@ public abstract class Player {
 
     protected abstract double getCredit();
      */
-}
+} //end class
