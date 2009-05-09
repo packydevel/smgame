@@ -12,7 +12,10 @@ public class SMGame {
 
     public static void main(String args[]) {
 
-        Game game = new Game();
+        GameSetting gameSetting = new GameSetting();
+        gameSetting.setNumPlayers(4);
+        Game game = new Game(gameSetting);
+
         game.printTest();
     }
 }
