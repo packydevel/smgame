@@ -3,6 +3,7 @@ package org.smgame.core.card;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import org.smgame.util.EmptyDeckException;
 
 /**Classe Mazzo
  * contiene le 40carte da gioco
@@ -60,12 +61,12 @@ public class Deck {
      * 
      * @return prossima carta
      */
-    public Card getNextCard() {
+    public Card getNextCard() throws EmptyDeckException {
         if (iCard.hasNext()) {
             nextCard = iCard.next();
             totalRemainingCards--;
         } else {
-            nextCard = null;
+            throw new EmptyDeckException();
         }
         return nextCard;
     }//end getNextCard

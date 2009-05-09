@@ -1,7 +1,7 @@
 package org.smgame.core.player;
 
 import java.util.ArrayList;
-import org.smgame.core.GameEngine;
+import java.util.HashMap;
 import org.smgame.core.card.Card;
 
 /**Classe astratta Giocatore
@@ -11,10 +11,14 @@ import org.smgame.core.card.Card;
  */
 public abstract class Player {
 
-    protected double credit; //credito
+    protected double credit;
+    protected double bet;
+    protected ArrayList<Card> cardList;
+    protected HashMap<Card, Double> betList;
+    //protected GameEngine gameEngine = GameEngine.getInstance();
     protected double score; //punteggio
     protected ArrayList<Card> CardList;
-    protected GameEngine gameEngine = GameEngine.getInstance();
+    //protected GameEngine gameEngine = GameEngine.getInstance();
 
     /**Restituisce il credito corrente
      * 
@@ -24,23 +28,51 @@ public abstract class Player {
         return credit;
     }
 
+
+    public void setCredit(double credit) {
+        this.credit = credit;
+    }
+
+    public HashMap<Card, Double> getBetList() {
+        return betList;
+    }
+
+    public ArrayList<Card> getCardList() {
+        return cardList;
+    }
+
+    public double getBet() {
+        return bet;
+    }
+
+    public double getScore() {
+        double score=0;
+
+        for (Card c : cardList) {
+            score += c.getValue();
+        }
+
+        return score;
+    }
+
     /**Restituisce il valore totale???
      * 
      * @return
      */
-    public double getTotalValue() {
-        return score;
-    }
+    public double getStake() {
+        double stake = 0;
 
+        for (Double b : betList.values()) {
+            stake += b.doubleValue();
+        }
+
+        return stake;
+    }
     /*
     protected abstract boolean askAnotherManche();
 
     protected abstract boolean askAnotherCard();
 
-    protected abstract double requestBet();
-
     protected abstract void setCredit(double amount);
-
-    protected abstract double getCredit();
      */
 } //end class

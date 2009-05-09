@@ -17,10 +17,6 @@ public class PlayerList {
     private ArrayList<Player> playerAL = new ArrayList<Player>();
 
     private PlayerList() {
-        playerAL.add(new CPUBank());
-        playerAL.add(new CPUPlayer());
-        playerAL.add(new CPUPlayer());
-        playerAL.add(new HumanPlayer());
     }
 
     public ArrayList<Player> getPlayerAL() {
