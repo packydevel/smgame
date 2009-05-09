@@ -1,15 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.core.card;
 
-/**
+/**Enumerativo TipoCarta
  *
- * @author packyuser
+ * @author pasquale
+ * @author luca
  */
 public enum Point {
-
     Asso, Due, Tre, Quattro, Cinque,
     Sei, Sette, Donna, Fante, Re
-}
+} //end enum
