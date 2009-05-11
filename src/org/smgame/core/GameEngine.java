@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.core;
 
 import java.util.ArrayList;
@@ -14,6 +10,7 @@ import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
 import org.smgame.main.Game;
 import org.smgame.main.GameSetting;
+import org.smgame.util.EmptyDeckException;
 
 /**
  *
@@ -46,7 +43,7 @@ public class GameEngine {
 
     public void requestCard(Player player, double bet) {
         try {
-        player.getCardList().add(deck.getNextCard());
+            player.getCardList().add(deck.getNextCard());
         }
         catch (EmptyDeckException ede) {
 
