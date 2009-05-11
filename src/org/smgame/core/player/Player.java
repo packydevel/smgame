@@ -11,9 +11,9 @@ import org.smgame.core.card.Card;
  */
 public abstract class Player {
 
-    protected double credit;
-    protected double bet;
-    protected ArrayList<Card> cardList;
+    protected double credit; //credito
+    protected double bet; //puntata
+    protected ArrayList<Card> cardList; //
     protected HashMap<Card, Double> betList;
     //protected GameEngine gameEngine = GameEngine.getInstance();
     protected double score; //punteggio
