@@ -16,9 +16,7 @@ public abstract class Player {
     protected ArrayList<Card> cardList; //
     protected HashMap<Card, Double> betList;
     //protected GameEngine gameEngine = GameEngine.getInstance();
-    protected double score; //punteggio
-    protected ArrayList<Card> CardList;
-    //protected GameEngine gameEngine = GameEngine.getInstance();
+    protected double score; //punteggio       
 
     /**Restituisce il credito corrente
      * 
