@@ -12,27 +12,36 @@ import org.smgame.main.Game;
 import org.smgame.main.GameSetting;
 import org.smgame.util.EmptyDeckException;
 
-/**
+/**Classe GameEngine, motore di gioco
  *
- * @author packyuser
+ * @author luca
+ * @author pasquale
  */
 public class GameEngine {
 
-    private static GameEngine gameEngine = null;
-    private GameSetting gameSetting;
-    private Deck deck;
-    private ArrayList<Card> remainingCards = new ArrayList<Card>();
-    private PlayerList playerList;
-    private Game game;
-    private final double MAX_CREDIT = 64000;
-    private final double MAX_SCORE = 7.5;
+    private static GameEngine gameEngine = null; //motore gioco
+    private GameSetting gameSetting; // settaggi gioco
+    private Deck deck; //mazzo
+    private ArrayList<Card> remainingCards = new ArrayList<Card>(); //carte rimanenti
+    private PlayerList playerList; //lista giocatori
+    private Game game; //gioco
+    private final double MAX_CREDIT = 64000; //massimo credito
+    private final double MAX_SCORE = 7.5; //massimo punteggio
 
+    //costruttore privato
     private GameEngine(GameSetting gameSetting, Deck deck, PlayerList playerList) {
         this.gameSetting=gameSetting;
         this.deck=deck;
         this.playerList=playerList;
     }
 
+    /**Restituisce l'istanza della classe
+     *
+     * @param gameSetting settaggi del gioco
+     * @param deck mazzo
+     * @param playerList lista giocatori
+     * @return istanza gioco
+     */
     public static GameEngine getInstance(GameSetting gameSetting, Deck deck, PlayerList playerList) {
         if (gameEngine == null) {
             gameEngine = new GameEngine(gameSetting, deck, playerList);
@@ -41,6 +50,11 @@ public class GameEngine {
         return gameEngine;
     }
 
+    /**Richiede carta
+     *
+     * @param player giocatore che chiede la carta
+     * @param bet puntata da effettuare
+     */
     public void requestCard(Player player, double bet) {
         try {
             player.getCardList().add(deck.getNextCard());
@@ -57,6 +71,12 @@ public class GameEngine {
         }
     }
 
+    /**Esiste giocatore debole (?)
+     *
+     * @param totalValue valore totale
+     * @param minMargin margine minimo
+     * @return booleano sul controllo del giocatore
+     */
     public boolean existWeakPlayer(double totalValue, double minMargin) {
         ArrayList<Player> playerList = PlayerList.getInstance().getPlayerAL();
         for (Player p : playerList) {
