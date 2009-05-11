@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.main;
 
 import org.smgame.core.GameEngine;
@@ -10,9 +6,10 @@ import org.smgame.core.player.CPUPlayer;
 import org.smgame.core.player.HumanPlayer;
 import org.smgame.core.player.PlayerList;
 
-/**
+/**Classe gioco
  *
- * @author packyuser
+ * @author luca
+ * @author pasquale
  */
 public class Game {
 
@@ -21,6 +18,10 @@ public class Game {
     private static Deck deck;
     private static PlayerList playerList;
 
+    /**Costruttore
+     *
+     * @param gameSetting settaggi gioco
+     */
     public Game(GameSetting gameSetting) {
 
         char playerType='H';
