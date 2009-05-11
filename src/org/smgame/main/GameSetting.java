@@ -1,12 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.main;
 
-/**
+/**Classe settaggi gioco
  *
- * @author packyuser
+ * @author luca
+ * @author pasquale
  */
 public class GameSetting {
 
@@ -14,17 +11,25 @@ public class GameSetting {
     private final int MAX_PLAYERS = 12;
     private int numPlayers = 4;
 
+    /**imposta il numero giocatori
+     *
+     * @param numPlayers numero
+     */
     public void setNumPlayers(int numPlayers) {
-        if (numPlayers < MIN_PLAYERS || numPlayers > MAX_PLAYERS) {
+        if (numPlayers < MIN_PLAYERS || numPlayers > MAX_PLAYERS)
             System.out.println("Numero errato di giocatori!!!");
-        } else {
-            this.numPlayers = numPlayers;
-        }
+        else 
+            this.numPlayers = numPlayers;        
     }
 
-    public GameSetting() {
-    }
+    /**Costruttore
+     *
+     */
+    public GameSetting() { }
 
+    /**Restituisce il numero giocatori
+     *
+     */
     public int getNumPlayers() {
         return numPlayers;
     }
