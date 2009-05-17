@@ -1,7 +1,6 @@
 package org.smgame.core;
 
 import java.util.ArrayList;
-import org.smgame.core.card.Card;
 import org.smgame.core.card.Deck;
 import org.smgame.core.player.CPUBank;
 import org.smgame.core.player.CPUPlayer;
@@ -19,14 +18,13 @@ import org.smgame.util.EmptyDeckException;
  */
 public class GameEngine {
 
-    private static GameEngine gameEngine = null; //motore gioco
-    private GameSetting gameSetting; // settaggi gioco
-    private Deck deck; //mazzo
-    private ArrayList<Card> remainingCards = new ArrayList<Card>(); //carte rimanenti
-    private PlayerList playerList; //lista giocatori
-    private Game game; //gioco
-    private final double MAX_CREDIT = 64000; //massimo credito
-    private final double MAX_SCORE = 7.5; //massimo punteggio
+    private static GameEngine gameEngine = null;
+    private GameSetting gameSetting;
+    private Deck deck;
+    private PlayerList playerList;
+    private Game game;
+    private final double MAX_CREDIT = 64000;
+    private final double MAX_SCORE = 7.5;
 
     //costruttore privato
     private GameEngine(GameSetting gameSetting, Deck deck, PlayerList playerList) {
@@ -56,18 +54,17 @@ public class GameEngine {
      * @param bet puntata da effettuare
      */
     public void requestCard(Player player, double bet) {
-        try {
+        
             player.getCardList().add(deck.getNextCard());
-        }
-        catch (EmptyDeckException ede) {
-
-        }
 
         if (player.getScore() > 7.5) {
             System.out.println("Hai sballato!!!");
-            remainingCards.addAll(player.getCardList());
+            deck.addOffGameCards(player.getCardList());
             player.getCardList().clear();
             player.setCredit(player.getCredit()-player.getStake());
+            /*
+             * occorre aggiungere la somma al credito del Mazziere
+             */
         }
     }
 

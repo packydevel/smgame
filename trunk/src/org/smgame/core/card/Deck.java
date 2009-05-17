@@ -3,6 +3,7 @@ package org.smgame.core.card;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import org.smgame.util.EmptyDeckException;
 
 /**Classe Mazzo
@@ -13,16 +14,18 @@ import org.smgame.util.EmptyDeckException;
  */
 public class Deck {
     //costanti
-    
+
     //TODO: ma ha senso double?
     private final double[] ALL_VALUE = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 0.5, 0.5, 0.5};//tutti i valori
     private final ArrayList<Card> CARDS = new ArrayList<Card>();
+    private ArrayList<Card> onGameCardList = new ArrayList<Card>();
+    private ArrayList<Card> offGameCardList = new ArrayList<Card>();
     private final int TOTAL_CARDS = 40; //carte totali
     private final int TOTAL_CARDS_PER_SUIT = 10; //carte totali per seme
     //variabili
     protected int totalRemainingCards = TOTAL_CARDS; //carte rimanenti
     private static Deck currentDeck = null; //mazzo corrente
-    private Iterator<Card> iCard;
+    private Iterator<Card> onGameCardsIterator;
     protected Card nextCard; //prossima carta
 
     //costruttore privato
@@ -36,7 +39,7 @@ public class Deck {
             }
         }
 
-        iCard = CARDS.iterator();
+        onGameCardsIterator = CARDS.iterator();
     } //end costruttore
 
     /**Restituisce l'istanza corrente di mazzo
@@ -46,9 +49,19 @@ public class Deck {
     public static Deck getInstance() {
         if (currentDeck == null) {
             currentDeck = new Deck();
+        } else {
+            currentDeck.resetInstance();
         }
+
         return currentDeck;
     } //end getInstance
+
+    private void resetInstance() {
+        currentDeck.onGameCardList.clear();
+        currentDeck.offGameCardList.addAll(currentDeck.CARDS);
+        currentDeck.offGameCardList.clear();
+        currentDeck.onGameCardsIterator = onGameCardList.iterator();
+    }
 
     /**
      * 
@@ -61,15 +74,23 @@ public class Deck {
      * 
      * @return prossima carta
      */
-    public Card getNextCard() throws EmptyDeckException {
-        if (iCard.hasNext()) {
-            nextCard = iCard.next();
-            totalRemainingCards--;
-        } else {
-            throw new EmptyDeckException();
+    public Card getNextCard() {
+        if (!onGameCardsIterator.hasNext()) {
+            onGameCardList.addAll(offGameCardList);
+            Collections.shuffle(onGameCardList);
+            onGameCardsIterator=onGameCardList.iterator();
+            //throw new EmptyDeckException();
         }
+
+        nextCard = onGameCardsIterator.next();
+        totalRemainingCards--;
+
         return nextCard;
     }//end getNextCard
+
+    public void addOffGameCards(List<Card> cardList) {
+        offGameCardList.addAll(cardList);
+    }
 
     /**Stampa le carte
      * 
