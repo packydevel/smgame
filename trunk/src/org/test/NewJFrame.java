@@ -1,6 +1,8 @@
 package org.test;
 
 import java.awt.Dimension;
+import java.io.File;
+import javax.swing.ImageIcon;
 
 public class NewJFrame extends javax.swing.JFrame {
 
@@ -9,6 +11,7 @@ public class NewJFrame extends javax.swing.JFrame {
         this.setPreferredSize(new Dimension(1024,768));
         initComponents();
         initComponents2();
+        testLoadCard();
         pack();
     }
 
@@ -1283,6 +1286,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private void initComponents2() {
 
     }
+
     /**
     * @param args the command line arguments
     */
@@ -1468,6 +1472,26 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jpPlayersOvest;
     // End of variables declaration//GEN-END:variables
 
+    private void testLoadCard() {
+        String curDir = System.getProperty("user.dir");
+        String separ = File.separator;
+        curDir += separ + "src" + separ + "org" + separ + "smgame" + separ +
+                "resource" + separ + "cartemini" +separ + "napoletane" + separ;
+        ImageIcon icon = createImageIcon(curDir + "C01.jpeg");
+        jlP1Card1.setIcon(icon);
+        System.out.println(curDir);
+
+    }
+
+    protected ImageIcon createImageIcon(String path) {
+        java.net.URL imgURL = getClass().getResource(path);
+        if (imgURL != null)
+            return new ImageIcon(imgURL);
+        else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
+    }
 
 
 }
