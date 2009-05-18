@@ -229,38 +229,40 @@ public class NewJFrame extends javax.swing.JFrame {
         jpPlayer1Layout.setHorizontalGroup(
             jpPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpPlayer1Layout.createSequentialGroup()
-                .addComponent(jlP1Name)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jlP1Card1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlP1Card2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlP1Card3)
-                .addGap(6, 6, 6)
-                .addComponent(jlP1Card4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlP1Card5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlP1Card6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlP1Card7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlP1Card8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlP1Card9)
-                .addGap(6, 6, 6)
-                .addComponent(jlP1Card10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlP1Card11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlP1Card12)
+                .addGroup(jpPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlP1Name)
+                    .addGroup(jpPlayer1Layout.createSequentialGroup()
+                        .addComponent(jlP1Card1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlP1Card2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlP1Card3)
+                        .addGap(6, 6, 6)
+                        .addComponent(jlP1Card4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlP1Card5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlP1Card6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlP1Card7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlP1Card8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlP1Card9)
+                        .addGap(6, 6, 6)
+                        .addComponent(jlP1Card10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlP1Card11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlP1Card12)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpPlayer1Layout.setVerticalGroup(
             jpPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpPlayer1Layout.createSequentialGroup()
+                .addComponent(jlP1Name)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(jpPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlP1Name)
                     .addComponent(jlP1Card1)
                     .addComponent(jlP1Card2)
                     .addComponent(jlP1Card3)
@@ -273,7 +275,7 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(jlP1Card10)
                     .addComponent(jlP1Card11)
                     .addComponent(jlP1Card12))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jlP2Name.setText("giocatore2");
@@ -333,7 +335,7 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addComponent(jlP2Card11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlP2Card12)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpPlayer2Layout.setVerticalGroup(
             jpPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -413,7 +415,7 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addComponent(jlP3Card11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlP3Card12)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpPlayer3Layout.setVerticalGroup(
             jpPlayer3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -481,7 +483,7 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addComponent(jlP4Card5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlP4Card6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlP4Card7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlP4Card8)
@@ -493,7 +495,7 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addComponent(jlP4Card11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlP4Card12)))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpPlayer4Layout.setVerticalGroup(
             jpPlayer4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -573,7 +575,7 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addComponent(jlP5Card11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlP5Card12)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpPlayer5Layout.setVerticalGroup(
             jpPlayer5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -653,7 +655,7 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addComponent(jlP6Card11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlP6Card12)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpPlayer6Layout.setVerticalGroup(
             jpPlayer6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -681,30 +683,29 @@ public class NewJFrame extends javax.swing.JFrame {
         jpPlayersOvestLayout.setHorizontalGroup(
             jpPlayersOvestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpPlayersOvestLayout.createSequentialGroup()
-                .addGroup(jpPlayersOvestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jpPlayer6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jpPlayer4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpPlayer3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpPlayer2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpPlayer1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpPlayer5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGroup(jpPlayersOvestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jpPlayer3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpPlayer2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpPlayer6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpPlayer5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpPlayer4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpPlayer1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jpPlayersOvestLayout.setVerticalGroup(
             jpPlayersOvestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpPlayersOvestLayout.createSequentialGroup()
-                .addComponent(jpPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPlayersOvestLayout.createSequentialGroup()
+                .addComponent(jpPlayer1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpPlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpPlayer3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(11, 11, 11)
                 .addComponent(jpPlayer4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpPlayer5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpPlayer6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addComponent(jpPlayer6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jlP7Name.setText("giocatore7");
@@ -819,7 +820,19 @@ public class NewJFrame extends javax.swing.JFrame {
         jpPlayer8Layout.setHorizontalGroup(
             jpPlayer8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpPlayer8Layout.createSequentialGroup()
-                .addContainerGap(112, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jlP8Card12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP8Card11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP8Card10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP8Card9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP8Card8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP8Card7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpPlayer8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPlayer8Layout.createSequentialGroup()
                         .addComponent(jlP8Card6)
@@ -833,18 +846,6 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addComponent(jlP8Card2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlP8Card1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPlayer8Layout.createSequentialGroup()
-                        .addComponent(jlP8Card12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP8Card11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP8Card10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP8Card9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP8Card8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP8Card7))
                     .addComponent(jlP8Name, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -859,9 +860,7 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(jlP8Card3)
                     .addComponent(jlP8Card4)
                     .addComponent(jlP8Card5)
-                    .addComponent(jlP8Card6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jpPlayer8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlP8Card6)
                     .addComponent(jlP8Card7)
                     .addComponent(jlP8Card8)
                     .addComponent(jlP8Card9)
@@ -902,7 +901,19 @@ public class NewJFrame extends javax.swing.JFrame {
         jpPlayer9Layout.setHorizontalGroup(
             jpPlayer9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpPlayer9Layout.createSequentialGroup()
-                .addContainerGap(112, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jlP9Card12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP9Card11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP9Card10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP9Card9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP9Card8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP9Card7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpPlayer9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPlayer9Layout.createSequentialGroup()
                         .addComponent(jlP9Card6)
@@ -916,18 +927,6 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addComponent(jlP9Card2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlP9Card1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPlayer9Layout.createSequentialGroup()
-                        .addComponent(jlP9Card12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP9Card11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP9Card10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP9Card9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP9Card8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP9Card7))
                     .addComponent(jlP9Name, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -942,9 +941,7 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(jlP9Card3)
                     .addComponent(jlP9Card4)
                     .addComponent(jlP9Card5)
-                    .addComponent(jlP9Card6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jpPlayer9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlP9Card6)
                     .addComponent(jlP9Card7)
                     .addComponent(jlP9Card8)
                     .addComponent(jlP9Card9)
@@ -985,7 +982,19 @@ public class NewJFrame extends javax.swing.JFrame {
         jpPlayer10Layout.setHorizontalGroup(
             jpPlayer10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpPlayer10Layout.createSequentialGroup()
-                .addContainerGap(112, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jlP10Card12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP10Card11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP10Card10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP10Card9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP10Card8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP10Card7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpPlayer10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPlayer10Layout.createSequentialGroup()
                         .addComponent(jlP10Card6)
@@ -999,18 +1008,6 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addComponent(jlP10Card2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlP10Card1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPlayer10Layout.createSequentialGroup()
-                        .addComponent(jlP10Card12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP10Card11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP10Card10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP10Card9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP10Card8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP10Card7))
                     .addComponent(jlP10Name, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -1025,9 +1022,7 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(jlP10Card3)
                     .addComponent(jlP10Card4)
                     .addComponent(jlP10Card5)
-                    .addComponent(jlP10Card6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jpPlayer10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlP10Card6)
                     .addComponent(jlP10Card7)
                     .addComponent(jlP10Card8)
                     .addComponent(jlP10Card9)
@@ -1068,7 +1063,19 @@ public class NewJFrame extends javax.swing.JFrame {
         jpPlayer11Layout.setHorizontalGroup(
             jpPlayer11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpPlayer11Layout.createSequentialGroup()
-                .addContainerGap(112, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jlP11Card12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP11Card11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP11Card10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP11Card9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP11Card8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlP11Card7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpPlayer11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPlayer11Layout.createSequentialGroup()
                         .addComponent(jlP11Card6)
@@ -1082,18 +1089,6 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addComponent(jlP11Card2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlP11Card1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPlayer11Layout.createSequentialGroup()
-                        .addComponent(jlP11Card12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP11Card11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP11Card10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP11Card9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP11Card8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlP11Card7))
                     .addComponent(jlP11Name, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -1108,9 +1103,7 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(jlP11Card3)
                     .addComponent(jlP11Card4)
                     .addComponent(jlP11Card5)
-                    .addComponent(jlP11Card6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jpPlayer11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlP11Card6)
                     .addComponent(jlP11Card7)
                     .addComponent(jlP11Card8)
                     .addComponent(jlP11Card9)
@@ -1124,21 +1117,21 @@ public class NewJFrame extends javax.swing.JFrame {
         jpPlayersEast.setLayout(jpPlayersEastLayout);
         jpPlayersEastLayout.setHorizontalGroup(
             jpPlayersEastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPlayersEastLayout.createSequentialGroup()
+            .addGroup(jpPlayersEastLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpPlayersEastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jpPlayer7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpPlayer8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpPlayer9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpPlayersEastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jpPlayer11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpPlayer10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpPlayer11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jpPlayer8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpPlayer7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpPlayer9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jpPlayersEastLayout.setVerticalGroup(
             jpPlayersEastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpPlayersEastLayout.createSequentialGroup()
                 .addComponent(jpPlayer7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpPlayer8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpPlayer9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1242,13 +1235,12 @@ public class NewJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jpPlayersOvest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jpPlayersOvest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jpPlayersEast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                        .addComponent(jpPlayersEast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jpPlayer0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1259,7 +1251,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGap(19, 19, 19))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpPlayersEast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(286, Short.MAX_VALUE))
         );
 
         pack();
@@ -1459,8 +1451,8 @@ public class NewJFrame extends javax.swing.JFrame {
         String separ = File.separator;
         curDir += separ + "src" + separ + "org" + separ + "smgame" + separ +
                 "resource" + separ + "cartemini" +separ + "napoletane" + separ;
-        //ImageIcon icon = createImageIcon(curDir + "C01.jpeg");
         ImageIcon icon = new ImageIcon(curDir + "C01.jpg");
+
         jlP1Card1.setIcon(icon);
         jlP1Card2.setIcon(icon);
         jlP1Card3.setIcon(icon);
@@ -1661,6 +1653,106 @@ public class NewJFrame extends javax.swing.JFrame {
         jlP8Card10.setText(null);
         jlP8Card11.setText(null);
         jlP8Card12.setText(null);
+
+        jlP9Card1.setIcon(icon);
+        jlP9Card2.setIcon(icon);
+        jlP9Card3.setIcon(icon);
+        jlP9Card4.setIcon(icon);
+        jlP9Card5.setIcon(icon);
+        jlP9Card6.setIcon(icon);
+        jlP9Card7.setIcon(icon);
+        jlP9Card8.setIcon(icon);
+        jlP9Card9.setIcon(icon);
+        jlP9Card10.setIcon(icon);
+        jlP9Card11.setIcon(icon);
+        jlP9Card12.setIcon(icon);
+        jlP9Card1.setText(null);
+        jlP9Card2.setText(null);
+        jlP9Card3.setText(null);
+        jlP9Card4.setText(null);
+        jlP9Card5.setText(null);
+        jlP9Card6.setText(null);
+        jlP9Card7.setText(null);
+        jlP9Card8.setText(null);
+        jlP9Card9.setText(null);
+        jlP9Card10.setText(null);
+        jlP9Card11.setText(null);
+        jlP9Card12.setText(null);
+
+        jlP0Card1.setIcon(icon);
+        jlP0Card2.setIcon(icon);
+        jlP0Card3.setIcon(icon);
+        jlP0Card4.setIcon(icon);
+        jlP0Card5.setIcon(icon);
+        jlP0Card6.setIcon(icon);
+        jlP0Card7.setIcon(icon);
+        jlP0Card8.setIcon(icon);
+        jlP0Card9.setIcon(icon);
+        jlP0Card10.setIcon(icon);
+        jlP0Card11.setIcon(icon);
+        jlP0Card12.setIcon(icon);
+        jlP0Card1.setText(null);
+        jlP0Card2.setText(null);
+        jlP0Card3.setText(null);
+        jlP0Card4.setText(null);
+        jlP0Card5.setText(null);
+        jlP0Card6.setText(null);
+        jlP0Card7.setText(null);
+        jlP0Card8.setText(null);
+        jlP0Card9.setText(null);
+        jlP0Card10.setText(null);
+        jlP0Card11.setText(null);
+        jlP0Card12.setText(null);
+
+        jlP10Card1.setIcon(icon);
+        jlP10Card2.setIcon(icon);
+        jlP10Card3.setIcon(icon);
+        jlP10Card4.setIcon(icon);
+        jlP10Card5.setIcon(icon);
+        jlP10Card6.setIcon(icon);
+        jlP10Card7.setIcon(icon);
+        jlP10Card8.setIcon(icon);
+        jlP10Card9.setIcon(icon);
+        jlP10Card10.setIcon(icon);
+        jlP10Card11.setIcon(icon);
+        jlP10Card12.setIcon(icon);
+        jlP10Card1.setText(null);
+        jlP10Card2.setText(null);
+        jlP10Card3.setText(null);
+        jlP10Card4.setText(null);
+        jlP10Card5.setText(null);
+        jlP10Card6.setText(null);
+        jlP10Card7.setText(null);
+        jlP10Card8.setText(null);
+        jlP10Card9.setText(null);
+        jlP10Card10.setText(null);
+        jlP10Card11.setText(null);
+        jlP10Card12.setText(null);
+        
+        jlP11Card1.setIcon(icon);
+        jlP11Card2.setIcon(icon);
+        jlP11Card3.setIcon(icon);
+        jlP11Card4.setIcon(icon);
+        jlP11Card5.setIcon(icon);
+        jlP11Card6.setIcon(icon);
+        jlP11Card7.setIcon(icon);
+        jlP11Card8.setIcon(icon);
+        jlP11Card9.setIcon(icon);
+        jlP11Card10.setIcon(icon);
+        jlP11Card11.setIcon(icon);
+        jlP11Card12.setIcon(icon);
+        jlP11Card1.setText(null);
+        jlP11Card2.setText(null);
+        jlP11Card3.setText(null);
+        jlP11Card4.setText(null);
+        jlP11Card5.setText(null);
+        jlP11Card6.setText(null);
+        jlP11Card7.setText(null);
+        jlP11Card8.setText(null);
+        jlP11Card9.setText(null);
+        jlP11Card10.setText(null);
+        jlP11Card11.setText(null);
+        jlP11Card12.setText(null);
 
     }
 
