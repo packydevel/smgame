@@ -135,11 +135,14 @@ public class NewJFrame1 extends javax.swing.JFrame {
         jpSud.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
 
         jpOvest.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
+        jpOvest.setPreferredSize(new Dimension(75, 160));
+
         jpEst.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-        
+        jpEst.setPreferredSize(new Dimension(75, 160));
+
         jpCentroNord = new JPanel(new BorderLayout());
         jpCentroNord.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
-        jpCentroNord.setPreferredSize(new Dimension(200, 50));
+        jpCentroNord.setPreferredSize(new Dimension(100, 50));
         
         jpCentroSud = new JPanel(new BorderLayout());
         jpCentroSud.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
