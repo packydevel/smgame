@@ -1477,9 +1477,33 @@ public class NewJFrame extends javax.swing.JFrame {
         String separ = File.separator;
         curDir += separ + "src" + separ + "org" + separ + "smgame" + separ +
                 "resource" + separ + "cartemini" +separ + "napoletane" + separ;
-        ImageIcon icon = createImageIcon(curDir + "C01.jpeg");
+        //ImageIcon icon = createImageIcon(curDir + "C01.jpeg");
+        ImageIcon icon = new ImageIcon(curDir + "C01.jpg");
         jlP1Card1.setIcon(icon);
+        jlP1Card2.setIcon(icon);
+        jlP1Card3.setIcon(icon);
+        jlP1Card4.setIcon(icon);
+        jlP1Card5.setIcon(icon);
+        jlP1Card6.setIcon(icon);
+        jlP1Card7.setIcon(icon);
+        jlP1Card8.setIcon(icon);
+        jlP1Card9.setIcon(icon);
+        jlP1Card10.setIcon(icon);
+        jlP1Card11.setIcon(icon);
+        jlP1Card12.setIcon(icon);
         System.out.println(curDir);
+        jlP1Card1.setText(null);
+        jlP1Card2.setText(null);
+        jlP1Card3.setText(null);
+        jlP1Card4.setText(null);
+        jlP1Card5.setText(null);
+        jlP1Card6.setText(null);
+        jlP1Card7.setText(null);
+        jlP1Card8.setText(null);
+        jlP1Card9.setText(null);
+        jlP1Card10.setText(null);
+        jlP1Card11.setText(null);
+        jlP1Card12.setText(null);
 
     }
 
