@@ -3,6 +3,7 @@
 <Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -30,7 +31,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="249" max="-2" attributes="0"/>
               <Component id="jpPlayer0" min="-2" max="-2" attributes="1"/>
-              <EmptySpace pref="259" max="32767" attributes="0"/>
+              <EmptySpace pref="281" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -56,14 +57,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jpPlayer5" alignment="0" pref="154" max="32767" attributes="1"/>
+                      <Component id="jpPlayer5" alignment="0" pref="168" max="32767" attributes="1"/>
                       <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jpPlayer1" alignment="0" max="32767" attributes="1"/>
                           <Component id="jpPlayer2" alignment="0" max="32767" attributes="1"/>
                           <Component id="jpPlayer4" alignment="0" max="32767" attributes="1"/>
                           <Component id="jpPlayer3" alignment="0" max="32767" attributes="1"/>
                       </Group>
-                      <Component id="jpPlayer6" alignment="0" pref="154" max="32767" attributes="1"/>
+                      <Component id="jpPlayer6" alignment="0" pref="168" max="32767" attributes="1"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -903,26 +904,13 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jpPlayer7" max="32767" attributes="1"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jpPlayer8" alignment="0" max="32767" attributes="1"/>
-                              <Component id="jpPlayer9" alignment="1" max="32767" attributes="1"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="jpPlayer10" max="32767" attributes="1"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jpPlayer11" max="32767" attributes="1"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jpPlayer7" alignment="0" max="32767" attributes="1"/>
+                      <Component id="jpPlayer8" alignment="0" max="32767" attributes="1"/>
+                      <Component id="jpPlayer9" alignment="1" max="32767" attributes="1"/>
+                      <Component id="jpPlayer10" alignment="1" max="32767" attributes="1"/>
+                      <Component id="jpPlayer11" alignment="0" max="32767" attributes="1"/>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
