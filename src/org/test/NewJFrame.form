@@ -25,7 +25,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <Component id="jpPlayersOvest" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="322" max="32767" attributes="0"/>
+              <EmptySpace pref="68" max="32767" attributes="0"/>
               <Component id="jpPlayersEast" min="-2" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
@@ -39,8 +39,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jpPlayersEast" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jpPlayersOvest" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jpPlayersEast" min="-2" max="-2" attributes="0"/>
+                  <Component id="jpPlayersOvest" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="9" max="32767" attributes="0"/>
               <Component id="jpPlayer0" min="-2" max="-2" attributes="0"/>
@@ -57,14 +57,12 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jpPlayer5" alignment="0" pref="168" max="32767" attributes="1"/>
-                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jpPlayer1" alignment="0" max="32767" attributes="1"/>
-                          <Component id="jpPlayer2" alignment="0" max="32767" attributes="1"/>
-                          <Component id="jpPlayer4" alignment="0" max="32767" attributes="1"/>
-                          <Component id="jpPlayer3" alignment="0" max="32767" attributes="1"/>
-                      </Group>
-                      <Component id="jpPlayer6" alignment="0" pref="168" max="32767" attributes="1"/>
+                      <Component id="jpPlayer2" alignment="0" max="32767" attributes="1"/>
+                      <Component id="jpPlayer1" alignment="0" min="-2" max="-2" attributes="1"/>
+                      <Component id="jpPlayer3" alignment="0" max="32767" attributes="1"/>
+                      <Component id="jpPlayer4" alignment="0" min="-2" max="-2" attributes="1"/>
+                      <Component id="jpPlayer5" alignment="0" pref="422" max="32767" attributes="1"/>
+                      <Component id="jpPlayer6" alignment="0" pref="422" max="32767" attributes="1"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -84,7 +82,7 @@
                   <Component id="jpPlayer5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jpPlayer6" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="81" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -96,54 +94,46 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jlP1Name" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jlP1Card1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jlP1Card2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jlP1Card3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                              <Component id="jlP1Card4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jlP1Card5" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jlP1Card6" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jlP1Card7" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jlP1Card8" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jlP1Card9" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                              <Component id="jlP1Card10" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jlP1Card11" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jlP1Card12" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace pref="30" max="32767" attributes="0"/>
+                      <Component id="jlP1Name" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jlP1Card1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jlP1Card2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jlP1Card3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Component id="jlP1Card4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jlP1Card5" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jlP1Card6" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jlP1Card7" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jlP1Card8" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jlP1Card9" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Component id="jlP1Card10" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jlP1Card11" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jlP1Card12" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="114" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jlP1Name" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jlP1Name" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jlP1Card1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jlP1Card2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jlP1Card3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jlP1Card4" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jlP1Card5" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jlP1Card6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jlP1Card7" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jlP1Card8" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jlP1Card9" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -244,8 +234,7 @@
                               <Component id="jlP2Card5" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jlP2Card6" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="jlP2Card7" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jlP2Card8" min="-2" max="-2" attributes="0"/>
@@ -259,7 +248,7 @@
                               <Component id="jlP2Card12" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="30" max="32767" attributes="0"/>
+                      <EmptySpace pref="206" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -275,9 +264,6 @@
                           <Component id="jlP2Card4" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jlP2Card5" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jlP2Card6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jlP2Card7" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jlP2Card8" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jlP2Card9" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -393,7 +379,7 @@
                               <Component id="jlP3Card12" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="30" max="32767" attributes="0"/>
+                      <EmptySpace pref="308" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -527,7 +513,7 @@
                               <Component id="jlP4Card12" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="30" max="32767" attributes="0"/>
+                      <EmptySpace pref="277" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
