@@ -65,6 +65,14 @@ public class MainJF extends JFrame {
             }
         });
 
+        menuJMB.getExitGameJMI().addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
+
+
         setJMenuBar(menuJMB.getJMenuBar1());
     }
 
@@ -78,9 +86,12 @@ public class MainJF extends JFrame {
             menuJMB.getCloseGameJMI().setEnabled(true);
         } else if ((JMenuItem) evt.getSource() == menuJMB.getCloseGameJMI()) {
             //frame.setVisible(false);
-            gameJIF.doDefaultCloseAction();
+            //gameJIF.doDefaultCloseAction();
+            gameJIF.dispose();
             menuJMB.getNewGameJMI().setEnabled(true);
             menuJMB.getCloseGameJMI().setEnabled(false);
+        } else if ((JMenuItem) evt.getSource() == menuJMB.getExitGameJMI()) {
+            this.dispose();
         }
     }
 
