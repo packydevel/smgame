@@ -1,21 +1,14 @@
-package org.test;
+package org.smgame.frontend;
 
-import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 import java.awt.Dimension;
 import java.io.File;
 import javax.swing.ImageIcon;
 
-;
-
-import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
-
-import javax.swing.UIManager;
-
-public class NewJFrame extends javax.swing.JInternalFrame {
+public class GameJIF extends javax.swing.JInternalFrame {
 
     /** Creates new form NewJFrame */
-    public NewJFrame() {
-        this.setPreferredSize(new Dimension(1024, 768));
+    public GameJIF() {
+        setPreferredSize(new Dimension(1000, 800));
         initComponents();
         initComponents2();
         testLoadCard();
@@ -202,8 +195,7 @@ public class NewJFrame extends javax.swing.JInternalFrame {
         jlP0Card12 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jlP1Name.setText("giocatore1");
 
@@ -1253,12 +1245,12 @@ public class NewJFrame extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jpPlayersOvest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
                 .addComponent(jpPlayer0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpPlayersEast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(286, Short.MAX_VALUE))
+                .addContainerGap(300, Short.MAX_VALUE))
         );
 
         pack();
