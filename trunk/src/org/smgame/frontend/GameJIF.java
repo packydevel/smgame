@@ -4,11 +4,12 @@ import java.awt.Dimension;
 import java.io.File;
 import javax.swing.ImageIcon;
 
-public class GameJIF extends javax.swing.JInternalFrame {
+public class GameJIF extends javax.swing.JInternalFrame implements IGameJIF {
 
     /** Creates new form NewJFrame */
     public GameJIF() {
         setPreferredSize(new Dimension(1000, 600));
+        setBounds(5, 5, 1005, 605);
         initComponents();
         initComponents2();
         testLoadCard();
