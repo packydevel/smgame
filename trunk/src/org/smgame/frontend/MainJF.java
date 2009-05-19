@@ -18,7 +18,7 @@ package org.smgame.frontend;
  *
  * Created on 18-mag-2009, 18.34.16
  */
-import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -34,22 +34,21 @@ public class MainJF extends JFrame {
     private JCheckBox closableCheckBox;
     private JCheckBox maximizableCheckBox;
     private JCheckBox iconifiableCheckBox;
-    private javax.swing.JMenu gameJM;
-    private javax.swing.JMenu playerJM;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem newGameJMI;
-    private javax.swing.JMenuItem loadGameJMI;
-    private javax.swing.JMenuItem saveGameJMI;
-    private javax.swing.JMenuItem closeGameJMI;
-    private javax.swing.JMenuItem exitGameJMI;
+//    private javax.swing.JMenu gameJM;
+//    private javax.swing.JMenu playerJM;
+//    private javax.swing.JMenuBar jMenuBar1;
+//    private javax.swing.JMenuItem newGameJMI;
+//    private javax.swing.JMenuItem loadGameJMI;
+//    private javax.swing.JMenuItem saveGameJMI;
+//    private javax.swing.JMenuItem closeGameJMI;
+//    private javax.swing.JMenuItem exitGameJMI;
+    private MenuJMB menuJMB;
     private GameJIF gameJIF;
+
 
     public MainJF() {
         super("InternalFrameExample");
-        try {
-            UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
-        } catch (Exception e) {
-        }
+        
         setSize(1024, 768);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
@@ -59,64 +58,66 @@ public class MainJF extends JFrame {
         getContentPane().add(BorderLayout.CENTER, desktop);
         setVisible(true);
 
-        jMenuBar1 = new javax.swing.JMenuBar();
+        menuJMB = new MenuJMB();
 
-        gameJM = new javax.swing.JMenu("GameJM");
-        gameJM.setText("Game");
+//        jMenuBar1 = new javax.swing.JMenuBar();
+//
+//        gameJM = new javax.swing.JMenu("GameJM");
+//        gameJM.setText("Game");
+//
+//        newGameJMI = new javax.swing.JMenuItem("NewGameJMI");
+//        newGameJMI.setText("New");
+//        loadGameJMI = new javax.swing.JMenuItem("LoadGameJMI");
+//        loadGameJMI.setText("Load ...");
+//        saveGameJMI = new javax.swing.JMenuItem("SaveGameJMI");
+//        saveGameJMI.setText("Save ...");
+//        closeGameJMI = new javax.swing.JMenuItem("CloseGameJMI");
+//        closeGameJMI.setText("Close");
+//        exitGameJMI = new javax.swing.JMenuItem("ExitGameJMI");
+//        exitGameJMI.setText("Exit");
+//
+//        gameJM.add(newGameJMI);
+//        gameJM.add(loadGameJMI);
+//        gameJM.add(saveGameJMI);
+//        gameJM.add(closeGameJMI);
+//        gameJM.add(exitGameJMI);
+//
+//        playerJM = new javax.swing.JMenu("PlayerJM");
+//        playerJM.setText("Player"); // NOI18N
+//
+//        jMenuBar1.add(gameJM);
+//        jMenuBar1.add(playerJM);
+//
+        menuJMB.getNewGameJMI().addActionListener(new ActionListener() {
 
-        newGameJMI = new javax.swing.JMenuItem("NewGameJMI");
-        newGameJMI.setText("New");
-        loadGameJMI = new javax.swing.JMenuItem("LoadGameJMI");
-        loadGameJMI.setText("Load ...");
-        saveGameJMI = new javax.swing.JMenuItem("SaveGameJMI");
-        saveGameJMI.setText("Save ...");
-        closeGameJMI = new javax.swing.JMenuItem("CloseGameJMI");
-        closeGameJMI.setText("Close");
-        exitGameJMI = new javax.swing.JMenuItem("ExitGameJMI");
-        exitGameJMI.setText("Exit");
-
-        gameJM.add(newGameJMI);
-        gameJM.add(loadGameJMI);
-        gameJM.add(saveGameJMI);
-        gameJM.add(closeGameJMI);
-        gameJM.add(exitGameJMI);
-
-        playerJM = new javax.swing.JMenu("PlayerJM");
-        playerJM.setText("Player"); // NOI18N
-
-        jMenuBar1.add(gameJM);
-        jMenuBar1.add(playerJM);
-
-        newGameJMI.addActionListener(new java.awt.event.ActionListener() {
-
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(ActionEvent evt) {
                 jMenu1ActionPerformed(evt);
             }
         });
 
-        closeGameJMI.addActionListener(new java.awt.event.ActionListener() {
+        menuJMB.getCloseGameJMI().addActionListener(new ActionListener() {
 
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            public void actionPerformed(ActionEvent evt) {
                 jMenu1ActionPerformed(evt);
             }
         });
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menuJMB.getJMenuBar1());
     }
 
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jMenu1ActionPerformed(ActionEvent evt) {
         // TODO add your handling code here:
         gameJIF = (GameJIF) createFrame("Test", false, false, false, false);
         desktop.add(gameJIF);
-        if ((JMenuItem) evt.getSource() == newGameJMI) {
+        if ((JMenuItem) evt.getSource() == menuJMB.getNewGameJMI()) {
             gameJIF.setVisible(true);
-            newGameJMI.setEnabled(false);
-            closeGameJMI.setEnabled(true);
-        } else if ((JMenuItem) evt.getSource() == closeGameJMI) {
+            menuJMB.getNewGameJMI().setEnabled(false);
+            menuJMB.getCloseGameJMI().setEnabled(true);
+        } else if ((JMenuItem) evt.getSource() == menuJMB.getCloseGameJMI()) {
             //frame.setVisible(false);
             gameJIF.doDefaultCloseAction();
-            newGameJMI.setEnabled(true);
-            closeGameJMI.setEnabled(false);
+            menuJMB.getNewGameJMI().setEnabled(true);
+            menuJMB.getCloseGameJMI().setEnabled(false);
         }
     }
 
@@ -177,9 +178,5 @@ public class MainJF extends JFrame {
             titleTextField.setText("Frame " + String.valueOf(
                     frameNumber++));
         }
-    }
-
-    public static void main(String[] args) {
-        MainJF frame = new MainJF();
     }
 } 
