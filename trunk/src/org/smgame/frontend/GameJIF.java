@@ -8,8 +8,10 @@ public class GameJIF extends javax.swing.JInternalFrame implements IGameJIF {
 
     /** Creates new form NewJFrame */
     public GameJIF() {
+        super();
         setPreferredSize(new Dimension(1000, 600));
-        setBounds(5, 5, 1005, 605);
+        //setBounds(5, 5, 1005, 605);
+        setClosable(true);
         initComponents();
         initComponents2();
         testLoadCard();
