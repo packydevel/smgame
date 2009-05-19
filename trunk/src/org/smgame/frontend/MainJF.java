@@ -34,14 +34,6 @@ public class MainJF extends JFrame {
     private JCheckBox closableCheckBox;
     private JCheckBox maximizableCheckBox;
     private JCheckBox iconifiableCheckBox;
-//    private javax.swing.JMenu gameJM;
-//    private javax.swing.JMenu playerJM;
-//    private javax.swing.JMenuBar jMenuBar1;
-//    private javax.swing.JMenuItem newGameJMI;
-//    private javax.swing.JMenuItem loadGameJMI;
-//    private javax.swing.JMenuItem saveGameJMI;
-//    private javax.swing.JMenuItem closeGameJMI;
-//    private javax.swing.JMenuItem exitGameJMI;
     private MenuJMB menuJMB;
     private GameJIF gameJIF;
 
@@ -60,34 +52,6 @@ public class MainJF extends JFrame {
 
         menuJMB = new MenuJMB();
 
-//        jMenuBar1 = new javax.swing.JMenuBar();
-//
-//        gameJM = new javax.swing.JMenu("GameJM");
-//        gameJM.setText("Game");
-//
-//        newGameJMI = new javax.swing.JMenuItem("NewGameJMI");
-//        newGameJMI.setText("New");
-//        loadGameJMI = new javax.swing.JMenuItem("LoadGameJMI");
-//        loadGameJMI.setText("Load ...");
-//        saveGameJMI = new javax.swing.JMenuItem("SaveGameJMI");
-//        saveGameJMI.setText("Save ...");
-//        closeGameJMI = new javax.swing.JMenuItem("CloseGameJMI");
-//        closeGameJMI.setText("Close");
-//        exitGameJMI = new javax.swing.JMenuItem("ExitGameJMI");
-//        exitGameJMI.setText("Exit");
-//
-//        gameJM.add(newGameJMI);
-//        gameJM.add(loadGameJMI);
-//        gameJM.add(saveGameJMI);
-//        gameJM.add(closeGameJMI);
-//        gameJM.add(exitGameJMI);
-//
-//        playerJM = new javax.swing.JMenu("PlayerJM");
-//        playerJM.setText("Player"); // NOI18N
-//
-//        jMenuBar1.add(gameJM);
-//        jMenuBar1.add(playerJM);
-//
         menuJMB.getNewGameJMI().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
