@@ -18,7 +18,6 @@ package org.smgame.frontend;
  *
  * Created on 18-mag-2009, 18.34.16
  */
-
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -37,15 +36,15 @@ public class MainJF extends JFrame {
     private MenuJMB menuJMB;
     private GameJIF gameJIF;
 
-
     public MainJF() {
         super("InternalFrameExample");
-        
+
         setSize(1024, 768);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         JToolBar toolbar = createToolBar();
         desktop = new JDesktopPane();
+        desktop.setDesktopManager(new GameDM());
         getContentPane().add(BorderLayout.NORTH, toolbar);
         getContentPane().add(BorderLayout.CENTER, desktop);
         setVisible(true);
