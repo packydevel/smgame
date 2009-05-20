@@ -3,15 +3,23 @@ package org.test;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.MouseEvent;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import org.smgame.core.card.Card;
 
 public class NewJFrame2 extends javax.swing.JFrame {
 
-    public NewJFrame2() {
+    private JPanel[] panels;
+    private LinkedHashMap<String,LinkedList<Card>> hashmap;
+
+    public NewJFrame2(LinkedHashMap temp_map) {
+        hashmap = temp_map;
         this.setPreferredSize(new Dimension(1024, 768));
         initComponents();
         initComponents2();
+
     }
 
     private void initComponents() {//GEN-BEGIN:initComponents
@@ -27,26 +35,34 @@ public class NewJFrame2 extends javax.swing.JFrame {
     * @param args the command line arguments
     */
     public static void main(String args[]) {
+        final LinkedHashMap tempMap = new LinkedHashMap();
+        tempMap.put("pippo", null);
+        tempMap.put("topolino", null);
+        tempMap.put("pluto", null);
+        tempMap.put("paperino", null);
+        tempMap.put("paperoga", null);
+        tempMap.put("paperone", null);
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewJFrame2().setVisible(true);
+                new NewJFrame2(tempMap).setVisible(true);
             }
         });
     }
 
-    private void initComponents2(){
-        panel = new testPanel("pippo");
-        panel1 = new testPanel("pluto");
-
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridy = 0;
+    private void initComponents2(){        
+        GridBagConstraints c = new GridBagConstraints();        
         c.gridx = 0;
         c.anchor = GridBagConstraints.NORTHWEST;
-        this.add(panel,c);
+        panels = new JPanel[hashmap.size()];
+        Object[] list_keys = hashmap.keySet().toArray();
 
-        c.gridy = 1;
-        this.add(panel1,c);
-
+        for (int i=0; i<hashmap.size();i++){
+            panels[i] = new testPanel((String)list_keys[i]);
+            c.gridy = i;
+            this.add(panels[i],c);
+        }
+                                
+/*
         c.gridy = 2;
         JButton jbAdd = new JButton("add");
         jbAdd.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -77,10 +93,10 @@ public class NewJFrame2 extends javax.swing.JFrame {
         ((testPanel) panel).resetLabelIconCards();
         pack();
     }
-    
 
+ */
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-    private JPanel panel;
-    private JPanel panel1;
+    
 }
