@@ -12,12 +12,18 @@ public class MenuJMB extends JMenuBar {
 
     private JMenu gameJM;
     private JMenu playerJM;
-    private JMenuBar jMenuBar1;
+    private JMenu settingsJM;
+    private JMenu helpJM;
     private JMenuItem newGameJMI;
     private JMenuItem loadGameJMI;
     private JMenuItem saveGameJMI;
     private JMenuItem closeGameJMI;
     private JMenuItem exitGameJMI;
+    private JMenuItem gameSettingsJMI;
+    private JMenuItem globalSettingsJMI;
+    private JMenuItem helpContentsJMI;
+    private JMenuItem aboutJMI;
+    private JMenuBar mainJMB;
 
     /**
      *
@@ -25,42 +31,61 @@ public class MenuJMB extends JMenuBar {
      */
     public MenuJMB() {
 
-        jMenuBar1 = new JMenuBar();
-        gameJM = new JMenu("GameJM");
-
-        gameJM.setText("Game");
         newGameJMI = new javax.swing.JMenuItem("NewGameJMI");
-
         newGameJMI.setText("New");
+
         loadGameJMI = new javax.swing.JMenuItem("LoadGameJMI");
-
         loadGameJMI.setText("Load ...");
+
         saveGameJMI = new javax.swing.JMenuItem("SaveGameJMI");
-
         saveGameJMI.setText("Save ...");
+
         closeGameJMI = new javax.swing.JMenuItem("CloseGameJMI");
-
         closeGameJMI.setText("Close");
-        exitGameJMI = new javax.swing.JMenuItem("ExitGameJMI");
+        closeGameJMI.setEnabled(false);
 
+        exitGameJMI = new javax.swing.JMenuItem("ExitGameJMI");
         exitGameJMI.setText("Exit");
 
+        gameJM = new JMenu("GameJM");
+        gameJM.setText("Game");
         gameJM.add(newGameJMI);
-
         gameJM.add(loadGameJMI);
-
         gameJM.add(saveGameJMI);
-
         gameJM.add(closeGameJMI);
-
         gameJM.add(exitGameJMI);
-        playerJM = new javax.swing.JMenu("PlayerJM");
 
-        playerJM.setText("Player"); // NOI18N
+        playerJM = new JMenu("PlayerJM");
+        playerJM.setText("Player");
 
-        jMenuBar1.add(gameJM);
+        gameSettingsJMI = new JMenuItem("GameSettingsJMI");
+        gameSettingsJMI.setText("Game Settings ...");
 
-        jMenuBar1.add(playerJM);
+        globalSettingsJMI = new JMenuItem("GlobalSettingsJMI");
+        globalSettingsJMI.setText("Global Settings ...");
+
+        settingsJM = new JMenu("SettingsJM");
+        settingsJM.setText("Settings");
+        settingsJM.add(gameSettingsJMI);
+        settingsJM.add(globalSettingsJMI);
+
+        helpContentsJMI = new JMenuItem("HelpContentsJMI");
+        helpContentsJMI.setText("Contents Help");
+
+        aboutJMI = new JMenuItem("HboutJMI");
+        aboutJMI.setText("About ...");
+
+        helpJM = new javax.swing.JMenu("HelpJM");
+        helpJM.setText("Help");
+        helpJM.add(helpContentsJMI);
+        helpJM.add(aboutJMI);
+
+
+        mainJMB = new JMenuBar();
+        mainJMB.add(gameJM);
+        mainJMB.add(playerJM);
+        mainJMB.add(settingsJM);
+        mainJMB.add(helpJM);
     }
 
     public JMenuItem getCloseGameJMI() {
@@ -76,7 +101,7 @@ public class MenuJMB extends JMenuBar {
     }
 
     public JMenuBar getJMenuBar1() {
-        return jMenuBar1;
+        return mainJMB;
     }
 
     public JMenuItem getLoadGameJMI() {

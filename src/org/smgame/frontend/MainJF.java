@@ -33,6 +33,8 @@ public class MainJF extends JFrame {
 
         menuJMB = new MenuJMB();
 
+        
+
         menuJMB.getNewGameJMI().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
@@ -59,16 +61,14 @@ public class MainJF extends JFrame {
     }
 
     private void jMenu1ActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
-        gameJIF = (GameJIF) createFrame("Test", false, false, false, false);
-        desktop.add(gameJIF);
+
         if ((JMenuItem) evt.getSource() == menuJMB.getNewGameJMI()) {
+            gameJIF = (GameJIF) createFrame("Test", false, false, false, false);
+            desktop.add(gameJIF);
             gameJIF.setVisible(true);
             menuJMB.getNewGameJMI().setEnabled(false);
             menuJMB.getCloseGameJMI().setEnabled(true);
         } else if ((JMenuItem) evt.getSource() == menuJMB.getCloseGameJMI()) {
-            //frame.setVisible(false);
-            //gameJIF.doDefaultCloseAction();
             gameJIF.dispose();
             menuJMB.getNewGameJMI().setEnabled(true);
             menuJMB.getCloseGameJMI().setEnabled(false);
@@ -78,13 +78,14 @@ public class MainJF extends JFrame {
     }
 
     protected JToolBar createToolBar() {
-        JToolBar tb = new JToolBar(JToolBar.VERTICAL);
+        JToolBar tb = new JToolBar(JToolBar.HORIZONTAL);
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new FlowLayout());
-        JLabel titleLabel = new JLabel("Titolo");
-        titleTextField = new JTextField("Frame 0", 10);
-        titlePanel.add(titleLabel);
-        titlePanel.add(titleTextField);
+        titlePanel.setSize(20, 1024);
+        //JLabel titleLabel = new JLabel("Titolo");
+        //titleTextField = new JTextField("Frame 0", 10);
+        //titlePanel.add(titleLabel);
+        //titlePanel.add(titleTextField);
         resizableCheckBox = new JCheckBox("Ridimensionabile");
         closableCheckBox = new JCheckBox("Richiudibile");
         maximizableCheckBox = new JCheckBox("Massimizzabile");
@@ -93,7 +94,7 @@ public class MainJF extends JFrame {
 
         ActionListener listener = new GenerateButtonActionListener();
         generateButton.addActionListener(listener);
-        titleTextField.addActionListener(listener);
+        //titleTextField.addActionListener(listener);
 
         tb.add(titlePanel);
 //        tb.add(resizableCheckBox);
@@ -103,7 +104,7 @@ public class MainJF extends JFrame {
 //        tb.add(generateButton);
 
         tb.setFloatable(false);
-        tb.setSize(20, 1024);
+        tb.setSize(100, 1024);
         return tb;
     }
 
