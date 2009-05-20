@@ -3,7 +3,7 @@
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
-package org.smgame.beckend;
+package org.smgame.backend;
 
 import java.io.FileInputStream;
 import java.io.IOException;
