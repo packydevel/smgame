@@ -11,7 +11,8 @@ public class testPanel extends JPanel{
 
     private JComponent[] components;
     private String curDir;
-    private String name_player;
+    private String name_player; //nome giocatore
+    private int number=0; //numero carta (iteratore)
 
     public testPanel(String player) {
         name_player = player;
@@ -27,27 +28,24 @@ public class testPanel extends JPanel{
 
         components = new JComponent[15];
 
-        JLabel label = new JLabel(name_player);
-        this.add(label);
-        components[0]=label;
-        for (int i=1;i<15; i++){
-            components[i]= newLabelIconCard("C01.jpg");
-            this.add(components[i]);
-        }
+        JLabel jlName = new JLabel(name_player);
+        this.add(jlName);
+        components[number]=jlName;        
         this.setVisible(true);
     }//end initComponents
 
-    public JLabel newLabelIconCard(String img){
+    public void newLabelIconCard(String img){
         ImageIcon icon = new ImageIcon(curDir + img);
-        return new JLabel(icon);
+        components[++number] = new JLabel(icon);
+        this.add(components[number]);
     }
 
     public void resetLabelIconCards(){
-        for (int i=14;i>0; i--){
+        for (int i=number;i>0; i--){
             this.remove(components[i]);
             components[i]= null;
-            System.out.println(i);
         }
+        number=0;
     }
 
 }// end class
