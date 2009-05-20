@@ -33,7 +33,7 @@ public class MainJF extends JFrame {
 
         menuJMB = new MenuJMB();
 
-        
+
 
         menuJMB.getNewGameJMI().addActionListener(new ActionListener() {
 
@@ -63,9 +63,12 @@ public class MainJF extends JFrame {
     private void jMenu1ActionPerformed(ActionEvent evt) {
 
         if ((JMenuItem) evt.getSource() == menuJMB.getNewGameJMI()) {
-            gameJIF = (GameJIF) createFrame("Test", false, false, false, false);
-            desktop.add(gameJIF);
-            gameJIF.setVisible(true);
+//            gameJIF = (GameJIF) createFrame("Test", false, false, false, false);
+//            desktop.add(gameJIF);
+//            gameJIF.setVisible(true);
+            NewGameJIF newGameJIF = new NewGameJIF();
+            desktop.add(newGameJIF);
+            newGameJIF.setVisible(true);
             menuJMB.getNewGameJMI().setEnabled(false);
             menuJMB.getCloseGameJMI().setEnabled(true);
         } else if ((JMenuItem) evt.getSource() == menuJMB.getCloseGameJMI()) {
