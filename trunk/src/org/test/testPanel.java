@@ -49,6 +49,9 @@ public class testPanel extends JPanel{
         }
     }
 
+    /**elimina le label delle carte
+     *
+     */
     public void resetLabelIconCards(){
         for (int i=number;i>0; i--){
             this.remove(components[i]);
