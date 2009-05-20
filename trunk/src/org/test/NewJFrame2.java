@@ -57,22 +57,22 @@ public class NewJFrame2 extends javax.swing.JFrame {
 
         c.gridy = 3;
         JButton jbRemoveAll = new JButton("remove all");
-        jbAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+        jbRemoveAll.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbRemoveAllMouseClicked(evt);
-            }
-
-            
+            }            
         });
         this.add(jbRemoveAll,c);
     }
     
     private void jbAddMouseClicked(MouseEvent evt) {
-
+        ((testPanel) panel).newLabelIconCard("B01.jpg");
+        pack();
     }
 
     private void jbRemoveAllMouseClicked(MouseEvent evt) {
         ((testPanel) panel).resetLabelIconCards();
+        pack();
     }
     
 
