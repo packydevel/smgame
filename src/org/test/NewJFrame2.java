@@ -41,6 +41,7 @@ public class NewJFrame2 extends javax.swing.JFrame {
         GridBagConstraints c = new GridBagConstraints();
         c.gridy = 0;
         c.gridx = 0;
+        c.anchor = GridBagConstraints.LINE_START;
         this.add(panel,c);
 
         c.gridy = 1;
@@ -49,6 +50,7 @@ public class NewJFrame2 extends javax.swing.JFrame {
         c.gridy = 2;
         JButton jbAdd = new JButton("add");
         jbAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbAddMouseClicked(evt);
             }
@@ -58,6 +60,7 @@ public class NewJFrame2 extends javax.swing.JFrame {
         c.gridy = 3;
         JButton jbRemoveAll = new JButton("remove all");
         jbRemoveAll.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbRemoveAllMouseClicked(evt);
             }            
