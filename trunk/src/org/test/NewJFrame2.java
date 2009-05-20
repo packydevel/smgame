@@ -41,7 +41,7 @@ public class NewJFrame2 extends javax.swing.JFrame {
         GridBagConstraints c = new GridBagConstraints();
         c.gridy = 0;
         c.gridx = 0;
-        c.anchor = GridBagConstraints.LINE_START;
+        c.anchor = GridBagConstraints.NORTHWEST;
         this.add(panel,c);
 
         c.gridy = 1;
