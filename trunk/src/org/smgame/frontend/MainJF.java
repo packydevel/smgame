@@ -1,23 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.frontend;
 
-/**
- *
- * @author packyuser
- */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * MainJF.java
- *
- * Created on 18-mag-2009, 18.34.16
- */
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;

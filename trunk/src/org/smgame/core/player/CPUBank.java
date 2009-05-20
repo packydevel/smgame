@@ -14,10 +14,12 @@ public class CPUBank extends Player {
     private final double MIN_MARGIN = 0.5;
 
     public boolean askAnotherCard() {
-        if (score < MIN_SCORE || (gameEngine.existWeakPlayer(score, MIN_MARGIN))) {
+        /*TODO: correggere o decidere cazzo fare
+        if (score < MIN_SCORE || (gameEngine.existWeakPlayer(score, MIN_MARGIN)))
             return true;
-        } else {
+        else
             return false;
-        }
+        */
+        return false;
     }
 }
