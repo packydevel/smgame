@@ -31,6 +31,10 @@ public class NewGameJIF extends JInternalFrame {
     JButton cancelJB;
     JButton okJB;
     JCheckBox cpuflagJCKB[];
+    JLabel playerJL[];
+    JTextField playerJTF[];
+    int previousPlayersNumber = 0;
+    int currentPlayersNumber;
 
     public NewGameJIF() {
         super();
@@ -56,7 +60,7 @@ public class NewGameJIF extends JInternalFrame {
         c.gridx = 1;
         c.gridy = 0;
 
-        Integer playersNumber[] = {3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+        Integer playersNumber[] = {null, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
 
         playersNumberJCB = new JComboBox(playersNumber);
 
@@ -71,7 +75,7 @@ public class NewGameJIF extends JInternalFrame {
 
         cancelJB = new JButton("Cancel");
         c.gridx = 2;
-        c.gridy = 12;
+        c.gridy = 13;
         cancelJB.setSize(new Dimension(10, 10));
         cancelJB.addActionListener(new ActionListener() {
 
@@ -85,7 +89,7 @@ public class NewGameJIF extends JInternalFrame {
 
         okJB = new JButton("OK");
         c.gridx = 1;
-        c.gridy = 12;
+        c.gridy = 13;
         okJB.setSize(new Dimension(10, 10));
         okJB.addActionListener(new ActionListener() {
 
@@ -96,48 +100,34 @@ public class NewGameJIF extends JInternalFrame {
         panel.add(okJB, c);
         okJB.setEnabled(false);
         okJB.setVisible(true);
-
-//
-//        panel.add(button, c);
-//        button = new JButton("Button 3");
-//        c.fill = GridBagConstraints.HORIZONTAL;
-//        c.weightx = 0.5;
-//        c.gridx = 2;
-//        c.gridy = 0;
-//
-//        panel.add(button, c);
-//        button = new JButton("Long-Named Button 4");
-//        c.fill = GridBagConstraints.HORIZONTAL;
-//        c.ipady = 40;      //make this component tall
-//        c.weightx = 0.0;
-//        c.gridwidth = 3;
-//        c.gridx = 0;
-//        c.gridy = 1;
-//
-//        panel.add(button, c);
-//        button = new JButton("5");
-//        c.fill = GridBagConstraints.HORIZONTAL;
-//        c.ipady = 0;       //reset to default
-//        c.weighty = 1.0;   //request any extra vertical space
-//        c.anchor = GridBagConstraints.PAGE_END; //bottom of space
-//        c.insets = new Insets(10, 0, 0, 0);  //top padding
-//        c.gridx = 1;       //aligned with button 2
-//        c.gridwidth = 2;   //2 columns wide
-//        c.gridy = 2;       //third row
-//        panel.add(button, c);
     }
 
     private void newGameActionPerformed(ActionEvent evt) {
 
         if (evt.getSource() instanceof JComboBox) {
-            playersNumberJCB.setEnabled(false);
-            int i = ((Integer) playersNumberJCB.getSelectedItem()).intValue();
-            JLabel playerJL[] = new JLabel[i];
-            JTextField playerJTF[] = new JTextField[i];
-            JCheckBox cpuflagJCKB[] = new JCheckBox[i - 1];
 
-            //JButton addJB[] = new JButton[12];
-            //JButton removeJB[] = new JButton[12];
+            if (playersNumberJCB.getSelectedItem() == null) {
+                return;
+            }
+
+            currentPlayersNumber = ((Integer) playersNumberJCB.getSelectedItem()).intValue();
+
+            if (currentPlayersNumber != previousPlayersNumber && playerJL != null) {
+                for (int j = 0; j < previousPlayersNumber; j++) {
+                    panel.remove(playerJL[j]);
+                    panel.remove(playerJTF[j]);
+                    if (j < previousPlayersNumber - 1) {
+                        panel.remove(cpuflagJCKB[j]);
+                    }
+                }
+            }
+
+            int i = currentPlayersNumber;
+
+            playerJL = new JLabel[i];
+
+            playerJTF = new JTextField[i];
+            cpuflagJCKB = new JCheckBox[i - 1];
 
             for (int j = 0; j < i; j++) {
                 playerJL[j] = new JLabel("Giocatore " + j + ":");
@@ -159,23 +149,8 @@ public class NewGameJIF extends JInternalFrame {
                     panel.add(cpuflagJCKB[j - 1], c);
                     cpuflagJCKB[j - 1].setVisible(true);
                 }
-
-//                addJB[j+1] = new JButton("+");
-//                c.gridx = 2;
-//                c.gridy = i;
-//                addJB[j+1].setSize(new Dimension(10, 10));
-//                panel.add(addJB[j+1], c);
-//                if (i == 0) {
-//
-//                    playerJL[j+1].setVisible(true);
-//                    playerJTF[j+1].setVisible(true);
-//                    addJB[j+1].setVisible(true);
-//                } else {
-//                    playerJL[i].setVisible(false);
-//                    playerJTF[i].setVisible(false);
-//                    addJB[i].setVisible(false);
-//                }
             }
+            previousPlayersNumber = currentPlayersNumber;
             okJB.setEnabled(true);
             this.validate();
         } else if (evt.getSource() instanceof JButton) {
