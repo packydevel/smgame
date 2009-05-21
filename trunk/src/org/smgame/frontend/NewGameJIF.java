@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 import org.smgame.core.card.Card;
 import org.smgame.core.player.CPUPlayer;
 import org.smgame.core.player.HumanPlayer;
+import org.smgame.core.player.Player;
 
 /**
  *
@@ -195,7 +196,7 @@ public class NewGameJIF extends JInternalFrame {
                         return;
                     }
                 }
-                final Map<String, List<Card>> hmPlayerCards = new HashMap<String, List<Card>>();
+                final Map<Player, List<Card>> hmPlayerCards = new HashMap<Player, List<Card>>();
 
                 for (int j = 0; j < currentPlayersNumber; j++) {
                     if (j > 0) {
