@@ -112,7 +112,7 @@ public class MainJF extends JFrame {
     }
 
     protected JInternalFrame createFrame(String title, boolean resizable, boolean closable, boolean maximizable, boolean iconifiable) {
-        gameJIF = new GameJIF();
+        //gameJIF = new GameJIF();
         return gameJIF;
     }
 
