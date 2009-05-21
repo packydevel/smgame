@@ -10,6 +10,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.List;
+
+import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -17,6 +21,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import org.smgame.core.card.Card;
 
 /**
  *
@@ -78,8 +83,8 @@ public class NewGameJIF extends JInternalFrame {
         cancelJB.setPreferredSize(new Dimension(60, 20));
         c.gridx = 2;
         c.gridy = 13;
-        c.weightx=0;
-        c.anchor=GridBagConstraints.SOUTH;
+        c.weightx = 0;
+        c.anchor = GridBagConstraints.SOUTH;
         cancelJB.setSize(new Dimension(10, 10));
         cancelJB.addActionListener(new ActionListener() {
 
@@ -96,8 +101,8 @@ public class NewGameJIF extends JInternalFrame {
         okJB.setPreferredSize(new Dimension(60, 20));
         c.gridx = 1;
         c.gridy = 13;
-        c.weighty=1;
-        c.anchor=GridBagConstraints.SOUTH;
+        c.weighty = 1;
+        c.anchor = GridBagConstraints.SOUTH;
         okJB.setSize(new Dimension(10, 10));
         okJB.addActionListener(new ActionListener() {
 
@@ -108,8 +113,8 @@ public class NewGameJIF extends JInternalFrame {
         panel.add(okJB, c);
         okJB.setEnabled(false);
         okJB.setVisible(true);
-        c.weighty=0;
-        c.anchor=GridBagConstraints.FIRST_LINE_START;
+        c.weighty = 0;
+        c.anchor = GridBagConstraints.FIRST_LINE_START;
     }
 
     private void newGameActionPerformed(ActionEvent evt) {
@@ -122,7 +127,7 @@ public class NewGameJIF extends JInternalFrame {
 
             currentPlayersNumber = ((Integer) playersNumberJCB.getSelectedItem()).intValue();
 
-            if (currentPlayersNumber != previousPlayersNumber && previousPlayersNumber!=0) {
+            if (currentPlayersNumber != previousPlayersNumber && previousPlayersNumber != 0) {
                 for (int j = 0; j < previousPlayersNumber; j++) {
                     panel.remove(playerJL[j]);
                     panel.remove(playerJTF[j]);
@@ -170,6 +175,20 @@ public class NewGameJIF extends JInternalFrame {
             this.validate();
         } else if (evt.getSource() instanceof JButton) {
             if ((JButton) evt.getSource() == cancelJB) {
+                this.dispose();
+            } else if ((JButton) evt.getSource() == okJB) {
+                for (int j = 0; j < currentPlayersNumber; j++) {
+                    if (playerJTF[j].getText().length() == 0) {
+                        return;
+                    }
+                }
+                Map<String, List<Card>> hmPlayerCards = new HashMap<String, List<Card>>();
+
+                for (int j = 0; j < currentPlayersNumber; j++) {
+                    hmPlayerCards.put(playerJTF[j].getText(), null);
+                }
+
+                GameJIF gameJIF = new GameJIF(hmPlayerCards);
                 this.dispose();
             }
         }
