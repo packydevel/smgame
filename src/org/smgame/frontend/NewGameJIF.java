@@ -8,7 +8,11 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,71 +24,75 @@ import javax.swing.JTextField;
  */
 public class NewGameJIF extends JInternalFrame {
 
+    GridBagConstraints c = new GridBagConstraints();
+    JPanel panel = new JPanel();
+    JLabel playersNumberJL;
+    JComboBox playersNumberJCB;
+    JButton cancelJB;
+    JButton okJB;
+    JCheckBox cpuflagJCKB[];
+
     public NewGameJIF() {
         super();
 
         setSize(400, 400);
-        JPanel panel = new JPanel();
+
         this.add(panel);
 
         panel.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
 
+        c = new GridBagConstraints();
+        c.weighty = 0.1;
+        c.weightx = 0.1;
+        c.insets = new Insets(2, 2, 2, 2);
 
+        c.gridx = 0;
+        c.gridy = 0;
+        c.anchor = c.FIRST_LINE_START;
 
-        JLabel playerJL[] = new JLabel[12];
-        JTextField playerJTF[] = new JTextField[12];
-        JButton addJB[] = new JButton[12];
-        JButton removeJB[] = new JButton[12];
+        playersNumberJL = new JLabel("Seleziona il numero di giocatori:");
+        panel.add(playersNumberJL, c);
 
-        for (int i = 0; i < 12; i++) {
-            playerJL[i] = new JLabel("Giocatore " + i + ":");
-            c.weighty = 0.1;
-            c.weightx = 0.1;
-            c.insets = new Insets(2, 2, 2, 2);
-            c.gridx = 0;
-            c.gridy = i;
-            c.anchor = c.FIRST_LINE_START;
-            panel.add(playerJL[i], c);
-            playerJL[i].setVisible(true);
+        c.gridx = 1;
+        c.gridy = 0;
 
-            playerJTF[i] = new JTextField(10);
-            c.fill = GridBagConstraints.HORIZONTAL;
-            c.gridx = 1;
-            c.gridy = i;
-            panel.add(playerJTF[i], c);
-            playerJTF[i].setVisible(true);
+        Integer playersNumber[] = {3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
 
-            addJB[i] = new JButton("+");
-            c.gridx = 2;
-            c.gridy = i;
-            addJB[i].setSize(new Dimension(10, 10));
-            panel.add(addJB[i], c);
-            if (i == 0) {
+        playersNumberJCB = new JComboBox(playersNumber);
 
-                playerJL[i].setVisible(true);
-                playerJTF[i].setVisible(true);
-                addJB[i].setVisible(true);
-            } else {
-                playerJL[i].setVisible(false);
-                playerJTF[i].setVisible(false);
-                addJB[i].setVisible(false);
+        playersNumberJCB.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent evt) {
+                newGameActionPerformed(evt);
             }
-       }
+        });
 
-        JButton cancelJB = new JButton("Cancel");
+        panel.add(playersNumberJCB, c);
+
+        cancelJB = new JButton("Cancel");
         c.gridx = 2;
         c.gridy = 12;
-        c.anchor = c.CENTER;
         cancelJB.setSize(new Dimension(10, 10));
+        cancelJB.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent evt) {
+                newGameActionPerformed(evt);
+            }
+        });
+
         panel.add(cancelJB, c);
         cancelJB.setVisible(true);
 
-        JButton okJB = new JButton("OK");
+        okJB = new JButton("OK");
         c.gridx = 1;
         c.gridy = 12;
-        c.anchor = c.CENTER;
         okJB.setSize(new Dimension(10, 10));
+        okJB.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent evt) {
+                newGameActionPerformed(evt);
+            }
+        });
         panel.add(okJB, c);
         okJB.setEnabled(false);
         okJB.setVisible(true);
@@ -117,5 +125,63 @@ public class NewGameJIF extends JInternalFrame {
 //        c.gridwidth = 2;   //2 columns wide
 //        c.gridy = 2;       //third row
 //        panel.add(button, c);
+    }
+
+    private void newGameActionPerformed(ActionEvent evt) {
+
+        if (evt.getSource() instanceof JComboBox) {
+            playersNumberJCB.setEnabled(false);
+            int i = ((Integer) playersNumberJCB.getSelectedItem()).intValue();
+            JLabel playerJL[] = new JLabel[i];
+            JTextField playerJTF[] = new JTextField[i];
+            JCheckBox cpuflagJCKB[] = new JCheckBox[i - 1];
+
+            //JButton addJB[] = new JButton[12];
+            //JButton removeJB[] = new JButton[12];
+
+            for (int j = 0; j < i; j++) {
+                playerJL[j] = new JLabel("Giocatore " + j + ":");
+                c.gridx = 0;
+                c.gridy = j + 1;
+                panel.add(playerJL[j], c);
+                playerJL[j].setVisible(true);
+
+                playerJTF[j] = new JTextField(20);
+                c.gridx = 1;
+                c.gridy = j + 1;
+                panel.add(playerJTF[j], c);
+                playerJTF[j].setVisible(true);
+
+                if (j > 0) {
+                    cpuflagJCKB[j - 1] = new JCheckBox();
+                    c.gridx = 2;
+                    c.gridy = j + 1;
+                    panel.add(cpuflagJCKB[j - 1], c);
+                    cpuflagJCKB[j - 1].setVisible(true);
+                }
+
+//                addJB[j+1] = new JButton("+");
+//                c.gridx = 2;
+//                c.gridy = i;
+//                addJB[j+1].setSize(new Dimension(10, 10));
+//                panel.add(addJB[j+1], c);
+//                if (i == 0) {
+//
+//                    playerJL[j+1].setVisible(true);
+//                    playerJTF[j+1].setVisible(true);
+//                    addJB[j+1].setVisible(true);
+//                } else {
+//                    playerJL[i].setVisible(false);
+//                    playerJTF[i].setVisible(false);
+//                    addJB[i].setVisible(false);
+//                }
+            }
+            okJB.setEnabled(true);
+            this.validate();
+        } else if (evt.getSource() instanceof JButton) {
+            if ((JButton) evt.getSource() == cancelJB) {
+                this.dispose();
+            }
+        }
     }
 }
