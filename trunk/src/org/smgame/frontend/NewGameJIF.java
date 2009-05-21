@@ -46,8 +46,8 @@ public class NewGameJIF extends JInternalFrame {
         panel.setLayout(new GridBagLayout());
 
         c = new GridBagConstraints();
-        c.weighty = 0.1;
-        c.weightx = 0.1;
+        c.weightx = 0;
+        c.weighty = 0;
         c.insets = new Insets(2, 2, 2, 2);
 
         c.gridx = 0;
@@ -74,8 +74,12 @@ public class NewGameJIF extends JInternalFrame {
         panel.add(playersNumberJCB, c);
 
         cancelJB = new JButton("Cancel");
+        cancelJB.setMaximumSize(new Dimension(60, 20));
+        cancelJB.setPreferredSize(new Dimension(60, 20));
         c.gridx = 2;
         c.gridy = 13;
+        c.weightx=0;
+        c.anchor=GridBagConstraints.SOUTH;
         cancelJB.setSize(new Dimension(10, 10));
         cancelJB.addActionListener(new ActionListener() {
 
@@ -88,8 +92,12 @@ public class NewGameJIF extends JInternalFrame {
         cancelJB.setVisible(true);
 
         okJB = new JButton("OK");
+        okJB.setMaximumSize(new Dimension(60, 20));
+        okJB.setPreferredSize(new Dimension(60, 20));
         c.gridx = 1;
         c.gridy = 13;
+        c.weighty=1;
+        c.anchor=GridBagConstraints.SOUTH;
         okJB.setSize(new Dimension(10, 10));
         okJB.addActionListener(new ActionListener() {
 
@@ -100,6 +108,8 @@ public class NewGameJIF extends JInternalFrame {
         panel.add(okJB, c);
         okJB.setEnabled(false);
         okJB.setVisible(true);
+        c.weighty=0;
+        c.anchor=GridBagConstraints.FIRST_LINE_START;
     }
 
     private void newGameActionPerformed(ActionEvent evt) {
@@ -112,7 +122,7 @@ public class NewGameJIF extends JInternalFrame {
 
             currentPlayersNumber = ((Integer) playersNumberJCB.getSelectedItem()).intValue();
 
-            if (currentPlayersNumber != previousPlayersNumber && playerJL != null) {
+            if (currentPlayersNumber != previousPlayersNumber && previousPlayersNumber!=0) {
                 for (int j = 0; j < previousPlayersNumber; j++) {
                     panel.remove(playerJL[j]);
                     panel.remove(playerJTF[j]);
@@ -122,23 +132,27 @@ public class NewGameJIF extends JInternalFrame {
                 }
             }
 
+            this.validate();
+
             int i = currentPlayersNumber;
 
             playerJL = new JLabel[i];
-
             playerJTF = new JTextField[i];
             cpuflagJCKB = new JCheckBox[i - 1];
 
             for (int j = 0; j < i; j++) {
-                playerJL[j] = new JLabel("Giocatore " + j + ":");
+                playerJL[j] = new JLabel("Giocatore " + (j + 1) + ":");
                 c.gridx = 0;
                 c.gridy = j + 1;
                 panel.add(playerJL[j], c);
                 playerJL[j].setVisible(true);
 
-                playerJTF[j] = new JTextField(20);
+                playerJTF[j] = new JTextField();
+                playerJTF[j].setMaximumSize(new Dimension(200, 10));
+                playerJTF[j].setPreferredSize(new Dimension(200, 10));
                 c.gridx = 1;
                 c.gridy = j + 1;
+                c.ipadx = 100;
                 panel.add(playerJTF[j], c);
                 playerJTF[j].setVisible(true);
 
@@ -146,6 +160,7 @@ public class NewGameJIF extends JInternalFrame {
                     cpuflagJCKB[j - 1] = new JCheckBox();
                     c.gridx = 2;
                     c.gridy = j + 1;
+                    c.ipadx = 50;
                     panel.add(cpuflagJCKB[j - 1], c);
                     cpuflagJCKB[j - 1].setVisible(true);
                 }
