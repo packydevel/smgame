@@ -7,19 +7,23 @@ package org.smgame.core.player;
  */
 public class CPUPlayer extends Player {
 
-    private final double MAX_CREDIT=100.0; //massimo credito
+    private final double MAX_CREDIT = 100.0; //massimo credito
+    private final double MIN_SCORE = 4.5; //minimo punteggio
 
-    private final double MIN_SCORE=4.5; //minimo punteggio
+    public CPUPlayer(String name) {
+        super(name);
+    }
 
     /**Chiede un'altra carta
      *
      * @return
      */
     public boolean askAnotherCard() {
-        if (score < MIN_SCORE)
+        if (score < MIN_SCORE) {
             return true;
-        else
-            return false;        
+        } else {
+            return false;
+        }
     }
 
     /**richiede una puntata
@@ -27,6 +31,6 @@ public class CPUPlayer extends Player {
      * @return
      */
     public double requestBet() {
-        return credit/10+1;
+        return credit / 10 + 1;
     }
 }
