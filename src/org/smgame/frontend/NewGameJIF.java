@@ -46,10 +46,8 @@ public class NewGameJIF extends JInternalFrame {
     int currentPlayersNumber;
 
     public NewGameJIF() {
-        super();
-
-        setSize(400, 400);
-
+        super("Nuova Partita", false, true, false, false);
+        setSize(400, 420);
         this.add(panel);
 
         panel.setLayout(new GridBagLayout());
