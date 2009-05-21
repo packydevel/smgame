@@ -20,9 +20,10 @@ import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRootPane;
 import javax.swing.JTextField;
 import org.smgame.core.card.Card;
+import org.smgame.core.player.CPUPlayer;
+import org.smgame.core.player.HumanPlayer;
 
 /**
  *
@@ -43,7 +44,7 @@ public class NewGameJIF extends JInternalFrame {
     int currentPlayersNumber;
 
     public NewGameJIF() {
-        super();        
+        super();
 
         setSize(400, 400);
 
@@ -183,14 +184,23 @@ public class NewGameJIF extends JInternalFrame {
                         return;
                     }
                 }
-                Map<String, List<Card>> hmPlayerCards = new HashMap<String, List<Card>>();
+                final Map<String, List<Card>> hmPlayerCards = new HashMap<String, List<Card>>();
 
                 for (int j = 0; j < currentPlayersNumber; j++) {
-                    hmPlayerCards.put(playerJTF[j].getText(), null);
+                    if (j > 0) {
+                        if (cpuflagJCKB[j].isSelected()) {
+                            hmPlayerCards.put(new CPUPlayer(playerJTF[j].getText()), null);
+                        } else {
+                            hmPlayerCards.put(new HumanPlayer(playerJTF[j].getText()), null);
+                        }
+                    } else {
+                        hmPlayerCards.put(new HumanPlayer(playerJTF[j].getText()), null);
+                    }
+
                 }
                 GameJIF gameJIF = new GameJIF(hmPlayerCards);
                 getDesktopPane().add(gameJIF).setVisible(true);
-                
+
                 this.dispose();
             }
         }
