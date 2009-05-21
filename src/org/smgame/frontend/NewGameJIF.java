@@ -188,7 +188,7 @@ public class NewGameJIF extends JInternalFrame {
                     hmPlayerCards.put(playerJTF[j].getText(), null);
                 }
 
-                GameJIF gameJIF = new GameJIF(hmPlayerCards);
+                MainJF.gameJIF(hmPlayerCards);
                 this.dispose();
             }
         }

@@ -3,10 +3,11 @@ package org.smgame.frontend;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.util.Map;
 
 public class MainJF extends JFrame {
 
-    private JDesktopPane desktop;
+    private static JDesktopPane desktop;
     private int frameNumber = 0;
     private int xPos = 0;
     private int yPos = 0;
@@ -139,4 +140,11 @@ public class MainJF extends JFrame {
                     frameNumber++));
         }
     }
+
+    public static void gameJIF(Map hashmap){
+        GameJIF gameJIF = new GameJIF(hashmap);
+        desktop.add(gameJIF);
+        gameJIF.setVisible(true);
+    }
+
 } 
