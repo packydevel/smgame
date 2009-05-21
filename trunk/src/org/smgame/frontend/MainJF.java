@@ -139,12 +139,6 @@ public class MainJF extends JFrame {
             titleTextField.setText("Frame " + String.valueOf(
                     frameNumber++));
         }
-    }
-
-    public static void gameJIF(Map hashmap){
-        GameJIF gameJIF = new GameJIF(hashmap);
-        desktop.add(gameJIF);
-        gameJIF.setVisible(true);
-    }
+    }   
 
 } 
