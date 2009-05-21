@@ -3,7 +3,6 @@ package org.smgame.frontend;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.util.Map;
 
 public class MainJF extends JFrame {
 
