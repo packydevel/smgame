@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import org.smgame.core.card.Card;
+import org.smgame.core.player.Player;
 
 public class GameJIF extends JInternalFrame implements IGameJIF {
 
@@ -36,7 +37,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         Object[] list_keys = hashmap.keySet().toArray();
 
         for (int i = 0; i < hashmap.size(); i++) {
-            panels[i] = new PlayerCardJP((String) list_keys[i]);
+            panels[i] = new PlayerCardJP(((Player)list_keys[i]).getName());
             c.gridy = i;
             this.add(panels[i], c);
         }
