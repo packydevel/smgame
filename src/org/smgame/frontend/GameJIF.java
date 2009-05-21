@@ -3,7 +3,6 @@ package org.smgame.frontend;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import javax.swing.JInternalFrame;
@@ -22,6 +21,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         setClosable(true);
         hashmap = temp_map;
         initComxponents();
+        this.setVisible(true);
         pack();
     }
 
