@@ -31,20 +31,20 @@ public class MenuJMB extends JMenuBar {
      */
     public MenuJMB() {
 
-        newGameJMI = new javax.swing.JMenuItem("NewGameJMI");
+        newGameJMI = new JMenuItem("NewGameJMI");
         newGameJMI.setText("New");
 
-        loadGameJMI = new javax.swing.JMenuItem("LoadGameJMI");
+        loadGameJMI = new JMenuItem("LoadGameJMI");
         loadGameJMI.setText("Load ...");
 
-        saveGameJMI = new javax.swing.JMenuItem("SaveGameJMI");
+        saveGameJMI = new JMenuItem("SaveGameJMI");
         saveGameJMI.setText("Save ...");
 
-        closeGameJMI = new javax.swing.JMenuItem("CloseGameJMI");
+        closeGameJMI = new JMenuItem("CloseGameJMI");
         closeGameJMI.setText("Close");
         closeGameJMI.setEnabled(false);
 
-        exitGameJMI = new javax.swing.JMenuItem("ExitGameJMI");
+        exitGameJMI = new JMenuItem("ExitGameJMI");
         exitGameJMI.setText("Exit");
 
         gameJM = new JMenu("GameJM");

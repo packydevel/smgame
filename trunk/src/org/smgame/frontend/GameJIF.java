@@ -14,19 +14,19 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private JPanel[] panels;
     private Map<String, LinkedList<Card>> hashmap;
 
-    public GameJIF(Map temp_map) {
-        super();
+    public GameJIF(Map temp_map) {        
+        super();        
         setPreferredSize(new Dimension(1000, 600));
         //setBounds(5, 5, 1005, 605);
         setClosable(true);
         hashmap = temp_map;
-        initComxponents();
+        initComponents();        
         this.setVisible(true);
         pack();
     }
 
-    private void initComxponents() {
-        getContentPane().setLayout(new GridBagLayout());
+    private void initComponents() {
+        setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.weighty = 0.1;
         c.weightx = 0.1;
