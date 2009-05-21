@@ -79,7 +79,7 @@ public class NewGameJIF extends JInternalFrame {
 
         playersNumberJCB = new JComboBox(playersNumber);
         c.gridx = 1;
-        c.gridy = 0;
+        c.gridy = 1;
         panel.add(playersNumberJCB, c);
 
         playersNumberJCB.addActionListener(new ActionListener() {
@@ -200,10 +200,10 @@ public class NewGameJIF extends JInternalFrame {
 
                 for (int j = 0; j < currentPlayersNumber; j++) {
                     if (j > 0) {
-                        if (cpuflagJCKB[j].isSelected()) {
-                            hmPlayerCards.put(new CPUPlayer(playerJTF[j].getText()), null);
+                        if (cpuflagJCKB[j-1].isSelected()) {
+                            hmPlayerCards.put(new CPUPlayer(playerJTF[j-1].getText()), null);
                         } else {
-                            hmPlayerCards.put(new HumanPlayer(playerJTF[j].getText()), null);
+                            hmPlayerCards.put(new HumanPlayer(playerJTF[j-1].getText()), null);
                         }
                     } else {
                         hmPlayerCards.put(new HumanPlayer(playerJTF[j].getText()), null);
