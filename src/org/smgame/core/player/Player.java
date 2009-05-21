@@ -11,6 +11,7 @@ import org.smgame.core.card.Card;
  */
 public abstract class Player {
 
+    protected String name;
     protected double credit; //credito
     protected double bet; //puntata
     protected ArrayList<Card> cardList; //
@@ -19,6 +20,10 @@ public abstract class Player {
     protected double score; //punteggio
     //protected GameEngine gameEngine = GameEngine.getInstance();
 
+    public Player(String name) {
+        this.name=name;
+    }
+    
     /**Restituisce il credito corrente
      * 
      * @return credito

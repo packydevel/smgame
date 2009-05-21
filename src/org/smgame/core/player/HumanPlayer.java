@@ -7,6 +7,10 @@ package org.smgame.core.player;
  */
 public class HumanPlayer extends Player {
 
+    public HumanPlayer(String name) {
+        super(name);
+    }
+
     /**Chiede un'altra mano
      *
      * @return
