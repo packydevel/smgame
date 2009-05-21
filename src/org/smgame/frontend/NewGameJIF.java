@@ -48,7 +48,7 @@ public class NewGameJIF extends JInternalFrame {
 
     public NewGameJIF() {
         super("Nuova Partita", false, true, false, false);
-        setSize(400, 420);
+        setSize(400, 450);
         this.add(panel);
 
         panel.setLayout(new GridBagLayout());
@@ -59,18 +59,22 @@ public class NewGameJIF extends JInternalFrame {
         c.insets = new Insets(2, 2, 2, 2);
         c.anchor = c.FIRST_LINE_START;
 
-        gameNameJL = new JLabel("Fornisci un nome per questa Partita:");
+        gameNameJL = new JLabel("Nome Partita:");
         c.gridx = 0;
         c.gridy = 0;
         panel.add(gameNameJL, c);
 
         gameNameJTF = new JTextField();
-        gameNameJTF.setMaximumSize(new Dimension(200, 10));
+        gameNameJTF.setMaximumSize(new Dimension(200, 20));
+        gameNameJTF.setPreferredSize(new Dimension(200, 20));
         c.gridx = 1;
         c.gridy = 0;
+        c.gridwidth = 2;
         panel.add(gameNameJTF, c);
 
-        playersNumberJL = new JLabel("Seleziona il numero di giocatori:");
+        c.gridwidth = 1;
+
+        playersNumberJL = new JLabel("Numero di giocatori:");
         c.gridx = 0;
         c.gridy = 1;
         panel.add(playersNumberJL, c);
@@ -96,7 +100,6 @@ public class NewGameJIF extends JInternalFrame {
         c.gridy = 14;
         c.weightx = 0;
         c.anchor = GridBagConstraints.SOUTH;
-        cancelJB.setSize(new Dimension(10, 10));
         cancelJB.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
@@ -114,7 +117,6 @@ public class NewGameJIF extends JInternalFrame {
         c.gridy = 14;
         c.weighty = 1;
         c.anchor = GridBagConstraints.SOUTH;
-        okJB.setSize(new Dimension(10, 10));
         okJB.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
@@ -151,7 +153,7 @@ public class NewGameJIF extends JInternalFrame {
             this.validate();
 
             int i = currentPlayersNumber;
-            int y = i + 2;
+            int y = 2;
 
             playerJL = new JLabel[i];
             playerJTF = new JTextField[i];
@@ -200,10 +202,10 @@ public class NewGameJIF extends JInternalFrame {
 
                 for (int j = 0; j < currentPlayersNumber; j++) {
                     if (j > 0) {
-                        if (cpuflagJCKB[j-1].isSelected()) {
-                            hmPlayerCards.put(new CPUPlayer(playerJTF[j-1].getText()), null);
+                        if (cpuflagJCKB[j - 1].isSelected()) {
+                            hmPlayerCards.put(new CPUPlayer(playerJTF[j - 1].getText()), null);
                         } else {
-                            hmPlayerCards.put(new HumanPlayer(playerJTF[j-1].getText()), null);
+                            hmPlayerCards.put(new HumanPlayer(playerJTF[j - 1].getText()), null);
                         }
                     } else {
                         hmPlayerCards.put(new HumanPlayer(playerJTF[j].getText()), null);
