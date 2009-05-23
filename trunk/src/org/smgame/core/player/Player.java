@@ -55,7 +55,7 @@ public abstract class Player {
     }
 
     public double getScore() {
-        double score = 0;
+        score = 0;
 
         for (Card c : cardList) {
             score += c.getValue();
