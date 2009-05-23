@@ -29,4 +29,26 @@ public class PlayerList {
             playerList = new PlayerList();        
         return playerList;
     }
+
+        /**Esiste giocatore debole (?)
+     *
+     * @param totalValue valore totale
+     * @param minMargin margine minimo
+     * @return booleano sul controllo del giocatore
+     */
+    public boolean existWeakPlayer(double totalValue, double minMargin) {
+        ArrayList<Player> playerList = PlayerList.getInstance().getPlayerAL();
+        for (Player p : playerList) {
+            if (p instanceof CPUPlayer) {
+                p = (CPUPlayer) p;
+            } else {
+                p = (HumanPlayer) p;
+            }
+
+            if (p.getScore() <= (totalValue + minMargin)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

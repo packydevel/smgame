@@ -2,7 +2,6 @@ package org.smgame.core;
 
 import java.util.ArrayList;
 import org.smgame.core.card.Deck;
-import org.smgame.core.player.CPUBank;
 import org.smgame.core.player.CPUPlayer;
 import org.smgame.core.player.HumanPlayer;
 import org.smgame.core.player.Player;
@@ -28,9 +27,9 @@ public class GameEngine {
 
     //costruttore privato
     private GameEngine(GameSetting gameSetting, Deck deck, PlayerList playerList) {
-        this.gameSetting=gameSetting;
-        this.deck=deck;
-        this.playerList=playerList;
+        this.gameSetting = gameSetting;
+        this.deck = deck;
+        this.playerList = playerList;
     }
 
     /**Restituisce l'istanza della classe
@@ -54,41 +53,17 @@ public class GameEngine {
      * @param bet puntata da effettuare
      */
     public void requestCard(Player player, double bet) {
-        
-            player.getCardList().add(deck.getNextCard());
+
+        player.getCardList().add(deck.getNextCard());
 
         if (player.getScore() > 7.5) {
             System.out.println("Hai sballato!!!");
             deck.addOffGameCards(player.getCardList());
             player.getCardList().clear();
-            player.setCredit(player.getCredit()-player.getStake());
-            /*
-             * occorre aggiungere la somma al credito del Mazziere
-             */
+            player.setCredit(player.getCredit() - player.getStake());
+        /*
+         * occorre aggiungere la somma al credito del Mazziere
+         */
         }
-    }
-
-    /**Esiste giocatore debole (?)
-     *
-     * @param totalValue valore totale
-     * @param minMargin margine minimo
-     * @return booleano sul controllo del giocatore
-     */
-    public boolean existWeakPlayer(double totalValue, double minMargin) {
-        ArrayList<Player> playerList = PlayerList.getInstance().getPlayerAL();
-        for (Player p : playerList) {
-            if (p instanceof CPUBank) {
-                p = (CPUBank) p;
-            } else if (p instanceof CPUPlayer) {
-                p = (CPUPlayer) p;
-            } else {
-                p = (HumanPlayer) p;
-            }
-
-            if (p.getScore() <= (totalValue + minMargin)) {
-                return true;
-            }
-        }
-        return false;
     }
 }

@@ -16,18 +16,18 @@ public abstract class Player {
     protected double bet; //puntata
     protected ArrayList<Card> cardList; //
     protected HashMap<Card, Double> betList;
-    //protected GameEngine gameEngine = GameEngine.getInstance();
     protected double score; //punteggio
-    //protected GameEngine gameEngine = GameEngine.getInstance();
+    protected double MIN_SCORE = 4.0;
+    protected double MIN_MARGIN = 0.5;
 
     public Player(String name) {
-        this.name=name;
+        this.name = name;
     }
 
     public String getName() {
         return name;
     }
-    
+
     /**Restituisce il credito corrente
      * 
      * @return credito
@@ -35,7 +35,6 @@ public abstract class Player {
     public double getCredit() {
         return credit;
     }
-
 
     public void setCredit(double credit) {
         this.credit = credit;
@@ -54,7 +53,7 @@ public abstract class Player {
     }
 
     public double getScore() {
-        double score=0;
+        double score = 0;
 
         for (Card c : cardList) {
             score += c.getValue();
