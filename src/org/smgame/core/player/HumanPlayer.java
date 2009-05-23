@@ -7,8 +7,12 @@ package org.smgame.core.player;
  */
 public class HumanPlayer extends Player {
 
-    public HumanPlayer(String name) {
+   private PlayerList playerList;
+
+   public HumanPlayer(String name) {
         super(name);
+        MIN_SCORE = 4.0;
+        MIN_MARGIN = 0.5;
     }
 
     /**Chiede un'altra mano
@@ -24,7 +28,12 @@ public class HumanPlayer extends Player {
      * @return
      */
     public boolean askAnotherCard() {
-        return true;
+        //TODO: correggere o decidere cazzo fare
+        if (score < MIN_SCORE || (playerList.existWeakPlayer(score, MIN_MARGIN)))
+            return true;
+        else
+            return false;
+        //
     }
 
     /**Richiede una puntata
@@ -49,5 +58,9 @@ public class HumanPlayer extends Player {
      */
     public double getCredit() {
         return credit;
+    }
+
+    public void setPlayerList(PlayerList playerList) {
+        this.playerList = playerList;
     }
 }

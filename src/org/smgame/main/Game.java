@@ -30,27 +30,19 @@ public class Game implements Serializable {
      *
      * @param gameSetting settaggi gioco
      */
-    private Game(GameSetting gameSetting) {
+    private Game(GameSetting gameSetting, PlayerList playerList) {
 
         char playerType = 'H';
 
-        this.gameSetting = gameSetting;
-        deck = Deck.getInstance();
-        playerList = PlayerList.getInstance();
+        Game.gameSetting = gameSetting;
+        Game.deck = Deck.getInstance();
+        Game.playerList = playerList;
 
-        for (int i = 1; i <= gameSetting.getNumPlayers(); ++i) {
-            if (playerType == 'H') {
-                playerList.getPlayerAL().add(new HumanPlayer());
-            } else {
-                playerList.getPlayerAL().add(new CPUPlayer());
-            }
-        }
-
-        gameEngine = GameEngine.getInstance(gameSetting, deck, playerList);
+        Game.gameEngine = GameEngine.getInstance(gameSetting, deck, playerList);
     }
 
-    public static Game create(GameSetting gameSetting) {
-        game = new Game(gameSetting);
+    public static Game create(GameSetting gameSetting, PlayerList playerList) {
+        game = new Game(gameSetting, playerList);
         return game;
     }
 
