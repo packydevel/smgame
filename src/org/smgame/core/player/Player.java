@@ -19,6 +19,8 @@ public abstract class Player {
     protected double score; //punteggio
     protected double MIN_SCORE = 4.0;
     protected double MIN_MARGIN = 0.5;
+    protected PlayerRole role;
+    protected PlayerList playerList;
 
     public Player(String name) {
         this.name = name;
@@ -60,6 +62,18 @@ public abstract class Player {
         }
 
         return score;
+    }
+
+    public PlayerRole getRole() {
+        return role;
+    }
+
+    public void setRole(PlayerRole role) {
+        this.role = role;
+    }
+
+    public void setPlayerList(PlayerList playerList) {
+        this.playerList = playerList;
     }
 
     /**Restituisce il valore totale???

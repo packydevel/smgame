@@ -7,8 +7,6 @@ package org.smgame.core.player;
  */
 public class HumanPlayer extends Player {
 
-   private PlayerList playerList;
-
    public HumanPlayer(String name) {
         super(name);
         MIN_SCORE = 4.0;
@@ -58,9 +56,5 @@ public class HumanPlayer extends Player {
      */
     public double getCredit() {
         return credit;
-    }
-
-    public void setPlayerList(PlayerList playerList) {
-        this.playerList = playerList;
     }
 }
