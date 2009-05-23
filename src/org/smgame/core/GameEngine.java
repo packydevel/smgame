@@ -24,6 +24,7 @@ public class GameEngine {
     private Game game;
     private final double MAX_CREDIT = 64000;
     private final double MAX_SCORE = 7.5;
+    private static int currentManche;
 
     //costruttore privato
     private GameEngine(GameSetting gameSetting, Deck deck, PlayerList playerList) {

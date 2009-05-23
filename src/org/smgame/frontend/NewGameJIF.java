@@ -10,6 +10,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,9 +18,11 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import org.smgame.core.card.Card;
 import org.smgame.core.player.CPUPlayer;
@@ -32,8 +35,8 @@ import org.smgame.core.player.Player;
  */
 public class NewGameJIF extends JInternalFrame {
 
-    GridBagConstraints c = new GridBagConstraints();
-    JPanel panel = new JPanel();
+    JPanel playersJP, preferencesJP;
+    GridBagConstraints labelGBC, textFieldGBC, comboBoxGBC, checkBoxGBC, buttonGBC;
     JLabel playersNumberJL;
     JComboBox playersNumberJCB;
     JButton cancelJB;
@@ -43,49 +46,85 @@ public class NewGameJIF extends JInternalFrame {
     JLabel playerJL[];
     JTextField gameNameJTF;
     JTextField playerJTF[];
+    String eventSource;
     int previousPlayersNumber = 0;
     int currentPlayersNumber;
 
     public NewGameJIF() {
         super("Nuova Partita", false, true, false, false);
         setSize(400, 450);
-        this.add(panel);
 
-        panel.setLayout(new GridBagLayout());
+        JTabbedPane tabbedPane = new JTabbedPane();
+//ImageIcon icon = createImageIcon("images/middle.gif");
 
-        c = new GridBagConstraints();
-        c.weightx = 0;
-        c.weighty = 0;
-        c.insets = new Insets(2, 2, 2, 2);
-        c.anchor = c.FIRST_LINE_START;
+        playersJP = new JPanel();
+        tabbedPane.addTab("Giocatori", null, playersJP,
+                "Does nothing");
+        tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
+
+        preferencesJP = new JPanel();
+        tabbedPane.addTab("Preferenze", null, preferencesJP,
+                "Does twice as much nothing");
+        tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
+
+
+        playersJP.setLayout(new GridBagLayout());
+        preferencesJP.setLayout(new GridBagLayout());
+
+        labelGBC = new GridBagConstraints();
+        labelGBC.weightx = 0;
+        labelGBC.weighty = 0;
+        labelGBC.insets = new Insets(2, 2, 2, 2);
+        labelGBC.anchor = GridBagConstraints.NORTHWEST;
+
+        textFieldGBC = new GridBagConstraints();
+        textFieldGBC.weightx = 0;
+        textFieldGBC.weighty = 0;
+        textFieldGBC.insets = new Insets(2, 2, 2, 2);
+        textFieldGBC.anchor = GridBagConstraints.NORTHWEST;
+
+        comboBoxGBC = new GridBagConstraints();
+        comboBoxGBC.weightx = 0;
+        comboBoxGBC.weighty = 0;
+        comboBoxGBC.insets = new Insets(2, 2, 2, 2);
+        comboBoxGBC.anchor = GridBagConstraints.NORTHWEST;
+
+        checkBoxGBC = new GridBagConstraints();
+        checkBoxGBC.weightx = 0;
+        checkBoxGBC.weighty = 0;
+        checkBoxGBC.insets = new Insets(2, 2, 2, 2);
+        checkBoxGBC.anchor = GridBagConstraints.CENTER;
+
+        buttonGBC = new GridBagConstraints();
+        buttonGBC.weightx = 0;
+        buttonGBC.weighty = 1;
+        buttonGBC.insets = new Insets(2, 2, 2, 2);
+        buttonGBC.anchor = GridBagConstraints.SOUTHEAST;
+
 
         gameNameJL = new JLabel("Nome Partita:");
-        c.gridx = 0;
-        c.gridy = 0;
-        panel.add(gameNameJL, c);
+        labelGBC.gridx = 0;
+        labelGBC.gridy = 0;
+        playersJP.add(gameNameJL, labelGBC);
 
-        gameNameJTF = new JTextField();
-        gameNameJTF.setMaximumSize(new Dimension(200, 20));
-        gameNameJTF.setPreferredSize(new Dimension(200, 20));
-        c.gridx = 1;
-        c.gridy = 0;
-        c.gridwidth = 2;
-        panel.add(gameNameJTF, c);
-
-        c.gridwidth = 1;
+        gameNameJTF = new JTextField(20);
+        textFieldGBC.gridx = 1;
+        textFieldGBC.gridy = 0;
+        textFieldGBC.gridwidth = 2;
+        textFieldGBC.fill = GridBagConstraints.HORIZONTAL;
+        playersJP.add(gameNameJTF, textFieldGBC);
 
         playersNumberJL = new JLabel("Numero di giocatori:");
-        c.gridx = 0;
-        c.gridy = 1;
-        panel.add(playersNumberJL, c);
+        labelGBC.gridx = 0;
+        labelGBC.gridy = 1;
+        playersJP.add(playersNumberJL, labelGBC);
 
         Integer playersNumber[] = {null, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
 
         playersNumberJCB = new JComboBox(playersNumber);
-        c.gridx = 1;
-        c.gridy = 1;
-        panel.add(playersNumberJCB, c);
-
+        comboBoxGBC.gridx = 1;
+        comboBoxGBC.gridy = 1;
+        playersJP.add(playersNumberJCB, comboBoxGBC);
         playersNumberJCB.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
@@ -93,41 +132,44 @@ public class NewGameJIF extends JInternalFrame {
             }
         });
 
-        cancelJB = new JButton("Cancel");
-        cancelJB.setMaximumSize(new Dimension(60, 20));
-        cancelJB.setPreferredSize(new Dimension(60, 20));
-        c.gridx = 2;
-        c.gridy = 14;
-        c.weightx = 0;
-        c.anchor = GridBagConstraints.SOUTH;
+        cancelJB = new JButton("Annulla");
+        cancelJB.setName("cancelJB");
+        //cancelJB.setMaximumSize(new Dimension(60, 20));
+        cancelJB.setPreferredSize(new Dimension(70, 20));
+        cancelJB.setVisible(true);
+        buttonGBC.gridx = 2;
+        buttonGBC.gridy = 14;
         cancelJB.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
                 newGameActionPerformed(evt);
             }
         });
-
-        panel.add(cancelJB, c);
-        cancelJB.setVisible(true);
+        playersJP.add(cancelJB, buttonGBC);
 
         okJB = new JButton("OK");
-        okJB.setMaximumSize(new Dimension(60, 20));
-        okJB.setPreferredSize(new Dimension(60, 20));
-        c.gridx = 1;
-        c.gridy = 14;
-        c.weighty = 1;
-        c.anchor = GridBagConstraints.SOUTH;
+        //okJB.setMaximumSize(new Dimension(80, 20));
+        okJB.setPreferredSize(new Dimension(70, 20));
+        okJB.setEnabled(false);
+        okJB.setVisible(true);
+        buttonGBC.gridx = 1;
+        buttonGBC.gridy = 14;
+        buttonGBC.weightx = 1;
         okJB.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
                 newGameActionPerformed(evt);
             }
         });
-        panel.add(okJB, c);
-        okJB.setEnabled(false);
-        okJB.setVisible(true);
-        c.weighty = 0;
-        c.anchor = GridBagConstraints.FIRST_LINE_START;
+        playersJP.add(okJB, buttonGBC);
+
+        textFieldGBC.fill = GridBagConstraints.NONE;
+
+        add(tabbedPane);
+    }
+
+    public String getEventSource() {
+        return eventSource;
     }
 
     private void newGameActionPerformed(ActionEvent evt) {
@@ -142,10 +184,10 @@ public class NewGameJIF extends JInternalFrame {
 
             if (currentPlayersNumber != previousPlayersNumber && previousPlayersNumber != 0) {
                 for (int j = 0; j < previousPlayersNumber; j++) {
-                    panel.remove(playerJL[j]);
-                    panel.remove(playerJTF[j]);
+                    playersJP.remove(playerJL[j]);
+                    playersJP.remove(playerJTF[j]);
                     if (j < previousPlayersNumber - 1) {
-                        panel.remove(cpuflagJCKB[j]);
+                        playersJP.remove(cpuflagJCKB[j]);
                     }
                 }
             }
@@ -162,26 +204,27 @@ public class NewGameJIF extends JInternalFrame {
             for (int j = 0; j < i; j++) {
 
                 playerJL[j] = new JLabel("Giocatore " + (j + 1) + ":");
-                c.gridx = 0;
-                c.gridy = y;
-                panel.add(playerJL[j], c);
+                labelGBC.gridx = 0;
+                labelGBC.gridy = y;
+                playersJP.add(playerJL[j], labelGBC);
                 playerJL[j].setVisible(true);
 
                 playerJTF[j] = new JTextField();
-                playerJTF[j].setMaximumSize(new Dimension(200, 10));
-                playerJTF[j].setPreferredSize(new Dimension(200, 10));
-                c.gridx = 1;
-                c.gridy = y;
-                c.ipadx = 100;
-                panel.add(playerJTF[j], c);
+                //playerJTF[j].setMinimumSize(new Dimension(80, 20));
+                //playerJTF[j].setMaximumSize(new Dimension(80, 20));
+                playerJTF[j].setPreferredSize(new Dimension(80, 20));
+                textFieldGBC.gridx = 1;
+                textFieldGBC.gridy = y;
+                textFieldGBC.ipadx = 100;
+                playersJP.add(playerJTF[j], textFieldGBC);
                 playerJTF[j].setVisible(true);
 
                 if (j > 0) {
                     cpuflagJCKB[j - 1] = new JCheckBox();
-                    c.gridx = 2;
-                    c.gridy = y;
-                    c.ipadx = 50;
-                    panel.add(cpuflagJCKB[j - 1], c);
+                    checkBoxGBC.gridx = 2;
+                    checkBoxGBC.gridy = y;
+                    checkBoxGBC.ipadx = 50;
+                    playersJP.add(cpuflagJCKB[j - 1], checkBoxGBC);
                     cpuflagJCKB[j - 1].setVisible(true);
                 }
                 y++;
@@ -190,9 +233,8 @@ public class NewGameJIF extends JInternalFrame {
             okJB.setEnabled(true);
             this.validate();
         } else if (evt.getSource() instanceof JButton) {
-            if ((JButton) evt.getSource() == cancelJB) {
-                this.dispose();
-            } else if ((JButton) evt.getSource() == okJB) {
+
+            if ((JButton) evt.getSource() == okJB) {
                 for (int j = 0; j < currentPlayersNumber; j++) {
                     if (playerJTF[j].getText().length() == 0) {
                         return;
@@ -214,9 +256,11 @@ public class NewGameJIF extends JInternalFrame {
                 }
                 GameJIF gameJIF = new GameJIF(hmPlayerCards);
                 getDesktopPane().add(gameJIF).setVisible(true);
-
-                this.dispose();
+            } else {
+                eventSource=cancelJB.getName();
             }
+
+            this.dispose();
         }
     }
 }
