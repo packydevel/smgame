@@ -3,14 +3,17 @@ package org.smgame.frontend;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JTextField;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
 
-public class MainJF extends JFrame {
+public class MainJF extends JFrame implements InternalFrameListener {
 
     private static JDesktopPane desktop;
     private int frameNumber = 0;
@@ -27,7 +30,7 @@ public class MainJF extends JFrame {
     private GameJIF gameJIF;
 
     public MainJF() {
-        super("InternalFrameExample");
+        super("SMGame - Gioco Italiano del Sette e 1/2");
 
         setSize(1024, 768);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -42,8 +45,6 @@ public class MainJF extends JFrame {
         setVisible(true);
 
         menuJMB = new MenuJMB();
-
-
 
         menuJMB.getNewGameJMI().addActionListener(new ActionListener() {
 
@@ -77,8 +78,9 @@ public class MainJF extends JFrame {
 //            desktop.add(gameJIF);
 //            gameJIF.setVisible(true);
             NewGameJIF newGameJIF = new NewGameJIF();
-            desktop.add(newGameJIF);
             newGameJIF.setVisible(true);
+            newGameJIF.addInternalFrameListener(this);
+            desktop.add(newGameJIF);
             menuJMB.getNewGameJMI().setEnabled(false);
             menuJMB.getCloseGameJMI().setEnabled(true);
         } else if ((JMenuItem) evt.getSource() == menuJMB.getCloseGameJMI()) {
@@ -117,6 +119,37 @@ public class MainJF extends JFrame {
             titleTextField.setText("Frame " + String.valueOf(
                     frameNumber++));
         }
-    }   
+    }
 
+    public void internalFrameDeactivated(InternalFrameEvent e) {
+        System.out.println("Internal frame deactivated");
+    }
+
+    public void internalFrameClosing(InternalFrameEvent e) {
+        System.out.println("Internal frame deactivated");
+    }
+
+    public void internalFrameClosed(InternalFrameEvent e) {
+        if (e.getInternalFrame() instanceof NewGameJIF) {
+            if (((NewGameJIF) e.getInternalFrame()).getEventSource().equals("cancelJB")) {
+                menuJMB.getNewGameJMI().setEnabled(true);
+            }
+        }
+    }
+
+    public void internalFrameOpened(InternalFrameEvent e) {
+        System.out.println("Internal frame deactivated");
+    }
+
+    public void internalFrameIconified(InternalFrameEvent e) {
+        System.out.println("Internal frame deactivated");
+    }
+
+    public void internalFrameDeiconified(InternalFrameEvent e) {
+        System.out.println("Internal frame deactivated");
+    }
+
+    public void internalFrameActivated(InternalFrameEvent e) {
+        System.out.println("Internal frame deactivated");
+    }
 } 
