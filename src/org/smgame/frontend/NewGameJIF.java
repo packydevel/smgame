@@ -241,19 +241,15 @@ public class NewGameJIF extends JInternalFrame {
                     }
                 }
                 final Map<Player, List<Card>> hmPlayerCards = new HashMap<Player, List<Card>>();
+                hmPlayerCards.put(new HumanPlayer(playerJTF[0].getText()), null);
 
-                for (int j = 0; j < currentPlayersNumber; j++) {
-                    if (j > 0) {
-                        if (cpuflagJCKB[j - 1].isSelected()) {
-                            hmPlayerCards.put(new CPUPlayer(playerJTF[j - 1].getText()), null);
-                        } else {
-                            hmPlayerCards.put(new HumanPlayer(playerJTF[j - 1].getText()), null);
-                        }
-                    } else {
+                for (int j = 1; j < currentPlayersNumber; j++) {
+                    if (cpuflagJCKB[j - 1].isSelected())
+                        hmPlayerCards.put(new CPUPlayer(playerJTF[j].getText()), null);
+                    else
                         hmPlayerCards.put(new HumanPlayer(playerJTF[j].getText()), null);
-                    }
-
                 }
+
                 GameJIF gameJIF = new GameJIF(hmPlayerCards);
                 getDesktopPane().add(gameJIF).setVisible(true);
             } else {
