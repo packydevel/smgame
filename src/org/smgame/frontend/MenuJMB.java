@@ -8,7 +8,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-public class MenuJMB extends JMenuBar {
+public class MenuJMB {
 
     private JMenu gameJM;
     private JMenu playerJM;

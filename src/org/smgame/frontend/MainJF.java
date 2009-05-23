@@ -1,8 +1,14 @@
 package org.smgame.frontend;
 
-import javax.swing.*;
-import java.awt.event.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JCheckBox;
+import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JMenuItem;
+import javax.swing.JTextField;
 
 public class MainJF extends JFrame {
 
@@ -16,6 +22,8 @@ public class MainJF extends JFrame {
     private JCheckBox maximizableCheckBox;
     private JCheckBox iconifiableCheckBox;
     private MenuJMB menuJMB;
+    private ToolBarJTB toolBarJTB;
+    private ToolBarJTB statusBarJTB;
     private GameJIF gameJIF;
 
     public MainJF() {
@@ -24,10 +32,12 @@ public class MainJF extends JFrame {
         setSize(1024, 768);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        JToolBar toolbar = createToolBar();
+        toolBarJTB = new ToolBarJTB();
+        statusBarJTB = new ToolBarJTB();
         desktop = new JDesktopPane();
         desktop.setDesktopManager(new GameDM());
-        getContentPane().add(BorderLayout.NORTH, toolbar);
+        getContentPane().add(BorderLayout.NORTH, toolBarJTB.getTb());
+        getContentPane().add(BorderLayout.SOUTH, statusBarJTB.getTb());
         getContentPane().add(BorderLayout.CENTER, desktop);
         setVisible(true);
 
@@ -78,37 +88,6 @@ public class MainJF extends JFrame {
         } else if ((JMenuItem) evt.getSource() == menuJMB.getExitGameJMI()) {
             this.dispose();
         }
-    }
-
-    protected JToolBar createToolBar() {
-        JToolBar tb = new JToolBar(JToolBar.HORIZONTAL);
-        JPanel titlePanel = new JPanel();
-        titlePanel.setLayout(new FlowLayout());
-        titlePanel.setSize(20, 1024);
-        //JLabel titleLabel = new JLabel("Titolo");
-        //titleTextField = new JTextField("Frame 0", 10);
-        //titlePanel.add(titleLabel);
-        //titlePanel.add(titleTextField);
-        resizableCheckBox = new JCheckBox("Ridimensionabile");
-        closableCheckBox = new JCheckBox("Richiudibile");
-        maximizableCheckBox = new JCheckBox("Massimizzabile");
-        iconifiableCheckBox = new JCheckBox("Iconificabile");
-        JButton generateButton = new JButton("Genera un JInternalFrame");
-
-        ActionListener listener = new GenerateButtonActionListener();
-        generateButton.addActionListener(listener);
-        //titleTextField.addActionListener(listener);
-
-        tb.add(titlePanel);
-//        tb.add(resizableCheckBox);
-//        tb.add(closableCheckBox);
-//        tb.add(maximizableCheckBox);
-//        tb.add(iconifiableCheckBox);
-//        tb.add(generateButton);
-
-        tb.setFloatable(false);
-        tb.setSize(100, 1024);
-        return tb;
     }
 
     protected JInternalFrame createFrame(String title, boolean resizable, boolean closable, boolean maximizable, boolean iconifiable) {
