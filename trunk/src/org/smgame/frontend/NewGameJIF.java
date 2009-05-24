@@ -182,7 +182,7 @@ public class NewGameJIF extends JInternalFrame {
             }
 
             currentPlayersNumber = ((Integer) playersNumberJCB.getSelectedItem()).intValue();
-
+            System.out.println(currentPlayersNumber);
             if (currentPlayersNumber != previousPlayersNumber && previousPlayersNumber != 0) {
                 for (int j = 0; j < previousPlayersNumber; j++) {
                     playersJP.remove(playerJL[j]);
@@ -241,7 +241,6 @@ public class NewGameJIF extends JInternalFrame {
                 }
 
                 playerList = new ArrayList<Player>();
-                playerList.add(new HumanPlayer(playerJTF[0].getText()));
 
                 for (int j = 0; j < currentPlayersNumber; j++) {
                     if (j != 0) {
@@ -254,8 +253,9 @@ public class NewGameJIF extends JInternalFrame {
                         playerList.add(new HumanPlayer(playerJTF[j].getText()));
                     }
                 }
-
+                System.out.println(playerList.size());
                 fireNewGameEvent(new NewGameEvent(this, playerList, null));
+
             }
             dispose();
         }
