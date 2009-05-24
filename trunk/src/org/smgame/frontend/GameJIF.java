@@ -22,15 +22,14 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private JPanel[] jpPanels;
     private JPanel[] jpActions;
     private Map<Player, List<Card>> hashmap;
-    private List<Player> playerlist;
+    private List<Player> list_player;
 
-    public GameJIF(Map temp_map) {
+    public GameJIF(Map temp_map, GameSetting gs) {
         super();
         setPreferredSize(new Dimension(1000, 600));
         setBounds(5, 5, 1005, 605);
         hashmap = temp_map;
-        System.out.println(temp_map.size());
-        initComponentsNew();
+        initComponentsLoad();
         setClosable(true);
         pack();
     }
@@ -40,12 +39,12 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         setPreferredSize(new Dimension(1000, 600));
         setBounds(5, 5, 1005, 605);
         setClosable(true);
-        playerlist = tempList;
-        initComponentLoad();
+        list_player = tempList;
+        initComponentsNew();
         pack();
     }
 
-    private void initComponentsNew() {
+    private void initComponentsLoad() {
         setLayout(new GridBagLayout());
         GridBagConstraints gbcP = new GridBagConstraints();
         GridBagConstraints gbcA = new GridBagConstraints();
@@ -60,7 +59,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         jpActions = new JPanel[hashmap.size()];
         Object[] list_keys = hashmap.keySet().toArray();
         PlayerList player_list = PlayerList.getInstance();
-        System.out.println(hashmap.size());
+
         for (int i = 0; i < hashmap.size(); i++) {
             gbcP.gridy = gbcA.gridy = i;
             Player tempPlayer = (Player) list_keys[i];
@@ -68,17 +67,17 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             jpPanels[i] = new PlayerCardJP(tempPlayer.getName());
             this.add(jpPanels[i], gbcP);
 
-            if (list_keys[i] instanceof HumanPlayer) {                
+            if (tempPlayer instanceof HumanPlayer) {
                 jpActions[i] = new PlayerActionsJP();
                 this.add(jpActions[i], gbcA);
             } else 
                 jpActions[i] = null;            
         } //end for
 
-        Game game = Game.create(null, player_list);   
+        Game game = Game.create(null, player_list);
     }//end initComponentsNew
 
-    private void initComponentLoad() {
+    private void initComponentsNew() {
         setLayout(new GridBagLayout());
         GridBagConstraints gbcP = new GridBagConstraints();
         GridBagConstraints gbcA = new GridBagConstraints();
@@ -88,6 +87,25 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         gbcP.anchor = gbcA.anchor = GridBagConstraints.NORTHWEST;
         gbcP.gridx = 0;
         gbcA.gridx = 1;
+
+        jpPanels = new JPanel[list_player.size()];
+        jpActions = new JPanel[list_player.size()];
+        PlayerList player_list = PlayerList.getInstance();
+
+        for (int i = 0; i < list_player.size(); i++) {
+            gbcP.gridy = gbcA.gridy = i;
+            Player tempPlayer = (Player)list_player.get(i);
+            player_list.getPlayerAL().add(tempPlayer);
+            jpPanels[i] = new PlayerCardJP(tempPlayer.getName());
+            this.add(jpPanels[i], gbcP);
+
+            if (tempPlayer instanceof HumanPlayer) {
+                jpActions[i] = new PlayerActionsJP();
+                this.add(jpActions[i], gbcA);
+            } else
+                jpActions[i] = null;
+        } //end for
+        Game game = Game.create(null, player_list);
     }
 } //end class
 
