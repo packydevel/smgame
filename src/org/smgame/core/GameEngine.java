@@ -1,6 +1,7 @@
 package org.smgame.core;
 
 import java.util.Collections;
+import org.smgame.core.card.Card;
 import org.smgame.core.card.Deck;
 import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
@@ -52,9 +53,11 @@ public class GameEngine {
      * @param player giocatore che chiede la carta
      * @param bet puntata da effettuare
      */
-    public void requestCard(Player player, double bet) {
+    public Card requestCard(Player player, double bet) {
+        Card card;
 
-        player.getCardList().add(deck.getNextCard());
+        card = deck.getNextCard();
+        player.getCardList().add(card);
 
         if (player.getScore() > 7.5) {
             System.out.println("Hai sballato!!!");
@@ -65,7 +68,11 @@ public class GameEngine {
          * occorre aggiungere la somma al credito del Mazziere
          */
         }
+
+        return card;
     }
+
+
 
     public Player selectFirstRandomBank() {
         Collections.shuffle(playerList.getPlayerAL());
