@@ -253,7 +253,6 @@ public class NewGameJIF extends JInternalFrame {
                         playerList.add(new HumanPlayer(playerJTF[j].getText()));
                     }
                 }
-                System.out.println(playerList.size());
                 fireNewGameEvent(new NewGameEvent(this, playerList, null));
 
             }
@@ -275,8 +274,6 @@ public class NewGameJIF extends JInternalFrame {
     // This private class is used to fire MyEvents
     void fireNewGameEvent(NewGameEvent e) {
         Object[] listeners = listenerList.getListenerList();
-        // Each listener occupies two elements - the first is the listener class
-        // and the second is the listener instance
         for (int i = 0; i <
                 listeners.length; i +=
                         2) {
