@@ -128,13 +128,14 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
     }
 
     public void internalFrameClosing(InternalFrameEvent e) {
-        
     }
 
     public void internalFrameClosed(InternalFrameEvent e) {
         if (e.getInternalFrame() instanceof NewGameJIF) {
-            menuJMB.getNewGameJMI().setEnabled(true);
-            menuJMB.getCloseGameJMI().setEnabled(false);
+            if (gameJIF == null) {
+                menuJMB.getNewGameJMI().setEnabled(true);
+                menuJMB.getCloseGameJMI().setEnabled(false);
+            }
         } else if (e.getInternalFrame() instanceof GameJIF) {
             menuJMB.getNewGameJMI().setEnabled(true);
             menuJMB.getCloseGameJMI().setEnabled(false);
