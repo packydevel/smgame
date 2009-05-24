@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.frontend;
 
 import java.awt.Dimension;
@@ -11,27 +7,30 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+
 import org.smgame.core.card.Card;
 import org.smgame.core.player.CPUPlayer;
 import org.smgame.core.player.HumanPlayer;
 import org.smgame.core.player.Player;
 
-/**
+/**internal frame new game
+ *frame interno nuovo gioco
  *
- * @author packyuser
+ * @author luca
+ * @author pasquale
  */
 public class NewGameJIF extends JInternalFrame {
 
@@ -50,6 +49,9 @@ public class NewGameJIF extends JInternalFrame {
     int previousPlayersNumber = 0;
     int currentPlayersNumber;
 
+    /**Costruttore
+     *
+     */
     public NewGameJIF() {
         super("Nuova Partita", false, true, false, false);
         setSize(400, 450);
@@ -240,6 +242,7 @@ public class NewGameJIF extends JInternalFrame {
                         return;
                     }
                 }
+
                 final Map<Player, List<Card>> hmPlayerCards = new HashMap<Player, List<Card>>();
                 hmPlayerCards.put(new HumanPlayer(playerJTF[0].getText()), null);
 
