@@ -55,7 +55,6 @@ public class GameEngine {
      */
     public Card requestCard(Player player, double bet) {
         Card card;
-
         card = deck.getNextCard();
         player.getCardList().add(card);
 
@@ -64,15 +63,11 @@ public class GameEngine {
             deck.addOffGameCards(player.getCardList());
             player.getCardList().clear();
             player.setCredit(player.getCredit() - player.getStake());
-        /*
-         * occorre aggiungere la somma al credito del Mazziere
-         */
+            bankPlayer.setCredit(bankPlayer.getCredit() + player.getStake());
         }
 
         return card;
     }
-
-
 
     public Player selectFirstRandomBank() {
         Collections.shuffle(playerList.getPlayerAL());
@@ -89,7 +84,7 @@ public class GameEngine {
         }
 
         indexList = indexList % playerList.getPlayerAL().size() + 1;
-        currentPlayer=playerList.getPlayerAL().get(indexList);
+        currentPlayer = playerList.getPlayerAL().get(indexList);
 
         return currentPlayer;
     }
