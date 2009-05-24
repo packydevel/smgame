@@ -14,6 +14,7 @@ import org.smgame.core.card.Card;
 import org.smgame.core.player.HumanPlayer;
 import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
+import org.smgame.core.player.PlayerRole;
 import org.smgame.main.Game;
 import org.smgame.main.GameSetting;
 
@@ -68,6 +69,8 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             Player tempPlayer = (Player) list_keys[i];
             player_list.getPlayerAL().add(tempPlayer);
             jpPanels[i] = new PlayerCardJP(tempPlayer.getName());
+            if (tempPlayer.getRole()==PlayerRole.Bank)
+                ((PlayerCardJP)jpPanels[i]).selectBank();
             this.add(jpPanels[i], gbcP);
 
             if (tempPlayer instanceof HumanPlayer) {
@@ -102,6 +105,8 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             Player tempPlayer = (Player) list_player.get(i);
             player_list.getPlayerAL().add(tempPlayer);
             jpPanels[i] = new PlayerCardJP(tempPlayer.getName());
+            if (tempPlayer.getRole()==PlayerRole.Bank)
+                ((PlayerCardJP)jpPanels[i]).selectBank();
             this.add(jpPanels[i], gbcP);
 
             if (tempPlayer instanceof HumanPlayer) {
@@ -112,8 +117,12 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 jpActions[i] = null;
             }
         } //end for
+
         Game game = Game.create(null, player_list);
+
+        
     }
+   
 } //end class
 
 /*
