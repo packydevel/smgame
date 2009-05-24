@@ -21,7 +21,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import javax.swing.event.EventListenerList;
-import javax.swing.event.InternalFrameEvent;
 import org.smgame.core.player.CPUPlayer;
 import org.smgame.core.player.HumanPlayer;
 import org.smgame.core.player.Player;
@@ -244,21 +243,19 @@ public class NewGameJIF extends JInternalFrame {
                 playerList = new ArrayList<Player>();
                 playerList.add(new HumanPlayer(playerJTF[0].getText()));
 
-                for (int j = 1; j < currentPlayersNumber; j++) {
-                    if (cpuflagJCKB[j - 1].isSelected()) {
-                        playerList.add(new CPUPlayer(playerJTF[j].getText()));
+                for (int j = 0; j < currentPlayersNumber; j++) {
+                    if (j != 0) {
+                        if (cpuflagJCKB[j - 1].isSelected()) {
+                            playerList.add(new CPUPlayer(playerJTF[j].getText()));
+                        } else {
+                            playerList.add(new HumanPlayer(playerJTF[j].getText()));
+                        }
                     } else {
                         playerList.add(new HumanPlayer(playerJTF[j].getText()));
                     }
                 }
 
-                //GameJIF gameJIF = new GameJIF(hmPlayerCards);
-                //getDesktopPane().add(gameJIF).setVisible(true);
-                // InternalFrameEvent ife = new NewGameEvent(this, InternalFrameEvent.INTERNAL_FRAME_CLOSING, playerList, null);
                 fireNewGameEvent(new NewGameEvent(this, playerList, null));
-            //ife.notify();
-            } else {
-                eventSource = cancelJB.getName();
             }
             dispose();
         }
@@ -280,7 +277,9 @@ public class NewGameJIF extends JInternalFrame {
         Object[] listeners = listenerList.getListenerList();
         // Each listener occupies two elements - the first is the listener class
         // and the second is the listener instance
-        for (int i = 0; i < listeners.length; i += 2) {
+        for (int i = 0; i <
+                listeners.length; i +=
+                        2) {
             if (listeners[i] == NewGameListener.class) {
                 ((NewGameListener) listeners[i + 1]).newGameCreating(e);
             }
