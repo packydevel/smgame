@@ -111,7 +111,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
             if (tempPlayer instanceof HumanPlayer) {
                 jpActions[i] = new PlayerActionsJP();
-                jpActions[i].setVisible(false);
+                //jpActions[i].setVisible(false);
                 this.add(jpActions[i], gbcA);
             } else {
                 jpActions[i] = null;
