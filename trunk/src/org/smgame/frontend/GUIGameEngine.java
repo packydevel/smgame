@@ -31,4 +31,13 @@ public class GUIGameEngine {
             System.out.println("Errore nel salvataggio!!!");
         }
     }
+
+    static void loadGame() {
+        try {
+            GUIGameEngine.game = Game.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Errore nel caricamento!!!");
+        }
+    }
 }

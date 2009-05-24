@@ -26,7 +26,7 @@ public class Game implements Serializable {
     private Deck deck;
     private PlayerList playerList;
     private Date creationDate, lastSaveDate;
-    private final String fileName="/packydata/games.dat";
+    private static final String fileName="/packydata/games.dat";
 
     /**Costruttore
      *
@@ -76,8 +76,8 @@ public class Game implements Serializable {
         deck.print();
     }
 
-    public void save() throws FileNotFoundException, IOException {
-        lastSaveDate= new Date();
+    public static void save() throws FileNotFoundException, IOException {
+        Date lastSaveDate= new Date();
         FileOutputStream fos = new FileOutputStream(fileName);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(game);
@@ -86,11 +86,12 @@ public class Game implements Serializable {
         fos.close();
     }
 
-    public void load() throws FileNotFoundException, IOException, ClassNotFoundException {
+    public static Game load() throws FileNotFoundException, IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream(fileName);
         ObjectInputStream ois = new ObjectInputStream(fis);
         game = (Game) ois.readObject();
         ois.close();
         fis.close();
+        return game;
     }
 }

@@ -1,5 +1,6 @@
 package org.smgame.core.player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.smgame.core.card.Card;
@@ -9,7 +10,7 @@ import org.smgame.core.card.Card;
  * @author luca
  * @author pasquale
  */
-public abstract class Player {
+public abstract class Player implements Serializable {
 
     protected String name;
     protected double credit; //credito

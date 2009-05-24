@@ -16,11 +16,11 @@ public class LoadGameATM extends AbstractTableModel {
     private final String[] columnNames = {"Partita",
         "Data di Creazione",
         "Data ultimo Salvataggio"};
-    
     private Object[][] data;
 
     public LoadGameATM() {
         super();
+        data = new Object[3][3];
     }
 
     public String getColumnName(int col) {
