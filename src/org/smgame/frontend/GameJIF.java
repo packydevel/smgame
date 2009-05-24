@@ -15,6 +15,7 @@ import org.smgame.core.player.HumanPlayer;
 import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
 import org.smgame.main.Game;
+import org.smgame.main.GameSetting;
 
 public class GameJIF extends JInternalFrame implements IGameJIF {
 
@@ -31,6 +32,13 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         initComponents();        
         this.setVisible(true);
         pack();
+    }
+
+    public GameJIF(List<Player> tempList, GameSetting gs){
+        super();
+        setPreferredSize(new Dimension(1000, 600));
+        //setBounds(5, 5, 1005, 605);
+        setClosable(true);
     }
 
     private void initComponents() {
