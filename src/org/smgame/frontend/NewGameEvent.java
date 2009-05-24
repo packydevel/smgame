@@ -17,13 +17,19 @@ import org.smgame.main.GameSetting;
  */
 public class NewGameEvent extends EventObject {
 
+    private String gameName;
     private ArrayList<Player> playerList;
     private GameSetting gameSetting;
 
-    public NewGameEvent(Object source,  List<Player> playerList, GameSetting gameSetting) {
+    public NewGameEvent(Object source, String gameName, List<Player> playerList, GameSetting gameSetting) {
         super(source);
+        this.gameName=gameName;
         this.playerList = (ArrayList<Player>) playerList;
         this.gameSetting = gameSetting;
+    }
+
+    public String getGameName() {
+        return gameName;
     }
 
     public GameSetting getGameSetting() {

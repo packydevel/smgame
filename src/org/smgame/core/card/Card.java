@@ -1,12 +1,14 @@
 package org.smgame.core.card;
 
+import java.io.Serializable;
+
 /**Classe Carta
  * rappresenta la singola carta del mazzo
  * 
  * @author pasquale
  * @author luca
  */
-public class Card {
+public class Card implements Serializable {
     //variabili
 
     private Point point; //punto

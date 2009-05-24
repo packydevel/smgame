@@ -39,6 +39,7 @@ public class MenuJMB {
 
         saveGameJMI = new JMenuItem("SaveGameJMI");
         saveGameJMI.setText("Save ...");
+        saveGameJMI.setEnabled(false);
 
         closeGameJMI = new JMenuItem("CloseGameJMI");
         closeGameJMI.setText("Close");

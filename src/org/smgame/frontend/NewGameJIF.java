@@ -234,6 +234,9 @@ public class NewGameJIF extends JInternalFrame {
         } else if (evt.getSource() instanceof JButton) {
 
             if ((JButton) evt.getSource() == okJB) {
+                if (gameNameJTF.getText().length() == 0) {
+                    return;
+                }
                 for (int j = 0; j < currentPlayersNumber; j++) {
                     if (playerJTF[j].getText().length() == 0) {
                         return;
@@ -253,7 +256,7 @@ public class NewGameJIF extends JInternalFrame {
                         playerList.add(new HumanPlayer(playerJTF[j].getText()));
                     }
                 }
-                fireNewGameEvent(new NewGameEvent(this, playerList, null));
+                fireNewGameEvent(new NewGameEvent(this, gameNameJTF.getText(), playerList, null));
 
             }
             dispose();

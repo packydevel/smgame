@@ -1,6 +1,6 @@
 package org.smgame.core.player;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,15 +9,15 @@ import java.util.List;
  * @author luca
  * @author pasquale
  */
-public class PlayerList {
+public class PlayerList implements Serializable {
 
     private static PlayerList playerList = null;
     private LinkedList<Player> playerAL = new LinkedList<Player>();
 
     //costruttore privato
-    private PlayerList() { }
+    private PlayerList() {
+    }
 
-    
     public List<Player> getPlayerAL() {
         return playerAL;
     }
@@ -27,12 +27,13 @@ public class PlayerList {
      * @return lista giocatori
      */
     public static PlayerList getInstance() {
-        if (playerList == null)
-            playerList = new PlayerList();        
+        if (playerList == null) {
+            playerList = new PlayerList();
+        }
         return playerList;
     }
 
-        /**Esiste giocatore debole (?)
+    /**Esiste giocatore debole (?)
      *
      * @param totalValue valore totale
      * @param minMargin margine minimo
