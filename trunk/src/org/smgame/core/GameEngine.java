@@ -1,14 +1,11 @@
 package org.smgame.core;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import org.smgame.core.card.Deck;
-import org.smgame.core.player.CPUPlayer;
-import org.smgame.core.player.HumanPlayer;
 import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
 import org.smgame.main.Game;
 import org.smgame.main.GameSetting;
-import org.smgame.util.EmptyDeckException;
 
 /**Classe GameEngine, motore di gioco
  *
@@ -25,6 +22,7 @@ public class GameEngine {
     private final double MAX_CREDIT = 64000;
     private final double MAX_SCORE = 7.5;
     private static int currentManche;
+    private Player playerBank;
 
     //costruttore privato
     private GameEngine(GameSetting gameSetting, Deck deck, PlayerList playerList) {
@@ -66,5 +64,11 @@ public class GameEngine {
          * occorre aggiungere la somma al credito del Mazziere
          */
         }
+    }
+
+    public Player selectFirstRandomBank() {
+        Collections.shuffle(playerList.getPlayerAL());
+        playerBank = playerList.getPlayerAL().get(0);
+        return playerBank;
     }
 }

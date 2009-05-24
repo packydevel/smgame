@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
+import javax.swing.event.InternalFrameEvent;
 import org.smgame.core.card.Card;
 import org.smgame.core.player.CPUPlayer;
 import org.smgame.core.player.HumanPlayer;
@@ -136,7 +137,6 @@ public class NewGameJIF extends JInternalFrame {
 
         cancelJB = new JButton("Annulla");
         cancelJB.setName("cancelJB");
-        //cancelJB.setMaximumSize(new Dimension(60, 20));
         cancelJB.setPreferredSize(new Dimension(70, 20));
         cancelJB.setVisible(true);
         buttonGBC.gridx = 2;
@@ -150,7 +150,6 @@ public class NewGameJIF extends JInternalFrame {
         playersJP.add(cancelJB, buttonGBC);
 
         okJB = new JButton("OK");
-        //okJB.setMaximumSize(new Dimension(80, 20));
         okJB.setPreferredSize(new Dimension(70, 20));
         okJB.setEnabled(false);
         okJB.setVisible(true);
@@ -212,8 +211,6 @@ public class NewGameJIF extends JInternalFrame {
                 playerJL[j].setVisible(true);
 
                 playerJTF[j] = new JTextField();
-                //playerJTF[j].setMinimumSize(new Dimension(80, 20));
-                //playerJTF[j].setMaximumSize(new Dimension(80, 20));
                 playerJTF[j].setPreferredSize(new Dimension(80, 20));
                 textFieldGBC.gridx = 1;
                 textFieldGBC.gridy = y;
@@ -259,7 +256,7 @@ public class NewGameJIF extends JInternalFrame {
                 eventSource=cancelJB.getName();
             }
 
-            this.dispose();
+            fireInternalFrameEvent(InternalFrameEvent.INTERNAL_FRAME_CLOSING);
         }
     }
 }

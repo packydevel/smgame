@@ -32,8 +32,6 @@ public class Game implements Serializable {
      */
     private Game(GameSetting gameSetting, PlayerList playerList) {
 
-        char playerType = 'H';
-
         Game.gameSetting = gameSetting;
         Game.deck = Deck.getInstance();
         Game.playerList = playerList;
