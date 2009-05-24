@@ -25,7 +25,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private List<Player> list_player;
 
     public GameJIF(Map temp_map, GameSetting gs) {
-        super();
+        super("Partita");
         setPreferredSize(new Dimension(1000, 600));
         setBounds(5, 5, 1005, 605);
         hashmap = temp_map;
@@ -35,7 +35,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     }
 
     public GameJIF(List<Player> tempList, GameSetting gs) {
-        super();
+        super("Partita");
         System.out.println(tempList.size());
         setPreferredSize(new Dimension(1000, 600));
         setBounds(5, 5, 1005, 605);

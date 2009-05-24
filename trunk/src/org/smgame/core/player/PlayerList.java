@@ -1,6 +1,8 @@
 package org.smgame.core.player;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**Classe lista giocatori
  *
@@ -10,13 +12,13 @@ import java.util.ArrayList;
 public class PlayerList {
 
     private static PlayerList playerList = null;
-    private ArrayList<Player> playerAL = new ArrayList<Player>();
+    private LinkedList<Player> playerAL = new LinkedList<Player>();
 
     //costruttore privato
     private PlayerList() { }
 
     
-    public ArrayList<Player> getPlayerAL() {
+    public List<Player> getPlayerAL() {
         return playerAL;
     }
 
@@ -37,7 +39,7 @@ public class PlayerList {
      * @return booleano sul controllo del giocatore
      */
     public boolean existWeakPlayer(double totalValue, double minMargin) {
-        ArrayList<Player> playerList = PlayerList.getInstance().getPlayerAL();
+        LinkedList<Player> playerList = (LinkedList<Player>) PlayerList.getInstance().getPlayerAL();
         for (Player p : playerList) {
             if (p instanceof CPUPlayer) {
                 p = (CPUPlayer) p;

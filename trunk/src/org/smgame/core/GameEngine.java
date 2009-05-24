@@ -22,7 +22,8 @@ public class GameEngine {
     private final double MAX_CREDIT = 64000;
     private final double MAX_SCORE = 7.5;
     private static int currentManche;
-    private Player playerBank;
+    private Player bankPlayer;
+    private Player currentPlayer;
 
     //costruttore privato
     private GameEngine(GameSetting gameSetting, Deck deck, PlayerList playerList) {
@@ -68,7 +69,25 @@ public class GameEngine {
 
     public Player selectFirstRandomBank() {
         Collections.shuffle(playerList.getPlayerAL());
-        playerBank = playerList.getPlayerAL().get(0);
-        return playerBank;
+        bankPlayer = playerList.getPlayerAL().get(0);
+        return bankPlayer;
+    }
+
+    public Player nextPlayer() {
+        int indexList;
+        if (currentPlayer == null) {
+            indexList = playerList.getPlayerAL().indexOf((Player) bankPlayer);
+        } else {
+            indexList = playerList.getPlayerAL().indexOf((Player) currentPlayer);
+        }
+
+        indexList = indexList % playerList.getPlayerAL().size() + 1;
+        currentPlayer=playerList.getPlayerAL().get(indexList);
+
+        return currentPlayer;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 }
