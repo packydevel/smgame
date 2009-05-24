@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Date;
 import org.smgame.core.GameEngine;
 import org.smgame.core.card.Deck;
 import org.smgame.core.player.PlayerList;
@@ -24,6 +25,7 @@ public class Game implements Serializable {
     private GameEngine gameEngine;
     private Deck deck;
     private PlayerList playerList;
+    private Date creationDate, lastSaveDate;
     private final String fileName="/packydata/games.dat";
 
     /**Costruttore
@@ -32,12 +34,27 @@ public class Game implements Serializable {
      */
     private Game(String gameName, GameSetting gameSetting, PlayerList playerList) {
 
+        this.creationDate=new Date();
         this.gameName=gameName;
         this.gameSetting = gameSetting;
         this.deck = Deck.getInstance();
         this.playerList = playerList;
         this.gameEngine = GameEngine.getInstance(gameSetting, deck, playerList);
     }
+
+    public String getGameName() {
+        return gameName;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public Date getLastSaveDate() {
+        return lastSaveDate;
+    }
+
+    
 
     public static Game create(String gameName, GameSetting gameSetting, PlayerList playerList) {
         game = new Game(gameName, gameSetting, playerList);
@@ -60,6 +77,7 @@ public class Game implements Serializable {
     }
 
     public void save() throws FileNotFoundException, IOException {
+        lastSaveDate= new Date();
         FileOutputStream fos = new FileOutputStream(fileName);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(game);
