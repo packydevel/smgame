@@ -31,6 +31,8 @@ public class PlayerActionsJP extends JPanel{
 
         jtxtSetCash = new JTextField();
         jtxtSetCash.setPreferredSize(new Dimension(20, 20));
+        jtxtSetCash.setEditable(true);
+        jtxtSetCash.setEnabled(true);
         jtxtSetCash.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent evt) {
                 jTextField1KeyPressed(evt);
