@@ -3,7 +3,6 @@ package org.smgame.frontend;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -13,7 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 
-public class MainJF extends JFrame implements InternalFrameListener {
+public class MainJF extends JFrame implements InternalFrameListener, NewGameListener {
 
     private static JDesktopPane desktop;
     private int frameNumber = 0;
@@ -80,11 +79,12 @@ public class MainJF extends JFrame implements InternalFrameListener {
             newGameJIF = new NewGameJIF();
             newGameJIF.setVisible(true);
             newGameJIF.addInternalFrameListener(this);
+            newGameJIF.addMyEventListener(this);
             desktop.add(newGameJIF);
             menuJMB.getNewGameJMI().setEnabled(false);
             menuJMB.getCloseGameJMI().setEnabled(true);
         } else if ((JMenuItem) evt.getSource() == menuJMB.getCloseGameJMI()) {
-            for (JInternalFrame jiframe: desktop.getAllFrames()) {
+            for (JInternalFrame jiframe : desktop.getAllFrames()) {
                 jiframe.dispose();
                 menuJMB.getNewGameJMI().setEnabled(true);
                 menuJMB.getCloseGameJMI().setEnabled(false);
@@ -128,22 +128,17 @@ public class MainJF extends JFrame implements InternalFrameListener {
     }
 
     public void internalFrameClosing(InternalFrameEvent e) {
-        if (e instanceof NewGameIFE) {
-            newGameJIF.dispose();
-            gameJIF = new GameJIF(((NewGameIFE) e).getPlayerList(), ((NewGameIFE) e).getGameSetting());
-            gameJIF.setVisible(true);
-            gameJIF.addInternalFrameListener(this);
-            desktop.add(gameJIF);
-        } else if (e.getInternalFrame() instanceof NewGameJIF) {
-            newGameJIF.dispose();
-            menuJMB.getNewGameJMI().setEnabled(true);
-        } else if (e.getInternalFrame() instanceof GameJIF) {
-            gameJIF.dispose();
-            menuJMB.getNewGameJMI().setEnabled(true);
-        }
+        
     }
 
     public void internalFrameClosed(InternalFrameEvent e) {
+        if (e.getInternalFrame() instanceof NewGameJIF) {
+            menuJMB.getNewGameJMI().setEnabled(true);
+            menuJMB.getCloseGameJMI().setEnabled(false);
+        } else if (e.getInternalFrame() instanceof GameJIF) {
+            menuJMB.getNewGameJMI().setEnabled(true);
+            menuJMB.getCloseGameJMI().setEnabled(false);
+        }
     }
 
     public void internalFrameOpened(InternalFrameEvent e) {
@@ -160,5 +155,14 @@ public class MainJF extends JFrame implements InternalFrameListener {
 
     public void internalFrameActivated(InternalFrameEvent e) {
         System.out.println("Internal frame deactivated");
+    }
+
+    public void newGameCreating(NewGameEvent e) {
+        gameJIF = new GameJIF(e.getPlayerList(), e.getGameSetting());
+        gameJIF.setVisible(true);
+        gameJIF.addInternalFrameListener(this);
+        desktop.add(gameJIF);
+        menuJMB.getNewGameJMI().setEnabled(false);
+        menuJMB.getCloseGameJMI().setEnabled(true);
     }
 } 

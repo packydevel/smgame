@@ -23,29 +23,27 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private JPanel[] jpActions;
     private Map<Player, List<Card>> hashmap;
 
-    public GameJIF(Map temp_map) {        
-        super();        
+    public GameJIF(Map temp_map) {
+        super();
         setPreferredSize(new Dimension(1000, 600));
-        //setBounds(5, 5, 1005, 605);
+        setBounds(5, 5, 1005, 605);
         setClosable(true);
-        hashmap = temp_map;
-        initComponents();        
-        this.setVisible(true);
         pack();
     }
 
-    public GameJIF(List<Player> tempList, GameSetting gs){
+    public GameJIF(List<Player> tempList, GameSetting gs) {
         super();
         setPreferredSize(new Dimension(1000, 600));
-        //setBounds(5, 5, 1005, 605);
+        setBounds(5, 5, 1005, 605);
         setClosable(true);
+        pack();
     }
 
     private void initComponents() {
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.weighty = 0.1;
-        c.weightx = 0.1;        
+        c.weightx = 0.1;
         c.anchor = GridBagConstraints.NORTHWEST;
         jpPanels = new JPanel[hashmap.size()];
         jpActions = new JPanel[hashmap.size()];
@@ -54,20 +52,21 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
         for (int i = 0; i < hashmap.size(); i++) {
             c.gridy = i;
-            Player tempPlayer = (Player)list_keys[i];
+            Player tempPlayer = (Player) list_keys[i];
             player_list.getPlayerAL().add(tempPlayer);
             jpPanels[i] = new PlayerCardJP(tempPlayer.getName());
 
             c.gridx = 0;
             this.add(jpPanels[i], c);
 
-            
+
             if (list_keys[i] instanceof HumanPlayer) {
                 c.gridx = 1;
                 jpActions[i] = new PlayerActionsJP();
-                this.add(jpActions[i],c);
-            } else
+                this.add(jpActions[i], c);
+            } else {
                 jpActions[i] = null;
+            }
         }
 
         Game game = Game.create(null, player_list);
