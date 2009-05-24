@@ -1,8 +1,11 @@
 package org.smgame.frontend;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+
 import java.io.File;
+
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -58,6 +61,16 @@ public class PlayerCardJP extends JPanel{
             components[i]= null;
         }
         number=0;
+    }
+
+    public void selectBank(){
+        components[0].setOpaque(true);
+        components[0].setBackground(new Color(255, 153, 0));
+    }
+
+    public void deselectBank(){
+        components[0].setOpaque(false);
+        components[0].setBackground(new Color(212, 208, 200));
     }
 
 }//end class
