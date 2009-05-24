@@ -2,15 +2,22 @@ package org.smgame.frontend;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 
 public class PlayerActionsJP extends JPanel{
-    private JComboBox jcbActions;
-    private JButton jbRun;
+    private JTextField jtxtSetCash;
+    private JButton jbCallCard;
+    private JButton jbImOK;
 
     public PlayerActionsJP() {
         initComponents();
@@ -20,19 +27,37 @@ public class PlayerActionsJP extends JPanel{
         this.setPreferredSize(new Dimension(200, 30));
         this.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        jcbActions = new JComboBox();
-        String[] operations = new String[] {null, "Fai puntata", "Chiedi carta", "Ritirati", "Dichiara 7mezzo"};
-        jcbActions.setModel(new javax.swing.DefaultComboBoxModel(operations));
-        this.add(jcbActions);
+        this.add(new JLabel("Puntata"));
 
-        jbRun = new JButton("Esegui");
-        jbRun.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        jbRun.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        jtxtSetCash = new JTextField();
+        jtxtSetCash.setPreferredSize(new Dimension(20, 20));
+        jtxtSetCash.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+
+            private void jTextField1KeyPressed(KeyEvent evt) {
+                throw new UnsupportedOperationException("Not yet implemented");
+            }
+        });
+
+        jbCallCard = new JButton("Chiedi carta");
+        jbCallCard.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        jbCallCard.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
 
             }
         });
-        this.add(jbRun);
+        this.add(jbCallCard);
+
+        jbImOK = new JButton("Sto bene");
+        jbImOK.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        jbImOK.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+
+            }
+        });
+        this.add(jbImOK);
     } //end initComponents
 
 }
