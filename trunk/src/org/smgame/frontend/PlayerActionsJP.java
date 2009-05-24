@@ -24,24 +24,23 @@ public class PlayerActionsJP extends JPanel{
     }
 
     private void initComponents() {
-        this.setPreferredSize(new Dimension(200, 30));
+        this.setPreferredSize(new Dimension(300, 30));
         this.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         this.add(new JLabel("Puntata"));
 
         jtxtSetCash = new JTextField();
-        jtxtSetCash.setPreferredSize(new Dimension(20, 20));
         jtxtSetCash.setEditable(true);
         jtxtSetCash.setEnabled(true);
+        jtxtSetCash.setPreferredSize(new Dimension(50, 20));
+        jtxtSetCash.setColumns(7);
+        jtxtSetCash.setVisible(true);
         jtxtSetCash.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent evt) {
-                jTextField1KeyPressed(evt);
-            }
-
-            private void jTextField1KeyPressed(KeyEvent evt) {
-                throw new UnsupportedOperationException("Not yet implemented");
-            }
+                
+            }            
         });
+        this.add(jtxtSetCash);
 
         jbCallCard = new JButton("Chiedi carta");
         jbCallCard.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
