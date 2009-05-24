@@ -37,9 +37,9 @@ public class LoadGameJIF extends JInternalFrame {
 
     public LoadGameJIF() {
         super("Carica Partita", false, true, false, false);
-        setSize(400, 450);
+        setSize(500, 250);
         gameATM = new LoadGameATM();
-        gameATM.setValueAt(GUIGameEngine.getGame().getGameName(), 1, 1);
+        gameATM.setValueAt(GUIGameEngine.getGame().getGameName(), 0, 0);
         gameJT = new JTable(gameATM);
         gameJT.setFillsViewportHeight(true);
         gameJT.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -47,8 +47,6 @@ public class LoadGameJIF extends JInternalFrame {
 
         rootJP = new JPanel();
         rootJP.setLayout(new GridBagLayout());
-
-        tableJSP = new JScrollPane(gameJT);
 
         rootGBC = new GridBagConstraints();
         rootGBC.weightx = 0;
@@ -59,8 +57,16 @@ public class LoadGameJIF extends JInternalFrame {
         tableGBC = new GridBagConstraints();
         tableGBC.weightx = 0;
         tableGBC.weighty = 0;
+        tableGBC.gridwidth = 2;
+        tableGBC.fill = GridBagConstraints.HORIZONTAL;
         tableGBC.insets = new Insets(2, 2, 2, 2);
-        tableGBC.anchor = GridBagConstraints.NORTHWEST;
+        tableGBC.anchor = GridBagConstraints.CENTER;
+
+        tableJSP = new JScrollPane(gameJT);
+        tableJSP.setPreferredSize(new Dimension(450, 150));
+        tableGBC.gridx = 0;
+        tableGBC.gridy = 0;
+        rootJP.add(tableJSP, tableGBC);
 
         buttonGBC = new GridBagConstraints();
         buttonGBC.weightx = 0;
@@ -72,8 +78,8 @@ public class LoadGameJIF extends JInternalFrame {
         cancelJB.setName("cancelJB");
         cancelJB.setPreferredSize(new Dimension(70, 20));
         cancelJB.setVisible(true);
-        buttonGBC.gridx = 2;
-        buttonGBC.gridy = 14;
+        buttonGBC.gridx = 1;
+        buttonGBC.gridy = 1;
         cancelJB.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
@@ -86,8 +92,8 @@ public class LoadGameJIF extends JInternalFrame {
         okJB.setPreferredSize(new Dimension(70, 20));
         okJB.setEnabled(false);
         okJB.setVisible(true);
-        buttonGBC.gridx = 1;
-        buttonGBC.gridy = 14;
+        buttonGBC.gridx = 0;
+        buttonGBC.gridy = 1;
         buttonGBC.weightx = 1;
         okJB.addActionListener(new ActionListener() {
 
