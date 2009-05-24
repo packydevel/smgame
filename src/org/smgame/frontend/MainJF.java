@@ -14,7 +14,6 @@ import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
-import org.smgame.main.Game;
 
 public class MainJF extends JFrame implements InternalFrameListener, NewGameListener {
 
@@ -31,8 +30,8 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
     private ToolBarJTB toolBarJTB;
     private ToolBarJTB statusBarJTB;
     private NewGameJIF newGameJIF;
+    private LoadGameJIF loadGameJIF;
     private GameJIF gameJIF;
-    private Game game;
 
     public MainJF() {
         super("SMGame - Gioco Italiano del Sette e 1/2");
@@ -100,9 +99,14 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
             menuJMB.getNewGameJMI().setEnabled(false);
             menuJMB.getCloseGameJMI().setEnabled(true);
         } else if ((JMenuItem) evt.getSource() == menuJMB.getLoadGameJMI()) {
+            loadGameJIF = new LoadGameJIF();
+            loadGameJIF.setVisible(true);
+            loadGameJIF.addInternalFrameListener(this);
+            desktop.add(loadGameJIF);
+            menuJMB.getLoadGameJMI().setEnabled(false);
         } else if ((JMenuItem) evt.getSource() == menuJMB.getSaveGameJMI()) {
             try {
-                game.save();
+                GUIGameEngine.saveGame();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -184,7 +188,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         while (playerIterator.hasNext()) {
             playerList.getPlayerAL().add(playerIterator.next());
         }
-        game = Game.create(e.getGameName(), e.getGameSetting(), playerList);
+        GUIGameEngine.createGame(e.getGameName(), e.getGameSetting(), playerList);
         gameJIF = new GameJIF(e.getGameName(), e.getPlayerList(), e.getGameSetting());
         gameJIF.setVisible(true);
         gameJIF.addInternalFrameListener(this);
