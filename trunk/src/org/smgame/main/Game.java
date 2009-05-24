@@ -9,8 +9,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import org.smgame.core.GameEngine;
 import org.smgame.core.card.Deck;
-import org.smgame.core.player.CPUPlayer;
-import org.smgame.core.player.HumanPlayer;
 import org.smgame.core.player.PlayerList;
 
 /**Classe gioco
@@ -21,25 +19,28 @@ import org.smgame.core.player.PlayerList;
 public class Game implements Serializable {
 
     private static Game game;
+    private String gameName;
     private GameSetting gameSetting;
     private GameEngine gameEngine;
     private Deck deck;
     private PlayerList playerList;
+    private final String fileName="/packydata/games.dat";
 
     /**Costruttore
      *
      * @param gameSetting settaggi gioco
      */
-    private Game(GameSetting gameSetting, PlayerList playerList) {
+    private Game(String gameName, GameSetting gameSetting, PlayerList playerList) {
 
-        gameSetting = gameSetting;
-        deck = Deck.getInstance();
-        playerList = playerList;
-        gameEngine = GameEngine.getInstance(gameSetting, deck, playerList);
+        this.gameName=gameName;
+        this.gameSetting = gameSetting;
+        this.deck = Deck.getInstance();
+        this.playerList = playerList;
+        this.gameEngine = GameEngine.getInstance(gameSetting, deck, playerList);
     }
 
-    public static Game create(GameSetting gameSetting, PlayerList playerList) {
-        game = new Game(gameSetting, playerList);
+    public static Game create(String gameName, GameSetting gameSetting, PlayerList playerList) {
+        game = new Game(gameName, gameSetting, playerList);
         return game;
     }
 
@@ -58,7 +59,7 @@ public class Game implements Serializable {
         deck.print();
     }
 
-    public static void save(String fileName) throws FileNotFoundException, IOException {
+    public void save() throws FileNotFoundException, IOException {
         FileOutputStream fos = new FileOutputStream(fileName);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(game);
@@ -67,7 +68,7 @@ public class Game implements Serializable {
         fos.close();
     }
 
-    public static void load(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException {
+    public void load() throws FileNotFoundException, IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream(fileName);
         ObjectInputStream ois = new ObjectInputStream(fis);
         game = (Game) ois.readObject();

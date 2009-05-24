@@ -1,5 +1,6 @@
 package org.smgame.core;
 
+import java.io.Serializable;
 import java.util.Collections;
 import org.smgame.core.card.Card;
 import org.smgame.core.card.Deck;
@@ -13,7 +14,7 @@ import org.smgame.main.GameSetting;
  * @author luca
  * @author pasquale
  */
-public class GameEngine {
+public class GameEngine implements Serializable {
 
     private static GameEngine gameEngine = null;
     private GameSetting gameSetting;
@@ -22,7 +23,7 @@ public class GameEngine {
     private Game game;
     private final double MAX_CREDIT = 64000;
     private final double MAX_SCORE = 7.5;
-    private static int currentManche;
+    private int currentManche;
     private Player bankPlayer;
     private Player currentPlayer;
 

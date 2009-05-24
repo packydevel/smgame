@@ -1,5 +1,6 @@
 package org.smgame.core.card;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import java.util.List;
  * @author pasquale
  * @author luca
  */
-public class Deck {
+public class Deck implements Serializable {
     //costanti
 
     //TODO: ma ha senso double?
@@ -26,7 +27,7 @@ public class Deck {
     //variabili
     protected int totalRemainingCards = TOTAL_CARDS; //carte rimanenti
     private static Deck currentDeck = null; //mazzo corrente
-    private Iterator<Card> onGameCardsIterator;
+    private transient Iterator<Card> onGameCardsIterator;
     protected Card nextCard; //prossima carta
 
     //costruttore privato

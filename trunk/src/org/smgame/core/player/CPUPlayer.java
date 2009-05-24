@@ -1,11 +1,13 @@
 package org.smgame.core.player;
 
+import java.io.Serializable;
+
 /**Classe giocatore CPU
  *
  * @author luca
  * @author pasquale
  */
-public class CPUPlayer extends Player {
+public class CPUPlayer extends Player implements Serializable {
 
     private final double MAX_CREDIT = 100.0; //massimo credito
     private final double MIN_SCORE = 4.5; //minimo punteggio
