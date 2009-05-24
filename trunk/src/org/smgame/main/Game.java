@@ -21,10 +21,10 @@ import org.smgame.core.player.PlayerList;
 public class Game implements Serializable {
 
     private static Game game;
-    private static GameSetting gameSetting;
-    private static GameEngine gameEngine;
-    private static Deck deck;
-    private static PlayerList playerList;
+    private GameSetting gameSetting;
+    private GameEngine gameEngine;
+    private Deck deck;
+    private PlayerList playerList;
 
     /**Costruttore
      *
@@ -32,16 +32,19 @@ public class Game implements Serializable {
      */
     private Game(GameSetting gameSetting, PlayerList playerList) {
 
-        Game.gameSetting = gameSetting;
-        Game.deck = Deck.getInstance();
-        Game.playerList = playerList;
-
-        Game.gameEngine = GameEngine.getInstance(gameSetting, deck, playerList);
+        gameSetting = gameSetting;
+        deck = Deck.getInstance();
+        playerList = playerList;
+        gameEngine = GameEngine.getInstance(gameSetting, deck, playerList);
     }
 
     public static Game create(GameSetting gameSetting, PlayerList playerList) {
         game = new Game(gameSetting, playerList);
         return game;
+    }
+
+    public GameEngine getGameEngine() {
+        return gameEngine;
     }
 
     public void printTest() {
