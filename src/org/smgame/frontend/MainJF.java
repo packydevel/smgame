@@ -27,6 +27,7 @@ public class MainJF extends JFrame implements InternalFrameListener {
     private MenuJMB menuJMB;
     private ToolBarJTB toolBarJTB;
     private ToolBarJTB statusBarJTB;
+    private NewGameJIF newGameJIF;
     private GameJIF gameJIF;
 
     public MainJF() {
@@ -77,7 +78,7 @@ public class MainJF extends JFrame implements InternalFrameListener {
 //            gameJIF = (GameJIF) createFrame("Test", false, false, false, false);
 //            desktop.add(gameJIF);
 //            gameJIF.setVisible(true);
-            NewGameJIF newGameJIF = new NewGameJIF();
+            newGameJIF = new NewGameJIF();
             newGameJIF.setVisible(true);
             newGameJIF.addInternalFrameListener(this);
             desktop.add(newGameJIF);
@@ -126,15 +127,15 @@ public class MainJF extends JFrame implements InternalFrameListener {
     }
 
     public void internalFrameClosing(InternalFrameEvent e) {
-        System.out.println("Internal frame deactivated");
-    }
-
-    public void internalFrameClosed(InternalFrameEvent e) {
         if (e.getInternalFrame() instanceof NewGameJIF) {
             if (((NewGameJIF) e.getInternalFrame()).getEventSource().equals("cancelJB")) {
                 menuJMB.getNewGameJMI().setEnabled(true);
             }
+            newGameJIF.dispose();
         }
+    }
+
+    public void internalFrameClosed(InternalFrameEvent e) {
     }
 
     public void internalFrameOpened(InternalFrameEvent e) {

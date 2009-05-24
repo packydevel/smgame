@@ -8,6 +8,7 @@ package org.smgame.core.card;
  */
 public class Card {
     //variabili
+
     private Point point; //punto
     private Suit suit; //seme
     private double value; //valore
@@ -18,10 +19,9 @@ public class Card {
      * @param suit seme 
      * @param value valore
      */
-    public Card(Point point, Suit suit, double value) {
+    public Card(Point point, Suit suit) {
         this.point = point;
         this.suit = suit;
-        this.value = value;
     }
 
     /**Restituisce il punto
@@ -32,7 +32,6 @@ public class Card {
         return this.point;
     }
 
-    
     /**Restituisce il seme
      * 
      * @return stringa seme
@@ -49,13 +48,15 @@ public class Card {
         return this.value;
     }
 
-    
+    public void setValue(double value) {
+        this.value = value;
+    }
+
     /**Restituisce 
      * 
      */
     @Override
     public String toString() {
-        return point + " di " + suit + " => "+ value;
+        return point + " di " + suit + " => " + value;
     }
-    
 }//end class

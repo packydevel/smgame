@@ -2,9 +2,9 @@ package org.smgame.core.card;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import org.smgame.util.EmptyDeckException;
 
 /**Classe Mazzo
  * contiene le 40carte da gioco
@@ -17,6 +17,7 @@ public class Deck {
 
     //TODO: ma ha senso double?
     private final double[] ALL_VALUE = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 0.5, 0.5, 0.5};//tutti i valori
+    private final HashMap<Card, Float> CARDS_VALUE = new HashMap<Card, Float>();
     private final ArrayList<Card> CARDS = new ArrayList<Card>();
     private ArrayList<Card> onGameCardList = new ArrayList<Card>();
     private ArrayList<Card> offGameCardList = new ArrayList<Card>();
@@ -31,10 +32,14 @@ public class Deck {
     //costruttore privato
     private Deck() {
         int i;
+        int value;
+        Card c;
         for (Suit suit : Suit.values()) {
             i = 0;
             for (Point point : Point.values()) {
-                CARDS.add(new Card(point, suit, ALL_VALUE[i]));
+                c = new Card(point, suit);
+                CARDS.add(c);
+                CARDS_VALUE.put(c, new Float(ALL_VALUE[i]));
                 i++;
             }
         }
@@ -78,8 +83,8 @@ public class Deck {
         if (!onGameCardsIterator.hasNext()) {
             onGameCardList.addAll(offGameCardList);
             Collections.shuffle(onGameCardList);
-            onGameCardsIterator=onGameCardList.iterator();
-            //throw new EmptyDeckException();
+            onGameCardsIterator = onGameCardList.iterator();
+        //throw new EmptyDeckException();
         }
 
         nextCard = onGameCardsIterator.next();
