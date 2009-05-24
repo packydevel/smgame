@@ -3,17 +3,24 @@ package org.smgame.frontend;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.util.LinkedList;
+
+import java.util.List;
 import java.util.Map;
+
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
+
 import org.smgame.core.card.Card;
+import org.smgame.core.player.HumanPlayer;
 import org.smgame.core.player.Player;
+import org.smgame.core.player.PlayerList;
+import org.smgame.main.Game;
 
 public class GameJIF extends JInternalFrame implements IGameJIF {
 
-    private JPanel[] panels;
-    private Map<String, LinkedList<Card>> hashmap;
+    private JPanel[] jpPanels;
+    private JPanel[] jpActions;
+    private Map<Player, List<Card>> hashmap;
 
     public GameJIF(Map temp_map) {        
         super();        
@@ -30,17 +37,32 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.weighty = 0.1;
-        c.weightx = 0.1;
-        c.gridx = 0;
+        c.weightx = 0.1;        
         c.anchor = GridBagConstraints.NORTHWEST;
-        panels = new JPanel[hashmap.size()];
+        jpPanels = new JPanel[hashmap.size()];
+        jpActions = new JPanel[hashmap.size()];
         Object[] list_keys = hashmap.keySet().toArray();
+        PlayerList player_list = PlayerList.getInstance();
 
         for (int i = 0; i < hashmap.size(); i++) {
-            panels[i] = new PlayerCardJP(((Player)list_keys[i]).getName());
             c.gridy = i;
-            this.add(panels[i], c);
+            Player tempPlayer = (Player)list_keys[i];
+            player_list.getPlayerAL().add(tempPlayer);
+            jpPanels[i] = new PlayerCardJP(tempPlayer.getName());
+
+            c.gridx = 0;
+            this.add(jpPanels[i], c);
+
+            
+            if (list_keys[i] instanceof HumanPlayer) {
+                c.gridx = 1;
+                jpActions[i] = new PlayerActionsJP();
+                this.add(jpActions[i],c);
+            } else
+                jpActions[i] = null;
         }
+
+        Game game = Game.create(null, player_list);
 
     /*
     c.gridy = 2;
