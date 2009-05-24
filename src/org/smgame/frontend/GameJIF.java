@@ -36,6 +36,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
     public GameJIF(List<Player> tempList, GameSetting gs) {
         super();
+        System.out.println(tempList.size());
         setPreferredSize(new Dimension(1000, 600));
         setBounds(5, 5, 1005, 605);
         setClosable(true);
