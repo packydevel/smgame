@@ -68,7 +68,6 @@ public class MainJF extends JFrame implements InternalFrameListener {
             }
         });
 
-
         setJMenuBar(menuJMB.getJMenuBar1());
     }
 
@@ -85,9 +84,11 @@ public class MainJF extends JFrame implements InternalFrameListener {
             menuJMB.getNewGameJMI().setEnabled(false);
             menuJMB.getCloseGameJMI().setEnabled(true);
         } else if ((JMenuItem) evt.getSource() == menuJMB.getCloseGameJMI()) {
-            gameJIF.dispose();
-            menuJMB.getNewGameJMI().setEnabled(true);
-            menuJMB.getCloseGameJMI().setEnabled(false);
+            for (JInternalFrame jiframe: desktop.getAllFrames()) {
+                jiframe.dispose();
+                menuJMB.getNewGameJMI().setEnabled(true);
+                menuJMB.getCloseGameJMI().setEnabled(false);
+            }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getExitGameJMI()) {
             this.dispose();
         }
@@ -127,11 +128,18 @@ public class MainJF extends JFrame implements InternalFrameListener {
     }
 
     public void internalFrameClosing(InternalFrameEvent e) {
-        if (e.getInternalFrame() instanceof NewGameJIF) {
-            if (((NewGameJIF) e.getInternalFrame()).getEventSource().equals("cancelJB")) {
-                menuJMB.getNewGameJMI().setEnabled(true);
-            }
+        if (e instanceof NewGameIFE) {
             newGameJIF.dispose();
+            gameJIF = new GameJIF(((NewGameIFE) e).getPlayerList(), ((NewGameIFE) e).getGameSetting());
+            gameJIF.setVisible(true);
+            gameJIF.addInternalFrameListener(this);
+            desktop.add(gameJIF);
+        } else if (e.getInternalFrame() instanceof NewGameJIF) {
+            newGameJIF.dispose();
+            menuJMB.getNewGameJMI().setEnabled(true);
+        } else if (e.getInternalFrame() instanceof GameJIF) {
+            gameJIF.dispose();
+            menuJMB.getNewGameJMI().setEnabled(true);
         }
     }
 
