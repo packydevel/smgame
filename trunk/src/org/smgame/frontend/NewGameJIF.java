@@ -8,9 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -22,10 +21,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import javax.swing.event.InternalFrameEvent;
-import org.smgame.core.card.Card;
 import org.smgame.core.player.CPUPlayer;
 import org.smgame.core.player.HumanPlayer;
 import org.smgame.core.player.Player;
+import org.smgame.main.GameSetting;
 
 /**internal frame new game
  *frame interno nuovo gioco
@@ -175,6 +174,8 @@ public class NewGameJIF extends JInternalFrame {
 
     private void newGameActionPerformed(ActionEvent evt) {
 
+        List<Player> playerList;
+
         if (evt.getSource() instanceof JComboBox) {
 
             if (playersNumberJCB.getSelectedItem() == null) {
@@ -240,23 +241,27 @@ public class NewGameJIF extends JInternalFrame {
                     }
                 }
 
-                final Map<Player, List<Card>> hmPlayerCards = new HashMap<Player, List<Card>>();
-                hmPlayerCards.put(new HumanPlayer(playerJTF[0].getText()), null);
+                playerList = new ArrayList<Player>();
+                playerList.add(new HumanPlayer(playerJTF[0].getText()));
 
                 for (int j = 1; j < currentPlayersNumber; j++) {
-                    if (cpuflagJCKB[j - 1].isSelected())
-                        hmPlayerCards.put(new CPUPlayer(playerJTF[j].getText()), null);
-                    else
-                        hmPlayerCards.put(new HumanPlayer(playerJTF[j].getText()), null);
+                    if (cpuflagJCKB[j - 1].isSelected()) {
+                        playerList.add(new CPUPlayer(playerJTF[j].getText()));
+                    } else {
+                        playerList.add(new HumanPlayer(playerJTF[j].getText()));
+                    }
                 }
 
-                GameJIF gameJIF = new GameJIF(hmPlayerCards);
-                getDesktopPane().add(gameJIF).setVisible(true);
+                //GameJIF gameJIF = new GameJIF(hmPlayerCards);
+                //getDesktopPane().add(gameJIF).setVisible(true);
+                InternalFrameEvent ife = new NewGameIFE(this, InternalFrameEvent.INTERNAL_FRAME_CLOSING, playerList, null);
+                //ife.notify();
             } else {
-                eventSource=cancelJB.getName();
+                eventSource = cancelJB.getName();
             }
 
-            fireInternalFrameEvent(InternalFrameEvent.INTERNAL_FRAME_CLOSING);
+
+            //fireInternalFrameEvent(InternalFrameEvent.INTERNAL_FRAME_CLOSING);
         }
     }
 }
