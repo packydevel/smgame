@@ -56,7 +56,9 @@ public class Game implements Serializable {
         return lastSaveDate;
     }
 
-    
+    public PlayerList getPlayerList() {
+        return playerList;
+    }
 
     public static Game create(String gameName, GameSetting gameSetting, PlayerList playerList) {
         game = new Game(gameName, gameSetting, playerList);
