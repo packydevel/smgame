@@ -12,8 +12,11 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Map;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,6 +32,7 @@ import org.smgame.core.player.PlayerRole;
 import org.smgame.main.Game;
 import org.smgame.main.GameSetting;
 import org.smgame.util.BetOverflowException;
+import org.smgame.util.PrintErrors;
 import org.smgame.util.ScoreOverflowException;
 
 public class GameJIF extends JInternalFrame implements IGameJIF {
@@ -171,7 +175,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         jbCallCard.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         jbCallCard.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                //requestCard();
+                requestCard();
             }
         });
         pane.add(jbCallCard);
@@ -188,8 +192,18 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         return pane;
     }
 
-    private void requestCard() throws BetOverflowException, ScoreOverflowException{
-        engine.requestCard(engine.getCurrentPlayer(), 1);
+    private void requestCard(){
+        try {
+            //TODO:sistemare la puntata
+            System.out.println("TODO:sistemare la puntata");
+            engine.requestCard(engine.getCurrentPlayer(), 1);
+        } catch (BetOverflowException boe) {
+            PrintErrors.exception(boe);
+            //Logger.getLogger(GameJIF.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ScoreOverflowException soe) {
+            PrintErrors.exception(soe);
+            //Logger.getLogger(GameJIF.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 } //end class
