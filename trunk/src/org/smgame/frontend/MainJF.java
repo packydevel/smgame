@@ -1,31 +1,19 @@
 package org.smgame.frontend;
 
+import org.smgame.core.GUICoreMediator;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Iterator;
-import javax.swing.JCheckBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenuItem;
-import javax.swing.JTextField;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
-import org.smgame.core.player.Player;
-import org.smgame.core.player.PlayerList;
 
 public class MainJF extends JFrame implements InternalFrameListener, NewGameListener {
 
     private static JDesktopPane desktop;
-    private int frameNumber = 0;
-    private int xPos = 0;
-    private int yPos = 0;
-    private JTextField titleTextField;
-    private JCheckBox resizableCheckBox;
-    private JCheckBox closableCheckBox;
-    private JCheckBox maximizableCheckBox;
-    private JCheckBox iconifiableCheckBox;
     private MenuJMB menuJMB;
     private ToolBarJTB toolBarJTB;
     private ToolBarJTB statusBarJTB;
@@ -91,27 +79,36 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
     private void jMenu1ActionPerformed(ActionEvent evt) {
 
         if ((JMenuItem) evt.getSource() == menuJMB.getNewGameJMI()) {
-            newGameJIF = new NewGameJIF();
-            newGameJIF.setVisible(true);
-            newGameJIF.addInternalFrameListener(this);
-            newGameJIF.addMyEventListener(this);
-            desktop.add(newGameJIF);
-            menuJMB.getNewGameJMI().setEnabled(false);
-            menuJMB.getCloseGameJMI().setEnabled(true);
+            if (GUICoreMediator.askForNewGame()) {
+                newGameJIF = new NewGameJIF();
+                newGameJIF.setVisible(true);
+                newGameJIF.addInternalFrameListener(this);
+                newGameJIF.addMyEventListener(this);
+                desktop.add(newGameJIF);
+                menuJMB.getNewGameJMI().setEnabled(false);
+                menuJMB.getCloseGameJMI().setEnabled(true);
+            } else {
+                System.out.println("Esiste già una partita aperta");
+            }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getLoadGameJMI()) {
-            GUIGameEngine.loadGame();
-            loadGameJIF = new LoadGameJIF();
-            loadGameJIF.setVisible(true);
-            loadGameJIF.addInternalFrameListener(this);
-            desktop.add(loadGameJIF);
-            menuJMB.getLoadGameJMI().setEnabled(false);
+            if (GUICoreMediator.askForLoadGame()) {
+                GUICoreMediator.loadGame();
+                loadGameJIF = new LoadGameJIF();
+                loadGameJIF.setVisible(true);
+                loadGameJIF.addInternalFrameListener(this);
+                desktop.add(loadGameJIF);
+                menuJMB.getLoadGameJMI().setEnabled(false);
+            } else {
+                System.out.println("Esiste già una partita aperta");
+            }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getSaveGameJMI()) {
             try {
-                GUIGameEngine.saveGame();
+                GUICoreMediator.saveGame();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getCloseGameJMI()) {
+            GUICoreMediator.closeGame();
             for (JInternalFrame jiframe : desktop.getAllFrames()) {
                 jiframe.dispose();
                 menuJMB.getNewGameJMI().setEnabled(true);
@@ -119,35 +116,6 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
             }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getExitGameJMI()) {
             this.dispose();
-        }
-    }
-
-    protected JInternalFrame createFrame(String title, boolean resizable, boolean closable, boolean maximizable, boolean iconifiable) {
-        //gameJIF = new GameJIF();
-        return gameJIF;
-    }
-
-    class GenerateButtonActionListener implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-            String title = titleTextField.getText();
-            boolean resizable = resizableCheckBox.isSelected();
-            boolean closable = closableCheckBox.isSelected();
-            boolean maximizable = maximizableCheckBox.isSelected();
-            boolean iconifiable = iconifiableCheckBox.isSelected();
-            JInternalFrame frame = createFrame(title,
-                    resizable,
-                    closable,
-                    maximizable,
-                    iconifiable);
-            // aggiunge al JDesktopPane
-            desktop.add(frame);
-            // lo mette in cima agli altri JInternalFrame
-            frame.moveToFront();
-            // lo rende visibile
-            frame.setVisible(true);
-            titleTextField.setText("Frame " + String.valueOf(
-                    frameNumber++));
         }
     }
 
@@ -184,13 +152,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
     }
 
     public void newGameCreating(NewGameEvent e) {
-        PlayerList playerList = PlayerList.getInstance();
-        Iterator<Player> playerIterator = playerList.getPlayerAL().iterator();
-        while (playerIterator.hasNext()) {
-            playerList.getPlayerAL().add(playerIterator.next());
-        }
-        GUIGameEngine.createGame(e.getGameName(), e.getGameSetting(), playerList);
-        gameJIF = new GameJIF(e.getGameName(), e.getPlayerList(), e.getGameSetting());
+        gameJIF = new GameJIF();
         gameJIF.setVisible(true);
         gameJIF.addInternalFrameListener(this);
         desktop.add(gameJIF);

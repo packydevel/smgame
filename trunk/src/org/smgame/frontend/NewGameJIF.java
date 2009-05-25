@@ -21,6 +21,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import javax.swing.event.EventListenerList;
+import org.smgame.core.GUICoreMediator;
 import org.smgame.core.player.CPUPlayer;
 import org.smgame.core.player.HumanPlayer;
 import org.smgame.core.player.Player;
@@ -243,23 +244,25 @@ public class NewGameJIF extends JInternalFrame {
                     }
                 }
 
-
-                playerList = new ArrayList<Player>();
+                String gameName = gameNameJTF.getText();
+                List<String> playerName = new ArrayList<String>();
+                List<Boolean> playerType = new ArrayList<Boolean>();
 
                 for (int j = 0; j < currentPlayersNumber; j++) {
-                    if (j != 0) {
+                    playerName.add(playerJTF[j].getText());
+                    if (j > 0) {
                         if (cpuflagJCKB[j - 1].isSelected()) {
-                            playerList.add(new CPUPlayer(playerJTF[j].getText()));
+                            playerType.add(new Boolean(true));
                         } else {
-                            playerList.add(new HumanPlayer(playerJTF[j].getText()));
+                            playerType.add(new Boolean(false));
                         }
-                    } else {
-                        playerList.add(new HumanPlayer(playerJTF[j].getText()));
                     }
                 }
-                fireNewGameEvent(new NewGameEvent(this, gameNameJTF.getText(), playerList, null));
 
-            }
+                GUICoreMediator.createGame(gameName, null, playerName, playerType);
+
+                fireNewGameEvent(new NewGameEvent(this));
+                }
             dispose();
         }
     }

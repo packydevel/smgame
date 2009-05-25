@@ -40,6 +40,10 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private Game game;
     private GameEngine engine;
 
+    public GameJIF() {
+        super();
+    }
+
     public GameJIF(String gameName, Map temp_map, GameSetting gs) {
         super(gameName);
         this.gameName = gameName;

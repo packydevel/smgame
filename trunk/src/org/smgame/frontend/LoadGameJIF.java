@@ -4,6 +4,7 @@
  */
 package org.smgame.frontend;
 
+import org.smgame.core.GUICoreMediator;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -39,7 +40,7 @@ public class LoadGameJIF extends JInternalFrame {
         super("Carica Partita", false, true, false, false);
         setSize(500, 250);
         gameATM = new LoadGameATM();
-        gameATM.setValueAt(GUIGameEngine.getGame().getGameName(), 0, 0);
+        gameATM.setValueAt(GUICoreMediator.getGame().getGameName(), 0, 0);
         gameJT = new JTable(gameATM);
         gameJT.setFillsViewportHeight(true);
         gameJT.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
