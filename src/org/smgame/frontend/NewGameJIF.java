@@ -243,6 +243,7 @@ public class NewGameJIF extends JInternalFrame {
                     }
                 }
 
+
                 playerList = new ArrayList<Player>();
 
                 for (int j = 0; j < currentPlayersNumber; j++) {

@@ -17,6 +17,7 @@ public class GUIGameEngine {
     private static Game game;
 
     static void createGame(String gameName, GameSetting gamesetting, PlayerList playerList) {
+
         game.create(gameName, gamesetting, playerList);
     }
 

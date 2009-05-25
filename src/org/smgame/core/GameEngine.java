@@ -1,7 +1,9 @@
 package org.smgame.core;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import org.smgame.core.card.Card;
 import org.smgame.core.card.Deck;
 import org.smgame.core.player.Player;
@@ -69,13 +71,10 @@ public class GameEngine implements Serializable {
         return card;
     }
 
-    /**Seleziona e restituisce il primo mazziere del gioco
-     *
-     * @return
-     */
-    public Player selectFirstRandomBank() {
-        Collections.shuffle(playerList.getPlayerAL());
-        bankPlayer = playerList.getPlayerAL().get(0);
+    public Player selectFirstRandomBankPlayer() {
+        List<Player> tempList = new ArrayList<Player>(playerList.getPlayerAL());
+        Collections.shuffle(tempList);
+        bankPlayer = tempList.get(0);
         return bankPlayer;
     }
 
