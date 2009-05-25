@@ -1,6 +1,7 @@
 package org.smgame.main;
 
 import org.smgame.core.card.Card;
+import org.smgame.core.card.Deck;
 import org.smgame.core.card.Point;
 import org.smgame.core.card.Suit;
 
@@ -31,7 +32,7 @@ public class GameSetting {
         players = 4;
         manches = 10;
         credit = MIN_CREDIT;
-        jolly = new Card(Point.Re, Suit.Danari);
+        jolly = Deck.getInstance().getSelectedCard(Point.Re, Suit.Danari);
         smDAmblePaid = "double";
 
     }

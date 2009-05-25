@@ -1,11 +1,13 @@
 package org.smgame.core.card;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.ImageIcon;
 
 /**Classe Mazzo
  * contiene le 40carte da gioco
@@ -32,15 +34,35 @@ public class Deck implements Serializable {
 
     //costruttore privato
     private Deck() {
+        String curDir = "", img = "";
+        String separ = File.separator;
+        /*TODO: aggiustare il path x le carte in merito alla scelta delle carte*/
+        curDir += separ + "packydevel" + separ + "netbeans" + separ + "smgame" + separ + "src" + separ + "org" + separ + "smgame" + separ +
+                "resource" + separ + "cartemini" + separ + "napoletane" + separ;
         int i;
         int value;
         Card c;
         for (Suit suit : Suit.values()) {
             i = 0;
             for (Point point : Point.values()) {
-                c = new Card(point, suit);
+                if (suit == Suit.Bastoni) {
+                    img = "B";
+                } else if (suit == Suit.Coppe) {
+                    img = "C";
+                } else if (suit == Suit.Danari) {
+                    img = "D";
+                } else if (suit == Suit.Spade) {
+                    img = "S";
+                }
+
+                if (i < 9) {
+                    img += "0";
+                }
+                ImageIcon icon = new ImageIcon(curDir + img);
+                c = new Card(point, suit, icon, icon);
                 CARDS.add(c);
                 CARDS_VALUE.put(c, new Float(ALL_VALUE[i]));
+
                 i++;
             }
         }
@@ -106,4 +128,13 @@ public class Deck implements Serializable {
             System.out.println(c.toString());
         }
     }//end print
+
+    public Card getSelectedCard(Point point, Suit suit) {
+        for (Card c: CARDS) {
+            if (c.getPoint()==point && c.getSuit()==suit) {
+                return c;
+            }
+        }
+        return null;
+    }
 } //end class
