@@ -10,11 +10,13 @@ import java.util.Map;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 
+import org.smgame.core.GameEngine;
 import org.smgame.core.card.Card;
 import org.smgame.core.player.HumanPlayer;
 import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
 import org.smgame.core.player.PlayerRole;
+import org.smgame.main.Game;
 import org.smgame.main.GameSetting;
 
 public class GameJIF extends JInternalFrame implements IGameJIF {
@@ -113,38 +115,34 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
             if (tempPlayer instanceof HumanPlayer) {
                 jpActions[i] = new PlayerActionsJP();
-                //jpActions[i].setVisible(false);
+                jpActions[i].setVisible(false);
                 this.add(jpActions[i], gbcA);
-            } else {
-                jpActions[i] = null;
-            }
+            } else
+                jpActions[i] = null;            
         } //end for
 
+        Game game = Game.create(gameName, null, player_list);
+        GameEngine engine = game.getGameEngine();
+        int pos = positionBank(engine.selectFirstRandomBank());
+        ((PlayerCardJP)jpPanels[pos]).selectBank();
+        ((PlayerActionsJP)jpActions[(pos+1)%jpActions.length]).setVisible(true);
+        
+    }//end initComponentsNew
+
+    private int positionBank(Player bank){
+        int pos = -1;
+        for (int i=0;i<list_player.size();i++){
+            if (((Player)list_player.get(i)).equals(bank)){
+                pos=i;
+                break;
+            }
+        }//end for
+        return pos;
     }
+
 } //end class
 
 /*
-c.gridy = 2;
-JButton jbAdd = new JButton("add");
-jbAdd.addMouseListener(new java.awt.event.MouseAdapter() {
-@Override
-public void mouseClicked(java.awt.event.MouseEvent evt) {
-jbAddMouseClicked(evt);
-}
-});
-this.add(jbAdd,c);
-
-c.gridy = 3;
-JButton jbRemoveAll = new JButton("remove all");
-jbRemoveAll.addMouseListener(new java.awt.event.MouseAdapter() {
-@Override
-public void mouseClicked(java.awt.event.MouseEvent evt) {
-jbRemoveAllMouseClicked(evt);
-}
-});
-this.add(jbRemoveAll,c);
-}
-
 private void jbAddMouseClicked(MouseEvent evt) {
 ((testPanel) panel).newLabelIconCard("B01.jpg");
 pack();
@@ -154,5 +152,4 @@ private void jbRemoveAllMouseClicked(MouseEvent evt) {
 ((testPanel) panel).resetLabelIconCards();
 pack();
 }
-
  */
