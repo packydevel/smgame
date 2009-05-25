@@ -17,20 +17,23 @@ public class GameSetting {
     private final int MIN_MANCHES = 1;
     private final int MAX_MANCHES = 100;
     private int manches;
+    private final double MIN_CREDIT = 1000.00;
+    private final double MAX_CREDIT = 1000000.00;
+    private double credit;
     private Card jolly;
     private int jollyValue;
     private String smDAmblePaid;
-
 
     /**Costruttore
      *
      */
     public GameSetting() {
-        players=4;
-        manches=10;
+        players = 4;
+        manches = 10;
+        credit = MIN_CREDIT;
         jolly = new Card(Point.Re, Suit.Danari);
-        smDAmblePaid="double";
-        
+        smDAmblePaid = "double";
+
     }
 
     /**imposta il numero giocatori
@@ -52,6 +55,14 @@ public class GameSetting {
             this.players = manches;
         }
 
+    }
+
+    public void setCredit(double credit) {
+        if (credit < MIN_CREDIT || manches > MAX_CREDIT) {
+            System.out.println("Inserire un credito corretto!!!");
+        } else {
+            this.credit = credit;
+        }
     }
 
     /**Restituisce il numero giocatori
