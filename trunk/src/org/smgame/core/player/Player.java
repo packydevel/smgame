@@ -16,7 +16,7 @@ public abstract class Player implements Serializable {
     protected double credit; //credito
     protected double bet; //puntata
     protected ArrayList<Card> cardList; //
-    protected HashMap<Card, Double> betList;
+    protected ArrayList<Double> betList = new ArrayList<Double>(12);
     protected double score; //punteggio
     protected double MIN_SCORE = 4.0;
     protected double MIN_MARGIN = 0.5;
@@ -55,7 +55,7 @@ public abstract class Player implements Serializable {
         this.credit = credit;
     }
 
-    public HashMap<Card, Double> getBetList() {
+    public  ArrayList<Double> getBetList() {
         return betList;
     }
 
@@ -63,12 +63,8 @@ public abstract class Player implements Serializable {
         return cardList;
     }
 
-    /**Restituisce la puntata
-     *
-     * @return
-     */
-    public double getBet() {
-        return bet;
+    public void setBet(double bet) {
+        this.bet = bet;
     }
 
     /**Restituisce il punteggio
@@ -117,7 +113,7 @@ public abstract class Player implements Serializable {
     public double getStake() {
         double stake = 0;
 
-        for (Double b : betList.values()) {
+        for (Double b : (Double[]) betList.toArray()) {
             stake += b.doubleValue();
         }
 

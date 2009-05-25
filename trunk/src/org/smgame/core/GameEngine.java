@@ -10,6 +10,8 @@ import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
 import org.smgame.main.Game;
 import org.smgame.main.GameSetting;
+import org.smgame.util.BetOverflowException;
+import org.smgame.util.ScoreOverflowException;
 
 /**Classe GameEngine, motore di gioco
  *
@@ -44,8 +46,9 @@ public class GameEngine implements Serializable {
      * @return istanza gioco
      */
     public static GameEngine getInstance(GameSetting gameSetting, Deck deck, PlayerList playerList) {
-        if (gameEngine == null)
-            gameEngine = new GameEngine(gameSetting, deck, playerList);       
+        if (gameEngine == null) {
+            gameEngine = new GameEngine(gameSetting, deck, playerList);
+        }
 
         return gameEngine;
     }
@@ -71,20 +74,38 @@ public class GameEngine implements Serializable {
      * @param player giocatore che chiede la carta
      * @param bet puntata da effettuare
      */
-    public Card requestCard(Player player, double bet) {
+    public Card requestCard(Player player, double bet) throws BetOverflowException, ScoreOverflowException {
         Card card;
-        card = deck.getNextCard();
-        player.getCardList().add(card);
 
-        if (player.getScore() > 7.5) {
-            System.out.println("Hai sballato!!!");
-            deck.addOffGameCards(player.getCardList());
-            player.getCardList().clear();
-            player.setCredit(player.getCredit() - player.getStake());
-            bankPlayer.setCredit(bankPlayer.getCredit() + player.getStake());
+        if (player.getCredit() < bet) {
+            throw new BetOverflowException("Non hai sufficiente Credito per eseguire questa puntata!!!");
+        } else {
+            card = deck.getNextCard();
+            player.getCardList().add(card);
+
+            if (player.getScore() > 7.5) {
+                deck.addOffGameCards(player.getCardList());
+                player.getCardList().clear();
+                player.getBetList().clear();
+                player.setCredit(player.getCredit() - player.getStake());
+                bankPlayer.setCredit(bankPlayer.getCredit() + player.getStake());
+                throw new ScoreOverflowException("Mi spiace, Hai Sballato!!!");
+            } else {
+                player.getBetList().add(bet);
+                player.setCredit(player.getCredit() - bet);
+            }
         }
 
         return card;
+    }
+
+    public void declareGoodScore(Player player, double bet) throws BetOverflowException {
+        if (player.getCredit() < bet) {
+            throw new BetOverflowException("Non hai sufficiente Credito per eseguire questa puntata!!!");
+        } else {
+            player.getBetList().add(bet);
+            player.setCredit(player.getCredit() - bet);
+        }
     }
 
     public Player selectFirstRandomBankPlayer() {
@@ -100,10 +121,11 @@ public class GameEngine implements Serializable {
      */
     public Player nextPlayer() {
         int indexList;
-        if (currentPlayer == null)
+        if (currentPlayer == null) {
             indexList = playerList.getPlayerAL().indexOf((Player) bankPlayer);
-        else
-            indexList = playerList.getPlayerAL().indexOf((Player) currentPlayer);        
+        } else {
+            indexList = playerList.getPlayerAL().indexOf((Player) currentPlayer);
+        }
 
         indexList = indexList % playerList.getPlayerAL().size() + 1;
         currentPlayer = playerList.getPlayerAL().get(indexList);
@@ -118,5 +140,4 @@ public class GameEngine implements Serializable {
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
-
 }//end class
