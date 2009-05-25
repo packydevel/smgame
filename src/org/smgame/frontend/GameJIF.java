@@ -89,6 +89,13 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     }//end initComponentsNew
 
     private void initComponentsNew() {
+        PlayerList player_list = PlayerList.getInstance();
+        player_list.getPlayerAL().addAll(list_player);
+        Game game = Game.create(gameName, null, player_list);
+        GameEngine engine = game.getGameEngine();
+
+        int size = player_list.getPlayerAL().size();        
+
         setLayout(new GridBagLayout());
         GridBagConstraints gbcP = new GridBagConstraints();
         GridBagConstraints gbcA = new GridBagConstraints();
@@ -99,18 +106,16 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         gbcP.gridx = 0;
         gbcA.gridx = 1;
 
-        jpPanels = new JPanel[list_player.size()];
-        jpActions = new JPanel[list_player.size()];
-        PlayerList player_list = PlayerList.getInstance();
-
-        for (int i = 0; i < list_player.size(); i++) {
+        jpPanels = new JPanel[size];
+        jpActions = new JPanel[size];
+        
+        for (int i = 0; i < size; i++) {
             gbcP.gridy = gbcA.gridy = i;
-            Player tempPlayer = (Player) list_player.get(i);
-            player_list.getPlayerAL().add(tempPlayer);
+            Player tempPlayer = player_list.getPlayerAL().get(i);
             jpPanels[i] = new PlayerCardJP(tempPlayer.getName());
-            if (tempPlayer.getRole() == PlayerRole.Bank) {
+            if (tempPlayer.getRole() == PlayerRole.Bank)
                 ((PlayerCardJP) jpPanels[i]).selectBank();
-            }
+            
             this.add(jpPanels[i], gbcP);
 
             if (tempPlayer instanceof HumanPlayer) {
@@ -121,24 +126,12 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 jpActions[i] = null;            
         } //end for
 
-        Game game = Game.create(gameName, null, player_list);
-        GameEngine engine = game.getGameEngine();
-        int pos = positionBank(engine.selectFirstRandomBankPlayer());
-        ((PlayerCardJP)jpPanels[pos]).selectBank();
-        ((PlayerActionsJP)jpActions[(pos+1)%jpActions.length]).setVisible(true);
+        int pos = player_list.getPlayerAL().indexOf(engine.selectFirstRandomBankPlayer());
         
-    }//end initComponentsNew
-
-    private int positionBank(Player bank){
-        int pos = -1;
-        for (int i=0;i<list_player.size();i++){
-            if (((Player)list_player.get(i)).equals(bank)){
-                pos=i;
-                break;
-            }
-        }//end for
-        return pos;
-    }
+        ((PlayerCardJP)jpPanels[pos]).selectBank();
+        ((PlayerActionsJP)jpActions[(pos+1)%size]).setVisible(true);
+        
+    }//end initComponentsNew    
 
 } //end class
 
