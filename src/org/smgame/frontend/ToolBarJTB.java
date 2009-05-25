@@ -11,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
-import org.smgame.frontend.MainJF.GenerateButtonActionListener;
 
 /**
  *
