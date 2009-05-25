@@ -50,6 +50,22 @@ public class GameEngine implements Serializable {
         return gameEngine;
     }
 
+    public Card getFirstCard(Player player) {
+        Card card;
+        card = deck.getNextCard();
+        player.getCardList().add(card);
+
+        if (player.getScore() > 7.5) {
+            System.out.println("Hai sballato!!!");
+            deck.addOffGameCards(player.getCardList());
+            player.getCardList().clear();
+            player.setCredit(player.getCredit() - player.getStake());
+            bankPlayer.setCredit(bankPlayer.getCredit() + player.getStake());
+        }
+
+        return card;
+    }
+
     /**Richiede carta
      *
      * @param player giocatore che chiede la carta
