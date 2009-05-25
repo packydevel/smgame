@@ -1,15 +1,25 @@
 package org.smgame.frontend;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 import org.smgame.core.GameEngine;
 import org.smgame.core.card.Card;
 import org.smgame.core.player.HumanPlayer;
@@ -18,6 +28,8 @@ import org.smgame.core.player.PlayerList;
 import org.smgame.core.player.PlayerRole;
 import org.smgame.main.Game;
 import org.smgame.main.GameSetting;
+import org.smgame.util.BetOverflowException;
+import org.smgame.util.ScoreOverflowException;
 
 public class GameJIF extends JInternalFrame implements IGameJIF {
 
@@ -26,6 +38,8 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private String gameName;
     private Map<Player, List<Card>> hashmap;
     private List<Player> list_player;
+    private Game game;
+    private GameEngine engine;
 
     public GameJIF(String gameName, Map temp_map, GameSetting gs) {
         super(gameName);
@@ -79,7 +93,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             this.add(jpPanels[i], gbcP);
 
             if (tempPlayer instanceof HumanPlayer) {
-                jpActions[i] = new PlayerActionsJP();
+                jpActions[i] = createPanelActionsPlayer();
                 jpActions[i].setVisible(false);
                 this.add(jpActions[i], gbcA);
             } else {
@@ -91,8 +105,8 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private void initComponentsNew() {
         PlayerList player_list = PlayerList.getInstance();
         player_list.getPlayerAL().addAll(list_player);
-        Game game = Game.create(gameName, null, player_list);
-        GameEngine engine = game.getGameEngine();
+        game = Game.create(gameName, null, player_list);
+        engine = game.getGameEngine();
 
         int size = player_list.getPlayerAL().size();        
 
@@ -119,7 +133,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             this.add(jpPanels[i], gbcP);
 
             if (tempPlayer instanceof HumanPlayer) {
-                jpActions[i] = new PlayerActionsJP();
+                jpActions[i] = createPanelActionsPlayer();
                 jpActions[i].setVisible(false);
                 this.add(jpActions[i], gbcA);
             } else
@@ -129,9 +143,54 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         int pos = player_list.getPlayerAL().indexOf(engine.selectFirstRandomBankPlayer());
         
         ((PlayerCardJP)jpPanels[pos]).selectBank();
-        ((PlayerActionsJP)jpActions[(pos+1)%size]).setVisible(true);
+        jpActions[(pos+1)%size].setVisible(true);
         
-    }//end initComponentsNew    
+    }//end initComponentsNew
+
+    private JPanel createPanelActionsPlayer(){
+        JPanel pane = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+        pane.setPreferredSize(new Dimension(280, 30));
+
+        pane.add(new JLabel("Puntata"));
+
+        JTextField jtxtSetCash = new JTextField();
+        jtxtSetCash.setEditable(true);
+        jtxtSetCash.setEnabled(true);
+        jtxtSetCash.setPreferredSize(new Dimension(50, 20));
+        jtxtSetCash.setColumns(7);
+        jtxtSetCash.setVisible(true);
+        /*jtxtSetCash.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent evt) {
+
+            }
+        });*/
+        pane.add(jtxtSetCash);
+
+        JButton jbCallCard = new JButton("Chiedi carta");
+        jbCallCard.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        jbCallCard.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                //requestCard();
+            }
+        });
+        pane.add(jbCallCard);
+
+        JButton jbImOK = new JButton("Sto bene");
+        jbImOK.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        jbImOK.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+
+            }
+        });
+        pane.add(jbImOK);
+
+        return pane;
+    }
+
+    private void requestCard() throws BetOverflowException, ScoreOverflowException{
+        engine.requestCard(engine.getCurrentPlayer(), 1);
+    }
 
 } //end class
 
