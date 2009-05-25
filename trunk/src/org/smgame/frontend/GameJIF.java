@@ -5,24 +5,19 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Map;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
+
 import org.smgame.core.GameEngine;
 import org.smgame.core.card.Card;
 import org.smgame.core.player.HumanPlayer;
@@ -195,7 +190,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private void requestCard(){
         try {
             //TODO:sistemare la puntata
-            System.out.println("TODO:sistemare la puntata");
+            System.out.println("TODO:sistemare la puntata " + engine.getCurrentPlayer().getName());
             engine.requestCard(engine.getCurrentPlayer(), 1);
         } catch (BetOverflowException boe) {
             PrintErrors.exception(boe);
