@@ -16,8 +16,8 @@ public class PlayerCardJP extends JPanel{
     private JComponent[] components;
     private String curDir; //directory per le img
     private String name_player; //nome giocatore
-    private int number=0; //numero carta (iteratore)
-    private int max=16;
+    private int number=2; //numero carta (iteratore)
+    private int max=18;
 
     public PlayerCardJP(String player) {
         name_player = player;
@@ -25,7 +25,7 @@ public class PlayerCardJP extends JPanel{
     }
 
     private void initComponents() {
-        this.setPreferredSize(new Dimension(600, 50));
+        this.setPreferredSize(new Dimension(700, 50));
         this.setLayout(new FlowLayout(FlowLayout.LEFT));
         curDir = System.getProperty("user.dir");
         String separ = File.separator;
@@ -35,8 +35,12 @@ public class PlayerCardJP extends JPanel{
 
         components = new JComponent[max];
 
-        components[number]= new JLabel(name_player);
-        this.add(components[number]);
+        components[0]= new JLabel(name_player);
+        components[1]= new JLabel("Credito: ");
+        components[2]= new JLabel();
+        this.add(components[0]);
+        this.add(components[1]);
+        this.add(components[2]);
         this.setVisible(true);
     }//end initComponents
 
@@ -52,11 +56,15 @@ public class PlayerCardJP extends JPanel{
         }
     }
 
+    public void setCashLabel(String credit){
+        ((JLabel)components[2]).setText(credit);
+    }
+
     /**elimina le label delle carte
      *
      */
     public void resetLabelIconCards(){
-        for (int i=number;i>0; i--){
+        for (int i=number;i>2; i--){
             this.remove(components[i]);
             components[i]= null;
         }
