@@ -39,9 +39,8 @@ public class PlayerList implements Serializable {
      * @param minMargin margine minimo
      * @return booleano sul controllo del giocatore
      */
-    public boolean existWeakPlayer(double totalValue, double minMargin) {
-        LinkedList<Player> playerList = (LinkedList<Player>) PlayerList.getInstance().getPlayerAL();
-        for (Player p : playerList) {
+    public boolean existsWeakPlayer(double totalValue, double minMargin) {
+        for (Player p :(Player[]) playerAL.toArray()) {
             if (p instanceof CPUPlayer) {
                 p = (CPUPlayer) p;
             } else {
@@ -49,6 +48,15 @@ public class PlayerList implements Serializable {
             }
 
             if (p.getScore() <= (totalValue + minMargin)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean existsBankruptPlayer() {
+        for (Player p :(Player[]) playerAL.toArray()) {
+            if (p.getCredit()==0) {
                 return true;
             }
         }

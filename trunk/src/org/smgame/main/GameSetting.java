@@ -48,6 +48,10 @@ public class GameSetting {
         }
     }
 
+    public int getManches() {
+        return manches;
+    }
+
     public void setManches(int manches) {
         if (manches < MIN_PLAYERS || manches > MAX_PLAYERS) {
             System.out.println("Numero errato di manches!!!");
