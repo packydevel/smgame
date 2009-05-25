@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import org.smgame.core.GameEngine;
 import org.smgame.core.card.Deck;
 import org.smgame.core.player.PlayerList;
@@ -20,6 +21,7 @@ import org.smgame.core.player.PlayerList;
 public class Game implements Serializable {
 
     private static Game game;
+    private long gameID;
     private String gameName;
     private GameSetting gameSetting;
     private GameEngine gameEngine;
@@ -33,7 +35,7 @@ public class Game implements Serializable {
      * @param gameSetting settaggi gioco
      */
     private Game(String gameName, GameSetting gameSetting, PlayerList playerList) {
-
+        this.gameID=new GregorianCalendar().getTimeInMillis();
         this.creationDate=new Date();
         this.gameName=gameName;
         this.gameSetting = gameSetting;

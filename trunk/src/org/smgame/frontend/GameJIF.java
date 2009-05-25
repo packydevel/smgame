@@ -123,7 +123,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
         Game game = Game.create(gameName, null, player_list);
         GameEngine engine = game.getGameEngine();
-        int pos = positionBank(engine.selectFirstRandomBank());
+        int pos = positionBank(engine.selectFirstRandomBankPlayer());
         ((PlayerCardJP)jpPanels[pos]).selectBank();
         ((PlayerActionsJP)jpActions[(pos+1)%jpActions.length]).setVisible(true);
         
