@@ -42,9 +42,8 @@ public class GameEngine implements Serializable {
      * @return istanza gioco
      */
     public static GameEngine getInstance(GameSetting gameSetting, Deck deck, PlayerList playerList) {
-        if (gameEngine == null) {
-            gameEngine = new GameEngine(gameSetting, deck, playerList);
-        }
+        if (gameEngine == null)
+            gameEngine = new GameEngine(gameSetting, deck, playerList);       
 
         return gameEngine;
     }
@@ -70,19 +69,26 @@ public class GameEngine implements Serializable {
         return card;
     }
 
+    /**Seleziona e restituisce il primo mazziere del gioco
+     *
+     * @return
+     */
     public Player selectFirstRandomBank() {
         Collections.shuffle(playerList.getPlayerAL());
         bankPlayer = playerList.getPlayerAL().get(0);
         return bankPlayer;
     }
 
+    /**restituisce il prossimo giocatore
+     *
+     * @return
+     */
     public Player nextPlayer() {
         int indexList;
-        if (currentPlayer == null) {
+        if (currentPlayer == null)
             indexList = playerList.getPlayerAL().indexOf((Player) bankPlayer);
-        } else {
-            indexList = playerList.getPlayerAL().indexOf((Player) currentPlayer);
-        }
+        else
+            indexList = playerList.getPlayerAL().indexOf((Player) currentPlayer);        
 
         indexList = indexList % playerList.getPlayerAL().size() + 1;
         currentPlayer = playerList.getPlayerAL().get(indexList);
@@ -90,7 +96,12 @@ public class GameEngine implements Serializable {
         return currentPlayer;
     }
 
+    /**restituisce il giocatore corrente
+     *
+     * @return
+     */
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
-}
+
+}//end class

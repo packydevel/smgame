@@ -12,7 +12,7 @@ import org.smgame.core.card.Card;
  */
 public abstract class Player implements Serializable {
 
-    protected String name;
+    protected String name; //nome giocatore
     protected double credit; //credito
     protected double bet; //puntata
     protected ArrayList<Card> cardList; //
@@ -20,13 +20,21 @@ public abstract class Player implements Serializable {
     protected double score; //punteggio
     protected double MIN_SCORE = 4.0;
     protected double MIN_MARGIN = 0.5;
-    protected PlayerRole role;
+    protected PlayerRole role; //stato ruolo giocatore
     protected PlayerList playerList;
 
+    /**Costruttore
+     *
+     * @param name
+     */
     public Player(String name) {
         this.name = name;
     }
 
+    /**Restituisce il nome giocatore
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
@@ -39,6 +47,10 @@ public abstract class Player implements Serializable {
         return credit;
     }
 
+    /**imposta il credito corrente
+     *
+     * @param credit
+     */
     public void setCredit(double credit) {
         this.credit = credit;
     }
@@ -51,10 +63,18 @@ public abstract class Player implements Serializable {
         return cardList;
     }
 
+    /**Restituisce la puntata
+     *
+     * @return
+     */
     public double getBet() {
         return bet;
     }
 
+    /**Restituisce il punteggio
+     *
+     * @return
+     */
     public double getScore() {
         score = 0;
 
@@ -65,14 +85,27 @@ public abstract class Player implements Serializable {
         return score;
     }
 
+    /**Restituisce il ruolo corrente
+     * se mazziere o giocatore
+     *
+     * @return
+     */
     public PlayerRole getRole() {
         return role;
     }
 
+    /**imposta il ruolo corrente
+     *
+     * @param role
+     */
     public void setRole(PlayerRole role) {
         this.role = role;
     }
 
+    /**imposta la lista dei giocatori
+     *
+     * @param playerList
+     */
     public void setPlayerList(PlayerList playerList) {
         this.playerList = playerList;
     }
