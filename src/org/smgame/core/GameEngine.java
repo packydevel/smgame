@@ -58,14 +58,6 @@ public class GameEngine implements Serializable {
         card = deck.getNextCard();
         player.getCardList().add(card);
 
-        if (player.getScore() > 7.5) {
-            System.out.println("Hai sballato!!!");
-            deck.addOffGameCards(player.getCardList());
-            player.getCardList().clear();
-            player.setCredit(player.getCredit() - player.getStake());
-            bankPlayer.setCredit(bankPlayer.getCredit() + player.getStake());
-        }
-
         return card;
     }
 
@@ -139,5 +131,15 @@ public class GameEngine implements Serializable {
      */
     public Player getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    public boolean isEndGame() {
+        if (gameSetting.getManches()==currentManche) {
+            return true;
+        } else if (playerList.existsBankruptPlayer()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }//end class

@@ -29,7 +29,7 @@ public class HumanPlayer extends Player implements Serializable {
      */
     public boolean askAnotherCard() {
         //TODO: correggere o decidere cazzo fare
-        if (score < MIN_SCORE || (playerList.existWeakPlayer(score, MIN_MARGIN)))
+        if (score < MIN_SCORE || (playerList.existsWeakPlayer(score, MIN_MARGIN)))
             return true;
         else
             return false;
