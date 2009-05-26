@@ -51,7 +51,7 @@ public class PlayerCardJP extends JPanel{
         }
     }
 
-    public void setCashLabel(double tcash){
+    public void setCashLabel(Double tcash){
         ((JLabel)components[2]).setText(Double.toString(tcash));
     }
 
