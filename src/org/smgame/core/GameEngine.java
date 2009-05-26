@@ -139,7 +139,7 @@ public class GameEngine implements Serializable {
             indexList = playerList.getPlayerAL().indexOf((Player) currentPlayer);
         }
 
-        indexList = indexList % playerList.getPlayerAL().size() + 1;
+        indexList = ++indexList % playerList.getPlayerAL().size();
         currentPlayer = playerList.getPlayerAL().get(indexList);
 
         return currentPlayer;
