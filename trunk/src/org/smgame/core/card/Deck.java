@@ -34,10 +34,12 @@ public class Deck implements Serializable {
 
     //costruttore privato
     private Deck() {
-        String curDir = "", img = "";
+        String curDir = System.getProperty("user.dir");
         String separ = File.separator;
+        String img = "";
+
         /*TODO: aggiustare il path x le carte in merito alla scelta delle carte*/
-        curDir += separ + "packydevel" + separ + "netbeans" + separ + "smgame" + separ + "src" + separ + "org" + separ + "smgame" + separ +
+        curDir += separ + "src" + separ + "org" + separ + "smgame" + separ +
                 "resource" + separ + "cartemini" + separ + "napoletane" + separ;
         int i;
         int value;
