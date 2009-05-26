@@ -8,7 +8,6 @@ import org.smgame.core.card.Card;
 import org.smgame.core.card.Deck;
 import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
-import org.smgame.main.Game;
 import org.smgame.main.GameSetting;
 import org.smgame.util.BetOverflowException;
 import org.smgame.util.ScoreOverflowException;
@@ -121,7 +120,6 @@ public class GameEngine implements Serializable {
         List<Player> tempList = new ArrayList<Player>(playerList.getPlayerAL());
         Collections.shuffle(tempList);
         bankPlayer = tempList.get(0);
-        System.out.println("La dimensione della lista di appoggio è: "+playerList.getPlayerAL().size());
         return bankPlayer;
     }
 
