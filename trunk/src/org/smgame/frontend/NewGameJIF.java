@@ -174,8 +174,6 @@ public class NewGameJIF extends JInternalFrame {
 
     private void newGameActionPerformed(ActionEvent evt) {
 
-        List<Player> playerList;
-
         if (evt.getSource() instanceof JComboBox) {
 
             if (playersNumberJCB.getSelectedItem() == null) {
@@ -188,9 +186,7 @@ public class NewGameJIF extends JInternalFrame {
                 for (int j = 0; j < previousPlayersNumber; j++) {
                     playersJP.remove(playerJL[j]);
                     playersJP.remove(playerJTF[j]);
-                    if (j < previousPlayersNumber - 1) {
-                        playersJP.remove(cpuflagJCKB[j]);
-                    }
+                    playersJP.remove(cpuflagJCKB[j]);
                 }
             }
 
@@ -201,7 +197,7 @@ public class NewGameJIF extends JInternalFrame {
 
             playerJL = new JLabel[i];
             playerJTF = new JTextField[i];
-            cpuflagJCKB = new JCheckBox[i - 1];
+            cpuflagJCKB = new JCheckBox[i];
 
             for (int j = 0; j < i; j++) {
 
@@ -219,14 +215,19 @@ public class NewGameJIF extends JInternalFrame {
                 playersJP.add(playerJTF[j], textFieldGBC);
                 playerJTF[j].setVisible(true);
 
-                if (j > 0) {
-                    cpuflagJCKB[j - 1] = new JCheckBox();
-                    checkBoxGBC.gridx = 2;
-                    checkBoxGBC.gridy = y;
-                    checkBoxGBC.ipadx = 50;
-                    playersJP.add(cpuflagJCKB[j - 1], checkBoxGBC);
-                    cpuflagJCKB[j - 1].setVisible(true);
+
+                cpuflagJCKB[j] = new JCheckBox();
+                checkBoxGBC.gridx = 2;
+                checkBoxGBC.gridy = y;
+                checkBoxGBC.ipadx = 50;
+                playersJP.add(cpuflagJCKB[j], checkBoxGBC);
+                if (j == 0) {
+                    cpuflagJCKB[j].setVisible(false);
+
+                } else {
+                    cpuflagJCKB[j].setVisible(true);
                 }
+
                 y++;
             }
             previousPlayersNumber = currentPlayersNumber;
@@ -250,19 +251,17 @@ public class NewGameJIF extends JInternalFrame {
 
                 for (int j = 0; j < currentPlayersNumber; j++) {
                     playerName.add(playerJTF[j].getText());
-                    if (j > 0) {
-                        if (cpuflagJCKB[j - 1].isSelected()) {
-                            playerType.add(new Boolean(true));
-                        } else {
-                            playerType.add(new Boolean(false));
-                        }
+                    if (cpuflagJCKB[j].isSelected()) {
+                        playerType.add(new Boolean(true));
+                    } else {
+                        playerType.add(new Boolean(false));
                     }
                 }
 
                 GUICoreMediator.createGame(gameName, null, playerName, playerType);
 
                 fireNewGameEvent(new NewGameEvent(this));
-                }
+            }
             dispose();
         }
     }

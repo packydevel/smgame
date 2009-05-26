@@ -4,8 +4,11 @@
  */
 package org.smgame.frontend;
 
+import java.lang.String;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.table.AbstractTableModel;
+import org.smgame.core.GUICoreMediator;
 
 /**
  *
@@ -20,8 +23,10 @@ public class LoadGameATM extends AbstractTableModel {
 
     public LoadGameATM() {
         super();
-        ArrayList
-        GUICoreMediator.getGameNameList()
+        ArrayList<String> gameNameList=(ArrayList<String>) GUICoreMediator.getGameNameList();
+        ArrayList<Date> gameCreationDateList=(ArrayList<Date>) GUICoreMediator.getGameCreationDateList();
+        ArrayList<Date> gameLastDateList;
+        
         gameATM.setValueAt(GUICoreMediator.getGame().getGameName(), 0, 0);
         data = new Object[3][3];
     }
