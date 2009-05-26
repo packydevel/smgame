@@ -23,12 +23,19 @@ public class LoadGameATM extends AbstractTableModel {
 
     public LoadGameATM() {
         super();
-        ArrayList<String> gameNameList=(ArrayList<String>) GUICoreMediator.getGameNameList();
-        ArrayList<Date> gameCreationDateList=(ArrayList<Date>) GUICoreMediator.getGameCreationDateList();
-        ArrayList<Date> gameLastDateList;
-        
-        gameATM.setValueAt(GUICoreMediator.getGame().getGameName(), 0, 0);
-        data = new Object[3][3];
+        try {
+            ArrayList<String> gameNameList = (ArrayList<String>) GUICoreMediator.getGameNameList();
+            ArrayList<Date> gameCreationDateList = (ArrayList<Date>) GUICoreMediator.getGameCreationDateList();
+            ArrayList<Date> gameLastDateList;
+            data = new Object[10][3];
+            for (int i = 0; i < gameNameList.size(); i++) {
+                data[i][0] = gameNameList.get(i);
+                data[i][1] = gameCreationDateList.get(i);
+                data[i][2] = gameCreationDateList.get(i);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public String getColumnName(int col) {
