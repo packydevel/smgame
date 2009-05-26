@@ -4,6 +4,7 @@
  */
 package org.smgame.core;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -31,7 +32,8 @@ public class GUICoreMediator {
     private static Game currentGame = null;
     private static List<String> playerNameList;
     private static List<Boolean> playerTypeList;
-    private static final String FILENAME = "/packydata/games.dat";
+    private static final String FILENAME = System.getProperty("user.dir") +
+                                            File.separator + "games.dat";
 
     public static boolean askForNewGame() {
         if (currentGame != null) {
