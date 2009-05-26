@@ -14,7 +14,7 @@ public abstract class Player implements Serializable {
     protected String name; //nome giocatore
     protected double credit; //credito
     protected double bet; //puntata
-    protected ArrayList<Card> cardList; //
+    protected ArrayList<Card> cardList = new ArrayList<Card>(); //
     protected ArrayList<Double> betList = new ArrayList<Double>(12);
     protected double score; //punteggio
     protected double MIN_SCORE = 4.0;
