@@ -110,65 +110,6 @@ public class GUICoreMediator {
         fis.close();
     }
 
-    /**Restituisce la lista dei nomi dei giocatori
-     *
-     * @return lista stringa nomi
-     */
-    public static List<String> getPlayerNameList() {
-        return playerNameList;
-    }
-
-    /**restituisce la lista dei tipi dei giocatori
-     * human = Boolean.false
-     *
-     * @return lista Boolean cpu/human
-     */
-    public static List<Boolean> getPlayerTypeList() {
-        return playerTypeList;
-    }
-
-    public static List<Double> getPlayerCreditList() {
-        List<Double> playerCreditList = new ArrayList<Double>();
-        for (Player p : currentGame.getPlayerList().getPlayerAL()) {
-            playerCreditList.add(new Double(p.getCredit()));
-        }
-
-        return playerCreditList;
-    }
-
-    public static List<Double> getPlayerStakeList() {
-        List<Double> playerStakeList = new ArrayList<Double>();
-        for (Player p : currentGame.getPlayerList().getPlayerAL()) {
-            playerStakeList.add(new Double(p.getStake()));
-        }
-
-        return playerStakeList;
-    }
-
-    /**restituisce la posizione del mazziere nella lista dei giocatori
-     *
-     * @return posizione
-     */
-    public static int getBankPlayer() {
-         return currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().selectFirstRandomBankPlayer());
-    }
-
-    public static List<ImageIcon> getPlayerCards(String playerName) {
-        List<ImageIcon> playerCards = new ArrayList<ImageIcon>();
-        Player player = null;
-        for (Player p : currentGame.getPlayerList().getPlayerAL()) {
-            if (p.getName().equals(playerName)) {
-                player = p;
-                break;
-            }
-        }
-        for (Card c : player.getCardList()) {
-            playerCards.add(c.getImage());
-        }
-
-        return playerCards;
-    } // end getPlayerCards
-
     public static List<String> getGameNameList() throws NoGamesException {
         List<String> gameNameList = new ArrayList<String>();
         if (gameList.size() != 0) {
@@ -210,5 +151,85 @@ public class GUICoreMediator {
 
     public static String getGameName() {
         return currentGame.getGameName();
+    }
+
+    /**Restituisce la lista dei nomi dei giocatori
+     *
+     * @return lista stringa nomi
+     */
+    public static List<String> getPlayerNameList() {
+        return playerNameList;
+    }
+
+    /**restituisce la lista dei tipi dei giocatori
+     * human = Boolean.false
+     *
+     * @return lista Boolean cpu/human
+     */
+    public static List<Boolean> getPlayerTypeList() {
+        return playerTypeList;
+    }
+
+    public static List<Double> getPlayerCreditList() {
+        List<Double> playerCreditList = new ArrayList<Double>();
+        for (Player p : currentGame.getPlayerList().getPlayerAL()) {
+            playerCreditList.add(new Double(p.getCredit()));
+        }
+
+        return playerCreditList;
+    }
+
+    public static List<Double> getPlayerStakeList() {
+        List<Double> playerStakeList = new ArrayList<Double>();
+        for (Player p : currentGame.getPlayerList().getPlayerAL()) {
+            playerStakeList.add(new Double(p.getStake()));
+        }
+
+        return playerStakeList;
+    }
+
+    /**restituisce la posizione del mazziere nella lista dei giocatori
+     *
+     * @return posizione
+     */
+    public static int getBankPlayer() {
+        return currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().selectFirstRandomBankPlayer());
+    }
+
+    public static List<ImageIcon> getPlayerCards(String playerName) {
+        List<ImageIcon> playerCards = new ArrayList<ImageIcon>();
+        Player player = null;
+        for (Player p : currentGame.getPlayerList().getPlayerAL()) {
+            if (p.getName().equals(playerName)) {
+                player = p;
+                break;
+            }
+        }
+        for (Card c : player.getCardList()) {
+            playerCards.add(c.getImage());
+        }
+
+        return playerCards;
+    } // end getPlayerCards
+
+    public static ImageIcon requestCard(int playerIndex, double bet) throws Exception {
+        Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
+        Card card;
+        try {
+            card = currentGame.getGameEngine().requestCard(player, bet);
+            return card.getIcon();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public static void declareGoodScore(int playerIndex, double bet) throws Exception {
+        Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
+
+        try {
+            currentGame.getGameEngine().declareGoodScore(player, bet);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 }
