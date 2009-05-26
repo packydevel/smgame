@@ -195,6 +195,16 @@ public class GUICoreMediator {
         return playerStakeList;
     }
 
+    public static double getPlayerStake(int playerIndex) {
+        Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
+        return player.getStake();
+    }
+
+    public static double getPlayerScore(int playerIndex) {
+        Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
+        return player.getScore();
+    }
+
     /**restituisce la posizione del mazziere nella lista dei giocatori
      *
      * @return posizione
@@ -206,7 +216,7 @@ public class GUICoreMediator {
     public static List<ImageIcon> getPlayerCards(int playerIndex) {
         List<ImageIcon> playerCards = new ArrayList<ImageIcon>();
         Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
-        
+
         for (Card c : player.getCardList()) {
             playerCards.add(c.getImage());
         }
@@ -227,7 +237,7 @@ public class GUICoreMediator {
 
     public ImageIcon getFirstCard(int playerIndex) {
         Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
-        Card card=currentGame.getGameEngine().getFirstCard(player);
+        Card card = currentGame.getGameEngine().getFirstCard(player);
         return card.getIcon();
     }
 
