@@ -63,6 +63,11 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             //aggiungo al pannello i nomi giocatori
             jpPanels[i] = new PlayerCardJP(player_list.get(i), player_credit.get(i));
             this.add(jpPanels[i], gbcP);
+            try {
+                ((PlayerCardJP) jpPanels[i]).newLabelIconCard(GUICoreMediator.requestCard(i, 0));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             //aggiungo al pannello le azioni se il giocatore è umano            
             if (type_player.get(i).equals(Boolean.FALSE)) {
@@ -79,7 +84,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         pos = ++pos % size;        
         if (jpActions[pos]!=null)
             jpActions[pos].setVisible(true);
-        
+        this.validate();
     }//end initComponentsNew
 
     private JPanel createPanelActionsPlayer(int i){
