@@ -33,6 +33,10 @@ public class PlayerList implements Serializable {
         return playerList;
     }
 
+    public void resetInstance() {
+        playerAL.clear();
+    }
+
     /**Esiste giocatore debole (?)
      *
      * @param totalValue valore totale
@@ -40,7 +44,7 @@ public class PlayerList implements Serializable {
      * @return booleano sul controllo del giocatore
      */
     public boolean existsWeakPlayer(double totalValue, double minMargin) {
-        for (Player p :(Player[]) playerAL.toArray()) {
+        for (Player p : (Player[]) playerAL.toArray()) {
             if (p instanceof CPUPlayer) {
                 p = (CPUPlayer) p;
             } else {
@@ -55,8 +59,8 @@ public class PlayerList implements Serializable {
     }
 
     public boolean existsBankruptPlayer() {
-        for (Player p :(Player[]) playerAL.toArray()) {
-            if (p.getCredit()==0) {
+        for (Player p : (Player[]) playerAL.toArray()) {
+            if (p.getCredit() == 0) {
                 return true;
             }
         }

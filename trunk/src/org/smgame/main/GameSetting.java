@@ -12,6 +12,7 @@ import org.smgame.core.card.Suit;
  */
 public class GameSetting {
 
+    private static GameSetting gameSetting = null;
     private final int MIN_PLAYERS = 2;
     private final int MAX_PLAYERS = 12;
     private int players;
@@ -28,13 +29,23 @@ public class GameSetting {
     /**Costruttore
      *
      */
-    public GameSetting() {
+    private GameSetting() {
+    }
+
+    public static GameSetting getInstance() {
+        if (gameSetting == null) {
+            gameSetting = new GameSetting();
+        }
+
+        return gameSetting;
+    }
+
+    public void resetInstance() {
         players = 4;
         manches = 10;
         credit = MIN_CREDIT;
         jolly = Deck.getInstance().getSelectedCard(Point.Re, Suit.Danari);
         smDAmblePaid = "double";
-
     }
 
     /**imposta il numero giocatori

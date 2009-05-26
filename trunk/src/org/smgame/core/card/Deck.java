@@ -86,7 +86,7 @@ public class Deck implements Serializable {
         return currentDeck;
     } //end getInstance
 
-    private void resetInstance() {
+    public void resetInstance() {
         currentDeck.onGameCardList.clear();
         currentDeck.offGameCardList.addAll(currentDeck.CARDS);
         currentDeck.offGameCardList.clear();

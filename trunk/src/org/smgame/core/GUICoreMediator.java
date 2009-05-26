@@ -50,7 +50,8 @@ public class GUICoreMediator {
         return true;
     }
 
-    public static void createGame(String gameName, GameSetting gamesetting, List<String> playerNameList, List<Boolean> playerTypeList) {
+    public static void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) {
+        PlayerList.getInstance().resetInstance();
         PlayerList playerList = PlayerList.getInstance();
         GUICoreMediator.playerNameList = playerNameList;
         GUICoreMediator.playerTypeList = playerTypeList;
@@ -62,9 +63,20 @@ public class GUICoreMediator {
                 playerList.getPlayerAL().add(new HumanPlayer(playerNameList.get(i)));
             }
 
+            System.out.println("Il nome del giocatore è: " + playerList.getPlayerAL().get(i).getName());
+
         }
 
-        currentGame = Game.create(gameName, null, playerList);
+        if (currentGame != null) {
+            currentGame.resetInstance();
+        }
+        currentGame = Game.getInstance();
+        currentGame.generateGameID();
+        currentGame.setGameName(gameName);
+        currentGame.setGameSetting(gameSetting);
+        currentGame.setPlayerList(playerList);
+        currentGame.generateGameEngine();
+
         gameList.add(currentGame);
     }
 
@@ -141,6 +153,11 @@ public class GUICoreMediator {
      * @return posizione
      */
     public static int getBankPlayer() {
+        System.out.println("Il mazziere è in posizione: " + currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().selectFirstRandomBankPlayer()));
+        System.out.println("Il mazziere è in posizione: " + currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().selectFirstRandomBankPlayer()));
+        System.out.println("Il mazziere è in posizione: " + currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().selectFirstRandomBankPlayer()));
+        System.out.println("Il mazziere è in posizione: " + currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().selectFirstRandomBankPlayer()));
+
         return currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().selectFirstRandomBankPlayer());
     }
 

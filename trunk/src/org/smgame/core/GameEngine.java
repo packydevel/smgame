@@ -24,7 +24,6 @@ public class GameEngine implements Serializable {
     private GameSetting gameSetting;
     private Deck deck;
     private PlayerList playerList;
-    private Game game;
     private final double MAX_CREDIT = 64000;
     private final double MAX_SCORE = 7.5;
     private int currentManche;
@@ -32,10 +31,7 @@ public class GameEngine implements Serializable {
     private Player currentPlayer;
 
     //costruttore privato
-    private GameEngine(GameSetting gameSetting, Deck deck, PlayerList playerList) {
-        this.gameSetting = gameSetting;
-        this.deck = deck;
-        this.playerList = playerList;
+    private GameEngine() {
     }
 
     /**Restituisce l'istanza della classe
@@ -45,12 +41,33 @@ public class GameEngine implements Serializable {
      * @param playerList lista giocatori
      * @return istanza gioco
      */
-    public static GameEngine getInstance(GameSetting gameSetting, Deck deck, PlayerList playerList) {
+    public static GameEngine getInstance() {
         if (gameEngine == null) {
-            gameEngine = new GameEngine(gameSetting, deck, playerList);
+            gameEngine = new GameEngine();
         }
 
         return gameEngine;
+    }
+
+    public void resetInstance() {
+        gameSetting.resetInstance();
+        deck.resetInstance();
+        playerList.resetInstance();
+        bankPlayer=null;
+        currentPlayer=null;
+        currentManche=0;
+    }
+
+    public void setDeck(Deck deck) {
+        this.deck = deck;
+    }
+
+    public void setGameSetting(GameSetting gameSetting) {
+        this.gameSetting = gameSetting;
+    }
+
+    public void setPlayerList(PlayerList playerList) {
+        this.playerList = playerList;
     }
 
     public Card getFirstCard(Player player) {
@@ -104,6 +121,7 @@ public class GameEngine implements Serializable {
         List<Player> tempList = new ArrayList<Player>(playerList.getPlayerAL());
         Collections.shuffle(tempList);
         bankPlayer = tempList.get(0);
+        System.out.println("La dimensione della lista di appoggio è: "+playerList.getPlayerAL().size());
         return bankPlayer;
     }
 
