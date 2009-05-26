@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
 import org.smgame.core.card.Card;
@@ -33,7 +34,7 @@ public class GUICoreMediator {
     private static List<String> playerNameList;
     private static List<Boolean> playerTypeList;
     private static final String FILENAME = System.getProperty("user.dir") +
-                                            File.separator + "games.dat";
+            File.separator + "games.dat";
 
     public static boolean askForNewGame() {
         if (currentGame != null) {
@@ -130,6 +131,10 @@ public class GUICoreMediator {
         return playerStakeList;
     }
 
+    public static int getBankPlayer() {
+        return currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().selectFirstRandomBankPlayer());
+    }
+
     public static List<ImageIcon> getPlayerCards(String playerName) {
         List<ImageIcon> playerCards = new ArrayList<ImageIcon>();
         Player player = null;
@@ -140,11 +145,37 @@ public class GUICoreMediator {
 
             }
         }
-
         for (Card c : player.getCardList()) {
             playerCards.add(c.getImage());
         }
 
         return playerCards;
+    }
+
+    public static List<String> getGameNameList() {
+        List<String> gameNameList = new ArrayList<String>();
+
+        for (Game g : gameList) {
+            gameNameList.add(g.getGameName());
+        }
+        return gameNameList;
+    }
+
+    public static List<Date> getGameCreationDateList() {
+        List<Date> gameCreationDateList = new ArrayList<Date>();
+        for (Game g : gameList) {
+            gameCreationDateList.add(g.getCreationDate());
+        }
+
+        return gameCreationDateList;
+    }
+
+    public static List<Date> getGameLastDateList() {
+        List<Date> gameLastDateList = new ArrayList<Date>();
+        for (Game g : gameList) {
+            gameLastDateList.add(g.getCreationDate());
+        }
+
+        return gameLastDateList;
     }
 }
