@@ -195,6 +195,7 @@ class createPanelActionsPlayer extends JPanel{
     private JPanel jpNorth;
     private JPanel jpSouth;
     private JLabel jlTotalCash;
+    private JLabel jlPoints;
     private JTextField jtxtSetCash;
     private JButton jbCallCard;
     private JButton jbImOK;
@@ -218,6 +219,10 @@ class createPanelActionsPlayer extends JPanel{
 
         jlTotalCash = new JLabel();
         jpSouth.add(jlTotalCash);
+
+        jpSouth.add(new JLabel("Punteggio: "));
+        jlPoints = new JLabel();
+        jpSouth.add(jlPoints);
 
         jtxtSetCash = new JTextField();
         jtxtSetCash.setEditable(true);
@@ -261,6 +266,7 @@ class createPanelActionsPlayer extends JPanel{
             cash = Double.valueOf(value);
             ((PlayerCardJP)GameJIF.getJpPanels()[index]).newLabelIconCard(GUICoreMediator.requestCard(index, cash));
             jlTotalCash.setText(Double.toString(GUICoreMediator.getPlayerStake(index)));
+            jlPoints.setText(Double.toString(GUICoreMediator.getPlayerScore(index)));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -280,7 +286,6 @@ class createPanelActionsPlayer extends JPanel{
         this.setVisible(false);
         int pos = GUICoreMediator.nextPlayer();
         GameJIF.getJpActions()[pos].setVisible(true);
-        this.validate();
     }
 }
 /*
