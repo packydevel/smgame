@@ -233,7 +233,7 @@ public class GUICoreMediator {
         }
     }
 
-    public int nextPlayer() {
+    public static int nextPlayer() {
         return currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().nextPlayer());
     }
 }
