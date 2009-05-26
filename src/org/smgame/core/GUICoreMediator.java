@@ -56,7 +56,7 @@ public class GUICoreMediator {
         GUICoreMediator.playerTypeList = playerTypeList;
 
         for (int i = 0; i < playerNameList.size(); i++) {
-            if (playerTypeList.get(i - 1).booleanValue()) {
+            if (playerTypeList.get(i).booleanValue()) {
                 playerList.getPlayerAL().add(new CPUPlayer(playerNameList.get(i)));
             } else {
                 playerList.getPlayerAL().add(new HumanPlayer(playerNameList.get(i)));
