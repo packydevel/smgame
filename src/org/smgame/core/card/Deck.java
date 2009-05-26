@@ -60,6 +60,8 @@ public class Deck implements Serializable {
                 if (i < 9) {
                     img += "0";
                 }
+                img += i +".jpg";
+
                 ImageIcon icon = new ImageIcon(curDir + img);
                 c = new Card(point, suit, icon, icon);
                 CARDS.add(c);
