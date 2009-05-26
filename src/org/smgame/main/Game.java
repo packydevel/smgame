@@ -1,11 +1,5 @@
 package org.smgame.main;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -27,17 +21,17 @@ public class Game implements Serializable {
     private GameEngine gameEngine;
     private Deck deck;
     private PlayerList playerList;
-    private Date creationDate, lastSaveDate;
-    private static final String fileName="/packydata/games.dat";
+    private Date creationDate,  lastSaveDate;
+    private static final String fileName = "/packydata/games.dat";
 
     /**Costruttore
      *
      * @param gameSetting settaggi gioco
      */
     private Game(String gameName, GameSetting gameSetting, PlayerList playerList) {
-        this.gameID=new GregorianCalendar().getTimeInMillis();
-        this.creationDate=new Date();
-        this.gameName=gameName;
+        this.gameID = new GregorianCalendar().getTimeInMillis();
+        this.creationDate = new Date();
+        this.gameName = gameName;
         this.gameSetting = gameSetting;
         this.deck = Deck.getInstance();
         this.playerList = playerList;
@@ -78,24 +72,5 @@ public class Game implements Serializable {
         System.out.println("Sequenza di Carte dopo mescolamento:");
         deck.shuffle();
         deck.print();
-    }
-
-    public static void save() throws FileNotFoundException, IOException {
-        Date lastSaveDate= new Date();
-        FileOutputStream fos = new FileOutputStream(fileName);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(game);
-        oos.flush();
-        oos.close();
-        fos.close();
-    }
-
-    public static Game load() throws FileNotFoundException, IOException, ClassNotFoundException {
-        FileInputStream fis = new FileInputStream(fileName);
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        game = (Game) ois.readObject();
-        ois.close();
-        fis.close();
-        return game;
     }
 }

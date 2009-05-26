@@ -6,6 +6,7 @@ package org.smgame.main;
 
 import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 import javax.swing.UIManager;
+import org.smgame.core.GUICoreMediator;
 import org.smgame.frontend.MainJF;
 
 /**
@@ -26,5 +27,11 @@ public class StartSMGame {
             }
         });
 
+        try {
+            GUICoreMediator.loadGames();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Errore nel caricamento!!!");
+        }
     }
 }
