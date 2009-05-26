@@ -2,7 +2,6 @@ package org.smgame.core.player;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import org.smgame.core.card.Card;
 
 /**Classe astratta Giocatore

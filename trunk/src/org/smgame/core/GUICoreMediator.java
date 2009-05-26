@@ -62,6 +62,7 @@ public class GUICoreMediator {
             } else {
                 playerList.getPlayerAL().add(new HumanPlayer(playerNameList.get(i)));
             }
+            playerList.getPlayerAL().get(i).setCredit(1000);
         }
 
         if (currentGame != null) {
@@ -221,6 +222,12 @@ public class GUICoreMediator {
         } catch (Exception e) {
             throw e;
         }
+    }
+
+    public ImageIcon getFirstCard(int playerIndex) {
+        Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
+        Card card=currentGame.getGameEngine().getFirstCard(player);
+        return card.getIcon();
     }
 
     public static void declareGoodScore(int playerIndex, double bet) throws Exception {
