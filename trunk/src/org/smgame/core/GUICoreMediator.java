@@ -21,6 +21,7 @@ import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
 import org.smgame.main.Game;
 import org.smgame.main.GameSetting;
+import org.smgame.util.NoGamesException;
 
 /**
  *
@@ -163,31 +164,47 @@ public class GUICoreMediator {
         return playerCards;
     } // end getPlayerCards
 
-    public static List<String> getGameNameList() {
+    public static List<String> getGameNameList() throws NoGamesException {
         List<String> gameNameList = new ArrayList<String>();
-
-        for (Game g : gameList) {
-            gameNameList.add(g.getGameName());
+        if (gameList.size() != 0) {
+            for (Game g : gameList) {
+                gameNameList.add(g.getGameName());
+            }
+            return gameNameList;
+        } else {
+            throw new NoGamesException("Non ci sono partite da caricare");
         }
-        return gameNameList;
+
     }
 
-    public static List<Date> getGameCreationDateList() {
+    public static List<Date> getGameCreationDateList() throws NoGamesException {
         List<Date> gameCreationDateList = new ArrayList<Date>();
-        for (Game g : gameList) {
-            gameCreationDateList.add(g.getCreationDate());
-        }
+        if (gameList.size() != 0) {
+            for (Game g : gameList) {
+                gameCreationDateList.add(g.getCreationDate());
+            }
 
-        return gameCreationDateList;
+            return gameCreationDateList;
+        } else {
+            throw new NoGamesException("Non ci sono partite da caricare");
+        }
     }
 
-    public static List<Date> getGameLastDateList() {
+    public static List<Date> getGameLastDateList() throws NoGamesException {
         List<Date> gameLastDateList = new ArrayList<Date>();
-        for (Game g : gameList) {
-            gameLastDateList.add(g.getCreationDate());
-        }
+        if (gameList.size() != 0) {
+            for (Game g : gameList) {
+                gameLastDateList.add(g.getCreationDate());
+            }
 
-        return gameLastDateList;
+            return gameLastDateList;
+        } else {
+            throw new NoGamesException("Non ci sono partite da caricare");
+        }
+    }
+
+    public static String getGameName() {
+        return currentGame.getGameName();
     }
 
 }
