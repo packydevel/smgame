@@ -9,6 +9,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
@@ -64,7 +66,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
             //aggiungo al pannello le azioni se il giocatore è umano            
             if (type_player.get(i).equals(Boolean.FALSE)) {
-                jpActions[i] = createPanelActionsPlayer();
+                jpActions[i] = createPanelActionsPlayer(i);
                 jpActions[i].setVisible(false);
                 this.add(jpActions[i], gbcA);
                 ((PlayerCardJP)jpPanels[i]).setHumanColor();
@@ -72,28 +74,28 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 jpActions[i] = null;            
         } //end for
 
-        int pos = GUICoreMediator.getBankPlayer();
-        System.out.println("pos " + pos);
+        int pos = GUICoreMediator.getBankPlayer();        
         ((PlayerCardJP)jpPanels[pos]).selectBank();
-        pos = ++pos % size;
-        
+        pos = ++pos % size;        
         if (jpActions[pos]!=null)
             jpActions[pos].setVisible(true);
         
     }//end initComponentsNew
 
-    private JPanel createPanelActionsPlayer(){
+    private JPanel createPanelActionsPlayer(int i){
+        final int index = i;
+
         JPanel pane = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        pane.setPreferredSize(new Dimension(280, 30));
+        pane.setPreferredSize(new Dimension(280, 25));
 
         pane.add(new JLabel("Puntata"));
 
-        JTextField jtxtSetCash = new JTextField();
+        final JTextField jtxtSetCash = new JTextField();
         jtxtSetCash.setEditable(true);
         jtxtSetCash.setEnabled(true);
-        jtxtSetCash.setPreferredSize(new Dimension(50, 20));
-        jtxtSetCash.setColumns(7);
+        jtxtSetCash.setPreferredSize(new Dimension(30, 20));
+        jtxtSetCash.setColumns(4);
         jtxtSetCash.setVisible(true);        
         pane.add(jtxtSetCash);
 
@@ -101,46 +103,54 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         jbCallCard.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         jbCallCard.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                requestCard();
+                requestCard(index, jtxtSetCash.getText());
             }
         });
+        jbCallCard.setPreferredSize(new Dimension(75, 20));
         pane.add(jbCallCard);
 
         JButton jbImOK = new JButton("Sto bene");
         jbImOK.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         jbImOK.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-
+                imOk(index, jtxtSetCash.getText());
             }
         });
+        jbImOK.setPreferredSize(new Dimension(55,20));
         pane.add(jbImOK);
 
         return pane;
     }
 
-    private void requestCard(){
-        /*
+    private void requestCard(int i, String value) {
+        double cash=-1;
         try {
-            //TODO:sistemare la puntata
-            System.out.println("TODO:sistemare la puntata " + engine.getCurrentPlayer().getName());
-            engine.requestCard(engine.getCurrentPlayer(), 1);
-        } catch (BetOverflowException boe) {
-            PrintErrors.exception(boe);
-            //Logger.getLogger(GameJIF.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ScoreOverflowException soe) {
-            PrintErrors.exception(soe);
-            //Logger.getLogger(GameJIF.class.getName()).log(Level.SEVERE, null, ex);
-        }  */
+        if ((value!=null) && (!value.equalsIgnoreCase("")))
+            cash = Double.valueOf(value);
+            ((PlayerCardJP)jpPanels[i]).newLabelIconCard(GUICoreMediator.requestCard(i, cash));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void imOk(int i, String value){
+        double cash=-1;
+        try {
+        if ((value!=null) && (!value.equalsIgnoreCase("")))
+            cash = Double.valueOf(value);
+            GUICoreMediator.declareGoodScore(i, cash);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        jpActions[i].setVisible(false);
+        int pos = GUICoreMediator.nextPlayer();
+        jpActions[pos].setVisible(true);
     }
 
 } //end class
 
 /*
-private void jbAddMouseClicked(MouseEvent evt) {
-((testPanel) panel).newLabelIconCard("B01.jpg");
-pack();
-}
-
 private void jbRemoveAllMouseClicked(MouseEvent evt) {
 ((testPanel) panel).resetLabelIconCards();
 pack();
