@@ -62,9 +62,6 @@ public class GUICoreMediator {
             } else {
                 playerList.getPlayerAL().add(new HumanPlayer(playerNameList.get(i)));
             }
-
-            System.out.println("Il nome del giocatore è: " + playerList.getPlayerAL().get(i).getName());
-
         }
 
         if (currentGame != null) {
@@ -153,12 +150,7 @@ public class GUICoreMediator {
      * @return posizione
      */
     public static int getBankPlayer() {
-        System.out.println("Il mazziere è in posizione: " + currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().selectFirstRandomBankPlayer()));
-        System.out.println("Il mazziere è in posizione: " + currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().selectFirstRandomBankPlayer()));
-        System.out.println("Il mazziere è in posizione: " + currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().selectFirstRandomBankPlayer()));
-        System.out.println("Il mazziere è in posizione: " + currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().selectFirstRandomBankPlayer()));
-
-        return currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().selectFirstRandomBankPlayer());
+         return currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().selectFirstRandomBankPlayer());
     }
 
     public static List<ImageIcon> getPlayerCards(String playerName) {
