@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class PlayerCardJP extends JPanel{
-
+   
     private JComponent[] components;
     private String curDir; //directory per le img
     private String name_player; //nome giocatore
@@ -18,7 +18,7 @@ public class PlayerCardJP extends JPanel{
     private int number=2; //numero carta (iteratore)
     private int max=18;
 
-    public PlayerCardJP(String tplayer, double tcash) {
+    public PlayerCardJP(String tplayer, double tcash) {        
         name_player = tplayer;
         cash = tcash;
         initComponents();
@@ -41,11 +41,10 @@ public class PlayerCardJP extends JPanel{
 
     /**Aggiunge una carta GUI tramite label e icon
      *
-     * @param img
+     * @param icon
      */
-    public void newLabelIconCard(String img){
+    public void newLabelIconCard(ImageIcon icon){
         if (number<max-1) {
-            ImageIcon icon = new ImageIcon(curDir + img);
             components[++number] = new JLabel(icon);
             this.add(components[number]);
         }
