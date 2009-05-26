@@ -25,9 +25,10 @@ public class Card implements Serializable {
      * @param suit seme 
      * @param value valore
      */
-    public Card(Point point, Suit suit, ImageIcon image, ImageIcon icon) {
+    public Card(Point point, Suit suit, double value, ImageIcon image, ImageIcon icon) {
         this.point = point;
         this.suit = suit;
+        this.value = value;
         this.image = image;
         this.icon = icon;
     }

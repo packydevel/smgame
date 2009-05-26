@@ -112,7 +112,7 @@ public abstract class Player implements Serializable {
     public double getStake() {
         double stake = 0;
 
-        for (Double b : (Double[]) betList.toArray()) {
+        for (Double b : betList) {
             stake += b.doubleValue();
         }
 

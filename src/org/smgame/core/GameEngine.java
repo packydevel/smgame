@@ -123,6 +123,10 @@ public class GameEngine implements Serializable {
         return bankPlayer;
     }
 
+    public void shuffleDeck() {
+        deck.shuffle();
+    }
+
     /**restituisce il prossimo giocatore
      *
      * @return
