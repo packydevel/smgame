@@ -40,7 +40,6 @@ public class LoadGameJIF extends JInternalFrame {
         super("Carica Partita", false, true, false, false);
         setSize(500, 250);
         gameATM = new LoadGameATM();
-        gameATM.setValueAt(GUICoreMediator.getGame().getGameName(), 0, 0);
         gameJT = new JTable(gameATM);
         gameJT.setFillsViewportHeight(true);
         gameJT.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

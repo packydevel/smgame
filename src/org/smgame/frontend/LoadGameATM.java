@@ -20,6 +20,9 @@ public class LoadGameATM extends AbstractTableModel {
 
     public LoadGameATM() {
         super();
+        ArrayList
+        GUICoreMediator.getGameNameList()
+        gameATM.setValueAt(GUICoreMediator.getGame().getGameName(), 0, 0);
         data = new Object[3][3];
     }
 
