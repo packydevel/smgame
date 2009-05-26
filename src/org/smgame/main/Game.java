@@ -22,20 +22,47 @@ public class Game implements Serializable {
     private Deck deck;
     private PlayerList playerList;
     private Date creationDate,  lastSaveDate;
-    private static final String fileName = "/packydata/games.dat";
 
     /**Costruttore
      *
      * @param gameSetting settaggi gioco
      */
-    private Game(String gameName, GameSetting gameSetting, PlayerList playerList) {
-        this.gameID = new GregorianCalendar().getTimeInMillis();
-        this.creationDate = new Date();
-        this.gameName = gameName;
-        this.gameSetting = gameSetting;
+    private Game() {
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public void setDeck(Deck deck) {
         this.deck = Deck.getInstance();
+    }
+
+    public void generateGameEngine() {
+        gameEngine = GameEngine.getInstance();
+        gameEngine.setDeck(deck);
+        gameEngine.setGameSetting(gameSetting);
+        gameEngine.setPlayerList(playerList);
+    }
+
+    public void generateGameID() {
+        this.gameID = new GregorianCalendar().getTimeInMillis();
+    }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
+    }
+
+    public void setGameSetting(GameSetting gameSetting) {
+        this.gameSetting = gameSetting;
+    }
+
+    public void setLastSaveDate(Date lastSaveDate) {
+        this.lastSaveDate = lastSaveDate;
+    }
+
+    public void setPlayerList(PlayerList playerList) {
         this.playerList = playerList;
-        this.gameEngine = GameEngine.getInstance(gameSetting, deck, playerList);
     }
 
     public String getGameName() {
@@ -54,9 +81,17 @@ public class Game implements Serializable {
         return playerList;
     }
 
-    public static Game create(String gameName, GameSetting gameSetting, PlayerList playerList) {
-        game = new Game(gameName, gameSetting, playerList);
+    public static Game getInstance() {
+        if (game == null) {
+            game = new Game();
+        }
         return game;
+    }
+
+    public void resetInstance() {
+        deck.resetInstance();
+        gameSetting.resetInstance();
+        gameEngine.resetInstance();
     }
 
     public GameEngine getGameEngine() {
