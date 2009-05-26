@@ -39,6 +39,7 @@ public class Game implements Serializable {
     }
 
     public void generateGameEngine() {
+        deck=Deck.getInstance();
         gameEngine = GameEngine.getInstance();
         gameEngine.setDeck(deck);
         gameEngine.setGameSetting(gameSetting);
