@@ -91,6 +91,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             for (int i=0; i<size; i++) {
                 System.out.print(pos);
                 ((PlayerCardJP)jpPanels[pos]).newLabelIconCard(GUICoreMediator.requestCard(pos, 0));
+                ((createPanelActionsPlayer)jpActions[pos]).setLabelPoints(GUICoreMediator.getPlayerScore(pos));
                 pos = ++pos % size;
                 
             }
@@ -266,7 +267,7 @@ class createPanelActionsPlayer extends JPanel{
             cash = Double.valueOf(value);
             ((PlayerCardJP)GameJIF.getJpPanels()[index]).newLabelIconCard(GUICoreMediator.requestCard(index, cash));
             jlTotalCash.setText(Double.toString(GUICoreMediator.getPlayerStake(index)));
-            jlPoints.setText(Double.toString(GUICoreMediator.getPlayerScore(index)));
+            setLabelPoints(GUICoreMediator.getPlayerScore(index));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -287,6 +288,12 @@ class createPanelActionsPlayer extends JPanel{
         int pos = GUICoreMediator.nextPlayer();
         GameJIF.getJpActions()[pos].setVisible(true);
     }
+    
+    public void setLabelPoints(double points){
+        jlPoints.setText(Double.toString(points));
+    }
+
+
 }
 /*
 private void jbRemoveAllMouseClicked(MouseEvent evt) {
