@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
 import org.smgame.core.card.Card;
@@ -28,8 +27,8 @@ import org.smgame.main.GameSetting;
  */
 public class GUICoreMediator {
 
-    private static ArrayList<Game> gameList;
-    private static Game currentGame;
+    private static ArrayList<Game> gameList = new ArrayList<Game>();
+    private static Game currentGame = null;
     private static List<String> playerNameList;
     private static List<Boolean> playerTypeList;
     private static final String FILENAME = "/packydata/games.dat";
@@ -67,12 +66,17 @@ public class GUICoreMediator {
         }
 
         currentGame = Game.create(gameName, null, playerList);
+        gameList.add(currentGame);
     }
 
     public static void closeGame() {
         currentGame = null;
         playerNameList = null;
         playerTypeList = null;
+    }
+
+    public static void saveGame() throws FileNotFoundException, IOException {
+        saveGames();
     }
 
     public static void saveGames() throws FileNotFoundException, IOException {
@@ -82,6 +86,11 @@ public class GUICoreMediator {
         oos.flush();
         oos.close();
         fos.close();
+    }
+
+    public static void loadGame()
+            throws FileNotFoundException, IOException, ClassNotFoundException {
+        //
     }
 
     public static void loadGames()

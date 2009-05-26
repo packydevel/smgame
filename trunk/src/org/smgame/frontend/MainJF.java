@@ -92,7 +92,6 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
             }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getLoadGameJMI()) {
             if (GUICoreMediator.askForLoadGame()) {
-                GUICoreMediator.loadGame();
                 loadGameJIF = new LoadGameJIF();
                 loadGameJIF.setVisible(true);
                 loadGameJIF.addInternalFrameListener(this);
