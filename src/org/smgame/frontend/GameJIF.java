@@ -1,5 +1,6 @@
 package org.smgame.frontend;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -9,22 +10,29 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.BevelBorder;
 
+
+import javax.swing.border.BevelBorder;
 import org.smgame.core.GUICoreMediator;
 
 public class GameJIF extends JInternalFrame implements IGameJIF {
 
-    private JPanel[] jpPanels;
-    private JPanel[] jpActions;
+    private static JPanel[] jpPanels;
+    private static JPanel[] jpActions;
+
+    public static JPanel[] getJpActions() {
+        return jpActions;
+    }
+
+    public static JPanel[] getJpPanels() {
+        return jpPanels;
+    }
     
     public GameJIF() {
         super(GUICoreMediator.getGameName());
@@ -66,7 +74,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
             //aggiungo al pannello le azioni se il giocatore è umano            
             if (type_player.get(i).equals(Boolean.FALSE)) {
-                jpActions[i] = createPanelActionsPlayer(i);
+                jpActions[i] = new createPanelActionsPlayer(i);
                 jpActions[i].setVisible(false);
                 this.add(jpActions[i], gbcA);
                 ((PlayerCardJP)jpPanels[i]).setHumanColor();
@@ -92,60 +100,81 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         this.validate();
     }//end initComponentsNew
 
-    private JPanel createPanelActionsPlayer(int i){
+/*    private JPanel createPanelActionsPlayer(int i){
         final int index = i;
 
-        JPanel pane = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel jpGlobal = new JPanel(new BorderLayout());
+        JPanel jpNorth = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel jpSouth = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        pane.setPreferredSize(new Dimension(280, 25));
+        jpGlobal.setPreferredSize(new Dimension(280, 50));
+        jpNorth.setPreferredSize(new Dimension(280, 24));
+        jpSouth.setPreferredSize(new Dimension(280, 20));
 
-        pane.add(new JLabel("Puntata"));
+        jpNorth.add(new JLabel("Puntata"));
+        jpSouth.add(new JLabel("Puntate totali: "));
+        JLabel jlTotalCash = new JLabel();
+        jpSouth.add(jlTotalCash);
 
-        final JTextField jtxtSetCash = new JTextField();
+         JTextField jtxtSetCash = new JTextField();
         jtxtSetCash.setEditable(true);
         jtxtSetCash.setEnabled(true);
         jtxtSetCash.setPreferredSize(new Dimension(30, 20));
         jtxtSetCash.setColumns(4);
         jtxtSetCash.setVisible(true);        
-        pane.add(jtxtSetCash);
+        jpNorth.add(jtxtSetCash);
 
         JButton jbCallCard = new JButton("Chiedi carta");
-        //jbCallCard.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        jbCallCard.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         jbCallCard.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 requestCard(index, jtxtSetCash.getText());
+
+            }
+            private void requestCard(int i, String value) {
+                double cash=-1;
+                try {
+                if ((value!=null) && (!value.equalsIgnoreCase("")))
+                    cash = Double.valueOf(value);
+                    ((PlayerCardJP)jpPanels[i]).newLabelIconCard(GUICoreMediator.requestCard(i, cash));
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
         jbCallCard.setPreferredSize(new Dimension(75, 20));
-        pane.add(jbCallCard);
+        jpNorth.add(jbCallCard);
 
         JButton jbImOK = new JButton("Sto bene");
-        //jbImOK.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        jbImOK.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         jbImOK.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 imOk(index, jtxtSetCash.getText());
             }
+
         });
         jbImOK.setPreferredSize(new Dimension(55,20));
-        pane.add(jbImOK);
+        jpNorth.add(jbImOK);
 
-        return pane;
+        
+        jpGlobal.add(jpNorth,BorderLayout.NORTH);
+        jpGlobal.add(jpSouth,BorderLayout.SOUTH);
+        return jpGlobal;
     }
 
-    private void requestCard(int i, String value) {
-        double cash=-1;
-        try {
-        if ((value!=null) && (!value.equalsIgnoreCase("")))
-            cash = Double.valueOf(value);
-            ((PlayerCardJP)jpPanels[i]).newLabelIconCard(GUICoreMediator.requestCard(i, cash));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+    private void setTotalCash(int i, String cash){
+        
     }
+
+    
 
     private void imOk(int i, String value){
-        double cash=-1;
+        Component[] c = jpActions[0].getComponents();
+        for (int j=0; j<c.length; j++){
+
+        }
+        /*double cash=-1;
         try {
         if ((value!=null) && (!value.equalsIgnoreCase("")))
             cash = Double.valueOf(value);
@@ -156,10 +185,104 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         jpActions[i].setVisible(false);
         int pos = GUICoreMediator.nextPlayer();
         jpActions[pos].setVisible(true);
-    }
+        this.validate();
+    }*/
 
 } //end class
 
+class createPanelActionsPlayer extends JPanel{
+    private int index;
+    private JPanel jpNorth;
+    private JPanel jpSouth;
+    private JLabel jlTotalCash;
+    private JTextField jtxtSetCash;
+    private JButton jbCallCard;
+    private JButton jbImOK;
+
+    public createPanelActionsPlayer(int i){
+        index = i;
+        setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(280, 50));
+        initComponents();
+    }
+
+    private void initComponents(){
+        jpNorth = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        jpSouth = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+        jpNorth.setPreferredSize(new Dimension(280, 25));
+        jpSouth.setPreferredSize(new Dimension(280, 20));
+
+        jpNorth.add(new JLabel("Puntata"));
+        jpSouth.add(new JLabel("Puntate totali: "));
+
+        jlTotalCash = new JLabel();
+        jpSouth.add(jlTotalCash);
+
+        jtxtSetCash = new JTextField();
+        jtxtSetCash.setEditable(true);
+        jtxtSetCash.setEnabled(true);
+        jtxtSetCash.setPreferredSize(new Dimension(30, 20));
+        jtxtSetCash.setColumns(4);
+        jtxtSetCash.setVisible(true);
+        jpNorth.add(jtxtSetCash);
+
+        jbCallCard = new JButton("Chiedi carta");
+        jbCallCard.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        jbCallCard.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                requestCard(jtxtSetCash.getText());
+            }
+
+        });
+        jbCallCard.setPreferredSize(new Dimension(75, 20));
+        jpNorth.add(jbCallCard);
+
+        jbImOK = new JButton("Sto bene");
+        jbImOK.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        jbImOK.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                imOk(jtxtSetCash.getText());
+            }
+
+        });
+        jbImOK.setPreferredSize(new Dimension(55,20));
+        jpNorth.add(jbImOK);
+
+
+        add(jpNorth,BorderLayout.NORTH);
+        add(jpSouth,BorderLayout.SOUTH);
+    }
+
+    private void requestCard(String value) {
+        double cash=-1;
+        try {
+        if ((value!=null) && (!value.equalsIgnoreCase("")))
+            cash = Double.valueOf(value);
+            ((PlayerCardJP)GameJIF.getJpPanels()[index]).newLabelIconCard(GUICoreMediator.requestCard(index, cash));
+            jlTotalCash.setText(Double.toString(GUICoreMediator.getPlayerStake(index)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void imOk(String value){
+        double cash=-1;
+        try {
+            if ((value!=null) && (!value.equalsIgnoreCase(""))){
+                cash = Double.valueOf(value);
+                GUICoreMediator.declareGoodScore(index, cash);
+                jlTotalCash.setText(Double.toString(GUICoreMediator.getPlayerStake(index)));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.setVisible(false);
+        int pos = GUICoreMediator.nextPlayer();
+        GameJIF.getJpActions()[pos].setVisible(true);
+        this.validate();
+    }
+}
 /*
 private void jbRemoveAllMouseClicked(MouseEvent evt) {
 ((testPanel) panel).resetLabelIconCards();
