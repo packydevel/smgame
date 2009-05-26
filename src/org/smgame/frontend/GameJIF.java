@@ -40,6 +40,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private void initComponents() {
         List<String> player_list = GUICoreMediator.getPlayerNameList();
         List<Boolean> type_player = GUICoreMediator.getPlayerTypeList();
+        List<Double> player_credit = GUICoreMediator.getPlayerCreditList();
         
         int size = player_list.size();
         jpPanels = new JPanel[size];
@@ -58,7 +59,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         for (int i = 0; i < size; i++) {
             gbcP.gridy = gbcA.gridy = i;
             //aggiungo al pannello i nomi giocatori
-            jpPanels[i] = new PlayerCardJP(player_list.get(i));                        
+            jpPanels[i] = new PlayerCardJP(player_list.get(i), player_credit.get(i));
             this.add(jpPanels[i], gbcP);
 
             //aggiungo al pannello le azioni se il giocatore è umano            
@@ -66,12 +67,13 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 jpActions[i] = createPanelActionsPlayer();
                 jpActions[i].setVisible(false);
                 this.add(jpActions[i], gbcA);
+                ((PlayerCardJP)jpPanels[i]).setHumanColor();
             } else
                 jpActions[i] = null;            
         } //end for
 
         int pos = GUICoreMediator.getBankPlayer();
-                
+        System.out.println("pos " + pos);
         ((PlayerCardJP)jpPanels[pos]).selectBank();
         pos = ++pos % size;
         

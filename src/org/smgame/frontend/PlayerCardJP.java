@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
-import java.io.File;
-
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -16,28 +14,25 @@ public class PlayerCardJP extends JPanel{
     private JComponent[] components;
     private String curDir; //directory per le img
     private String name_player; //nome giocatore
+    private double cash;
     private int number=2; //numero carta (iteratore)
     private int max=18;
 
-    public PlayerCardJP(String player) {
-        name_player = player;
+    public PlayerCardJP(String tplayer, double tcash) {
+        name_player = tplayer;
+        cash = tcash;
         initComponents();
     }
 
     private void initComponents() {
         this.setPreferredSize(new Dimension(700, 50));
-        this.setLayout(new FlowLayout(FlowLayout.LEFT));
-        curDir = System.getProperty("user.dir");
-        String separ = File.separator;
-        /*TODO: aggiustare il path x le carte in merito alla scelta delle carte*/
-        curDir += separ + "src" + separ + "org" + separ + "smgame" + separ +
-                "resource" + separ + "cartemini" + separ + "napoletane" + separ;
+        this.setLayout(new FlowLayout(FlowLayout.LEFT));        
 
         components = new JComponent[max];
 
         components[0]= new JLabel(name_player);
         components[1]= new JLabel("Credito: ");
-        components[2]= new JLabel();
+        components[2]= new JLabel(Double.toString(cash));
         this.add(components[0]);
         this.add(components[1]);
         this.add(components[2]);
@@ -56,8 +51,8 @@ public class PlayerCardJP extends JPanel{
         }
     }
 
-    public void setCashLabel(String credit){
-        ((JLabel)components[2]).setText(credit);
+    public void setCashLabel(double tcash){
+        ((JLabel)components[2]).setText(Double.toString(tcash));
     }
 
     /**elimina le label delle carte
@@ -79,6 +74,10 @@ public class PlayerCardJP extends JPanel{
     public void deselectBank(){
         components[0].setOpaque(false);
         components[0].setBackground(new Color(212, 208, 200));
+    }
+
+    public void setHumanColor(){
+        components[0].setForeground(new Color(0, 0, 255));
     }
 
 }//end class
