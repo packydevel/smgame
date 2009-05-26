@@ -74,6 +74,7 @@ public class GUICoreMediator {
         currentGame.setGameSetting(gameSetting);
         currentGame.setPlayerList(playerList);
         currentGame.generateGameEngine();
+        currentGame.getGameEngine().shuffleDeck();
 
         gameList.add(currentGame);
     }
@@ -180,6 +181,11 @@ public class GUICoreMediator {
         return playerCreditList;
     }
 
+    public static double getPlayerCredit(int playerIndex) {
+        Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
+        return player.getCredit();
+    }
+
     public static List<Double> getPlayerStakeList() {
         List<Double> playerStakeList = new ArrayList<Double>();
         for (Player p : currentGame.getPlayerList().getPlayerAL()) {
@@ -197,15 +203,10 @@ public class GUICoreMediator {
         return currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().selectFirstRandomBankPlayer());
     }
 
-    public static List<ImageIcon> getPlayerCards(String playerName) {
+    public static List<ImageIcon> getPlayerCards(int playerIndex) {
         List<ImageIcon> playerCards = new ArrayList<ImageIcon>();
-        Player player = null;
-        for (Player p : currentGame.getPlayerList().getPlayerAL()) {
-            if (p.getName().equals(playerName)) {
-                player = p;
-                break;
-            }
-        }
+        Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
+        
         for (Card c : player.getCardList()) {
             playerCards.add(c.getImage());
         }
