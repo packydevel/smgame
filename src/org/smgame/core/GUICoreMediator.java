@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.core;
 
 import java.io.File;
@@ -11,10 +7,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.swing.ImageIcon;
+
 import org.smgame.core.card.Card;
 import org.smgame.core.player.CPUPlayer;
 import org.smgame.core.player.HumanPlayer;
@@ -25,7 +24,7 @@ import org.smgame.main.GameSetting;
 
 /**
  *
- * @author packyuser
+ * @author 
  */
 public class GUICoreMediator {
 
@@ -105,10 +104,19 @@ public class GUICoreMediator {
         fis.close();
     }
 
+    /**Restituisce la lista dei nomi dei giocatori
+     *
+     * @return lista stringa nomi
+     */
     public static List<String> getPlayerNameList() {
         return playerNameList;
     }
 
+    /**restituisce la lista dei tipi dei giocatori
+     * human = Boolean.false
+     *
+     * @return lista Boolean cpu/human
+     */
     public static List<Boolean> getPlayerTypeList() {
         return playerTypeList;
     }
@@ -131,6 +139,10 @@ public class GUICoreMediator {
         return playerStakeList;
     }
 
+    /**restituisce la posizione del mazziere nella lista dei giocatori
+     *
+     * @return posizione
+     */
     public static int getBankPlayer() {
         return currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().selectFirstRandomBankPlayer());
     }
@@ -142,7 +154,6 @@ public class GUICoreMediator {
             if (p.getName().equals(playerName)) {
                 player = p;
                 break;
-
             }
         }
         for (Card c : player.getCardList()) {
@@ -150,7 +161,7 @@ public class GUICoreMediator {
         }
 
         return playerCards;
-    }
+    } // end getPlayerCards
 
     public static List<String> getGameNameList() {
         List<String> gameNameList = new ArrayList<String>();
@@ -178,4 +189,5 @@ public class GUICoreMediator {
 
         return gameLastDateList;
     }
+
 }
