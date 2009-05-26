@@ -56,16 +56,12 @@ public class GUICoreMediator {
         GUICoreMediator.playerTypeList = playerTypeList;
 
         for (int i = 0; i < playerNameList.size(); i++) {
-
-            if (i > 0) {
-                if (playerTypeList.get(i - 1).booleanValue()) {
-                    playerList.getPlayerAL().add(new CPUPlayer(playerNameList.get(i)));
-                } else {
-                    playerList.getPlayerAL().add(new HumanPlayer(playerNameList.get(i)));
-                }
+            if (playerTypeList.get(i - 1).booleanValue()) {
+                playerList.getPlayerAL().add(new CPUPlayer(playerNameList.get(i)));
             } else {
                 playerList.getPlayerAL().add(new HumanPlayer(playerNameList.get(i)));
             }
+
         }
 
         currentGame = Game.create(gameName, null, playerList);
@@ -206,5 +202,4 @@ public class GUICoreMediator {
     public static String getGameName() {
         return currentGame.getGameName();
     }
-
 }
