@@ -105,7 +105,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         pane.add(jtxtSetCash);
 
         JButton jbCallCard = new JButton("Chiedi carta");
-        jbCallCard.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        //jbCallCard.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         jbCallCard.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 requestCard(index, jtxtSetCash.getText());
@@ -115,7 +115,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         pane.add(jbCallCard);
 
         JButton jbImOK = new JButton("Sto bene");
-        jbImOK.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        //jbImOK.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         jbImOK.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 imOk(index, jtxtSetCash.getText());

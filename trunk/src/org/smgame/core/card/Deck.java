@@ -60,7 +60,7 @@ public class Deck implements Serializable {
                 if (i < 9) {
                     img += "0";
                 }
-                img += i +".jpg";
+                img += i + 1 + ".jpg";
 
                 ImageIcon icon = new ImageIcon(curDir + img);
                 c = new Card(point, suit, icon, icon);
@@ -134,8 +134,8 @@ public class Deck implements Serializable {
     }//end print
 
     public Card getSelectedCard(Point point, Suit suit) {
-        for (Card c: CARDS) {
-            if (c.getPoint()==point && c.getSuit()==suit) {
+        for (Card c : CARDS) {
+            if (c.getPoint() == point && c.getSuit() == suit) {
                 return c;
             }
         }
