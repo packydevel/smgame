@@ -85,20 +85,20 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
         int pos = GUICoreMediator.getBankPlayer();
         ((PlayerCardJP) jpPanels[pos]).selectBank();
-        pos = ++pos % size;
-        if (jpActions[pos] != null) {
-            jpActions[pos].setVisible(true);
-        }
+        pos = ++pos % size;        
         try {
             for (int i = 0; i < size; i++) {
                 System.out.print(pos);
-                ((PlayerCardJP) jpPanels[pos]).newLabelIconCard(GUICoreMediator.requestCard(pos, 0));
+                ((PlayerCardJP) jpPanels[pos]).setFirstCard(GUICoreMediator.getFirstCard(pos));
                 ((createPanelActionsPlayer) jpActions[pos]).setLabelPoints(GUICoreMediator.getPlayerScore(pos));
                 pos = ++pos % size;
-
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if (jpActions[pos] != null) {
+            jpActions[pos].setVisible(true);
+            ((PlayerCardJP) jpPanels[pos]).setFirstCardDiscovered();
         }
         this.validate();
     }//end initComponentsNew
@@ -236,7 +236,7 @@ class createPanelActionsPlayer extends JPanel {
         jpNorth.add(jtxtSetCash);
 
         jbCallCard = new JButton("Chiedi carta");
-        //jbCallCard.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        jbCallCard.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         jbCallCard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 requestCard(jtxtSetCash.getText());
@@ -246,7 +246,7 @@ class createPanelActionsPlayer extends JPanel {
         jpNorth.add(jbCallCard);
 
         jbImOK = new JButton("Sto bene");
-        //jbImOK.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        jbImOK.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         jbImOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 imOk(jtxtSetCash.getText());
