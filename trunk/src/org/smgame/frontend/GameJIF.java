@@ -260,19 +260,22 @@ class createPanelActionsPlayer extends JPanel {
 
     private void requestCard(String value) {
         double cash;
+        PlayerCardJP tempPCjp = ((PlayerCardJP) GameJIF.getJpPanels()[index]);
         try {
             if ((value != null) && (!value.equalsIgnoreCase(""))) {
                 cash = Double.valueOf(value);
-                ((PlayerCardJP) GameJIF.getJpPanels()[index]).newLabelIconCard(GUICoreMediator.requestCard(index, cash));
+                tempPCjp.newLabelIconCard(GUICoreMediator.requestCard(index, cash));
                 jlTotalCash.setText(GUICoreMediator.getPlayerStake(index));
                 setLabelPoints(GUICoreMediator.getPlayerScore(index));
+                tempPCjp.setCashLabel(GUICoreMediator.getPlayerCredit(index));
             }
-        } catch (ScoreOverflowException soe) {
-            PlayerCardJP tempPCjp = ((PlayerCardJP) GameJIF.getJpPanels()[index]);
+        } catch (ScoreOverflowException soe) {            
             tempPCjp.newLabelIconCard(soe.getCardException().getFrontImage());
+            setLabelPoints(GUICoreMediator.getPlayerScore(index));
             PrintErrors.exception(soe);
             tempPCjp.setCashLabel(GUICoreMediator.getPlayerCredit(index));
             tempPCjp.scoreOverflow();
+            tempPCjp.setFirstCardCovered();
             int bank = GUICoreMediator.getBankPlayer();
             ((PlayerCardJP) GameJIF.getJpPanels()[bank]).setCashLabel(GUICoreMediator.getPlayerCredit(bank));
             this.setVisible(false);
