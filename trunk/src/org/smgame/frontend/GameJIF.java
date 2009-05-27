@@ -16,11 +16,11 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-
 import javax.swing.border.BevelBorder;
-import org.smgame.core.GUICoreMediator;
 
+import org.smgame.core.GUICoreMediator;
+import org.smgame.util.PrintErrors;
+import org.smgame.util.ScoreOverflowException;
 public class GameJIF extends JInternalFrame implements IGameJIF {
 
     private static JPanel[] jpPanels;
@@ -194,6 +194,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
 class createPanelActionsPlayer extends JPanel {
 
+
     private int index;
     private JPanel jpNorth;
     private JPanel jpSouth;
@@ -255,39 +256,47 @@ class createPanelActionsPlayer extends JPanel {
         jbImOK.setPreferredSize(new Dimension(55, 20));
         jpNorth.add(jbImOK);
 
-
         add(jpNorth, BorderLayout.NORTH);
         add(jpSouth, BorderLayout.SOUTH);
     }
 
     private void requestCard(String value) {
-        double cash = -1;
+        double cash;
         try {
             if ((value != null) && (!value.equalsIgnoreCase(""))) {
                 cash = Double.valueOf(value);
+                ((PlayerCardJP) GameJIF.getJpPanels()[index]).newLabelIconCard(GUICoreMediator.requestCard(index, cash));
+                jlTotalCash.setText(Double.toString(GUICoreMediator.getPlayerStake(index)));
+                setLabelPoints(GUICoreMediator.getPlayerScore(index));
             }
-            ((PlayerCardJP) GameJIF.getJpPanels()[index]).newLabelIconCard(GUICoreMediator.requestCard(index, cash));
-            jlTotalCash.setText(Double.toString(GUICoreMediator.getPlayerStake(index)));
-            setLabelPoints(GUICoreMediator.getPlayerScore(index));
+        } catch (ScoreOverflowException soe) {
+            PrintErrors.exception(soe);
+            this.setVisible(false);
+            int pos = GUICoreMediator.nextPlayer();
+            ((PlayerCardJP)GameJIF.getJpPanels()[pos]).setFirstCardDiscovered();
+            GameJIF.getJpActions()[pos].setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void imOk(String value) {
-        double cash = -1;
+        double cash;
         try {
             if ((value != null) && (!value.equalsIgnoreCase(""))) {
                 cash = Double.valueOf(value);
                 GUICoreMediator.declareGoodScore(index, cash);
                 jlTotalCash.setText(Double.toString(GUICoreMediator.getPlayerStake(index)));
+                ((PlayerCardJP)GameJIF.getJpPanels()[index]).setFirstCardCovered();
+                this.setVisible(false);
+                int pos = GUICoreMediator.nextPlayer();
+                ((PlayerCardJP)GameJIF.getJpPanels()[pos]).setFirstCardDiscovered();
+                GameJIF.getJpActions()[pos].setVisible(true);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.setVisible(false);
-        int pos = GUICoreMediator.nextPlayer();
-        GameJIF.getJpActions()[pos].setVisible(true);
+        
     }
 
     public void setLabelPoints(double points) {
