@@ -36,7 +36,7 @@ public class GUICoreMediator {
     private static List<String> playerNameList;
     private static List<Boolean> playerTypeList;
     private static final String FILENAME = Common.getWorkspace() + "games.dat";
-    private static final NumberFormat formatter=new DecimalFormat("#0.00");
+    private static final NumberFormat formatter = new DecimalFormat("#0.00");
 
     public static boolean askForNewGame() {
         if (currentGame != null) {
@@ -283,5 +283,9 @@ public class GUICoreMediator {
      */
     public static int nextPlayer() {
         return currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().nextPlayer());
+    }
+
+    public static boolean isEndManche(int playerIndex) {
+        return currentGame.getGameEngine().isEndManche(currentGame.getPlayerList().getPlayerAL().get(playerIndex));
     }
 } //end  class
