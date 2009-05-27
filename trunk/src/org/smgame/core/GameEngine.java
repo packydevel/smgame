@@ -9,7 +9,6 @@ import org.smgame.core.card.Deck;
 import org.smgame.core.card.Point;
 import org.smgame.core.card.Suit;
 import org.smgame.core.player.Player;
-import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
 import org.smgame.core.player.PlayerRole;
 import org.smgame.core.player.PlayerStatus;
@@ -30,7 +29,7 @@ public class GameEngine implements Serializable {
     private PlayerList playerList;
     private final double MAX_CREDIT = 64000;
     private final double MAX_SCORE = 7.5;
-    private int currentManche;
+    private int currentManche = 0;
     private Player bankPlayer;
     private Player currentPlayer;
 
@@ -78,7 +77,7 @@ public class GameEngine implements Serializable {
         Card card;
         card = deck.getNextCard();
         player.getCardList().add(card);
-
+        currentManche++;
         return card;
     }
 
@@ -132,9 +131,22 @@ public class GameEngine implements Serializable {
         return bankPlayer;
     }
 
-//    public Player selectNextBankPlayer() {
-//
-//    }
+    public Player selectNextBankPlayer() {
+        Player player = playerList.firstKingSM(bankPlayer);
+        int indexList;
+
+        if (player == null) {
+            if (deck.isIsEmptyDeck()) {
+                deck.setIsEmptyDeck(false);
+                indexList = playerList.getPlayerAL().indexOf(bankPlayer);
+                indexList = ++indexList % playerList.getPlayerAL().size();
+                bankPlayer = playerList.getPlayerAL().get(indexList);
+            }
+        } else {
+            bankPlayer = player;
+        }
+        return bankPlayer;
+    }
 
     public void shuffleDeck() {
         deck.shuffle();
@@ -188,9 +200,9 @@ public class GameEngine implements Serializable {
                 }
             } else {
                 if (bankPlayer.getScore() == 7.5 && bankPlayer.getCardList().size() == 2) {
-                    return player.getCredit() - 2 * player.getStake();
-                } else {
                     return player.getCredit() - player.getStake();
+                } else {
+                    return player.getCredit() - 2 * player.getStake();
                 }
             }
         } else {
@@ -205,9 +217,9 @@ public class GameEngine implements Serializable {
     public Player nextPlayer() {
         int indexList;
         if (currentPlayer == null) {
-            indexList = playerList.getPlayerAL().indexOf((Player) bankPlayer);
+            indexList = playerList.getPlayerAL().indexOf(bankPlayer);
         } else {
-            indexList = playerList.getPlayerAL().indexOf((Player) currentPlayer);
+            indexList = playerList.getPlayerAL().indexOf(currentPlayer);
         }
 
         indexList = ++indexList % playerList.getPlayerAL().size();

@@ -1,6 +1,8 @@
 package org.smgame.core.player;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -65,5 +67,19 @@ public class PlayerList implements Serializable {
             }
         }
         return false;
+    }
+
+    public Player firstKingSM(Player player) {
+        ArrayList<Player> tempList=new ArrayList(playerAL);
+        int playerIndex=playerAL.indexOf(player);
+
+        Collections.rotate(tempList, -playerIndex);
+
+        for (Player p: tempList) {
+            if (p.hasKingSM()) {
+                return p;
+            }
+        }
+        return null;
     }
 }
