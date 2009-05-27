@@ -1,6 +1,5 @@
 package org.smgame.core;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,6 +20,7 @@ import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
 import org.smgame.main.Game;
 import org.smgame.main.GameSetting;
+import org.smgame.util.Common;
 import org.smgame.util.NoGamesException;
 
 /**
@@ -33,8 +33,7 @@ public class GUICoreMediator {
     private static Game currentGame = null;
     private static List<String> playerNameList;
     private static List<Boolean> playerTypeList;
-    private static final String FILENAME = System.getProperty("user.dir") +
-            File.separator + "games.dat";
+    private static final String FILENAME = Common.getWorkspace() + "games.dat";
 
     public static boolean askForNewGame() {
         if (currentGame != null) {
@@ -226,6 +225,13 @@ public class GUICoreMediator {
         return playerCards;
     } // end getPlayerCards
 
+    /**Restituisce l'immagine/icona della carta richiesta dal giocatore
+     *
+     * @param playerIndex
+     * @param bet
+     * @return
+     * @throws java.lang.Exception
+     */
     public static ImageIcon requestCard(int playerIndex, double bet) throws Exception {
         Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
         Card card;
@@ -237,15 +243,30 @@ public class GUICoreMediator {
         }
     }
 
-    public ImageIcon getFirstCard(int playerIndex) {
+    /**Restituisce un array di 2imageicon riguardo la prima carta da distribuire sul tavolo
+     * 0 = carta
+     * 1 = dorso
+     *
+     * @param playerIndex
+     * @return
+     */
+    public static ImageIcon[] getFirstCard(int playerIndex) {
+        ImageIcon[] icons = new ImageIcon[2];
         Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
         Card card = currentGame.getGameEngine().getFirstCard(player);
-        return card.getIcon();
+        icons[0] = card.getIcon();
+        icons[1] = card.getBackCard();
+        return icons;
     }
 
+    /**Dichiarazione del giocatore di stare bene con eventuale puntata
+     *
+     * @param playerIndex
+     * @param bet
+     * @throws java.lang.Exception
+     */
     public static void declareGoodScore(int playerIndex, double bet) throws Exception {
         Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
-
         try {
             currentGame.getGameEngine().declareGoodScore(player, bet);
         } catch (Exception e) {
@@ -253,7 +274,11 @@ public class GUICoreMediator {
         }
     }
 
+    /**Restituisce la posizione del prossimo giocatore
+     *
+     * @return
+     */
     public static int nextPlayer() {
         return currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().nextPlayer());
     }
-}
+} //end  class

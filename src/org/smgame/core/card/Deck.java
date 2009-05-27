@@ -1,13 +1,12 @@
 package org.smgame.core.card;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.ImageIcon;
+import org.smgame.util.Common;
 
 /**Classe Mazzo
  * contiene le 40carte da gioco
@@ -33,13 +32,7 @@ public class Deck implements Serializable {
 
     //costruttore privato
     private Deck() {
-        String curDir = System.getProperty("user.dir");
-        String separ = File.separator;
         String img = "";
-
-        /*TODO: aggiustare il path x le carte in merito alla scelta delle carte*/
-        curDir += separ + "src" + separ + "org" + separ + "smgame" + separ +
-                "resource" + separ + "cartemini" + separ + "napoletane" + separ;
         int i;
         Card c;
         for (Suit suit : Suit.values()) {
@@ -60,7 +53,7 @@ public class Deck implements Serializable {
                 }
                 img += i + 1 + ".jpg";
 
-                ImageIcon icon = new ImageIcon(curDir + img);
+                ImageIcon icon = new ImageIcon(Common.getResourceCards() + img);
                 c = new Card(point, suit, ALL_VALUE[i], icon, icon);
                 CARDS.add(c);
 
