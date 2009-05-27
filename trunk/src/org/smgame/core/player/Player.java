@@ -3,6 +3,7 @@ package org.smgame.core.player;
 import java.io.Serializable;
 import java.util.ArrayList;
 import org.smgame.core.card.Card;
+import org.smgame.core.card.JollyCard;
 
 /**Classe astratta Giocatore
  * 
@@ -14,6 +15,7 @@ public abstract class Player implements Serializable {
     protected String name; //nome giocatore
     protected double credit; //credito
     protected double bet; //puntata
+    protected boolean hasJollyCard = false;
     protected ArrayList<Card> cardList = new ArrayList<Card>(); //
     protected ArrayList<Double> betList = new ArrayList<Double>(12);
     protected double score; //punteggio
@@ -55,7 +57,7 @@ public abstract class Player implements Serializable {
         this.credit = credit;
     }
 
-    public  ArrayList<Double> getBetList() {
+    public ArrayList<Double> getBetList() {
         return betList;
     }
 
@@ -72,10 +74,21 @@ public abstract class Player implements Serializable {
      * @return
      */
     public double getScore() {
+        double bestValue;
+
         score = 0;
 
         for (Card c : cardList) {
-            score += c.getValue();
+            if (c instanceof JollyCard) {
+                hasJollyCard = true;
+            } else {
+                score += c.getValue();
+            }
+        }
+
+        if (hasJollyCard) {
+            bestValue = JollyCard.getBestValue(score);
+            score+=bestValue;
         }
 
         return score;
