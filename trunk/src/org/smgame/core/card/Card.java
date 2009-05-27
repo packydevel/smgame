@@ -17,6 +17,7 @@ public class Card implements Serializable {
     private Suit suit; //seme
     private ImageIcon image;
     private ImageIcon icon;
+    private final ImageIcon backImage=new ImageIcon(Common.getResourceCards() + "dorso.gif");
     private double value; //valore
 
     /**Costruttore con tre parametri
@@ -53,11 +54,11 @@ public class Card implements Serializable {
         return icon;
     }
 
-    public ImageIcon getBackCard(){
-        return new ImageIcon(Common.getResourceCards() + "dorso.gif");
+    public ImageIcon getBackImage(){
+        return backImage;
     }
 
-    public ImageIcon getImage() {
+    public ImageIcon getFrontImage() {
         return image;
     }
 
@@ -67,10 +68,6 @@ public class Card implements Serializable {
      */
     public double getValue() {
         return this.value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
     }
 
     /**Restituisce 
