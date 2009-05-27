@@ -5,6 +5,8 @@
 package org.smgame.main;
 
 import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
+import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.UIManager;
 import org.smgame.core.GUICoreMediator;
 import org.smgame.frontend.MainJF;
@@ -33,5 +35,21 @@ public class StartSMGame {
             //e.printStackTrace();
             System.out.println("Errore nel caricamento!!!");
         }
+
+
+        ArrayList<String> test = new ArrayList<String>();
+
+        test.add("a");
+        test.add("b");
+        test.add("c");
+        test.add("d");
+        test.add("e");
+
+        System.out.println(test);
+
+        Collections.rotate(test, -4);
+
+        System.out.println(test);
+
     }
 }

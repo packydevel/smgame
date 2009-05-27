@@ -94,6 +94,14 @@ public abstract class Player implements Serializable {
         return score;
     }
 
+    public boolean hasKingSM() {
+        if (getScore()==7.5 && cardList.size()==2) {
+            return true;
+        }
+
+        return false;
+    }
+
     /**Restituisce il ruolo corrente
      * se mazziere o giocatore
      *
