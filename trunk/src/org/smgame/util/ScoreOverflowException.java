@@ -5,13 +5,18 @@
 
 package org.smgame.util;
 
+import org.smgame.core.card.Card;
+
 /**
  *
  * @author packyuser
  */
 public class ScoreOverflowException extends Exception {
 
-    public ScoreOverflowException(String message) {
+    Card card;
+
+    public ScoreOverflowException(String message, Card card) {
         super(message);
+        this.card=card;
     }
 }

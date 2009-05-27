@@ -104,7 +104,7 @@ public class GameEngine implements Serializable {
                 player.setCredit(player.getCredit() - player.getStake());
                 player.setStatus(PlayerStatus.ScoreOverflow);
                 bankPlayer.setCredit(bankPlayer.getCredit() + player.getStake());
-                throw new ScoreOverflowException("Mi spiace, Hai Sballato!!!");
+                throw new ScoreOverflowException("Mi spiace, Hai Sballato!!!", card);
             } else {
                 player.getBetList().add(bet);
                 player.setCredit(player.getCredit() - bet);
