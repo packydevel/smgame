@@ -19,4 +19,8 @@ public class ScoreOverflowException extends Exception {
         super(message);
         this.card=card;
     }
+
+    public Card getCardException(){
+        return card;
+    }
 }
