@@ -86,7 +86,7 @@ public class PlayerCardJP extends JPanel{
             this.remove(components[i]);
             components[i]= null;
         }
-        number=0;
+        number=2;
     }
 
     public void selectBank(){
