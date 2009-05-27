@@ -81,9 +81,8 @@ public class LoadGameJIF extends JInternalFrame {
         buttonGBC.gridx = 1;
         buttonGBC.gridy = 1;
         cancelJB.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent evt) {
-                //newGameActionPerformed(evt);
+                loadGameActionPerformed(evt);
             }
         });
         rootJP.add(cancelJB, buttonGBC);
@@ -96,13 +95,18 @@ public class LoadGameJIF extends JInternalFrame {
         buttonGBC.gridy = 1;
         buttonGBC.weightx = 1;
         okJB.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent evt) {
-                //newGameActionPerformed(evt);
+                loadGameActionPerformed(evt);
             }
         });
         rootJP.add(okJB, buttonGBC);
 
         add(rootJP);
     }
+
+     private void loadGameActionPerformed(ActionEvent evt) {
+         if (evt.getSource()==cancelJB) {
+             dispose();
+         }
+     }
 }

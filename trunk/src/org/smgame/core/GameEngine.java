@@ -90,6 +90,7 @@ public class GameEngine implements Serializable {
         } else {
             card = deck.getNextCard();
             player.getCardList().add(card);
+            System.out.println(card.getIcon().getDescription());
 
             if (player.getScore() > 7.5) {
                 deck.addOffGameCards(player.getCardList());
