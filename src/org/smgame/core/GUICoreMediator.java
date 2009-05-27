@@ -219,7 +219,7 @@ public class GUICoreMediator {
         Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
 
         for (Card c : player.getCardList()) {
-            playerCards.add(c.getImage());
+            playerCards.add(c.getFrontImage());
         }
 
         return playerCards;
@@ -244,8 +244,8 @@ public class GUICoreMediator {
     }
 
     /**Restituisce un array di 2imageicon riguardo la prima carta da distribuire sul tavolo
-     * 0 = carta
-     * 1 = dorso
+     * 0 = carta frontale
+     * 1 = dorso carta
      *
      * @param playerIndex
      * @return
@@ -254,8 +254,8 @@ public class GUICoreMediator {
         ImageIcon[] icons = new ImageIcon[2];
         Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
         Card card = currentGame.getGameEngine().getFirstCard(player);
-        icons[0] = card.getIcon();
-        icons[1] = card.getBackCard();
+        icons[0] = card.getFrontImage();
+        icons[1] = card.getBackImage();
         return icons;
     }
 
