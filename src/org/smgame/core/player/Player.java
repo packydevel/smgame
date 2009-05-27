@@ -18,7 +18,6 @@ public abstract class Player implements Serializable {
     protected boolean hasJollyCard = false;
     protected ArrayList<Card> cardList = new ArrayList<Card>(); //
     protected ArrayList<Double> betList = new ArrayList<Double>(12);
-    protected double score; //punteggio
     protected double MIN_SCORE = 4.0;
     protected double MIN_MARGIN = 0.5;
     protected PlayerRole role; //ruolo giocatore
@@ -75,8 +74,7 @@ public abstract class Player implements Serializable {
      */
     public double getScore() {
         double bestValue;
-
-        score = 0;
+        double score = 0;
 
         for (Card c : cardList) {
             if (c instanceof JollyCard) {

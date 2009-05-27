@@ -21,7 +21,7 @@ public class CPUPlayer extends Player implements Serializable {
      * @return
      */
     public boolean askAnotherCard() {
-        if (score < MIN_SCORE) {
+        if (getScore() < MIN_SCORE) {
             return true;
         } else {
             return false;

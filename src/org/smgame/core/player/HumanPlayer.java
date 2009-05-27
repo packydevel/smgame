@@ -15,27 +15,6 @@ public class HumanPlayer extends Player implements Serializable {
         MIN_MARGIN = 0.5;
     }
 
-    /**Chiede un'altra mano
-     *
-     * @return
-     */
-    public boolean askAnotherManche() {
-        return true;
-    }
-
-    /**Chiede un'altra carta
-     *
-     * @return
-     */
-    public boolean askAnotherCard() {
-        //TODO: correggere o decidere cazzo fare
-        if (score < MIN_SCORE || (playerList.existsWeakPlayer(score, MIN_MARGIN)))
-            return true;
-        else
-            return false;
-        //
-    }
-
     /**Richiede una puntata
      *
      * @return
