@@ -8,20 +8,21 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 /**JPanel del giocatore e delle carte
  *
  * @author luca
  * @author pasquale
  */
-public class PlayerCardJP extends JPanel{
-   
+public class PlayerCardJP extends JPanel {
+
     private JComponent[] components;
     private String name_player; //nome giocatore
     private String cash;
     private int number; //numero carta (iteratore)
     final private int min = 2;
-    final private int max=15;
+    final private int max = 15;
     private ImageIcon[] firstcard;
 
     /**Costruttore
@@ -32,22 +33,23 @@ public class PlayerCardJP extends JPanel{
     public PlayerCardJP(String tplayer, String tcash) {
         name_player = tplayer;
         cash = tcash;
+        this.setBorder(new LineBorder(new Color(212, 208, 200)));
         initComponents();
     }
 
     private void initComponents() {
-        this.setPreferredSize(new Dimension(700, 50));
-        this.setLayout(new FlowLayout(FlowLayout.LEFT));        
-
+        setPreferredSize(new Dimension(700, 50));
+        setLayout(new FlowLayout(FlowLayout.LEFT));
+        
         components = new JComponent[max];
 
-        components[0]= new JLabel(name_player);
-        components[1]= new JLabel("Credito: ");
-        components[2]= new JLabel(cash);
-        this.add(components[0]);
-        this.add(components[1]);
-        this.add(components[2]);
-        this.setVisible(true);
+        components[0] = new JLabel(name_player);
+        components[1] = new JLabel("Credito: ");
+        components[2] = new JLabel(cash);
+        add(components[0]);
+        add(components[1]);
+        add(components[2]);
+        setVisible(true);
         number = 2;
     }//end initComponents
 
@@ -55,9 +57,9 @@ public class PlayerCardJP extends JPanel{
      *
      * @param icon
      */
-    public void newLabelIconCard(ImageIcon icon){
+    public void newLabelIconCard(ImageIcon icon) {
         //System.out.println(icon.getDescription());
-        if (number<max-1) {
+        if (number < max - 1) {
             components[++number] = new JLabel(icon);
             this.add(components[number]);
         }
@@ -67,7 +69,7 @@ public class PlayerCardJP extends JPanel{
      *
      * @param icons
      */
-    public void setFirstCard(ImageIcon[] icons){
+    public void setFirstCard(ImageIcon[] icons) {
         firstcard = icons;
         components[++number] = new JLabel(firstcard[1]);
         this.add(components[number]);
@@ -76,40 +78,40 @@ public class PlayerCardJP extends JPanel{
     /**Copre la prima carta scoperta
      *
      */
-    public void setFirstCardCovered(){
-        ((JLabel)components[3]).setIcon(firstcard[1]);
+    public void setFirstCardCovered() {
+        ((JLabel) components[3]).setIcon(firstcard[1]);
     }
 
     /**Scopre la prima carta coperta
      *
      */
-    public void setFirstCardDiscovered(){
-        ((JLabel)components[3]).setIcon(firstcard[0]);
+    public void setFirstCardDiscovered() {
+        ((JLabel) components[3]).setIcon(firstcard[0]);
     }
 
     /**Imposta il testo della label relativa alla puntata totale
      *
      * @param tcash
      */
-    public void setCashLabel(String tcash){
-        ((JLabel)components[2]).setText(tcash);
+    public void setCashLabel(String tcash) {
+        ((JLabel) components[2]).setText(tcash);
     }
 
     /**elimina le label delle carte
      *
      */
-    public void resetLabelIconCards(){
-        for (int i=number;i>min; i--){
+    public void resetLabelIconCards() {
+        for (int i = number; i > min; i--) {
             this.remove(components[i]);
-            components[i]= null;
+            components[i] = null;
         }
-        number=min;
-    }    
+        number = min;
+    }
 
     /**Seleziona/evidenzia il mazziere di turno
      *
      */
-    public void selectBank(){
+    public void selectBank() {
         components[0].setOpaque(true);
         components[0].setBackground(new Color(255, 153, 0));
     }
@@ -117,7 +119,7 @@ public class PlayerCardJP extends JPanel{
     /**Deseleziona l'ex-mazziere di turno, che diventa un player normale
      *
      */
-    public void deselectBank(){
+    public void deselectBank() {
         components[0].setOpaque(false);
         components[0].setBackground(new Color(212, 208, 200));
     }
@@ -125,8 +127,7 @@ public class PlayerCardJP extends JPanel{
     /**Imposta il colore del testo del giocatore umano,
      * per differenziarlo dal giocatore CPU
      */
-    public void setHumanColor(){
+    public void setHumanColor() {
         components[0].setForeground(new Color(0, 0, 255));
     }
-
 }//end class

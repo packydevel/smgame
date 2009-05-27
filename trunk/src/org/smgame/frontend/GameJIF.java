@@ -37,7 +37,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     public GameJIF() {
         super(GUICoreMediator.getGameName());
         int width = 1000;
-        int height = 600;
+        int height = 650;
         int xbound = (getContentPane().getWidth() - width) % 2;
         int ybound = (getContentPane().getHeight() - height) % 2;
         setPreferredSize(new Dimension(width, height));
