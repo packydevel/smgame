@@ -6,8 +6,13 @@ import java.util.Collections;
 import java.util.List;
 import org.smgame.core.card.Card;
 import org.smgame.core.card.Deck;
+import org.smgame.core.card.Point;
+import org.smgame.core.card.Suit;
+import org.smgame.core.player.Player;
 import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
+import org.smgame.core.player.PlayerRole;
+import org.smgame.core.player.PlayerStatus;
 import org.smgame.main.GameSetting;
 import org.smgame.util.BetOverflowException;
 import org.smgame.util.ScoreOverflowException;
@@ -52,9 +57,9 @@ public class GameEngine implements Serializable {
         gameSetting.resetInstance();
         deck.resetInstance();
         playerList.resetInstance();
-        bankPlayer=null;
-        currentPlayer=null;
-        currentManche=0;
+        bankPlayer = null;
+        currentPlayer = null;
+        currentManche = 0;
     }
 
     public void setDeck(Deck deck) {
@@ -97,6 +102,7 @@ public class GameEngine implements Serializable {
                 player.getCardList().clear();
                 player.getBetList().clear();
                 player.setCredit(player.getCredit() - player.getStake());
+                player.setStatus(PlayerStatus.ScoreOverflow);
                 bankPlayer.setCredit(bankPlayer.getCredit() + player.getStake());
                 throw new ScoreOverflowException("Mi spiace, Hai Sballato!!!");
             } else {
@@ -114,6 +120,7 @@ public class GameEngine implements Serializable {
         } else {
             player.getBetList().add(bet);
             player.setCredit(player.getCredit() - bet);
+            player.setStatus(PlayerStatus.GoodScore);
         }
     }
 
@@ -121,11 +128,70 @@ public class GameEngine implements Serializable {
         List<Player> tempList = new ArrayList<Player>(playerList.getPlayerAL());
         Collections.shuffle(tempList);
         bankPlayer = tempList.get(0);
+        bankPlayer.setRole(PlayerRole.Bank);
         return bankPlayer;
     }
 
     public void shuffleDeck() {
         deck.shuffle();
+    }
+
+    /*
+     * Valutazione tra i punteggi realizzati al 7 1/2 seondo le regle di WikiPedia
+     * Luka verifichi anche tu???
+     */
+    public boolean compareScore(Player player) {
+        if (player.getStatus() == PlayerStatus.GoodScore) {
+            if (player.getScore() > bankPlayer.getScore()) {
+                return true;
+            } else if (player.getScore() < bankPlayer.getScore()) {
+                return false;
+            } else {
+                if (player.getScore() == 7.5) {
+                    if ((player.getCardList().size() == 2) &&
+                            ((player.getCardList().get(0).getPoint() == Point.Re && player.getCardList().get(0).getSuit() == Suit.Danari) ||
+                            (player.getCardList().get(1).getPoint() == Point.Re && player.getCardList().get(1).getSuit() == Suit.Danari))) {
+                        if (bankPlayer.getCardList().size() == 2) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }
+        } else {
+            return false;
+        }
+    }
+
+    /*
+     * Determina quanto vince o perde un giocatore contro il banco
+     * secondo le regole di Wikipedia
+     * Luka puoi verificare???
+     */
+    public double paymentRule(Player player) {
+
+        if (player.getStatus() == PlayerStatus.GoodScore) {
+            if (compareScore(player)) {
+                if (player.getScore() == 7.5 && player.getCardList().size() == 2) {
+                    return player.getCredit() + 2 * player.getStake();
+                } else {
+                    return player.getCredit() + player.getStake();
+                }
+            } else {
+                if (bankPlayer.getScore() == 7.5 && bankPlayer.getCardList().size() == 2) {
+                    return player.getCredit() - 2 * player.getStake();
+                } else {
+                    return player.getCredit() - player.getStake();
+                }
+            }
+        } else {
+            return player.getCredit();
+        }
     }
 
     /**restituisce il prossimo giocatore
@@ -155,7 +221,7 @@ public class GameEngine implements Serializable {
     }
 
     public boolean isEndGame() {
-        if (gameSetting.getManches()==currentManche) {
+        if (gameSetting.getManches() == currentManche) {
             return true;
         } else if (playerList.existsBankruptPlayer()) {
             return true;

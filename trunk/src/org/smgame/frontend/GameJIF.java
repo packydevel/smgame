@@ -6,8 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -236,10 +236,9 @@ class createPanelActionsPlayer extends JPanel {
         jpNorth.add(jtxtSetCash);
 
         jbCallCard = new JButton("Chiedi carta");
-        jbCallCard.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        jbCallCard.addMouseListener(new MouseAdapter() {
-
-            public void mouseClicked(MouseEvent evt) {
+        //jbCallCard.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        jbCallCard.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 requestCard(jtxtSetCash.getText());
             }
         });
@@ -247,10 +246,9 @@ class createPanelActionsPlayer extends JPanel {
         jpNorth.add(jbCallCard);
 
         jbImOK = new JButton("Sto bene");
-        jbImOK.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        jbImOK.addMouseListener(new MouseAdapter() {
-
-            public void mouseClicked(MouseEvent evt) {
+        //jbImOK.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        jbImOK.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 imOk(jtxtSetCash.getText());
             }
         });
