@@ -269,9 +269,12 @@ class createPanelActionsPlayer extends JPanel {
                 setLabelPoints(GUICoreMediator.getPlayerScore(index));
                 tempPCjp.setCashLabel(GUICoreMediator.getPlayerCredit(index));
             }
-        } catch (ScoreOverflowException soe) {            
+        } catch (ScoreOverflowException soe) {
+            //prendo l'immagine della carta sbagliata
             tempPCjp.newLabelIconCard(soe.getCardException().getFrontImage());
+            //aggiorno il punteggio che peraltro è overflow
             setLabelPoints(GUICoreMediator.getPlayerScore(index));
+            //richiamo la jdialog x l'eccezione
             PrintErrors.exception(soe);
             tempPCjp.setCashLabel(GUICoreMediator.getPlayerCredit(index));
             tempPCjp.scoreOverflow();
@@ -294,7 +297,9 @@ class createPanelActionsPlayer extends JPanel {
                 cash = Double.valueOf(value);
                 GUICoreMediator.declareGoodScore(index, cash);
                 jlTotalCash.setText(GUICoreMediator.getPlayerStake(index));
-                ((PlayerCardJP)GameJIF.getJpPanels()[index]).setFirstCardCovered();
+                PlayerCardJP tempPCjp = ((PlayerCardJP)GameJIF.getJpPanels()[index]);
+                tempPCjp.setFirstCardCovered();
+                tempPCjp.setCashLabel(GUICoreMediator.getPlayerCredit(index));
                 this.setVisible(false);
                 int pos = GUICoreMediator.nextPlayer();
                 ((PlayerCardJP)GameJIF.getJpPanels()[pos]).setFirstCardDiscovered();
