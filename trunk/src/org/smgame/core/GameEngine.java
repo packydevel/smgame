@@ -76,8 +76,10 @@ public class GameEngine implements Serializable {
     public Card getFirstCard(Player player) {
         Card card;
         card = deck.getNextCard();
+        player.setStatus(PlayerStatus.GoodScore);
         player.getCardList().add(card);
         currentManche++;
+
         return card;
     }
 
@@ -89,24 +91,26 @@ public class GameEngine implements Serializable {
     public Card requestCard(Player player, double bet) throws BetOverflowException, ScoreOverflowException {
         Card card;
 
-        if (player.getCredit() < bet) {
+        if ((player.getCredit() - player.getStake()) < bet) {
             throw new BetOverflowException("Non hai sufficiente Credito per eseguire questa puntata!!!");
         } else {
             card = deck.getNextCard();
             player.getCardList().add(card);
+            player.getBetList().add(bet);
+
             System.out.println(card.getIcon().getDescription());
 
             if (player.getScore() > 7.5) {
+                System.out.println("Credito attuale: " + player.getCredit());
+                System.out.println("Puntata singola: " + bet);
+                System.out.println("Puntata complessiva: " + player.getStake());
                 deck.addOffGameCards(player.getCardList());
-                player.getCardList().clear();
-                player.getBetList().clear();
+                //player.getCardList().clear();
+                //player.getBetList().clear();
                 player.setCredit(player.getCredit() - player.getStake());
-                player.setStatus(PlayerStatus.ScoreOverflow);
                 bankPlayer.setCredit(bankPlayer.getCredit() + player.getStake());
+                player.setStatus(PlayerStatus.ScoreOverflow);
                 throw new ScoreOverflowException("Mi spiace, Hai Sballato!!!", card);
-            } else {
-                player.getBetList().add(bet);
-                player.setCredit(player.getCredit() - bet);
             }
         }
 
@@ -244,5 +248,12 @@ public class GameEngine implements Serializable {
         } else {
             return false;
         }
+    }
+
+    public boolean isEndManche(Player player) {
+        if (player == bankPlayer) {
+            return true;
+        }
+        return false;
     }
 }//end class
