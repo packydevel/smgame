@@ -4,13 +4,15 @@
  */
 package org.test;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,8 +20,8 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 import org.smgame.core.GUICoreMediator;
-import org.smgame.frontend.PlayerCardJP;
 
 /**
  *
@@ -31,32 +33,39 @@ public class GameJIF extends JInternalFrame {
 
         super(GUICoreMediator.getGameName(), false, true, false, false);
         int width = 960;
-        int height = 720;
-        int xbound = (getContentPane().getWidth() - width) % 2;
-        int ybound = (getContentPane().getHeight() - height) % 2;
+        int height = 640;
+        int xbound = (getContentPane().getWidth() - width) / 2;
+        int ybound = (getContentPane().getHeight() - height) / 2;
         setPreferredSize(new Dimension(width, height));
-        setBounds(xbound, ybound, xbound + width, ybound + height);
+        //setBounds(xbound, ybound, xbound + width, ybound + height);
         setLayout(new GridBagLayout());
         initComponents();
         pack();
     }
 
     private void initComponents() {
+        List<JPanel> playerCardsList;
         List<String> playerNameList = GUICoreMediator.getPlayerNameList();
         List<Boolean> playerTypeList = GUICoreMediator.getPlayerTypeList();
-        List<Double> playerCreditList = GUICoreMediator.getPlayerCreditList();
-        List<ImageIcon> cardImageList;
-        JLabel[] playerNameJL, playerCreditJL, playerStakeJL, playerScoreJL;
-        JLabel[][] playerCardsJL;
+        List<String> playerCreditList = GUICoreMediator.getPlayerCreditList();
+        List<JLabel> playerNameJL, playerCreditJL, playerStakeJL, playerScoreJL;
+        List<ImageIcon> cardImagesList = new ArrayList<ImageIcon>();
+        List<List<ImageIcon>> playerCardsImagesList = new ArrayList<List<ImageIcon>>();
+        List<JTextField> textFieldJTF;
+        List<JButton> requestCardJB, goodScoreJB;
 
         int size = playerNameList.size();
 
-        playerNameJL = new JLabel[size];
-        playerCreditJL = new JLabel[size];
-        playerStakeJL = new JLabel[size];
-        playerScoreJL = new JLabel[size];
-        playerCardsJL = new JLabel[size][12];
+        playerCardsList = new ArrayList<JPanel>(size);
+        playerNameJL = new ArrayList<JLabel>(size);
+        playerCreditJL = new ArrayList<JLabel>(size);
+        playerStakeJL = new ArrayList<JLabel>(size);
+        playerScoreJL = new ArrayList<JLabel>(size);
+        textFieldJTF = new ArrayList<JTextField>(size);
+        requestCardJB = new ArrayList<JButton>(size);
+        goodScoreJB = new ArrayList<JButton>(size);
 
+        GridBagConstraints panelGBC = new GridBagConstraints();
         GridBagConstraints textFieldGBC = new GridBagConstraints();
         GridBagConstraints labelGBC = new GridBagConstraints();
         GridBagConstraints buttonGBC = new GridBagConstraints();
@@ -64,8 +73,16 @@ public class GameJIF extends JInternalFrame {
         labelGBC = new GridBagConstraints();
         labelGBC.weightx = 0;
         labelGBC.weighty = 0;
+        labelGBC.fill = GridBagConstraints.HORIZONTAL;
         labelGBC.insets = new Insets(2, 2, 2, 2);
         labelGBC.anchor = GridBagConstraints.NORTHWEST;
+
+        panelGBC = new GridBagConstraints();
+        panelGBC.weightx = 1;
+        panelGBC.weighty = (double) 1 / (double) size;
+        panelGBC.gridheight = 2;
+        panelGBC.insets = new Insets(2, 2, 2, 2);
+        panelGBC.anchor = GridBagConstraints.NORTHWEST;
 
         textFieldGBC = new GridBagConstraints();
         textFieldGBC.weightx = 0;
@@ -75,110 +92,75 @@ public class GameJIF extends JInternalFrame {
 
         buttonGBC = new GridBagConstraints();
         buttonGBC.weightx = 0;
-        buttonGBC.weighty = 1;
+        buttonGBC.weighty = 0;
         buttonGBC.insets = new Insets(2, 2, 2, 2);
-        buttonGBC.anchor = GridBagConstraints.SOUTHEAST;
+        buttonGBC.anchor = GridBagConstraints.NORTHWEST;
 
         for (int i = 0; i < size; i++) {
-            playerNameJL[i] = new JLabel(playerNameList.get(i));
+            playerNameJL.add(new JLabel(playerNameList.get(i)));
             labelGBC.gridx = 0;
-            labelGBC.gridy = i;
-            labelGBC.weightx = 0;
-            labelGBC.weighty = 0;
-            this.add(playerNameJL[i], labelGBC);
+            labelGBC.gridy = 2 * i;
+            add(playerNameJL.get(i), labelGBC);
 
-            playerCreditJL[i] = new JLabel("Credito: " + playerCreditList.get(i).toString());
-            labelGBC.gridx = 1;
-            labelGBC.gridy = i;
-            labelGBC.weightx = 0;
-            labelGBC.weighty = 0;
-            this.add(playerCreditJL[i], labelGBC);
+            playerCreditJL.add(new JLabel("Credito: " + playerCreditList.get(i)));
+            labelGBC.gridx = 0;
+            labelGBC.gridy = 2 * i + 1;
+            add(playerCreditJL.get(i), labelGBC);
 
-            playerStakeJL[i] = new JLabel("Puntata: 0,00");
+            textFieldJTF.add(new JTextField());
+            textFieldJTF.get(i).setPreferredSize(new Dimension(50, 20));
+            textFieldGBC.gridx = 2;
+            textFieldGBC.gridy = 2 * i;
+            add(textFieldJTF.get(i), textFieldGBC);
+
+            requestCardJB.add(new JButton("Chiedi una carta"));
+            requestCardJB.get(i).setPreferredSize(new Dimension(120, 20));
+            buttonGBC.gridx = 3;
+            buttonGBC.gridy = 2 * i;
+            requestCardJB.get(i).addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                }
+            });
+            add(requestCardJB.get(i), buttonGBC);
+
+            goodScoreJB.add(new JButton("Sto bene"));
+            goodScoreJB.get(i).setPreferredSize(new Dimension(120, 20));
+            buttonGBC.gridx = 4;
+            buttonGBC.gridy = 2 * i;
+            goodScoreJB.get(i).addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                }
+            });
+            add(goodScoreJB.get(i), buttonGBC);
+
+            playerStakeJL.add(new JLabel("Puntata: 0,00"));
             labelGBC.gridx = 2;
-            labelGBC.gridy = i;
-            labelGBC.weightx = 0;
-            labelGBC.weighty = 0;
-            this.add(playerStakeJL[i], labelGBC);
+            labelGBC.gridy = 2 * i + 1;
+            add(playerStakeJL.get(i), labelGBC);
 
-            playerScoreJL[i] = new JLabel("Punteggio: 0.0");
+            playerScoreJL.add(new JLabel("Punteggio: 0.0"));
             labelGBC.gridx = 3;
-            labelGBC.gridy = i;
-            labelGBC.weightx = 1;
-            labelGBC.weighty = 0;
-            this.add(playerScoreJL[i], labelGBC);
+            labelGBC.gridy = 2 * i + 1;
+            add(playerScoreJL.get(i), labelGBC);
 
-            labelGBC.weightx = 0;
-            labelGBC.weighty = 0.4;//(double) 1 / (double) size;
+            panelGBC.gridx = 1;
+            panelGBC.gridy = 2 * i;
+            cardImagesList = GUICoreMediator.getPlayerCards(i);
+            playerCardsImagesList.add(cardImagesList);
+            playerCardsList.add(new JPanel());
+            playerCardsList.get(i).setPreferredSize(new Dimension(420, 52));
+            playerCardsList.get(i).setBorder(new LineBorder(new Color(0, 0, 0)));
+            playerCardsList.get(i).setLayout(new FlowLayout(FlowLayout.LEFT));
+            ((FlowLayout) playerCardsList.get(i).getLayout()).setHgap(1);
             for (int j = 0; j < 12; j++) {
-                playerCardsJL[i][j] = new JLabel();
-                labelGBC.gridx = j;
-                labelGBC.gridy = i + 1;
-                this.add(playerCardsJL[i][j], labelGBC);
-                //System.out.println(i);
-                //System.out.println(j);
+                playerCardsList.get(i).add(new JLabel());
+                //playerCardsList.get(i).add(new JLabel(cardImagesList.get(j)));
+                ((JLabel) playerCardsList.get(i).getComponent(j)).setPreferredSize(new Dimension(32, 52));
+                ((JLabel) playerCardsList.get(i).getComponent(j)).setBorder(new LineBorder(new Color(0, 0, 0)));
             }
-            System.out.println(labelGBC.weighty);
+
+            add(playerCardsList.get(i), panelGBC);
         }
-        //System.out.println(playerCardsJL.length);
-
-    /*
-     * 
-    cardImageList = GUICoreMediator.getPlayerCards(i);
-    int pos = GUICoreMediator.getBankPlayer();
-    ((PlayerCardJP) jpPanels[pos]).newLabelIconCard(GUICoreMediator.requestCard(pos, 0));
     
-    jbCallCard.addMouseListener(new MouseAdapter() {
-    
-    public void mouseClicked(MouseEvent evt) {
-    requestCard(index, jtxtSetCash.getText());
-    }
-    });
-    jbCallCard.setPreferredSize(new Dimension(75, 20));
-    pane.add(jbCallCard);
-    
-    JButton jbImOK = new JButton("Sto bene");
-    //jbImOK.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-    jbImOK.addMouseListener(new MouseAdapter() {
-    
-    public void mouseClicked(MouseEvent evt) {
-    imOk(index, jtxtSetCash.getText());
-    }
-    });
-    jbImOK.setPreferredSize(new Dimension(55, 20));
-    pane.add(jbImOK);
-    
-    private void requestCard(int i, String value) {
-    double cash = -1;
-    try {
-    if ((value != null) && (!value.equalsIgnoreCase(""))) {
-    cash = Double.valueOf(value);
-    }
-    ((PlayerCardJP) jpPanels[i]).newLabelIconCard(GUICoreMediator.requestCard(i, cash));
-    } catch (Exception e) {
-    e.printStackTrace();
-    }
-    
-    }
-    
-    private void imOk(int i, String value) {
-    double cash = -1;
-    try {
-    if ((value != null) && (!value.equalsIgnoreCase(""))) {
-    cash = Double.valueOf(value);
-    }
-    GUICoreMediator.declareGoodScore(i, cash);
-    } catch (Exception e) {
-    e.printStackTrace();
-    }
-    jpActions[i].setVisible(false);
-    int pos = GUICoreMediator.nextPlayer();
-    jpActions[pos].setVisible(true);
-    }
-    }
-    
-    }
-     */
-
     }
 }
