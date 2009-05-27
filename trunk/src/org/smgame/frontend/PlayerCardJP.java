@@ -12,11 +12,11 @@ import javax.swing.JPanel;
 public class PlayerCardJP extends JPanel{
    
     private JComponent[] components;
-    private String curDir; //directory per le img
     private String name_player; //nome giocatore
     private double cash;
     private int number=2; //numero carta (iteratore)
-    private int max=18;
+    private int max=15;
+    private ImageIcon[] firstcard;
 
     public PlayerCardJP(String tplayer, double tcash) {        
         name_player = tplayer;
@@ -49,6 +49,29 @@ public class PlayerCardJP extends JPanel{
             components[++number] = new JLabel(icon);
             this.add(components[number]);
         }
+    }
+
+    /**Imposta la prima carta e la visualizza coperta
+     *
+     * @param icons
+     */
+    public void setFirstCard(ImageIcon[] icons){
+        firstcard = icons;
+        components[++number] = new JLabel(firstcard[1]);
+    }
+
+    /**Copre la prima carta scoperta
+     *
+     */
+    public void setFirstCardCovered(){
+        ((JLabel)components[3]).setIcon(firstcard[1]);
+    }
+
+    /**Scopre la prima carta coperta
+     *
+     */
+    public void setFirstCardDiscovered(){
+        ((JLabel)components[3]).setIcon(firstcard[0]);
     }
 
     public void setCashLabel(Double tcash){
