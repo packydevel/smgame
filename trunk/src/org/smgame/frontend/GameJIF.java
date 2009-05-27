@@ -273,6 +273,8 @@ class createPanelActionsPlayer extends JPanel {
             PrintErrors.exception(soe);
             tempPCjp.setCashLabel(GUICoreMediator.getPlayerCredit(index));
             tempPCjp.scoreOverflow();
+            int bank = GUICoreMediator.getBankPlayer();
+            ((PlayerCardJP) GameJIF.getJpPanels()[bank]).setCashLabel(GUICoreMediator.getPlayerCredit(bank));
             this.setVisible(false);
             int pos = GUICoreMediator.nextPlayer();
             ((PlayerCardJP)GameJIF.getJpPanels()[pos]).setFirstCardDiscovered();
