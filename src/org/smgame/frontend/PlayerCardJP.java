@@ -18,9 +18,10 @@ public class PlayerCardJP extends JPanel{
    
     private JComponent[] components;
     private String name_player; //nome giocatore
-    private double cash;
-    private int number=2; //numero carta (iteratore)
-    private int max=15;
+    private String cash;
+    private int number; //numero carta (iteratore)
+    final private int min = 2;
+    final private int max=15;
     private ImageIcon[] firstcard;
 
     /**Costruttore
@@ -28,7 +29,7 @@ public class PlayerCardJP extends JPanel{
      * @param tplayer
      * @param tcash
      */
-    public PlayerCardJP(String tplayer, double tcash) {        
+    public PlayerCardJP(String tplayer, String tcash) {
         name_player = tplayer;
         cash = tcash;
         initComponents();
@@ -42,11 +43,12 @@ public class PlayerCardJP extends JPanel{
 
         components[0]= new JLabel(name_player);
         components[1]= new JLabel("Credito: ");
-        components[2]= new JLabel(Double.toString(cash));
+        components[2]= new JLabel(cash);
         this.add(components[0]);
         this.add(components[1]);
         this.add(components[2]);
         this.setVisible(true);
+        number = 2;
     }//end initComponents
 
     /**Aggiunge una carta GUI tramite label e icon
@@ -89,19 +91,31 @@ public class PlayerCardJP extends JPanel{
      *
      * @param tcash
      */
-    public void setCashLabel(Double tcash){
-        ((JLabel)components[2]).setText(Double.toString(tcash));
+    public void setCashLabel(String tcash){
+        ((JLabel)components[2]).setText(tcash);
     }
 
     /**elimina le label delle carte
      *
      */
     public void resetLabelIconCards(){
-        for (int i=number;i>2; i--){
+        for (int i=number;i>min; i--){
             this.remove(components[i]);
             components[i]= null;
         }
-        number=2;
+        number=min;
+    }
+
+    /**elimina le label delle carte in caso di sballamento
+     *
+     */
+    public void scoreOverflow(){
+        for (int i=number;i>3; i--){
+            this.remove(components[i]);
+            components[i]= null;
+        }
+        this.add(new JLabel(" Sballato"));
+        number=4;
     }
 
     /**Seleziona/evidenzia il mazziere di turno
