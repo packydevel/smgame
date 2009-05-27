@@ -277,8 +277,6 @@ class createPanelActionsPlayer extends JPanel {
             //richiamo la jdialog x l'eccezione
             PrintErrors.exception(soe);
             tempPCjp.setCashLabel(GUICoreMediator.getPlayerCredit(index));
-            tempPCjp.scoreOverflow();
-            tempPCjp.setFirstCardCovered();
             int bank = GUICoreMediator.getBankPlayer();
             ((PlayerCardJP) GameJIF.getJpPanels()[bank]).setCashLabel(GUICoreMediator.getPlayerCredit(bank));
             this.setVisible(false);

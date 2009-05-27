@@ -104,19 +104,7 @@ public class PlayerCardJP extends JPanel{
             components[i]= null;
         }
         number=min;
-    }
-
-    /**elimina le label delle carte in caso di sballamento
-     *
-     */
-    public void scoreOverflow(){
-        for (int i=number;i>3; i--){
-            this.remove(components[i]);
-            components[i]= null;
-        }
-        this.add(new JLabel(" Sballato"));
-        number=4;
-    }
+    }    
 
     /**Seleziona/evidenzia il mazziere di turno
      *
