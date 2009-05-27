@@ -19,7 +19,8 @@ public abstract class Player implements Serializable {
     protected double score; //punteggio
     protected double MIN_SCORE = 4.0;
     protected double MIN_MARGIN = 0.5;
-    protected PlayerRole role; //stato ruolo giocatore
+    protected PlayerRole role; //ruolo giocatore
+    protected PlayerStatus status; //status del giocatore dopo la sua giocata
     protected PlayerList playerList;
 
     /**Costruttore
@@ -118,11 +119,12 @@ public abstract class Player implements Serializable {
 
         return stake;
     }
-    /*
-    protected abstract boolean askAnotherManche();
 
-    protected abstract boolean askAnotherCard();
+    public PlayerStatus getStatus() {
+        return status;
+    }
 
-    protected abstract void setCredit(double amount);
-     */
+    public void setStatus(PlayerStatus status) {
+        this.status = status;
+    }
 } //end class
