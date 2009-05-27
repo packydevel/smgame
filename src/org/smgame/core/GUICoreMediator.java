@@ -71,6 +71,7 @@ public class GUICoreMediator {
         currentGame = Game.getInstance();
         currentGame.generateGameID();
         currentGame.setGameName(gameName);
+        currentGame.setCreationDate(new Date());
         currentGame.setGameSetting(gameSetting);
         currentGame.setPlayerList(playerList);
         currentGame.generateGameEngine();
@@ -86,6 +87,7 @@ public class GUICoreMediator {
     }
 
     public static void saveGame() throws FileNotFoundException, IOException {
+        currentGame.setLastSaveDate(new Date());
         saveGames();
     }
 

@@ -30,7 +30,7 @@ public class StartSMGame {
         try {
             GUICoreMediator.loadGames();
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             System.out.println("Errore nel caricamento!!!");
         }
     }

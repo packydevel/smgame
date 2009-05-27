@@ -181,7 +181,6 @@ public class NewGameJIF extends JInternalFrame {
             }
 
             currentPlayersNumber = ((Integer) playersNumberJCB.getSelectedItem()).intValue();
-            System.out.println(currentPlayersNumber);
             if (currentPlayersNumber != previousPlayersNumber && previousPlayersNumber != 0) {
                 for (int j = 0; j < previousPlayersNumber; j++) {
                     playersJP.remove(playerJL[j]);

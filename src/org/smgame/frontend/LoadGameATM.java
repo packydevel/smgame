@@ -19,31 +19,33 @@ public class LoadGameATM extends AbstractTableModel {
     private final String[] columnNames = {"Partita",
         "Data di Creazione",
         "Data ultimo Salvataggio"};
-    private Object[][] data;
+    private ArrayList<String> gameNameList;
+    private ArrayList<Date> gameCreationDateList;
+    private ArrayList<Date> gameLastDateList;
 
     public LoadGameATM() {
         super();
         try {
-            ArrayList<String> gameNameList = (ArrayList<String>) GUICoreMediator.getGameNameList();
-            ArrayList<Date> gameCreationDateList = (ArrayList<Date>) GUICoreMediator.getGameCreationDateList();
-            ArrayList<Date> gameLastDateList;
-            data = new Object[10][3];
-            for (int i = 0; i < gameNameList.size(); i++) {
-                data[i][0] = gameNameList.get(i);
-                data[i][1] = gameCreationDateList.get(i);
-                data[i][2] = gameCreationDateList.get(i);
-            }
+            gameNameList = (ArrayList<String>) GUICoreMediator.getGameNameList();
+            gameCreationDateList = (ArrayList<Date>) GUICoreMediator.getGameCreationDateList();
+            gameLastDateList = (ArrayList<Date>) GUICoreMediator.getGameLastDateList();
+
+            System.out.println();
+            System.out.println();
+            System.out.println();
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public String getColumnName(int col) {
+    public String getColumnName(
+            int col) {
         return columnNames[col].toString();
     }
 
     public int getRowCount() {
-        return data.length;
+        return gameNameList.size();
     }
 
     public int getColumnCount() {
@@ -51,7 +53,15 @@ public class LoadGameATM extends AbstractTableModel {
     }
 
     public Object getValueAt(int row, int col) {
-        return 0;
+
+        if (col == 0) {
+            return gameNameList.get(row);
+        } else if (col == 1) {
+            return gameCreationDateList.get(row);
+        } else if (col == 2) {
+            return gameLastDateList.get(row);
+        }
+        return -1;
     }
 
     public boolean isCellEditable(int row, int col) {
@@ -59,7 +69,6 @@ public class LoadGameATM extends AbstractTableModel {
     }
 
     public void setValueAt(Object value, int row, int col) {
-        data[row][col] = value;
         fireTableCellUpdated(row, col);
     }
 }
