@@ -8,6 +8,8 @@ import java.awt.GridBagLayout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -26,12 +28,12 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private static JPanel[] jpPanels;
     private static JPanel[] jpActions;
 
-    public static JPanel[] getJpActions() {
-        return jpActions;
+    public static JPanel getJpActions(int i) {
+        return jpActions[i];
     }
 
-    public static JPanel[] getJpPanels() {
-        return jpPanels;
+    public static JPanel getJpPanels(int i) {
+        return jpPanels[i];
     }
 
     public GameJIF() {
@@ -234,10 +236,12 @@ class createPanelActionsPlayer extends JPanel {
         jtxtSetCash.setVisible(true);
         jpNorth.add(jtxtSetCash);
 
+
+
         jbCallCard = new JButton("Chiedi carta");
         jbCallCard.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        jbCallCard.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        jbCallCard.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
                 requestCard(jtxtSetCash.getText());
             }
         });
@@ -246,12 +250,12 @@ class createPanelActionsPlayer extends JPanel {
 
         jbImOK = new JButton("Sto bene");
         jbImOK.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-        jbImOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        jbImOK.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent evt) {
                 imOk(jtxtSetCash.getText());
             }
         });
-        jbImOK.setPreferredSize(new Dimension(55, 20));
+        jbImOK.setPreferredSize(new Dimension(60, 20));
         jpNorth.add(jbImOK);
 
         add(jpNorth, BorderLayout.NORTH);
@@ -260,7 +264,7 @@ class createPanelActionsPlayer extends JPanel {
 
     private void requestCard(String value) {
         double cash;
-        PlayerCardJP tempPCjp = ((PlayerCardJP) GameJIF.getJpPanels()[index]);
+        PlayerCardJP tempPCjp = ((PlayerCardJP) GameJIF.getJpPanels(index));
         try {
             if ((value != null) && (!value.equalsIgnoreCase(""))) {
                 cash = Double.valueOf(value);
@@ -270,19 +274,28 @@ class createPanelActionsPlayer extends JPanel {
                 tempPCjp.setCashLabel(GUICoreMediator.getPlayerCredit(index));
             }
         } catch (ScoreOverflowException soe) {
-            //prendo l'immagine della carta sbagliata
-            tempPCjp.newLabelIconCard(soe.getCardException().getFrontImage());
-            //aggiorno il punteggio che peraltro è overflow
-            setLabelPoints(GUICoreMediator.getPlayerScore(index));
-            //richiamo la jdialog x l'eccezione
-            PrintErrors.exception(soe);
-            tempPCjp.setCashLabel(GUICoreMediator.getPlayerCredit(index));
-            int bank = GUICoreMediator.getBankPlayer();
-            ((PlayerCardJP) GameJIF.getJpPanels()[bank]).setCashLabel(GUICoreMediator.getPlayerCredit(bank));
-            this.setVisible(false);
-            int pos = GUICoreMediator.nextPlayer();
-            ((PlayerCardJP)GameJIF.getJpPanels()[pos]).setFirstCardDiscovered();
-            GameJIF.getJpActions()[pos].setVisible(true);
+            if (GUICoreMediator.isEndManche(index)){
+                //prendo l'immagine della carta sbagliata
+                tempPCjp.newLabelIconCard(soe.getCardException().getFrontImage());
+                //aggiorno il punteggio che peraltro è overflow
+                setLabelPoints(GUICoreMediator.getPlayerScore(index));
+                //richiamo la jdialog x l'eccezione
+                PrintErrors.exception(soe);
+                //aggiorno il credito residuo del giocatore sballante
+                tempPCjp.setCashLabel(GUICoreMediator.getPlayerCredit(index));
+                //
+                this.setVisible(false);
+                //ottengo la posizione del successivo player
+                int pos = GUICoreMediator.nextPlayer();
+                //ottengo la posizione del mazziere
+                int bank = GUICoreMediator.getBankPlayer();
+                //aggiorno il credito della mazziere
+                ((PlayerCardJP) GameJIF.getJpPanels(bank)).setCashLabel(GUICoreMediator.getPlayerCredit(bank));
+                //rivelo la carta nascosta
+                ((PlayerCardJP)GameJIF.getJpPanels(pos)).setFirstCardDiscovered();
+                //pannello delle azioni visibile x il giocatore successivo
+                (GameJIF.getJpActions(pos)).setVisible(true);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -295,13 +308,13 @@ class createPanelActionsPlayer extends JPanel {
                 cash = Double.valueOf(value);
                 GUICoreMediator.declareGoodScore(index, cash);
                 jlTotalCash.setText(GUICoreMediator.getPlayerStake(index));
-                PlayerCardJP tempPCjp = ((PlayerCardJP)GameJIF.getJpPanels()[index]);
+                PlayerCardJP tempPCjp = ((PlayerCardJP)GameJIF.getJpPanels(index));
                 tempPCjp.setFirstCardCovered();
                 tempPCjp.setCashLabel(GUICoreMediator.getPlayerCredit(index));
                 this.setVisible(false);
                 int pos = GUICoreMediator.nextPlayer();
-                ((PlayerCardJP)GameJIF.getJpPanels()[pos]).setFirstCardDiscovered();
-                GameJIF.getJpActions()[pos].setVisible(true);
+                ((PlayerCardJP)GameJIF.getJpPanels(pos)).setFirstCardDiscovered();
+                GameJIF.getJpActions(pos).setVisible(true);
             }
         } catch (Exception e) {
             e.printStackTrace();
