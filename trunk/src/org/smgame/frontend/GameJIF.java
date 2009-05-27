@@ -326,9 +326,3 @@ class createPanelActionsPlayer extends JPanel {
         jlPoints.setText(points);
     }
 }
-/*
-private void jbRemoveAllMouseClicked(MouseEvent evt) {
-((testPanel) panel).resetLabelIconCards();
-pack();
-}
- */
