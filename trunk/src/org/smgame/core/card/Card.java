@@ -1,8 +1,8 @@
 package org.smgame.core.card;
 
-import java.awt.Image;
 import java.io.Serializable;
 import javax.swing.ImageIcon;
+import org.smgame.util.Common;
 
 /**Classe Carta
  * rappresenta la singola carta del mazzo
@@ -51,6 +51,10 @@ public class Card implements Serializable {
 
     public ImageIcon getIcon() {
         return icon;
+    }
+
+    public ImageIcon getBackCard(){
+        return new ImageIcon(Common.getResourceCards() + "dorso.gif");
     }
 
     public ImageIcon getImage() {
