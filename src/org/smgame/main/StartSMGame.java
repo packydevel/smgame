@@ -35,21 +35,5 @@ public class StartSMGame {
             //e.printStackTrace();
             System.out.println("Errore nel caricamento!!!");
         }
-
-
-        ArrayList<String> test = new ArrayList<String>();
-
-        test.add("a");
-        test.add("b");
-        test.add("c");
-        test.add("d");
-        test.add("e");
-
-        System.out.println(test);
-
-        Collections.rotate(test, -4);
-
-        System.out.println(test);
-
     }
 }
