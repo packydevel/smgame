@@ -50,7 +50,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private void initComponents() {
         List<String> player_list = GUICoreMediator.getPlayerNameList();
         List<Boolean> type_player = GUICoreMediator.getPlayerTypeList();
-        List<Double> player_credit = GUICoreMediator.getPlayerCreditList();
+        List<String> player_credit = GUICoreMediator.getPlayerCreditList();
 
         int size = player_list.size();
         jpPanels = new JPanel[size];
@@ -87,8 +87,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         ((PlayerCardJP) jpPanels[pos]).selectBank();
         pos = ++pos % size;        
         try {
-            for (int i = 0; i < size; i++) {
-                System.out.print(pos);
+            for (int i = 0; i < size; i++) {                
                 ((PlayerCardJP) jpPanels[pos]).setFirstCard(GUICoreMediator.getFirstCard(pos));
                 ((createPanelActionsPlayer) jpActions[pos]).setLabelPoints(GUICoreMediator.getPlayerScore(pos));
                 pos = ++pos % size;
@@ -194,7 +193,6 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
 class createPanelActionsPlayer extends JPanel {
 
-
     private int index;
     private JPanel jpNorth;
     private JPanel jpSouth;
@@ -266,12 +264,15 @@ class createPanelActionsPlayer extends JPanel {
             if ((value != null) && (!value.equalsIgnoreCase(""))) {
                 cash = Double.valueOf(value);
                 ((PlayerCardJP) GameJIF.getJpPanels()[index]).newLabelIconCard(GUICoreMediator.requestCard(index, cash));
-                jlTotalCash.setText(Double.toString(GUICoreMediator.getPlayerStake(index)));
+                jlTotalCash.setText(GUICoreMediator.getPlayerStake(index));
                 setLabelPoints(GUICoreMediator.getPlayerScore(index));
             }
         } catch (ScoreOverflowException soe) {
-            ((PlayerCardJP) GameJIF.getJpPanels()[index]).newLabelIconCard(soe.getCardException().getFrontImage());
+            PlayerCardJP tempPCjp = ((PlayerCardJP) GameJIF.getJpPanels()[index]);
+            tempPCjp.newLabelIconCard(soe.getCardException().getFrontImage());
             PrintErrors.exception(soe);
+            tempPCjp.setCashLabel(GUICoreMediator.getPlayerCredit(index));
+            tempPCjp.scoreOverflow();
             this.setVisible(false);
             int pos = GUICoreMediator.nextPlayer();
             ((PlayerCardJP)GameJIF.getJpPanels()[pos]).setFirstCardDiscovered();
@@ -287,7 +288,7 @@ class createPanelActionsPlayer extends JPanel {
             if ((value != null) && (!value.equalsIgnoreCase(""))) {
                 cash = Double.valueOf(value);
                 GUICoreMediator.declareGoodScore(index, cash);
-                jlTotalCash.setText(Double.toString(GUICoreMediator.getPlayerStake(index)));
+                jlTotalCash.setText(GUICoreMediator.getPlayerStake(index));
                 ((PlayerCardJP)GameJIF.getJpPanels()[index]).setFirstCardCovered();
                 this.setVisible(false);
                 int pos = GUICoreMediator.nextPlayer();
@@ -300,8 +301,8 @@ class createPanelActionsPlayer extends JPanel {
         
     }
 
-    public void setLabelPoints(double points) {
-        jlPoints.setText(Double.toString(points));
+    public void setLabelPoints(String points) {
+        jlPoints.setText(points);
     }
 }
 /*
