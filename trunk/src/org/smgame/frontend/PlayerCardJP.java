@@ -58,6 +58,7 @@ public class PlayerCardJP extends JPanel{
     public void setFirstCard(ImageIcon[] icons){
         firstcard = icons;
         components[++number] = new JLabel(firstcard[1]);
+        this.add(components[number]);
     }
 
     /**Copre la prima carta scoperta
