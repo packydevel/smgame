@@ -9,6 +9,11 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**JPanel del giocatore e delle carte
+ *
+ * @author luca
+ * @author pasquale
+ */
 public class PlayerCardJP extends JPanel{
    
     private JComponent[] components;
@@ -18,6 +23,11 @@ public class PlayerCardJP extends JPanel{
     private int max=15;
     private ImageIcon[] firstcard;
 
+    /**Costruttore
+     *
+     * @param tplayer
+     * @param tcash
+     */
     public PlayerCardJP(String tplayer, double tcash) {        
         name_player = tplayer;
         cash = tcash;
@@ -75,6 +85,10 @@ public class PlayerCardJP extends JPanel{
         ((JLabel)components[3]).setIcon(firstcard[0]);
     }
 
+    /**Imposta il testo della label relativa alla puntata totale
+     *
+     * @param tcash
+     */
     public void setCashLabel(Double tcash){
         ((JLabel)components[2]).setText(Double.toString(tcash));
     }
@@ -90,16 +104,25 @@ public class PlayerCardJP extends JPanel{
         number=2;
     }
 
+    /**Seleziona/evidenzia il mazziere di turno
+     *
+     */
     public void selectBank(){
         components[0].setOpaque(true);
         components[0].setBackground(new Color(255, 153, 0));
     }
 
+    /**Deseleziona l'ex-mazziere di turno, che diventa un player normale
+     *
+     */
     public void deselectBank(){
         components[0].setOpaque(false);
         components[0].setBackground(new Color(212, 208, 200));
     }
 
+    /**Imposta il colore del testo del giocatore umano,
+     * per differenziarlo dal giocatore CPU
+     */
     public void setHumanColor(){
         components[0].setForeground(new Color(0, 0, 255));
     }
