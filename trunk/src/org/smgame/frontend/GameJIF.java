@@ -270,6 +270,7 @@ class createPanelActionsPlayer extends JPanel {
                 setLabelPoints(GUICoreMediator.getPlayerScore(index));
             }
         } catch (ScoreOverflowException soe) {
+            ((PlayerCardJP) GameJIF.getJpPanels()[index]).newLabelIconCard(soe.getCardException().getFrontImage());
             PrintErrors.exception(soe);
             this.setVisible(false);
             int pos = GUICoreMediator.nextPlayer();
