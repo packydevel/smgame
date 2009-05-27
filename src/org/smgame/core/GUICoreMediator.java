@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,6 +36,7 @@ public class GUICoreMediator {
     private static List<String> playerNameList;
     private static List<Boolean> playerTypeList;
     private static final String FILENAME = Common.getWorkspace() + "games.dat";
+    private static final NumberFormat formatter=new DecimalFormat("#0.00");
 
     public static boolean askForNewGame() {
         if (currentGame != null) {
@@ -173,37 +176,37 @@ public class GUICoreMediator {
         return playerTypeList;
     }
 
-    public static List<Double> getPlayerCreditList() {
-        List<Double> playerCreditList = new ArrayList<Double>();
+    public static List<String> getPlayerCreditList() {
+        List<String> playerCreditList = new ArrayList<String>();
         for (Player p : currentGame.getPlayerList().getPlayerAL()) {
-            playerCreditList.add(new Double(p.getCredit()));
+            playerCreditList.add(formatter.format(p.getCredit()));
         }
 
         return playerCreditList;
     }
 
-    public static double getPlayerCredit(int playerIndex) {
+    public static String getPlayerCredit(int playerIndex) {
         Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
-        return player.getCredit();
+        return formatter.format(player.getCredit());
     }
 
-    public static List<Double> getPlayerStakeList() {
-        List<Double> playerStakeList = new ArrayList<Double>();
+    public static List<String> getPlayerStakeList() {
+        List<String> playerStakeList = new ArrayList<String>();
         for (Player p : currentGame.getPlayerList().getPlayerAL()) {
-            playerStakeList.add(new Double(p.getStake()));
+            playerStakeList.add(formatter.format(p.getStake()));
         }
 
         return playerStakeList;
     }
 
-    public static double getPlayerStake(int playerIndex) {
+    public static String getPlayerStake(int playerIndex) {
         Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
-        return player.getStake();
+        return formatter.format(player.getStake());
     }
 
-    public static double getPlayerScore(int playerIndex) {
+    public static String getPlayerScore(int playerIndex) {
         Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
-        return player.getScore();
+        return formatter.format(player.getScore());
     }
 
     /**restituisce la posizione del mazziere nella lista dei giocatori
