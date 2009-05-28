@@ -22,6 +22,7 @@ import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
 import org.smgame.main.Game;
 import org.smgame.main.GameSetting;
+import org.smgame.util.BetOverflowException;
 import org.smgame.util.Common;
 import org.smgame.util.NoGamesException;
 
@@ -300,12 +301,12 @@ public class GUICoreMediator {
      * @param bet
      * @throws java.lang.Exception
      */
-    public static void declareGoodScore(int playerIndex, double bet) throws Exception {
+    public static void declareGoodScore(int playerIndex, double bet) throws BetOverflowException {
         Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
         try {
             currentGame.getGameEngine().declareGoodScore(player, bet);
-        } catch (Exception e) {
-            throw e;
+        } catch (BetOverflowException boe) {
+            throw boe;
         }
     }
 

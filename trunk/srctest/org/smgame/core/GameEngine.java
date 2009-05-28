@@ -118,11 +118,11 @@ public class GameEngine implements Serializable {
     }
 
     public void declareGoodScore(Player player, double bet) throws BetOverflowException {
-        if (player.getCredit() < bet) {
+        if ((player.getCredit() - player.getStake()) < bet) {
             throw new BetOverflowException("Non hai sufficiente Credito per eseguire questa puntata!!!");
         } else {
             player.getBetList().add(bet);
-            player.setCredit(player.getCredit() - bet);
+            player.setCredit(player.getCredit() - player.getStake());
             player.setStatus(PlayerStatus.GoodScore);
         }
     }
@@ -251,7 +251,7 @@ public class GameEngine implements Serializable {
     }
 
     public boolean isEndManche(Player player) {
-        if (player == bankPlayer) {
+        if (player.equals(bankPlayer)) {
             return true;
         }
         return false;
