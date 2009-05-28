@@ -76,13 +76,15 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         GridBagConstraints panelGBC = initGridBagC();
         panelGBC.gridheight = 2;
         panelGBC.weighty = (double) 1 / (double) size;
-        panelGBC.weightx = 1;
+        panelGBC.weightx = 0;
 
         GridBagConstraints labelGBC = initGridBagC();
         labelGBC.fill = GridBagConstraints.HORIZONTAL;
 
         GridBagConstraints actionsGBC = initGridBagC();
         actionsGBC.gridwidth = 2;
+        actionsGBC.fill=GridBagConstraints.HORIZONTAL;
+        panelGBC.weightx = 1;
         actionsGBC.gridx = 2;
 
         for (int i = 0; i < size; i++) {
@@ -110,7 +112,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             labelGBC.gridy = 2 * i + 1;
             add(playerStakeListJL.get(i), labelGBC);
 
-            playerScoreListJL.add(new JLabel("Punteggio: 0.0"));
+            playerScoreListJL.add(new JLabel("Punteggio: 0,0"));
             labelGBC.gridx = 3;
             labelGBC.gridy = 2 * i + 1;
             add(playerScoreListJL.get(i), labelGBC);
@@ -152,10 +154,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         JButton requestCardJB = new JButton("Chiedi una carta");
         requestCardJB.setPreferredSize(new Dimension(120, 20));
         requestCardJB.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent evt) {
-                //System.out.println(evt.getActionCommand());
-                //requestCard(searchJButton(evt, 1));
                 requestCard(currentPlayerIndex);
             }
         });
@@ -164,10 +163,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         JButton declareGoodScoreJB = new JButton("Sto bene");
         declareGoodScoreJB.setPreferredSize(new Dimension(80, 20));
         declareGoodScoreJB.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent evt) {
-                //System.out.println(evt.getActionCommand());
-                //declareGoodScore(searchJButton(evt, 2));
                 declareGoodScore(currentPlayerIndex);
             }
         });
@@ -176,23 +172,18 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         return pane;
     }
 
-    //inizializza il tavolo
     private void initBoard() {
-        //TODO
         bankPlayerIndex = GUICoreMediator.getBankPlayer();
         selectBank(bankPlayerIndex);
-        //pos = ++pos % size;
+
         for (int i = 0; i < size; i++) {
-            //setFirstCard(pos, GUICoreMediator.getFirstCard(pos));
             setStakeLabel(i, GUICoreMediator.getPlayerStake(bankPlayerIndex));
             setScoreLabel(i, GUICoreMediator.getPlayerScore(bankPlayerIndex));
             ((JLabel) playerCardsListJP.get(i).getComponent(0)).setIcon(backImage);
-        //this.validate();
         }
+        
         currentPlayerIndex = GUICoreMediator.nextPlayer();
         playerActionsListJP.get(currentPlayerIndex).setVisible(true);
-    //playerScoreListJL.get(bankPlayerIndex).setVisible(true);
-    //    firstCardDiscovered(bankPlayerIndex);
     }
 
     //inizializza il gridbagconstraints per tutti per la parte in comune
@@ -204,14 +195,6 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         gbc.anchor = GridBagConstraints.NORTHWEST;
         return gbc;
     }
-    //imposta la prima carta compreso dorso
-/*
-    private void setFirstCard(int i, ImageIcon[] icon) {
-    playerCardsImagesList.add(icon[1]);
-    playersCardsImagesList.add(cardImagesList);
-    firstCardCovered(i);
-    }
-     */
 
     private void firstCardCovered(int i) {
         JPanel temp = playerCardsListJP.get(i);
@@ -223,7 +206,6 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private void firstCardDiscovered(int i) {
         JPanel temp = playerCardsListJP.get(i);
         ((JLabel) temp.getComponent(0)).setIcon(null);
-    //pack();
     }
     //Seleziona/evidenzia il mazziere di turno
 
@@ -263,28 +245,11 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         return ((JTextField) playerActionsListJP.get(i).getComponent(0)).getText();
     }
 
-    //cerca il bottone nel pannello
-    private int searchJButton(ActionEvent evt, int c) {
-        JButton temp = (JButton) evt.getSource();
-        int i = -1;
-        for (int j = 0; j < playerActionsListJP.size(); j++) {
-            if (((JPanel) playerActionsListJP.get(j)).getComponent(c).equals(temp)) {
-                i = j;
-                break;
-            }
-        }
-        System.out.println(i);
-        return i;
-    }
-
     //imposta la cartaGUI
     private void setCardImage(int i, ImageIcon icon) {
         int size = playersCardsImagesList.get(i).size();
-        //JPanel temp = playerCardsJP.get(i);
-        //int size = playerCardsImagesList.get(i).size();
         playersCardsImagesList.get(i).add(icon);
         ((JLabel) playerCardsListJP.get(i).getComponent(++size)).setIcon(icon);
-    //playerCardsImagesList.get(i).add(icon);
     }
 
     //esegue le azioni di richiesta carta
@@ -293,31 +258,19 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         if ((value != null) && (!value.equalsIgnoreCase(""))) {
             try {
                 double bet = Double.valueOf(value);
-                //richiamo il mediatore e aggiungo la nuova carta sul tavolo
                 setCardImage(i, GUICoreMediator.requestCard(i, bet));
-                //aggiorna il valore delle puntate del player
                 setStakeLabel(i, GUICoreMediator.getPlayerStake(i));
-                //aggiorna il punteggio delle carte
                 setScoreLabel(i, GUICoreMediator.getPlayerScore(i));
-                //aggiorna il credito residuo del player
                 setCreditLabel(i, GUICoreMediator.getPlayerCredit(i));
             } catch (BetOverflowException boe) {
                 PrintErrors.exception(boe);
             } catch (ScoreOverflowException soe) {
-                //prendo l'immagine della carta sbagliata
                 setCardImage(i, soe.getCardException().getFrontImage());
-                //aggiorno il credito residuo del giocatore sballante
                 setCreditLabel(i, GUICoreMediator.getPlayerCredit(i));
-                //aggiorno il punteggio che peraltro è overflow
                 setScoreLabel(i, GUICoreMediator.getPlayerScore(i));
-                //aggiorno la scommessa totale che peraltro è overflow
                 setStakeLabel(i, GUICoreMediator.getPlayerStake(i));
-                //aggiorno il credito della mazziere
                 setCreditLabel(bankPlayerIndex, GUICoreMediator.getPlayerCredit(bankPlayerIndex));
-                //ottengo la posizione del successivo player
-                //pannello delle azioni visibile x il giocatore che sta lasciando la mano
                 playerActionsListJP.get(i).setVisible(false);
-                //richiamo la jdialog x l'eccezione
                 PrintErrors.exception(soe);
                 if (!GUICoreMediator.isEndManche(currentPlayerIndex)) {
                     currentPlayerIndex = GUICoreMediator.nextPlayer();
@@ -333,19 +286,15 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private void declareGoodScore(int i) {
         String value = getBetJTF(i);
         double bet;
-        //System.out.println("entered");
+
         if ((value != null) && (!value.equalsIgnoreCase(""))) {
-            //System.out.println("if");
             bet = Double.valueOf(value);
             try {
                 GUICoreMediator.declareGoodScore(i, bet);
-
                 setCreditLabel(i, GUICoreMediator.getPlayerCredit(i));
                 setScoreLabel(i, GUICoreMediator.getPlayerScore(i));
                 setStakeLabel(i, GUICoreMediator.getPlayerStake(i));
-                //System.out.println("stake");
                 firstCardCovered(i);
-                //System.out.println("credit");
                 playerActionsListJP.get(i).setVisible(false);
                 firstCardDiscovered(currentPlayerIndex);
                 if (!GUICoreMediator.isEndManche(currentPlayerIndex)) {
