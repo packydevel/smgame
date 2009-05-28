@@ -5,8 +5,6 @@
 package org.smgame.main;
 
 import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
-import java.util.ArrayList;
-import java.util.Collections;
 import javax.swing.UIManager;
 import org.smgame.core.GUICoreMediator;
 import org.smgame.frontend.MainJF;

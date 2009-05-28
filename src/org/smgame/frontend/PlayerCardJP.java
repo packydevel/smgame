@@ -60,6 +60,8 @@ public class PlayerCardJP extends JPanel {
     public void newLabelIconCard(ImageIcon icon) {
         if (number < max - 1) {
             components[++number] = new JLabel(icon);
+            components[number].setBorder(new LineBorder(new Color(255, 153, 0)));
+            components[++number].setVisible(true);
             this.add(components[number]);
         }
     }

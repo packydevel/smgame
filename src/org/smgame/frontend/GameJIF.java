@@ -64,7 +64,8 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
         gbcP.weighty = gbcA.weighty = 0.1;
         gbcP.weightx = gbcA.weightx = 0.1;
-        gbcP.anchor = gbcA.anchor = GridBagConstraints.NORTHWEST;
+        gbcP.anchor = GridBagConstraints.NORTHWEST;
+        gbcA.anchor = GridBagConstraints.NORTHEAST;
         gbcP.gridx = 0;
         gbcA.gridx = 1;
 
@@ -212,11 +213,11 @@ class createPanelActionsPlayer extends JPanel {
     }
 
     private void initComponents() {
-        jpNorth = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        jpSouth = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        jpNorth = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        jpSouth = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         jpNorth.setPreferredSize(new Dimension(280, 25));
-        jpSouth.setPreferredSize(new Dimension(280, 20));
+        jpSouth.setPreferredSize(new Dimension(280, 25));
 
         jpNorth.add(new JLabel("Puntata"));
         jpSouth.add(new JLabel("Puntate totali: "));
@@ -245,7 +246,7 @@ class createPanelActionsPlayer extends JPanel {
                 requestCard(jtxtSetCash.getText());
             }
         });
-        jbCallCard.setPreferredSize(new Dimension(75, 20));
+        jbCallCard.setPreferredSize(new Dimension(85, 20));
         jpNorth.add(jbCallCard);
 
         jbImOK = new JButton("Sto bene");
