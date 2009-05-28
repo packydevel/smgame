@@ -146,7 +146,8 @@ public class GameJIF extends JInternalFrame {
         JButton jbRequest = new JButton("Chiedi una carta");
         jbRequest.setPreferredSize(new Dimension(110, 20));
         jbRequest.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {                
+            public void actionPerformed(ActionEvent evt) {
+                System.out.println(evt.getActionCommand());
                 requestCard(searchJButton(evt,1));
             }
         });
@@ -156,6 +157,7 @@ public class GameJIF extends JInternalFrame {
         jbGood.setPreferredSize(new Dimension(80, 20));
         jbGood.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+                System.out.println(evt.getActionCommand());
                 goodScore(searchJButton(evt,2));
             }
         });
@@ -205,12 +207,14 @@ public class GameJIF extends JInternalFrame {
         JPanel temp = playerCardsJP.get(i);
         ((JLabel)temp.getComponent(0)).setVisible(true);
         ((JLabel)temp.getComponent(1)).setVisible(false);
+        pack();
     }
 
     private void firstCardDiscovered(int i){
         JPanel temp = playerCardsJP.get(i);
         ((JLabel)temp.getComponent(0)).setVisible(false);
         ((JLabel)temp.getComponent(1)).setVisible(true);
+        pack();
     }
 
     //Seleziona/evidenzia il mazziere di turno
@@ -284,6 +288,9 @@ public class GameJIF extends JInternalFrame {
                 setScoreLabel(i, GUICoreMediator.getPlayerScore(i));
                 //aggiorna il credito residuo del player
                 setCreditLabel(i, GUICoreMediator.getPlayerCredit(i));
+                pack();
+                validate();
+                revalidate();
             }
         } catch (ScoreOverflowException soe) {
                 //prendo l'immagine della carta sbagliata
@@ -309,6 +316,9 @@ public class GameJIF extends JInternalFrame {
                 //pannello delle azioni visibile x il giocatore successivo
                 playerActionsJP.get(pos).setVisible(true);
                 playerScoreJL.get(pos).setVisible(true);
+                pack();
+                validate();
+                revalidate();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -337,13 +347,16 @@ public class GameJIF extends JInternalFrame {
             playerScoreJL.get(i).setVisible(false);
             System.out.println("visibile");
             int pos = GUICoreMediator.nextPlayer();
-            System.out.println("pos");
+            System.out.println("pos "+pos );
             firstCardDiscovered(pos);
             System.out.println("1st card pos discover");
             playerActionsJP.get(pos).setVisible(true);
             playerScoreJL.get(pos).setVisible(true);
             System.out.println("jpanel pos");
             iterator=1;
+            pack();
+            validate();
+            revalidate();
         }
     }
 
