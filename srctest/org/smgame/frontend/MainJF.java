@@ -11,13 +11,14 @@ import javax.swing.JMenuItem;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 
-public class MainJF extends JFrame implements InternalFrameListener, NewGameListener {
+public class MainJF extends JFrame implements InternalFrameListener, NewOffLineGameListener, NewOnLineGameListener {
 
     private static JDesktopPane desktop;
     private MenuJMB menuJMB;
     private ToolBarJTB toolBarJTB;
     private ToolBarJTB statusBarJTB;
-    private NewGameJIF newGameJIF;
+    private NewOnLineGameJIF newOnLineGameJIF;
+    private NewOffLineGameJIF newGameJIF;
     private LoadGameJIF loadGameJIF;
     private GameJIF gameJIF;
 
@@ -38,7 +39,14 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
 
         menuJMB = new MenuJMB();
 
-        menuJMB.getNewGameJMI().addActionListener(new ActionListener() {
+        menuJMB.getNewOnLineGameJMI().addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
+
+        menuJMB.getNewOffLineGameJMI().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
                 jMenu1ActionPerformed(evt);
@@ -78,18 +86,32 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
 
     private void jMenu1ActionPerformed(ActionEvent evt) {
 
-        if ((JMenuItem) evt.getSource() == menuJMB.getNewGameJMI()) {
+        if ((JMenuItem) evt.getSource() == menuJMB.getNewOnLineGameJMI()) {
             if (GUICoreMediator.askForNewGame()) {
-                newGameJIF = new NewGameJIF();
-                newGameJIF.setVisible(true);
-                newGameJIF.addInternalFrameListener(this);
-                newGameJIF.addMyEventListener(this);
-                desktop.add(newGameJIF);
-                menuJMB.getNewGameJMI().setEnabled(false);
+                newOnLineGameJIF = new NewOnLineGameJIF();
+                newOnLineGameJIF.setVisible(true);
+                newOnLineGameJIF.addInternalFrameListener(this);
+                newOnLineGameJIF.addMyEventListener(this);
+                desktop.add(newOnLineGameJIF);
+                menuJMB.getNewOnLineGameJMI().setEnabled(false);
                 menuJMB.getCloseGameJMI().setEnabled(true);
             } else {
                 System.out.println("Esiste già una partita aperta");
             }
+
+        } else if ((JMenuItem) evt.getSource() == menuJMB.getNewOffLineGameJMI()) {
+            if (GUICoreMediator.askForNewGame()) {
+                newGameJIF = new NewOffLineGameJIF();
+                newGameJIF.setVisible(true);
+                newGameJIF.addInternalFrameListener(this);
+                newGameJIF.addMyEventListener(this);
+                desktop.add(newGameJIF);
+                menuJMB.getNewOnLineGameJMI().setEnabled(false);
+                menuJMB.getCloseGameJMI().setEnabled(true);
+            } else {
+                System.out.println("Esiste già una partita aperta");
+            }
+
         } else if ((JMenuItem) evt.getSource() == menuJMB.getLoadGameJMI()) {
             if (GUICoreMediator.askForLoadGame()) {
                 loadGameJIF = new LoadGameJIF();
@@ -110,7 +132,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
             GUICoreMediator.closeGame();
             for (JInternalFrame jiframe : desktop.getAllFrames()) {
                 jiframe.dispose();
-                menuJMB.getNewGameJMI().setEnabled(true);
+                menuJMB.getNewOffLineGameJMI().setEnabled(true);
                 menuJMB.getCloseGameJMI().setEnabled(false);
             }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getExitGameJMI()) {
@@ -125,19 +147,19 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
     }
 
     public void internalFrameClosed(InternalFrameEvent e) {
-        if (e.getInternalFrame() instanceof NewGameJIF) {
+        if (e.getInternalFrame() instanceof NewOffLineGameJIF) {
             if (gameJIF == null) {
-                menuJMB.getNewGameJMI().setEnabled(true);
+                menuJMB.getNewOnLineGameJMI().setEnabled(true);
                 menuJMB.getCloseGameJMI().setEnabled(false);
                 menuJMB.getSaveGameJMI().setEnabled(false);
             }
         } else if (e.getInternalFrame() instanceof LoadGameJIF) {
-            menuJMB.getNewGameJMI().setEnabled(true);
+            menuJMB.getNewOnLineGameJMI().setEnabled(true);
             menuJMB.getCloseGameJMI().setEnabled(false);
             menuJMB.getSaveGameJMI().setEnabled(false);
         } else if (e.getInternalFrame() instanceof GameJIF) {
             GUICoreMediator.closeGame();
-            menuJMB.getNewGameJMI().setEnabled(true);
+            menuJMB.getNewOnLineGameJMI().setEnabled(true);
             menuJMB.getCloseGameJMI().setEnabled(false);
             menuJMB.getSaveGameJMI().setEnabled(false);
         }
@@ -155,12 +177,15 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
     public void internalFrameActivated(InternalFrameEvent e) {
     }
 
-    public void newGameCreating(NewGameEvent e) {
+    public void newOnLineGameCreating(NewOnLineGameEvent e) {
+    }
+
+    public void newOffLineGameCreating(NewOffLineGameEvent e) {
         gameJIF = new GameJIF();
         gameJIF.setVisible(true);
         gameJIF.addInternalFrameListener(this);
         desktop.add(gameJIF);
-        menuJMB.getNewGameJMI().setEnabled(false);
+        menuJMB.getNewOnLineGameJMI().setEnabled(false);
         menuJMB.getSaveGameJMI().setEnabled(true);
         menuJMB.getCloseGameJMI().setEnabled(true);
     }
