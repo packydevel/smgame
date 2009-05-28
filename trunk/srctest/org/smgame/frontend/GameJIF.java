@@ -124,7 +124,7 @@ public class GameJIF extends JInternalFrame {
     //inizializza il pannello del player - carte
     private JPanel initPanelPlayersCards(){
         JPanel pane = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pane.setPreferredSize(new Dimension(480, 49));
+        pane.setPreferredSize(new Dimension(500, 50));
         pane.setBorder(new LineBorder(new Color(212, 208, 200)));
         ((FlowLayout)pane.getLayout()).setHgap(1);
         for (int j = 0; j < 14; j++) {
@@ -147,7 +147,7 @@ public class GameJIF extends JInternalFrame {
         jbRequest.setPreferredSize(new Dimension(110, 20));
         jbRequest.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {                
-                requestCard(searchJButton(evt));
+                requestCard(searchJButton(evt,1));
             }
         });
         pane.add(jbRequest);
@@ -156,7 +156,7 @@ public class GameJIF extends JInternalFrame {
         jbGood.setPreferredSize(new Dimension(80, 20));
         jbGood.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                goodScore(searchJButton(evt));
+                goodScore(searchJButton(evt,2));
             }
         });
         pane.add(jbGood);
@@ -251,11 +251,11 @@ public class GameJIF extends JInternalFrame {
     }
 
     //cerca il bottone nel pannello
-    private int searchJButton(ActionEvent evt) {
+    private int searchJButton(ActionEvent evt, int c) {
         JButton temp = (JButton) evt.getSource();
         int i=-1;
         for (int j=0; j<playerActionsJP.size(); j++){
-            if (((JPanel)playerActionsJP.get(j)).getComponent(1).equals(temp)){
+            if (((JPanel)playerActionsJP.get(j)).getComponent(c).equals(temp)){
                 i=j;
                 break;
             }
