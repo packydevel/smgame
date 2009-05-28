@@ -82,6 +82,38 @@ public class GUICoreMediator {
         gameList.add(currentGame);
     }
 
+    public static void createOnLineGame(String gameName, GameSetting gameSetting, String playerName, boolean playerType) {
+        PlayerList.getInstance().resetInstance();
+        PlayerList playerList = PlayerList.getInstance();
+        GUICoreMediator.playerNameList = playerNameList;
+        GUICoreMediator.playerTypeList = playerTypeList;
+
+        playerList.getPlayerAL().add(new CPUPlayer("Alan Turing"));
+        playerList.getPlayerAL().get(0).setCredit(1000);
+
+        if (playerType) {
+            playerList.getPlayerAL().add(new CPUPlayer(playerName));
+        } else {
+            playerList.getPlayerAL().add(new HumanPlayer(playerName));
+        }
+        playerList.getPlayerAL().get(1).setCredit(1000);
+
+
+        if (currentGame != null) {
+            currentGame.resetInstance();
+        }
+        currentGame = Game.getInstance();
+        currentGame.generateGameID();
+        currentGame.setGameName(gameName);
+        currentGame.setCreationDate(new Date());
+        currentGame.setGameSetting(gameSetting);
+        currentGame.setPlayerList(playerList);
+        currentGame.generateGameEngine();
+        currentGame.getGameEngine().shuffleDeck();
+
+        gameList.add(currentGame);
+    }
+
     public static void closeGame() {
         currentGame = null;
         playerNameList = null;
