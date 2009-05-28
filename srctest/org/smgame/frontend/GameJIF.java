@@ -32,8 +32,9 @@ public class GameJIF extends JInternalFrame {
     private List<JLabel> playerStakeJL; //lista label puntate giocatori
     private List<JLabel> playerScoreJL; //lista label punteggio giocatori
     private List<JPanel> playerActionsJP; //Lista pannelli giocatore-carte    
+    private List<ImageIcon> cardImagesList;
+    List<List<ImageIcon>> playerCardsImagesList;
 
-    private int iterator=1;
     /**Costruttore
      *
      */
@@ -55,10 +56,7 @@ public class GameJIF extends JInternalFrame {
     private void initComponents() {        
         List<String> playerNameList = GUICoreMediator.getPlayerNameList();
         List<Boolean> playerTypeList = GUICoreMediator.getPlayerTypeList();
-        List<String> playerCreditList = GUICoreMediator.getPlayerCreditList();        
-        List<ImageIcon> cardImagesList = new ArrayList<ImageIcon>();
-        List<List<ImageIcon>> playerCardsImagesList = new ArrayList<List<ImageIcon>>();        
-        
+        List<String> playerCreditList = GUICoreMediator.getPlayerCreditList();                                        
 
         int size = playerNameList.size();
 
@@ -68,6 +66,7 @@ public class GameJIF extends JInternalFrame {
         playerStakeJL = new ArrayList<JLabel>(size);
         playerScoreJL = new ArrayList<JLabel>(size);        
         playerActionsJP = new ArrayList<JPanel>(size);
+        playerCardsImagesList = new ArrayList<List<ImageIcon>>(size);
         
         GridBagConstraints panelGBC = initGridBagC();
         panelGBC.gridheight = 2;
@@ -195,25 +194,25 @@ public class GameJIF extends JInternalFrame {
         gbc.anchor = GridBagConstraints.NORTHWEST;
         return gbc;
     }
-
+    //imposta la prima carta compreso dorso
     private void setFirstCard(int i, ImageIcon[] icon){
-        JPanel temp = playerCardsJP.get(i);
-        ((JLabel)temp.getComponent(0)).setIcon(icon[1]);
-        ((JLabel)temp.getComponent(1)).setIcon(icon[0]);
+        cardImagesList = new ArrayList<ImageIcon>();
+        cardImagesList.add(icon[1]);
+        cardImagesList.add(icon[0]);
+        playerCardsImagesList.add(cardImagesList);
         firstCardCovered(i);
     }
 
     private void firstCardCovered(int i){
         JPanel temp = playerCardsJP.get(i);
-        ((JLabel)temp.getComponent(0)).setVisible(true);
-        ((JLabel)temp.getComponent(1)).setVisible(false);
+        System.out.println(i);
+        ((JLabel)temp.getComponent(0)).setIcon((playerCardsImagesList.get(i)).get(0));
         pack();
     }
 
     private void firstCardDiscovered(int i){
         JPanel temp = playerCardsJP.get(i);
-        ((JLabel)temp.getComponent(0)).setVisible(false);
-        ((JLabel)temp.getComponent(1)).setVisible(true);
+        ((JLabel)temp.getComponent(0)).setIcon((playerCardsImagesList.get(i)).get(1));
         pack();
     }
 
@@ -264,13 +263,16 @@ public class GameJIF extends JInternalFrame {
                 break;
             }
         }
+        System.out.println(i);
         return i;
     }
 
     //imposta la cartaGUI
     private void setIconCard(int i, ImageIcon icon) {
         JPanel temp = playerCardsJP.get(i);
-        ((JLabel)temp.getComponent(++iterator)).setIcon(icon);
+        int size = playerCardsImagesList.get(i).size();
+        ((JLabel)temp.getComponent(++size)).setIcon(icon);
+        playerCardsImagesList.get(i).add(icon);
     }
 
     //esegue le azioni di richiesta carta
@@ -310,9 +312,8 @@ public class GameJIF extends JInternalFrame {
                 //aggiorno il credito della mazziere
                 setCreditLabel(bank,GUICoreMediator.getPlayerCredit(bank));
                 //rivelo la carta nascosta del nuovo player
-                iterator=1;
                 firstCardDiscovered(pos);
-                System.out.println(pos);
+                System.out.println("pos " + pos);
                 //pannello delle azioni visibile x il giocatore successivo
                 playerActionsJP.get(pos).setVisible(true);
                 playerScoreJL.get(pos).setVisible(true);
@@ -353,7 +354,6 @@ public class GameJIF extends JInternalFrame {
             playerActionsJP.get(pos).setVisible(true);
             playerScoreJL.get(pos).setVisible(true);
             System.out.println("jpanel pos");
-            iterator=1;
             pack();
             validate();
             revalidate();
