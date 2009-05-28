@@ -33,6 +33,7 @@ public class GameJIF extends JInternalFrame {
     private List<JLabel> playerScoreJL; //lista label punteggio giocatori
     private List<JPanel> playerActionsJP; //Lista pannelli giocatore-carte    
 
+    private int iterator=1;
     /**Costruttore
      *
      */
@@ -108,6 +109,7 @@ public class GameJIF extends JInternalFrame {
             labelGBC.gridx = 3;
             labelGBC.gridy = 2 * i + 1;
             add(playerScoreJL.get(i), labelGBC);
+            playerScoreJL.get(i).setVisible(false);
 
             panelGBC.gridx = 1;
             panelGBC.gridy = 2 * i;
@@ -154,7 +156,7 @@ public class GameJIF extends JInternalFrame {
         jbGood.setPreferredSize(new Dimension(80, 20));
         jbGood.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                searchJButton(evt);
+                goodScore(searchJButton(evt));
             }
         });
         pane.add(jbGood);
@@ -176,6 +178,7 @@ public class GameJIF extends JInternalFrame {
         }
         if (playerActionsJP.get(pos) != null) {
             playerActionsJP.get(pos).setVisible(true);
+            playerScoreJL.get(pos).setVisible(true);
             firstCardDiscovered(pos);
         }
         this.validate();
@@ -261,8 +264,9 @@ public class GameJIF extends JInternalFrame {
     }
 
     //imposta la cartaGUI
-    private void setIconCard(ImageIcon icon) {
-        //TODO
+    private void setIconCard(int i, ImageIcon icon) {
+        JPanel temp = playerCardsJP.get(i);
+        ((JLabel)temp.getComponent(++iterator)).setIcon(icon);
     }
 
     //esegue le azioni di richiesta carta
@@ -273,7 +277,7 @@ public class GameJIF extends JInternalFrame {
                 //trasformo la stringa della puntata in double
                 double cash = Double.valueOf(value);
                 //richiamo il mediatore e aggiungo la nuova carta sul tavolo
-                setIconCard(GUICoreMediator.requestCard(i, cash));
+                setIconCard(i, GUICoreMediator.requestCard(i, cash));
                 //aggiorna il valore delle puntate del player
                 setStakeLabel(i, GUICoreMediator.getPlayerStake(i));
                 //aggiorna il punteggio delle carte
@@ -283,11 +287,13 @@ public class GameJIF extends JInternalFrame {
             }
         } catch (ScoreOverflowException soe) {
                 //prendo l'immagine della carta sbagliata
-                setIconCard(soe.getCardException().getFrontImage());
+                setIconCard(i, soe.getCardException().getFrontImage());
                 //aggiorno il punteggio che peraltro è overflow
                 setScoreLabel(i, GUICoreMediator.getPlayerScore(i));
                 //richiamo la jdialog x l'eccezione
                 PrintErrors.exception(soe);
+                //pannello delle azioni visibile x il giocatore che sta lasciando la mano
+                playerActionsJP.get(i).setVisible(true);
                 //aggiorno il credito residuo del giocatore sballante
                 setCreditLabel(i, GUICoreMediator.getPlayerCredit(i));
                 //ottengo la posizione del successivo player
@@ -297,12 +303,48 @@ public class GameJIF extends JInternalFrame {
                 //aggiorno il credito della mazziere
                 setCreditLabel(bank,GUICoreMediator.getPlayerCredit(bank));
                 //rivelo la carta nascosta del nuovo player
+                iterator=1;
                 firstCardDiscovered(pos);
+                System.out.println(pos);
                 //pannello delle azioni visibile x il giocatore successivo
                 playerActionsJP.get(pos).setVisible(true);
+                playerScoreJL.get(pos).setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
     } //end request card
+
+    private void goodScore(int i) {
+        String value = getCashJTF(i);
+        System.out.println("entered");
+        if ((value != null) && (!value.equalsIgnoreCase(""))) {
+            System.out.println("if");
+            double cash = Double.valueOf(value);
+            try {
+                GUICoreMediator.declareGoodScore(i, cash);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println("goodscore");
+            //aggiorna il valore delle puntate del player
+            setStakeLabel(i, GUICoreMediator.getPlayerStake(i));
+            System.out.println("stake");
+            firstCardCovered(i);
+            System.out.println("1st card covered");
+            setCreditLabel(i, GUICoreMediator.getPlayerCredit(i));
+            System.out.println("credit");
+            playerActionsJP.get(i).setVisible(false);
+            playerScoreJL.get(i).setVisible(false);
+            System.out.println("visibile");
+            int pos = GUICoreMediator.nextPlayer();
+            System.out.println("pos");
+            firstCardDiscovered(pos);
+            System.out.println("1st card pos discover");
+            playerActionsJP.get(pos).setVisible(true);
+            playerScoreJL.get(pos).setVisible(true);
+            System.out.println("jpanel pos");
+            iterator=1;
+        }
+    }
 
 }//end gameJIF
