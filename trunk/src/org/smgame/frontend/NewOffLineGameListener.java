@@ -2,18 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.smgame.frontend;
 
-import java.util.EventObject;
+import java.util.EventListener;
 
 /**
  *
  * @author packyuser
  */
-public class NewGameEvent extends EventObject {
+public interface NewOffLineGameListener extends EventListener {
 
-    public NewGameEvent(Object source) {
-        super(source);
-    }
+    public void newOffLineGameCreating(NewOffLineGameEvent e);
 }
+
+

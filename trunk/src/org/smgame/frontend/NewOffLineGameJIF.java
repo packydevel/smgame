@@ -22,9 +22,6 @@ import javax.swing.JTextField;
 
 import javax.swing.event.EventListenerList;
 import org.smgame.core.GUICoreMediator;
-import org.smgame.core.player.CPUPlayer;
-import org.smgame.core.player.HumanPlayer;
-import org.smgame.core.player.Player;
 
 /**internal frame new game
  *frame interno nuovo gioco
@@ -32,7 +29,7 @@ import org.smgame.core.player.Player;
  * @author luca
  * @author pasquale
  */
-public class NewGameJIF extends JInternalFrame {
+public class NewOffLineGameJIF extends JInternalFrame {
 
     JPanel playersJP, preferencesJP;
     GridBagConstraints labelGBC, textFieldGBC, comboBoxGBC, checkBoxGBC, buttonGBC;
@@ -52,7 +49,7 @@ public class NewGameJIF extends JInternalFrame {
     /**Costruttore
      *
      */
-    public NewGameJIF() {
+    public NewOffLineGameJIF() {
         super("Nuova Partita", false, true, false, false);
         setSize(400, 450);
 
@@ -259,7 +256,7 @@ public class NewGameJIF extends JInternalFrame {
 
                 GUICoreMediator.createGame(gameName, null, playerName, playerType);
 
-                fireNewGameEvent(new NewGameEvent(this));
+                fireNewOffLineGameEvent(new NewOffLineGameEvent(this));
             }
             dispose();
         }
@@ -267,23 +264,23 @@ public class NewGameJIF extends JInternalFrame {
     protected EventListenerList eventListenerList = new javax.swing.event.EventListenerList();
 
     // This methods allows classes to register for MyEvents
-    public void addMyEventListener(NewGameListener listener) {
-        listenerList.add(NewGameListener.class, listener);
+    public void addMyEventListener(NewOffLineGameListener listener) {
+        listenerList.add(NewOffLineGameListener.class, listener);
     }
 
     // This methods allows classes to unregister for MyEvents
-    public void removeMyEventListener(NewGameListener listener) {
-        listenerList.remove(NewGameListener.class, listener);
+    public void removeMyEventListener(NewOffLineGameListener listener) {
+        listenerList.remove(NewOffLineGameListener.class, listener);
     }
 
     // This private class is used to fire MyEvents
-    void fireNewGameEvent(NewGameEvent e) {
+    void fireNewOffLineGameEvent(NewOffLineGameEvent e) {
         Object[] listeners = listenerList.getListenerList();
         for (int i = 0; i <
                 listeners.length; i +=
                         2) {
-            if (listeners[i] == NewGameListener.class) {
-                ((NewGameListener) listeners[i + 1]).newGameCreating(e);
+            if (listeners[i] == NewOffLineGameListener.class) {
+                ((NewOffLineGameListener) listeners[i + 1]).newOffLineGameCreating(e);
             }
         }
     }
