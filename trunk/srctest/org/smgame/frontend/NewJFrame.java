@@ -1,15 +1,8 @@
 package org.smgame.frontend;
 
-import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 import java.awt.Dimension;
 import java.io.File;
 import javax.swing.ImageIcon;
-
-;
-
-import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
-
-import javax.swing.UIManager;
 
 public class NewJFrame extends javax.swing.JInternalFrame {
 
