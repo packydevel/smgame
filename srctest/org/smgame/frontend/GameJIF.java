@@ -157,6 +157,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private JPanel initPanelActions() {
         JPanel pane = new JPanel(new FlowLayout(FlowLayout.LEFT));
         pane.setPreferredSize(new Dimension(300, 25));
+        pane.setBorder(new LineBorder(new Color(212, 208, 200)));
         ((FlowLayout) pane.getLayout()).setHgap(2);
         ((FlowLayout) pane.getLayout()).setVgap(2);
         JTextField betJTF = new JTextField();
@@ -190,18 +191,20 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         ImageIcon icon;
         bankPlayerIndex = GUICoreMediator.getBankPlayer();
         selectBank(bankPlayerIndex);
+        getBetJTF(bankPlayerIndex).setEnabled(false);
         currentPlayerIndex = GUICoreMediator.nextPlayer();
         playerActionsListJP.get(currentPlayerIndex).setVisible(true);
 
         for (int i = 0; i < size; i++) {
             icon = GUICoreMediator.getFirstCard(i);
             setStakeLabel(i, GUICoreMediator.getPlayerStake(i));
-            setScoreLabel(i, GUICoreMediator.getPlayerScore(i));
             playersCardsImagesList.get(i).add(icon);
             if (i == currentPlayerIndex) {
                 ((JLabel) playerCardsListJP.get(i).getComponent(0)).setIcon(icon);
+                setScoreLabel(i, GUICoreMediator.getPlayerScore(i));
             } else {
                 ((JLabel) playerCardsListJP.get(i).getComponent(0)).setIcon(backImage);
+                setScoreLabel(i, "");
             }
         }
     }
@@ -251,9 +254,17 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         ((JLabel) playerScoreListJL.get(i)).setText("Punteggio: " + score);
     }
 
+    private JTextField getBetJTF(int i) {
+        return ((JTextField) playerActionsListJP.get(i).getComponent(0));
+    }
+
     //preleva il valore della puntata
-    private String getBetJTF(int i) {
+    private String getBet(int i) {
         return ((JTextField) playerActionsListJP.get(i).getComponent(0)).getText();
+    }
+
+    private void resetBetJTF(int i) {
+        ((JTextField) playerActionsListJP.get(i).getComponent(0)).setText("");
     }
 
     //imposta la cartaGUI
@@ -266,11 +277,13 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
     //esegue le azioni di richiesta carta
     private void requestCard(int i) {
-        String value = getBetJTF(i);
-        ImageIcon icon;
-        if ((value != null) && (!value.equalsIgnoreCase(""))) {
+        String value = getBet(i);
+        double bet;
+        resetBetJTF(i);
+        if ((!value.equalsIgnoreCase("")) || ((value.equalsIgnoreCase("")) && (i == bankPlayerIndex))) {
+            System.out.println("Il valore è: " + value);
             try {
-                double bet = Double.valueOf(value);
+                bet = (value.equalsIgnoreCase("") ? 0.00 : Double.valueOf(value));
                 setCardImage(i, GUICoreMediator.requestCard(i, bet));
                 setStakeLabel(i, GUICoreMediator.getPlayerStake(i));
                 setScoreLabel(i, GUICoreMediator.getPlayerScore(i));
@@ -297,11 +310,11 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     } //end request card
 
     private void declareGoodScore(int i) {
-        String value = getBetJTF(i);
+        String value = getBet(i);
         double bet;
 
-        if ((value != null) && (!value.equalsIgnoreCase(""))) {
-            bet = Double.valueOf(value);
+        if ((!value.equalsIgnoreCase("")) || ((value.equalsIgnoreCase("")) && (i == bankPlayerIndex))) {
+            bet = (value.equalsIgnoreCase("") ? 0.00 : Double.valueOf(value));
             try {
                 GUICoreMediator.declareGoodScore(i, bet);
                 setCreditLabel(i, GUICoreMediator.getPlayerCredit(i));
