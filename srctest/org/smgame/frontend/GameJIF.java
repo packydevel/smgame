@@ -194,9 +194,9 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         playerActionsListJP.get(currentPlayerIndex).setVisible(true);
 
         for (int i = 0; i < size; i++) {
-            setStakeLabel(i, GUICoreMediator.getPlayerStake(bankPlayerIndex));
-            setScoreLabel(i, GUICoreMediator.getPlayerScore(bankPlayerIndex));
             icon = GUICoreMediator.getFirstCard(i);
+            setStakeLabel(i, GUICoreMediator.getPlayerStake(i));
+            setScoreLabel(i, GUICoreMediator.getPlayerScore(i));
             playersCardsImagesList.get(i).add(icon);
             if (i == currentPlayerIndex) {
                 ((JLabel) playerCardsListJP.get(i).getComponent(0)).setIcon(icon);
@@ -283,7 +283,6 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 setScoreLabel(i, GUICoreMediator.getPlayerScore(i));
                 setStakeLabel(i, GUICoreMediator.getPlayerStake(i));
                 setCreditLabel(bankPlayerIndex, GUICoreMediator.getPlayerCredit(bankPlayerIndex));
-                firstCardCovered(i);
                 playerActionsListJP.get(i).setVisible(false);
                 PrintErrors.exception(soe);
                 if (!GUICoreMediator.isEndManche(currentPlayerIndex)) {
