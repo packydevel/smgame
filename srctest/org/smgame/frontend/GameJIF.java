@@ -314,6 +314,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 if (!GUICoreMediator.isEndManche(currentPlayerIndex)) {
                     currentPlayerIndex = GUICoreMediator.nextPlayer();
                     firstCardDiscovered(currentPlayerIndex);
+                    setScoreLabel(currentPlayerIndex, GUICoreMediator.getPlayerScore(currentPlayerIndex));
                     showActionPanelContent(currentPlayerIndex);
                 }
             } catch (Exception e) {
@@ -346,6 +347,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 if (!GUICoreMediator.isEndManche(currentPlayerIndex)) {
                     currentPlayerIndex = GUICoreMediator.nextPlayer();
                     firstCardDiscovered(currentPlayerIndex);
+                    setScoreLabel(currentPlayerIndex, GUICoreMediator.getPlayerScore(currentPlayerIndex));
                     showActionPanelContent(currentPlayerIndex);
                 } else {
                 }
