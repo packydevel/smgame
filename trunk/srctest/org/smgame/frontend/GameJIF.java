@@ -258,9 +258,10 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
     //imposta la cartaGUI
     private void setCardImage(int i, ImageIcon icon) {
-        int size = playersCardsImagesList.get(i).size();
+        int size;
         playersCardsImagesList.get(i).add(icon);
-        ((JLabel) playerCardsListJP.get(i).getComponent(++size)).setIcon(icon);
+        size = playersCardsImagesList.get(i).size();
+        ((JLabel) playerCardsListJP.get(i).getComponent(size - 1)).setIcon(icon);
     }
 
     //esegue le azioni di richiesta carta
@@ -282,13 +283,13 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 setScoreLabel(i, GUICoreMediator.getPlayerScore(i));
                 setStakeLabel(i, GUICoreMediator.getPlayerStake(i));
                 setCreditLabel(bankPlayerIndex, GUICoreMediator.getPlayerCredit(bankPlayerIndex));
+                firstCardCovered(i);
+                playerActionsListJP.get(i).setVisible(false);
                 PrintErrors.exception(soe);
                 if (!GUICoreMediator.isEndManche(currentPlayerIndex)) {
                     currentPlayerIndex = GUICoreMediator.nextPlayer();
                     firstCardDiscovered(currentPlayerIndex);
                     playerActionsListJP.get(currentPlayerIndex).setVisible(true);
-                    firstCardCovered(i);
-                    playerActionsListJP.get(i).setVisible(false);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -316,6 +317,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                     playerActionsListJP.get(currentPlayerIndex).setVisible(true);
                     firstCardCovered(i);
                     playerActionsListJP.get(i).setVisible(false);
+                } else {
                 }
             } catch (BetOverflowException boe) {
                 PrintErrors.exception(boe);
