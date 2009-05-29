@@ -310,13 +310,11 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 setStakeLabel(i, GUICoreMediator.getPlayerStake(i));
                 firstCardCovered(i);
                 playerActionsListJP.get(i).setVisible(false);
-                firstCardDiscovered(currentPlayerIndex);
                 if (!GUICoreMediator.isEndManche(currentPlayerIndex)) {
                     currentPlayerIndex = GUICoreMediator.nextPlayer();
                     firstCardDiscovered(currentPlayerIndex);
                     playerActionsListJP.get(currentPlayerIndex).setVisible(true);
-                    firstCardCovered(i);
-                    playerActionsListJP.get(i).setVisible(false);
+
                 } else {
                 }
             } catch (BetOverflowException boe) {
