@@ -140,9 +140,10 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
     //inizializza il pannello del player - carte
     private JPanel initPanelPlayersCards() {
-        JPanel pane = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pane.setPreferredSize(new Dimension(480, 50));
+        JPanel pane = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        pane.setPreferredSize(new Dimension(480, 53));
         pane.setBorder(new LineBorder(new Color(212, 208, 200)));
+        ((FlowLayout) pane.getLayout()).setVgap(1);
         ((FlowLayout) pane.getLayout()).setHgap(1);
         playerCardsListJL = new ArrayList<JLabel>(14);
         for (int j = 0; j < 14; j++) {
