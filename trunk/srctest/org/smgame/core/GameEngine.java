@@ -240,6 +240,13 @@ public class GameEngine implements Serializable {
         return currentPlayer;
     }
 
+    public boolean isMaxScore(Player player) {
+        if (player.getScore() == 7.5) {
+            return true;
+        }
+        return false;
+    }
+
     public boolean isEndGame() {
         if (gameSetting.getManches() == currentManche) {
             return true;

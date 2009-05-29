@@ -242,6 +242,11 @@ public class GUICoreMediator {
         return formatter.format(player.getScore());
     }
 
+    public static boolean isMaxScore(int playerIndex) {
+        Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
+        return currentGame.getGameEngine().isMaxScore(player);
+    }
+
     /**restituisce la posizione del mazziere nella lista dei giocatori
      *
      * @return posizione
