@@ -113,6 +113,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             } else {
                 playerActionsListJP.add(null);
             }
+            hideActionPanelContent(i);
             panelGBC.gridx = 2;
             panelGBC.gridy = 2 * i;
             panelGBC.gridwidth = 2;
@@ -183,7 +184,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             }
         });
         pane.add(declareGoodScoreJB);
-        pane.setVisible(false);
+        pane.setVisible(true);
         return pane;
     }
 
@@ -193,7 +194,6 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         selectBank(bankPlayerIndex);
         getBetJTF(bankPlayerIndex).setEnabled(false);
         currentPlayerIndex = GUICoreMediator.nextPlayer();
-        playerActionsListJP.get(currentPlayerIndex).setVisible(true);
 
         for (int i = 0; i < size; i++) {
             icon = GUICoreMediator.getFirstCard(i);
@@ -202,10 +202,23 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             if (i == currentPlayerIndex) {
                 ((JLabel) playerCardsListJP.get(i).getComponent(0)).setIcon(icon);
                 setScoreLabel(i, GUICoreMediator.getPlayerScore(i));
+                showActionPanelContent(currentPlayerIndex);
             } else {
                 ((JLabel) playerCardsListJP.get(i).getComponent(0)).setIcon(backImage);
                 setScoreLabel(i, "");
             }
+        }
+    }
+
+    private void showActionPanelContent(int playerIndex) {
+        for (int i = 0; i < playerActionsListJP.get(playerIndex).getComponentCount(); i++) {
+            playerActionsListJP.get(playerIndex).getComponent(i).setVisible(true);
+        }
+    }
+
+    private void hideActionPanelContent(int playerIndex) {
+        for (int i = 0; i < playerActionsListJP.get(playerIndex).getComponentCount(); i++) {
+            playerActionsListJP.get(playerIndex).getComponent(i).setVisible(false);
         }
     }
 
@@ -296,12 +309,12 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 setScoreLabel(i, GUICoreMediator.getPlayerScore(i));
                 setStakeLabel(i, GUICoreMediator.getPlayerStake(i));
                 setCreditLabel(bankPlayerIndex, GUICoreMediator.getPlayerCredit(bankPlayerIndex));
-                playerActionsListJP.get(i).setVisible(false);
+                hideActionPanelContent(i);
                 PrintErrors.exception(soe);
                 if (!GUICoreMediator.isEndManche(currentPlayerIndex)) {
                     currentPlayerIndex = GUICoreMediator.nextPlayer();
                     firstCardDiscovered(currentPlayerIndex);
-                    playerActionsListJP.get(currentPlayerIndex).setVisible(true);
+                    showActionPanelContent(currentPlayerIndex);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -321,12 +334,11 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 setScoreLabel(i, GUICoreMediator.getPlayerScore(i));
                 setStakeLabel(i, GUICoreMediator.getPlayerStake(i));
                 firstCardCovered(i);
-                playerActionsListJP.get(i).setVisible(false);
+                hideActionPanelContent(i);
                 if (!GUICoreMediator.isEndManche(currentPlayerIndex)) {
                     currentPlayerIndex = GUICoreMediator.nextPlayer();
                     firstCardDiscovered(currentPlayerIndex);
-                    playerActionsListJP.get(currentPlayerIndex).setVisible(true);
-
+                    showActionPanelContent(currentPlayerIndex);
                 } else {
                 }
             } catch (BetOverflowException boe) {
