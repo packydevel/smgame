@@ -286,13 +286,10 @@ public class GUICoreMediator {
      * @param playerIndex
      * @return
      */
-    public static ImageIcon[] getFirstCard(int playerIndex) {
-        ImageIcon[] icons = new ImageIcon[2];
+    public static ImageIcon getFirstCard(int playerIndex) {
         Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
         Card card = currentGame.getGameEngine().getFirstCard(player);
-        icons[0] = card.getFrontImage();
-        icons[1] = card.getBackImage();
-        return icons;
+        return card.getFrontImage();
     }
 
     /**Dichiarazione del giocatore di stare bene con eventuale puntata

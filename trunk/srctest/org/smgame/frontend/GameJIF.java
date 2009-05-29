@@ -37,7 +37,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private List<ImageIcon> playerCardsImagesList = new ArrayList<ImageIcon>();
     private List<List<ImageIcon>> playersCardsImagesList;
     private List<JLabel> playerCardsListJL;
-    //private List<List<JLabel>> playersCardsListJL;
+    GridBagConstraints panelGBC, labelGBC, textFieldGBC, buttonGBC;
     private final ImageIcon backImage = new ImageIcon(Common.getResourceCards() + "dorso.gif");
     private int size,  bankPlayerIndex,  currentPlayerIndex;
 
@@ -73,19 +73,17 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         playerActionsListJP = new ArrayList<JPanel>(size);
         playersCardsImagesList = new ArrayList<List<ImageIcon>>(size);
 
-        GridBagConstraints panelGBC = initGridBagC();
-        panelGBC.gridheight = 2;
-        panelGBC.weighty = (double) 1 / (double) size;
+        panelGBC = new GridBagConstraints();
+        panelGBC.insets = new Insets(1, 1, 1, 1);
+        panelGBC.weighty = 0;
         panelGBC.weightx = 0;
+        panelGBC.anchor = GridBagConstraints.NORTHWEST;
 
-        GridBagConstraints labelGBC = initGridBagC();
-        labelGBC.fill = GridBagConstraints.HORIZONTAL;
-
-        GridBagConstraints actionsGBC = initGridBagC();
-        actionsGBC.gridwidth = 2;
-        actionsGBC.fill=GridBagConstraints.HORIZONTAL;
-        panelGBC.weightx = 1;
-        actionsGBC.gridx = 2;
+        labelGBC = new GridBagConstraints();
+        labelGBC.insets = new Insets(1, 1, 1, 1);
+        labelGBC.weighty = 0;
+        labelGBC.weightx = 0;
+        labelGBC.anchor = GridBagConstraints.NORTHWEST;
 
         for (int i = 0; i < size; i++) {
             playerNameListJL.add(new JLabel(playerNameList.get(i)));
@@ -98,40 +96,51 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             labelGBC.gridy = 2 * i + 1;
             add(playerCreditListJL.get(i), labelGBC);
 
+            playerCardsImagesList = GUICoreMediator.getPlayerCards(i);
+            playersCardsImagesList.add(playerCardsImagesList);
+            panelGBC.gridx = 1;
+            panelGBC.gridy = 2 * i;
+            panelGBC.gridwidth = 1;
+            panelGBC.gridheight = 2;
+            panelGBC.weightx = 1;
+            panelGBC.weighty = (double) 1 / (double) size;
+            playerCardsListJP.add(initPanelPlayersCards());
+            add(playerCardsListJP.get(i), panelGBC);
+
             if (playerTypeList.get(i).equals(Boolean.FALSE)) {
                 setHumanColor(i);
-                actionsGBC.gridy = 2 * i;
                 playerActionsListJP.add(initPanelActions());
             } else {
                 playerActionsListJP.add(null);
             }
-            add(playerActionsListJP.get(i), actionsGBC);
+            panelGBC.gridx = 2;
+            panelGBC.gridy = 2 * i;
+            panelGBC.gridwidth = 2;
+            panelGBC.gridheight = 1;
+            panelGBC.weightx = 0;
+            panelGBC.weighty = 0;
+            //panelGBC.fill = GridBagConstraints.HORIZONTAL;
+            add(playerActionsListJP.get(i), panelGBC);
 
             playerStakeListJL.add(new JLabel("Puntata: 0,00"));
             labelGBC.gridx = 2;
             labelGBC.gridy = 2 * i + 1;
+            labelGBC.anchor = GridBagConstraints.NORTHWEST;
             add(playerStakeListJL.get(i), labelGBC);
 
             playerScoreListJL.add(new JLabel("Punteggio: 0,0"));
             labelGBC.gridx = 3;
             labelGBC.gridy = 2 * i + 1;
+            labelGBC.anchor = GridBagConstraints.NORTHWEST;
             add(playerScoreListJL.get(i), labelGBC);
-            //playerScoreListJL.get(i).setVisible(false);
-
-            panelGBC.gridx = 1;
-            panelGBC.gridy = 2 * i;
-            playerCardsImagesList = GUICoreMediator.getPlayerCards(i);
-            playersCardsImagesList.add(playerCardsImagesList);
-
-            playerCardsListJP.add(initPanelPlayersCards());
-            add(playerCardsListJP.get(i), panelGBC);
+        //playerScoreListJL.get(i).setVisible(false);
         }
     } //end initComponents
 
     //inizializza il pannello del player - carte
     private JPanel initPanelPlayersCards() {
         JPanel pane = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pane.setPreferredSize(new Dimension(500, 50));
+        pane.setPreferredSize(new Dimension(480, 50));
         pane.setBorder(new LineBorder(new Color(212, 208, 200)));
         ((FlowLayout) pane.getLayout()).setHgap(1);
         playerCardsListJL = new ArrayList<JLabel>(14);
@@ -147,13 +156,17 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     //inizializza il pannello delle azioni
     private JPanel initPanelActions() {
         JPanel pane = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        pane.setPreferredSize(new Dimension(300, 25));
+        ((FlowLayout) pane.getLayout()).setHgap(2);
+        ((FlowLayout) pane.getLayout()).setVgap(2);
         JTextField betJTF = new JTextField();
-        betJTF.setPreferredSize(new Dimension(50, 20));
+        betJTF.setPreferredSize(new Dimension(80, 20));
         pane.add(betJTF);
 
         JButton requestCardJB = new JButton("Chiedi una carta");
         requestCardJB.setPreferredSize(new Dimension(120, 20));
         requestCardJB.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent evt) {
                 requestCard(currentPlayerIndex);
             }
@@ -163,6 +176,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         JButton declareGoodScoreJB = new JButton("Sto bene");
         declareGoodScoreJB.setPreferredSize(new Dimension(80, 20));
         declareGoodScoreJB.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent evt) {
                 declareGoodScore(currentPlayerIndex);
             }
@@ -173,39 +187,36 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     }
 
     private void initBoard() {
+        ImageIcon icon;
         bankPlayerIndex = GUICoreMediator.getBankPlayer();
         selectBank(bankPlayerIndex);
+        currentPlayerIndex = GUICoreMediator.nextPlayer();
+        playerActionsListJP.get(currentPlayerIndex).setVisible(true);
 
         for (int i = 0; i < size; i++) {
             setStakeLabel(i, GUICoreMediator.getPlayerStake(bankPlayerIndex));
             setScoreLabel(i, GUICoreMediator.getPlayerScore(bankPlayerIndex));
-            ((JLabel) playerCardsListJP.get(i).getComponent(0)).setIcon(backImage);
+            icon = GUICoreMediator.getFirstCard(i);
+            playersCardsImagesList.get(i).add(icon);
+            if (i == currentPlayerIndex) {
+                ((JLabel) playerCardsListJP.get(i).getComponent(0)).setIcon(icon);
+            } else {
+                ((JLabel) playerCardsListJP.get(i).getComponent(0)).setIcon(backImage);
+            }
         }
-        
-        currentPlayerIndex = GUICoreMediator.nextPlayer();
-        playerActionsListJP.get(currentPlayerIndex).setVisible(true);
-    }
-
-    //inizializza il gridbagconstraints per tutti per la parte in comune
-    private GridBagConstraints initGridBagC() {
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.weightx = 0;
-        gbc.weighty = 0;
-        gbc.insets = new Insets(1, 1, 1, 1);
-        gbc.anchor = GridBagConstraints.NORTHWEST;
-        return gbc;
     }
 
     private void firstCardCovered(int i) {
         JPanel temp = playerCardsListJP.get(i);
         System.out.println(i);
         ((JLabel) temp.getComponent(0)).setIcon(backImage);
-    //pack();
     }
 
     private void firstCardDiscovered(int i) {
+        ImageIcon icon;
         JPanel temp = playerCardsListJP.get(i);
-        ((JLabel) temp.getComponent(0)).setIcon(null);
+        icon = playersCardsImagesList.get(i).get(0);
+        ((JLabel) temp.getComponent(0)).setIcon(icon);
     }
     //Seleziona/evidenzia il mazziere di turno
 
@@ -255,6 +266,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     //esegue le azioni di richiesta carta
     private void requestCard(int i) {
         String value = getBetJTF(i);
+        ImageIcon icon;
         if ((value != null) && (!value.equalsIgnoreCase(""))) {
             try {
                 double bet = Double.valueOf(value);
@@ -270,12 +282,13 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 setScoreLabel(i, GUICoreMediator.getPlayerScore(i));
                 setStakeLabel(i, GUICoreMediator.getPlayerStake(i));
                 setCreditLabel(bankPlayerIndex, GUICoreMediator.getPlayerCredit(bankPlayerIndex));
-                playerActionsListJP.get(i).setVisible(false);
                 PrintErrors.exception(soe);
                 if (!GUICoreMediator.isEndManche(currentPlayerIndex)) {
                     currentPlayerIndex = GUICoreMediator.nextPlayer();
                     firstCardDiscovered(currentPlayerIndex);
                     playerActionsListJP.get(currentPlayerIndex).setVisible(true);
+                    firstCardCovered(i);
+                    playerActionsListJP.get(i).setVisible(false);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -299,7 +312,10 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 firstCardDiscovered(currentPlayerIndex);
                 if (!GUICoreMediator.isEndManche(currentPlayerIndex)) {
                     currentPlayerIndex = GUICoreMediator.nextPlayer();
+                    firstCardDiscovered(currentPlayerIndex);
                     playerActionsListJP.get(currentPlayerIndex).setVisible(true);
+                    firstCardCovered(i);
+                    playerActionsListJP.get(i).setVisible(false);
                 }
             } catch (BetOverflowException boe) {
                 PrintErrors.exception(boe);
