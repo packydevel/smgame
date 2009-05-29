@@ -277,7 +277,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     }
 
     private void resetBetJTF(int i) {
-        ((JTextField) playerActionsListJP.get(i).getComponent(0)).setText("");
+        ((JTextField) playerActionsListJP.get(i).getComponent(0)).setText("0");
     }
 
     //imposta la cartaGUI
@@ -331,7 +331,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             try {
                 GUICoreMediator.declareGoodScore(i, bet);
                 setCreditLabel(i, GUICoreMediator.getPlayerCredit(i));
-                setScoreLabel(i, GUICoreMediator.getPlayerScore(i));
+                setScoreLabel(i, "0,00");
                 setStakeLabel(i, GUICoreMediator.getPlayerStake(i));
                 firstCardCovered(i);
                 hideActionPanelContent(i);
