@@ -10,9 +10,12 @@ import java.io.ObjectOutputStream;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
+import java.util.ListIterator;
 import javax.swing.ImageIcon;
 
 import org.smgame.core.card.Card;
@@ -60,6 +63,7 @@ public class GUICoreMediator {
         GUICoreMediator.playerTypeList = playerTypeList;
 
         for (int i = 0; i < playerNameList.size(); i++) {
+            System.out.println(playerNameList.get(i));
             if (playerTypeList.get(i).booleanValue()) {
                 playerList.getPlayerAL().add(new CPUPlayer(playerNameList.get(i)));
             } else {
@@ -83,20 +87,14 @@ public class GUICoreMediator {
         gameList.add(currentGame);
     }
 
-    public static void createOnLineGame(String gameName, GameSetting gameSetting, String playerName, boolean playerType) {
+    public static void createOnLineGame(String gameName, GameSetting gameSetting, String playerName) {
         PlayerList.getInstance().resetInstance();
-        PlayerList playerList = PlayerList.getInstance();
-        GUICoreMediator.playerNameList = playerNameList;
-        GUICoreMediator.playerTypeList = playerTypeList;
+        PlayerList playerList = PlayerList.getInstance();                
 
         playerList.getPlayerAL().add(new CPUPlayer("Alan Turing"));
         playerList.getPlayerAL().get(0).setCredit(1000);
-
-        if (playerType) {
-            playerList.getPlayerAL().add(new CPUPlayer(playerName));
-        } else {
-            playerList.getPlayerAL().add(new HumanPlayer(playerName));
-        }
+        
+        playerList.getPlayerAL().add(new HumanPlayer(playerName));
         playerList.getPlayerAL().get(1).setCredit(1000);
 
 
