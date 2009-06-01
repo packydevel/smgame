@@ -1,17 +1,24 @@
 package org.smgame.frontend;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 import org.smgame.core.GUICoreMediator;
 
 public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
+
+    private List<JPanel> playerCardsListJP; //Lista pannelli giocatore-carte
+    private List<JLabel> playerCardsListJL;
 
     private JPanel playerOneJP;
     private JPanel playerTwoJP;
@@ -21,16 +28,16 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
     private JLabel scoreOneJL;
     private JLabel stakeOneJL;
     private JTextField stakeOneJTF;
+    private JButton requestCardOneJB;
+    private JButton declareGoodOneJB;
 
     private JLabel nameTwoJL;
     private JLabel creditTwoJL;
     private JLabel scoreTwoJL;
     private JLabel stakeTwoJL;
-    private JButton askCardOneJB;
-    private JButton declareGoodOneJB;
     private JTextField stakeTwoJTF;
-    private JButton askCardTwoJB;
-
+    private JButton requestCardTwoJB;
+    private JButton declareGoodTwoJB;
 
     public GameOnlineJIF() {
         super(GUICoreMediator.getGameName(), false, true, false, false);
@@ -42,9 +49,9 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
         //setBounds(xbound, ybound, xbound + width, ybound + height);
         setLayout(new GridBagLayout());
         initComponents();
-        
+
     }
-    
+
     private void initComponents(){
         playerOneJP = new JPanel(new FlowLayout());
 
@@ -58,10 +65,11 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
         playerOneJP.add(stakeOneJL);
         stakeOneJTF = new JTextField();
         playerOneJP.add(stakeOneJTF);
-        askCardOneJB = new JButton("Chiedi carta");
-        playerOneJP.add(scoreOneJL);
+        requestCardOneJB = new JButton("Chiedi carta");
+        playerOneJP.add(requestCardOneJB);
         declareGoodOneJB = new JButton("Sto bene");
-        playerOneJP.add(scoreOneJL);
+        playerOneJP.add(declareGoodOneJB);
+
         this.add(playerOneJP).setVisible(true);
 
 
@@ -76,12 +84,34 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
         playerTwoJP.add(stakeTwoJL);
         stakeTwoJTF = new JTextField();
         playerTwoJP.add(stakeTwoJTF);
-        askCardTwoJB = new JButton("Chiedi carta");
-        playerTwoJP.add(askCardTwoJB);
-        declareGoodOneJB = new JButton("Sto bene");
-        playerTwoJP.add(declareGoodOneJB);
+        requestCardTwoJB = new JButton("Chiedi carta");
+        playerTwoJP.add(requestCardTwoJB);
+        declareGoodTwoJB = new JButton("Sto bene");
+        playerTwoJP.add(declareGoodTwoJB);
         this.add(playerTwoJP).setVisible(true);
+
+        playerCardsListJP = new ArrayList<JPanel>(4);
+        for (int i=0; i<4; i++){
+            playerCardsListJP.add(initPanelPlayersCards());
+            //this.add(playerCardsListJP.get(i), panelGBC);
+        }
     }
+
+    //inizializza il pannello del player - carte
+    private JPanel initPanelPlayersCards() {
+        JPanel pane = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        pane.setPreferredSize(new Dimension(480, 100));
+        pane.setBorder(new LineBorder(new Color(212, 208, 200)));
+        ((FlowLayout) pane.getLayout()).setHgap(1);
+        playerCardsListJL = new ArrayList<JLabel>(7);
+        for (int j = 0; j < 7; j++) {
+            playerCardsListJL.add(new JLabel());
+            playerCardsListJL.get(j).setPreferredSize(new Dimension(63, 99));
+            playerCardsListJL.get(j).setBorder(new LineBorder(new Color(212, 208, 200)));
+            pane.add(playerCardsListJL.get(j));
+        }
+        return pane;
+    } // initPanelPlayersCards
 
 
 

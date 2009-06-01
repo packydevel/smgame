@@ -21,6 +21,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
     private NewOffLineGameJIF newGameJIF;
     private LoadGameJIF loadGameJIF;
     private GameJIF gameJIF;
+    private GameOnlineJIF gameonlineJIF;
 
     public MainJF() {
         super("SMGame - Gioco Italiano del Sette e 1/2");
@@ -178,6 +179,13 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
     }
 
     public void newOnLineGameCreating(NewOnLineGameEvent e) {
+        gameonlineJIF = new GameOnlineJIF();
+        gameonlineJIF.setVisible(true);
+        gameonlineJIF.addInternalFrameListener(this);
+        desktop.add(gameonlineJIF);
+        menuJMB.getNewOffLineGameJMI().setEnabled(false);
+        menuJMB.getSaveGameJMI().setEnabled(true);
+        menuJMB.getCloseGameJMI().setEnabled(true);
     }
 
     public void newOffLineGameCreating(NewOffLineGameEvent e) {

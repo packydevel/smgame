@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.frontend;
 
 import java.awt.Dimension;
@@ -11,6 +7,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JInternalFrame;
@@ -19,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.event.EventListenerList;
+
 import org.smgame.core.GUICoreMediator;
 
 /**
@@ -36,7 +34,7 @@ public class NewOnLineGameJIF extends JInternalFrame {
     JLabel gameNameJL;
     JLabel playerJL;
     JTextField gameNameJTF;
-    JTextField playerJTF;
+    JTextField playerJTF; //textfield nome giocatore
     String eventSource;
 
     /**Costruttore
@@ -99,6 +97,18 @@ public class NewOnLineGameJIF extends JInternalFrame {
         textFieldGBC.fill = GridBagConstraints.HORIZONTAL;
         playersJP.add(gameNameJTF, textFieldGBC);
 
+        playerJL = new JLabel("Nome Giocatore:");
+        labelGBC.gridx = 0;
+        labelGBC.gridy = 2;
+        playersJP.add(playerJL, labelGBC);
+
+        playerJTF = new JTextField(20);
+        textFieldGBC.gridx = 1;
+        textFieldGBC.gridy = 2;
+        textFieldGBC.gridwidth = 2;
+        textFieldGBC.fill = GridBagConstraints.HORIZONTAL;
+        playersJP.add(playerJTF, textFieldGBC);
+
         cancelJB = new JButton("Annulla");
         cancelJB.setName("cancelJB");
         cancelJB.setPreferredSize(new Dimension(70, 20));
@@ -115,7 +125,7 @@ public class NewOnLineGameJIF extends JInternalFrame {
 
         okJB = new JButton("OK");
         okJB.setPreferredSize(new Dimension(70, 20));
-        okJB.setEnabled(false);
+        okJB.setEnabled(true);
         okJB.setVisible(true);
         buttonGBC.gridx = 1;
         buttonGBC.gridy = 14;
@@ -151,7 +161,8 @@ public class NewOnLineGameJIF extends JInternalFrame {
 
             String gameName = gameNameJTF.getText();
             String playerName = playerJTF.getText();
-            boolean playerType = cpuflagJCKB.isSelected();
+            boolean playerType = false;
+            //boolean playerType = cpuflagJCKB.isSelected();
 
             GUICoreMediator.createOnLineGame(gameName, null, playerName, playerType);
 
