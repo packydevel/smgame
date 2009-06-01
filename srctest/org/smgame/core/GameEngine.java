@@ -78,7 +78,6 @@ public class GameEngine implements Serializable {
         card = deck.getNextCard();
         player.setStatus(PlayerStatus.GoodScore);
         player.getCardList().add(card);
-        currentManche++;
 
         return card;
     }
@@ -268,6 +267,9 @@ public class GameEngine implements Serializable {
     }
 
     public boolean isEndGame() {
+        System.out.println("Numero di manches totali: " + gameSetting.getManches());
+        System.out.println("Numero di manches totali: " + currentManche);
+        System.out.println("Giacatori in rosso: " + playerList.existsBankruptPlayer());
         if (gameSetting.getManches() == currentManche || playerList.existsBankruptPlayer()) {
             return true;
         }
