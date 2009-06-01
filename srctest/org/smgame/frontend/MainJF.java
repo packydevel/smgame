@@ -163,6 +163,11 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
             menuJMB.getNewOnLineGameJMI().setEnabled(true);
             menuJMB.getCloseGameJMI().setEnabled(false);
             menuJMB.getSaveGameJMI().setEnabled(false);
+        } else if (e.getInternalFrame() instanceof GameOnlineJIF) {
+            GUICoreMediator.closeGame();
+            menuJMB.getNewOffLineGameJMI().setEnabled(true);
+            menuJMB.getCloseGameJMI().setEnabled(false);
+            menuJMB.getSaveGameJMI().setEnabled(false);
         }
     }
 
@@ -183,6 +188,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
         gameonlineJIF.setVisible(true);
         gameonlineJIF.addInternalFrameListener(this);
         desktop.add(gameonlineJIF);
+        System.out.println("gameonlinejif");
         menuJMB.getNewOffLineGameJMI().setEnabled(false);
         menuJMB.getSaveGameJMI().setEnabled(true);
         menuJMB.getCloseGameJMI().setEnabled(true);

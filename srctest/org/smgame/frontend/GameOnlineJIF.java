@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -49,13 +50,32 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
         //setBounds(xbound, ybound, xbound + width, ybound + height);
         setLayout(new GridBagLayout());
         initComponents();
+        setVisible(true);
+        pack();
 
     }
 
     private void initComponents(){
+        GridBagConstraints playerOneGBC = new GridBagConstraints();
+        GridBagConstraints playerTwoGBC = new GridBagConstraints();
+
+        playerOneGBC.insets = new Insets(1, 1, 1, 1);
+        playerOneGBC.weighty = 0;
+        playerOneGBC.weightx = 0;
+        playerOneGBC.anchor = GridBagConstraints.NORTHWEST;
+
+        playerTwoGBC = playerOneGBC;
+
+        playerOneGBC.gridx = 0;
+        playerOneGBC.gridy = 0;
+
+        playerOneGBC.gridx = 0;
+        playerOneGBC.gridy = 2;
+
         playerOneJP = new JPanel(new FlowLayout());
 
-        nameOneJL = new JLabel(GUICoreMediator.getPlayerNameList().get(0));
+
+        nameOneJL = new JLabel();
         playerOneJP.add(nameOneJL);
         creditOneJL = new JLabel("Credito: " + GUICoreMediator.getPlayerCredit(0));
         playerOneJP.add(creditOneJL);
@@ -68,13 +88,13 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
         requestCardOneJB = new JButton("Chiedi carta");
         playerOneJP.add(requestCardOneJB);
         declareGoodOneJB = new JButton("Sto bene");
-        playerOneJP.add(declareGoodOneJB);
+        playerOneJP.add(declareGoodOneJB,playerOneGBC);
 
         this.add(playerOneJP).setVisible(true);
 
 
         playerTwoJP = new JPanel();
-        nameTwoJL = new JLabel(GUICoreMediator.getPlayerNameList().get(1));
+        nameTwoJL = new JLabel();
         playerTwoJP.add(nameTwoJL);
         creditTwoJL = new JLabel();
         playerTwoJP.add(creditTwoJL);
