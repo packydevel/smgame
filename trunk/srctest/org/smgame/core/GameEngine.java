@@ -137,6 +137,7 @@ public class GameEngine implements Serializable {
         Collections.shuffle(tempList);
         bankPlayer = tempList.get(0);
         bankPlayer.setRole(PlayerRole.Bank);
+        System.out.println("mazziere "+ bankPlayer.getName());
         return bankPlayer;
     }
 
