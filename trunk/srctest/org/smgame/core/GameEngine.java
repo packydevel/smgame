@@ -107,8 +107,10 @@ public class GameEngine implements Serializable {
                 deck.addOffGameCards(player.getCardList());
                 //player.getCardList().clear();
                 //player.getBetList().clear();
-                player.setCredit(player.getCredit() - player.getStake());
-                bankPlayer.setCredit(bankPlayer.getCredit() + player.getStake());
+                if (player.getRole() != PlayerRole.Bank) {
+                    player.setCredit(player.getCredit() - player.getStake());
+                    bankPlayer.setCredit(bankPlayer.getCredit() + player.getStake());
+                }
                 player.setStatus(PlayerStatus.ScoreOverflow);
                 throw new ScoreOverflowException("Mi spiace, Hai Sballato!!!", card);
             }
@@ -122,12 +124,19 @@ public class GameEngine implements Serializable {
             throw new BetOverflowException("Non hai sufficiente Credito per eseguire questa puntata!!!");
         } else {
             player.getBetList().add(bet);
-            player.setCredit(player.getCredit() - player.getStake());
             player.setStatus(PlayerStatus.GoodScore);
         }
     }
 
-    public Player selectFirstRandomBankPlayer() {
+    public Player getBankPlayer() {
+        if (currentManche == 0) {
+            return selectFirstRandomBankPlayer();
+        } else {
+            return bankPlayer;
+        }
+    }
+
+    private Player selectFirstRandomBankPlayer() {
         List<Player> tempList = new ArrayList<Player>(playerList.getPlayerAL());
         Collections.shuffle(tempList);
         bankPlayer = tempList.get(0);
@@ -135,18 +144,25 @@ public class GameEngine implements Serializable {
         return bankPlayer;
     }
 
-    public Player selectNextBankPlayer() {
-        Player player = playerList.firstKingSM(bankPlayer);
+    private Player selectNextBankPlayer() {
+        Player player;
         int indexList;
-
-        if (player == null) {
-            if (deck.isIsEmptyDeck()) {
-                deck.setIsEmptyDeck(false);
-                indexList = playerList.getPlayerAL().indexOf(bankPlayer);
-                indexList = ++indexList % playerList.getPlayerAL().size();
-                bankPlayer = playerList.getPlayerAL().get(indexList);
-            }
+        if (currentManche == 0) {
+            bankPlayer = selectFirstRandomBankPlayer();
         } else {
+            player = playerList.firstKingSM(bankPlayer);
+            if (player == null) {
+                if (deck.isIsEmptyDeck()) {
+                    deck.setIsEmptyDeck(false);
+                    indexList = playerList.getPlayerAL().indexOf(bankPlayer);
+                    indexList = ++indexList % playerList.getPlayerAL().size();
+                    player = playerList.getPlayerAL().get(indexList);
+                } else {
+                    player = bankPlayer;
+                }
+            }
+            bankPlayer.setRole(PlayerRole.Normal);
+            player.setRole(PlayerRole.Bank);
             bankPlayer = player;
         }
         return bankPlayer;
@@ -160,8 +176,8 @@ public class GameEngine implements Serializable {
      * Valutazione tra i punteggi realizzati al 7 1/2 seondo le regle di WikiPedia
      * Luka verifichi anche tu???
      */
-    public boolean compareScore(Player player) {
-        if (player.getStatus() == PlayerStatus.GoodScore) {
+    private boolean compareScore(Player player) {
+        if (player.getStatus() == PlayerStatus.GoodScore && bankPlayer.getStatus() == PlayerStatus.GoodScore) {
             if (player.getScore() > bankPlayer.getScore()) {
                 return true;
             } else if (player.getScore() < bankPlayer.getScore()) {
@@ -184,7 +200,7 @@ public class GameEngine implements Serializable {
                 }
             }
         } else {
-            return false;
+            return true;
         }
     }
 
@@ -193,25 +209,29 @@ public class GameEngine implements Serializable {
      * secondo le regole di Wikipedia
      * Luka puoi verificare???
      */
-    public double paymentRule(Player player) {
-
-        if (player.getStatus() == PlayerStatus.GoodScore) {
-            if (compareScore(player)) {
-                if (player.getScore() == 7.5 && player.getCardList().size() == 2) {
-                    return player.getCredit() + 2 * player.getStake();
+    private void applyPaymentRule() {
+        for (Player p : gameEngine.playerList.getPlayerAL()) {
+            if (p.getStatus() == PlayerStatus.GoodScore) {
+                if (compareScore(p)) {
+                    if (p.getScore() == 7.5 && p.getCardList().size() == 2) {
+                        p.setCredit(p.getCredit() + 2 * p.getStake());
+                        bankPlayer.setCredit(bankPlayer.getCredit() - 2 * p.getStake());
+                    } else {
+                        p.setCredit(p.getCredit() + p.getStake());
+                        bankPlayer.setCredit(bankPlayer.getCredit() - p.getStake());
+                    }
                 } else {
-                    return player.getCredit() + player.getStake();
-                }
-            } else {
-                if (bankPlayer.getScore() == 7.5 && bankPlayer.getCardList().size() == 2) {
-                    return player.getCredit() - player.getStake();
-                } else {
-                    return player.getCredit() - 2 * player.getStake();
+                    if (bankPlayer.getScore() == 7.5 && bankPlayer.getCardList().size() == 2) {
+                        p.setCredit(p.getCredit() - 2 * p.getStake());
+                        bankPlayer.setCredit(bankPlayer.getCredit() + 2 * p.getStake());
+                    } else {
+                        p.setCredit(p.getCredit() - p.getStake());
+                        bankPlayer.setCredit(bankPlayer.getCredit() + p.getStake());
+                    }
                 }
             }
-        } else {
-            return player.getCredit();
         }
+
     }
 
     /**restituisce il prossimo giocatore
@@ -248,17 +268,25 @@ public class GameEngine implements Serializable {
     }
 
     public boolean isEndGame() {
-        if (gameSetting.getManches() == currentManche) {
+        if (gameSetting.getManches() == currentManche || playerList.existsBankruptPlayer()) {
             return true;
-        } else if (playerList.existsBankruptPlayer()) {
-            return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
-    public boolean isEndManche(Player player) {
-        if (player.equals(bankPlayer)) {
+    public void closeManche() {
+        applyPaymentRule();
+        selectNextBankPlayer();
+        for (Player p : playerList.getPlayerAL()) {
+            p.getCardList().clear();
+            p.getBetList().clear();
+        }
+        currentPlayer = null;
+        currentManche++;
+    }
+
+    public boolean isEndManche() {
+        if (currentPlayer.equals(bankPlayer)) {
             return true;
         }
         return false;

@@ -75,7 +75,7 @@ public class GUICoreMediator {
         currentGame.generateGameID();
         currentGame.setGameName(gameName);
         currentGame.setCreationDate(new Date());
-        currentGame.setGameSetting(gameSetting);
+        currentGame.setGameSetting(GameSetting.getInstance());
         currentGame.setPlayerList(playerList);
         currentGame.generateGameEngine();
         currentGame.getGameEngine().shuffleDeck();
@@ -252,7 +252,7 @@ public class GUICoreMediator {
      * @return posizione
      */
     public static int getBankPlayer() {
-        return currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().selectFirstRandomBankPlayer());
+        return currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().getBankPlayer());
     }
 
     public static List<ImageIcon> getPlayerCards(int playerIndex) {
@@ -320,7 +320,23 @@ public class GUICoreMediator {
         return currentGame.getPlayerList().getPlayerAL().indexOf(currentGame.getGameEngine().nextPlayer());
     }
 
-    public static boolean isEndManche(int playerIndex) {
-        return currentGame.getGameEngine().isEndManche(currentGame.getPlayerList().getPlayerAL().get(playerIndex));
+    public static boolean isEndManche() {
+        boolean isEndManche;
+        isEndManche=currentGame.getGameEngine().isEndManche();
+        if (isEndManche) {
+            currentGame.getGameEngine().closeManche();
+        }
+        return isEndManche;
     }
+
+    public static boolean isEndGame() {
+        boolean isEndGame;
+        isEndGame=currentGame.getGameEngine().isEndGame();
+        System.out.println(isEndGame);
+        if (isEndGame) {
+            closeGame();
+        }
+        return isEndGame;
+    }
+
 } //end  class
