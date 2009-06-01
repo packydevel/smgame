@@ -30,6 +30,9 @@ public class GameSetting {
      *
      */
     private GameSetting() {
+        manches = 2;
+        credit = MIN_CREDIT;
+        //jolly = Deck.getInstance().getSelectedCard(Point.Re, Suit.Danari);
     }
 
     public static GameSetting getInstance() {
@@ -42,7 +45,7 @@ public class GameSetting {
 
     public void resetInstance() {
         players = 4;
-        manches = 10;
+        manches = 2;
         credit = MIN_CREDIT;
         jolly = Deck.getInstance().getSelectedCard(Point.Re, Suit.Danari);
         smDAmblePaid = "double";
