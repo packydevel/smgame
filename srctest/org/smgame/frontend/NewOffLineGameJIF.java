@@ -242,19 +242,19 @@ public class NewOffLineGameJIF extends JInternalFrame {
                 }
 
                 String gameName = gameNameJTF.getText();
-                List<String> playerName = new ArrayList<String>();
-                List<Boolean> playerType = new ArrayList<Boolean>();
+                List<String> playerNameList = new ArrayList<String>();
+                List<Boolean> playerTypeList = new ArrayList<Boolean>();
 
                 for (int j = 0; j < currentPlayersNumber; j++) {
-                    playerName.add(playerJTF[j].getText());
+                    playerNameList.add(playerJTF[j].getText());
                     if (cpuflagJCKB[j].isSelected()) {
-                        playerType.add(new Boolean(true));
+                        playerTypeList.add(new Boolean(true));
                     } else {
-                        playerType.add(new Boolean(false));
+                        playerTypeList.add(new Boolean(false));
                     }
                 }
 
-                GUICoreMediator.createGame(gameName, null, playerName, playerType);
+                GUICoreMediator.createGame(gameName, null, playerNameList, playerTypeList);
 
                 fireNewOffLineGameEvent(new NewOffLineGameEvent(this));
             }

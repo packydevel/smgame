@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
@@ -31,6 +32,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private List<JPanel> playerCardsListJP; //Lista pannelli giocatore-carte
     private List<JLabel> playerNameListJL; //lista label nome giocatori
     private List<JLabel> playerCreditListJL; //lista label credito giocatori;
+    private List<String> playerCreditList;
     private List<JLabel> playerStakeListJL; //lista label puntate giocatori
     private List<JLabel> playerScoreListJL; //lista label punteggio giocatori
     private List<JPanel> playerActionsListJP; //Lista pannelli giocatore-carte
@@ -38,7 +40,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private List<List<ImageIcon>> playersCardsImagesList;
     private List<JLabel> playerCardsListJL;
     GridBagConstraints panelGBC, labelGBC, textFieldGBC, buttonGBC;
-    private final ImageIcon backImage = new ImageIcon(Common.getResourceCards() + "dorso.gif");
+    private final ImageIcon backImage = new ImageIcon(Common.getResourceCards() + "dorso.jpg");
     private int size,  bankPlayerIndex,  currentPlayerIndex;
 
     /**Costruttore
@@ -61,7 +63,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private void initComponents() {
         List<String> playerNameList = GUICoreMediator.getPlayerNameList();
         List<Boolean> playerTypeList = GUICoreMediator.getPlayerTypeList();
-        List<String> playerCreditList = GUICoreMediator.getPlayerCreditList();
+        playerCreditList = GUICoreMediator.getPlayerCreditList();
 
         size = playerNameList.size();
 
@@ -191,6 +193,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
     private void initBoard() {
         ImageIcon icon;
+        deselectBank(bankPlayerIndex);
         bankPlayerIndex = GUICoreMediator.getBankPlayer();
         selectBank(bankPlayerIndex);
         getBetJTF(bankPlayerIndex).setEnabled(false);
@@ -312,12 +315,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 setCreditLabel(bankPlayerIndex, GUICoreMediator.getPlayerCredit(bankPlayerIndex));
                 hideActionPanelContent(i);
                 PrintErrors.exception(soe);
-                if (!GUICoreMediator.isEndManche(currentPlayerIndex)) {
-                    currentPlayerIndex = GUICoreMediator.nextPlayer();
-                    firstCardDiscovered(currentPlayerIndex);
-                    setScoreLabel(currentPlayerIndex, GUICoreMediator.getPlayerScore(currentPlayerIndex));
-                    showActionPanelContent(currentPlayerIndex);
-                }
+                checkEndManche();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -344,16 +342,40 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 }
 
                 hideActionPanelContent(i);
-
-                if (!GUICoreMediator.isEndManche(currentPlayerIndex)) {
-                    currentPlayerIndex = GUICoreMediator.nextPlayer();
-                    firstCardDiscovered(currentPlayerIndex);
-                    setScoreLabel(currentPlayerIndex, GUICoreMediator.getPlayerScore(currentPlayerIndex));
-                    showActionPanelContent(currentPlayerIndex);
-                } else {
-                }
+                checkEndManche();
             } catch (BetOverflowException boe) {
                 PrintErrors.exception(boe);
+            }
+        }
+    }
+
+    private void checkEndManche() {
+        if (!GUICoreMediator.isEndManche()) {
+            currentPlayerIndex = GUICoreMediator.nextPlayer();
+            firstCardDiscovered(currentPlayerIndex);
+            setScoreLabel(currentPlayerIndex, GUICoreMediator.getPlayerScore(currentPlayerIndex));
+            showActionPanelContent(currentPlayerIndex);
+        } else {
+            for (int i = 0; i < size; i++) {
+                firstCardDiscovered(i);
+                playerCreditList = GUICoreMediator.getPlayerCreditList();
+                playerCreditListJL.get(i).setText("Credito: " + playerCreditList.get(i));
+            }
+
+            JOptionPane.showMessageDialog(null, "Questa manche è terminata!!!");
+
+            if (!GUICoreMediator.isEndGame()) {
+                for (int i = 0; i < size; i++) {
+                    playersCardsImagesList.get(i).clear();
+                    for (int j = 0; j < 14; j++) {
+                        ((JLabel) playerCardsListJP.get(i).getComponent(j)).setIcon(null);
+                    }
+                }
+
+                initBoard();
+            } else {
+                JOptionPane.showMessageDialog(null, "Questa partita è terminata!!!");
+                dispose();
             }
         }
     }
