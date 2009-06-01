@@ -61,8 +61,8 @@ public class PlayerList implements Serializable {
     }
 
     public boolean existsBankruptPlayer() {
-        for (Player p : (Player[]) playerAL.toArray()) {
-            if (p.getCredit() == 0) {
+        for (Player p : playerAL) {
+            if (p.getCredit() == 0 && p.getRole() == PlayerRole.Normal) {
                 return true;
             }
         }
@@ -70,12 +70,12 @@ public class PlayerList implements Serializable {
     }
 
     public Player firstKingSM(Player player) {
-        ArrayList<Player> tempList=new ArrayList(playerAL);
-        int playerIndex=playerAL.indexOf(player);
+        ArrayList<Player> tempList = new ArrayList(playerAL);
+        int playerIndex = playerAL.indexOf(player);
 
         Collections.rotate(tempList, -playerIndex);
 
-        for (Player p: tempList) {
+        for (Player p : tempList) {
             if (p.hasKingSM()) {
                 return p;
             }
