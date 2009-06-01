@@ -196,7 +196,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         deselectBank(bankPlayerIndex);
         bankPlayerIndex = GUICoreMediator.getBankPlayer();
         selectBank(bankPlayerIndex);
-        getBetJTF(bankPlayerIndex).setEnabled(false);
+
         currentPlayerIndex = GUICoreMediator.nextPlayer();
 
         for (int i = 0; i < size; i++) {
@@ -243,12 +243,15 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private void selectBank(int i) {
         ((JLabel) playerNameListJL.get(i)).setOpaque(true);
         ((JLabel) playerNameListJL.get(i)).setBackground(new Color(255, 153, 0));
+        getBetJTF(bankPlayerIndex).setEnabled(true);
+
     }
 
     //Deseleziona l'ex-mazziere di turno, che diventa un player normale
     private void deselectBank(int i) {
         ((JLabel) playerNameListJL.get(i)).setOpaque(false);
         ((JLabel) playerNameListJL.get(i)).setBackground(new Color(212, 208, 200));
+        getBetJTF(bankPlayerIndex).setEnabled(false);
     }
 
     //Imposta il colore del testo del giocatore umano, per differenziarlo dal giocatore CPU
