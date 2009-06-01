@@ -62,16 +62,25 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
         playerOneJP.add(scoreOneJL);
         declareGoodOneJB = new JButton("Sto bene");
         playerOneJP.add(scoreOneJL);
+        this.add(playerOneJP).setVisible(true);
 
 
         playerTwoJP = new JPanel();
         nameTwoJL = new JLabel(GUICoreMediator.getPlayerNameList().get(1));
+        playerTwoJP.add(nameTwoJL);
         creditTwoJL = new JLabel();
+        playerTwoJP.add(creditTwoJL);
         scoreTwoJL = new JLabel();
+        playerTwoJP.add(scoreTwoJL);
         stakeTwoJL = new JLabel();
+        playerTwoJP.add(stakeTwoJL);
         stakeTwoJTF = new JTextField();
+        playerTwoJP.add(stakeTwoJTF);
         askCardTwoJB = new JButton("Chiedi carta");
+        playerTwoJP.add(askCardTwoJB);
         declareGoodOneJB = new JButton("Sto bene");
+        playerTwoJP.add(declareGoodOneJB);
+        this.add(playerTwoJP).setVisible(true);
     }
 
 
