@@ -158,15 +158,13 @@ public class NewOnLineGameJIF extends JInternalFrame {
                 return;
             }
 
-
             String gameName = gameNameJTF.getText();
             String playerName = playerJTF.getText();
-            boolean playerType = false;
-            //boolean playerType = cpuflagJCKB.isSelected();
-
-            GUICoreMediator.createOnLineGame(gameName, null, playerName, playerType);
-
+            System.out.println("playername");
+            GUICoreMediator.createOnLineGame(gameName, null, playerName);
+            System.out.println("createonline");
             fireNewOnLineGameEvent(new NewOnLineGameEvent(this));
+            System.out.println("firenewonline");
         }
         dispose();
     }
