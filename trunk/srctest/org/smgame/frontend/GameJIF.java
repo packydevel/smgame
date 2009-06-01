@@ -195,6 +195,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         ImageIcon icon;
         deselectBank(bankPlayerIndex);
         bankPlayerIndex = GUICoreMediator.getBankPlayer();
+        System.out.println(bankPlayerIndex);
         selectBank(bankPlayerIndex);
 
         currentPlayerIndex = GUICoreMediator.nextPlayer();
@@ -243,7 +244,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private void selectBank(int i) {
         ((JLabel) playerNameListJL.get(i)).setOpaque(true);
         ((JLabel) playerNameListJL.get(i)).setBackground(new Color(255, 153, 0));
-        getBetJTF(bankPlayerIndex).setEnabled(true);
+        getBetJTF(bankPlayerIndex).setEnabled(false);
 
     }
 
@@ -251,7 +252,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private void deselectBank(int i) {
         ((JLabel) playerNameListJL.get(i)).setOpaque(false);
         ((JLabel) playerNameListJL.get(i)).setBackground(new Color(212, 208, 200));
-        getBetJTF(bankPlayerIndex).setEnabled(false);
+        getBetJTF(bankPlayerIndex).setEnabled(true);
     }
 
     //Imposta il colore del testo del giocatore umano, per differenziarlo dal giocatore CPU
