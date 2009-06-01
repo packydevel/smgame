@@ -62,15 +62,16 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
         playerOneGBC.insets = new Insets(1, 1, 1, 1);
         playerOneGBC.weighty = 0;
         playerOneGBC.weightx = 0;
-        playerOneGBC.anchor = GridBagConstraints.NORTHWEST;
-
-        playerTwoGBC = playerOneGBC;
-
+        playerOneGBC.anchor = GridBagConstraints.NORTHWEST;       
         playerOneGBC.gridx = 0;
         playerOneGBC.gridy = 0;
 
-        playerOneGBC.gridx = 0;
-        playerOneGBC.gridy = 2;
+        playerTwoGBC.insets = new Insets(1, 1, 1, 1);
+        playerTwoGBC.weighty = 0;
+        playerTwoGBC.weightx = 0;
+        playerTwoGBC.anchor = GridBagConstraints.NORTHWEST;
+        playerTwoGBC.gridx = 0;
+        playerTwoGBC.gridy = 6;
 
         playerOneJP = new JPanel(new FlowLayout());
 
@@ -88,9 +89,9 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
         requestCardOneJB = new JButton("Chiedi carta");
         playerOneJP.add(requestCardOneJB);
         declareGoodOneJB = new JButton("Sto bene");
-        playerOneJP.add(declareGoodOneJB,playerOneGBC);
-
-        this.add(playerOneJP).setVisible(true);
+        playerOneJP.add(declareGoodOneJB);
+        playerOneJP.setVisible(true);
+        this.add(playerOneJP,playerOneGBC);
 
 
         playerTwoJP = new JPanel();
@@ -108,7 +109,8 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
         playerTwoJP.add(requestCardTwoJB);
         declareGoodTwoJB = new JButton("Sto bene");
         playerTwoJP.add(declareGoodTwoJB);
-        this.add(playerTwoJP).setVisible(true);
+        playerTwoJP.setVisible(true);
+        this.add(playerTwoJP,playerTwoGBC);
 
         playerCardsListJP = new ArrayList<JPanel>(4);
         for (int i=0; i<4; i++){
@@ -132,7 +134,5 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
         }
         return pane;
     } // initPanelPlayersCards
-
-
 
 }
