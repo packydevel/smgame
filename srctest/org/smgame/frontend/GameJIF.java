@@ -195,7 +195,6 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         ImageIcon icon;
         deselectBank(bankPlayerIndex);
         bankPlayerIndex = GUICoreMediator.getBankPlayer();
-        System.out.println(bankPlayerIndex);
         selectBank(bankPlayerIndex);
 
         currentPlayerIndex = GUICoreMediator.nextPlayer();
@@ -229,7 +228,6 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
     private void firstCardCovered(int i) {
         JPanel temp = playerCardsListJP.get(i);
-        System.out.println(i);
         ((JLabel) temp.getComponent(0)).setIcon(backImage);
     }
 
@@ -302,7 +300,6 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         double bet;
         resetBetJTF(i);
         if ((!value.equalsIgnoreCase("")) || ((value.equalsIgnoreCase("")) && (i == bankPlayerIndex))) {
-            System.out.println("Il valore è: " + value);
             try {
                 bet = (value.equalsIgnoreCase("") ? 0.00 : Double.valueOf(value));
                 setCardImage(i, GUICoreMediator.requestCard(i, bet));

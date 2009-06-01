@@ -66,7 +66,8 @@ public class Deck implements Serializable {
             }
         }
 
-        onGameCardsIterator = CARDS.iterator();
+        onGameCardList.addAll(CARDS);
+        onGameCardsIterator = onGameCardList.iterator();
     } //end costruttore
 
     /**Restituisce l'istanza corrente di mazzo
@@ -84,18 +85,18 @@ public class Deck implements Serializable {
     } //end getInstance
 
     public void resetInstance() {
-        currentDeck.onGameCardList.clear();
-        currentDeck.offGameCardList.addAll(currentDeck.CARDS);
-        currentDeck.offGameCardList.clear();
-        currentDeck.onGameCardsIterator = onGameCardList.iterator();
-        currentDeck.isEmptyDeck=false;
+        onGameCardList.clear();
+        offGameCardList.clear();
+        onGameCardList.addAll(currentDeck.CARDS);   
+        onGameCardsIterator = onGameCardList.iterator();
+        isEmptyDeck=false;
     }
 
     /**
      * 
      */
     public void shuffle() {
-        Collections.shuffle(CARDS);
+        Collections.shuffle(onGameCardList);
     }
 
     /**Restituisce la prossima carta
@@ -105,13 +106,14 @@ public class Deck implements Serializable {
     public Card getNextCard() {
         if (!onGameCardsIterator.hasNext()) {
             onGameCardList.addAll(offGameCardList);
+            offGameCardList.clear();
             Collections.shuffle(onGameCardList);
             onGameCardsIterator = onGameCardList.iterator();
-            currentDeck.isEmptyDeck=false;
+            isEmptyDeck=false;
         }
 
         nextCard = onGameCardsIterator.next();
-        totalRemainingCards--;
+        //totalRemainingCards--;
 
         return nextCard;
     }//end getNextCard

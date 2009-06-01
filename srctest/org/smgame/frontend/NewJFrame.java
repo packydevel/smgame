@@ -1463,7 +1463,6 @@ public class NewJFrame extends javax.swing.JInternalFrame {
         jlP1Card10.setIcon(icon);
         jlP1Card11.setIcon(icon);
         jlP1Card12.setIcon(icon);
-        System.out.println(curDir);
         jlP1Card1.setText(null);
         jlP1Card2.setText(null);
         jlP1Card3.setText(null);
