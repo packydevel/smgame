@@ -29,11 +29,6 @@ public class LoadGameATM extends AbstractTableModel {
             gameNameList = (ArrayList<String>) GUICoreMediator.getGameNameList();
             gameCreationDateList = (ArrayList<Date>) GUICoreMediator.getGameCreationDateList();
             gameLastDateList = (ArrayList<Date>) GUICoreMediator.getGameLastDateList();
-
-            System.out.println();
-            System.out.println();
-            System.out.println();
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

@@ -78,7 +78,7 @@ public class GUICoreMediator {
         currentGame.setGameSetting(GameSetting.getInstance());
         currentGame.setPlayerList(playerList);
         currentGame.generateGameEngine();
-        currentGame.getGameEngine().shuffleDeck();
+        currentGame.getGameEngine().start();
 
         gameList.add(currentGame);
     }
@@ -110,7 +110,7 @@ public class GUICoreMediator {
         currentGame.setGameSetting(gameSetting);
         currentGame.setPlayerList(playerList);
         currentGame.generateGameEngine();
-        currentGame.getGameEngine().shuffleDeck();
+        currentGame.getGameEngine().start();
 
         gameList.add(currentGame);
     }
@@ -322,7 +322,7 @@ public class GUICoreMediator {
 
     public static boolean isEndManche() {
         boolean isEndManche;
-        isEndManche=currentGame.getGameEngine().isEndManche();
+        isEndManche = currentGame.getGameEngine().isEndManche();
         if (isEndManche) {
             currentGame.getGameEngine().closeManche();
         }
@@ -331,12 +331,10 @@ public class GUICoreMediator {
 
     public static boolean isEndGame() {
         boolean isEndGame;
-        isEndGame=currentGame.getGameEngine().isEndGame();
-        System.out.println(isEndGame);
+        isEndGame = currentGame.getGameEngine().isEndGame();
         if (isEndGame) {
             closeGame();
         }
         return isEndGame;
     }
-
 } //end  class

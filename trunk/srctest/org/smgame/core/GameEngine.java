@@ -29,7 +29,7 @@ public class GameEngine implements Serializable {
     private PlayerList playerList;
     private final double MAX_CREDIT = 64000;
     private final double MAX_SCORE = 7.5;
-    private int currentManche = 0;
+    private int currentManche;
     private Player bankPlayer;
     private Player currentPlayer;
 
@@ -59,6 +59,12 @@ public class GameEngine implements Serializable {
         bankPlayer = null;
         currentPlayer = null;
         currentManche = 0;
+    }
+
+    public void start() {
+        currentManche = 0;
+        bankPlayer = selectBankPlayer();
+        deck.shuffle();
     }
 
     public void setDeck(Deck deck) {
@@ -100,12 +106,7 @@ public class GameEngine implements Serializable {
             System.out.println(card.getIcon().getDescription());
 
             if (player.getScore() > 7.5) {
-                System.out.println("Credito attuale: " + player.getCredit());
-                System.out.println("Puntata singola: " + bet);
-                System.out.println("Puntata complessiva: " + player.getStake());
                 deck.addOffGameCards(player.getCardList());
-                //player.getCardList().clear();
-                //player.getBetList().clear();
                 if (player.getRole() != PlayerRole.Bank) {
                     player.setCredit(player.getCredit() - player.getStake());
                     bankPlayer.setCredit(bankPlayer.getCredit() + player.getStake());
@@ -128,11 +129,7 @@ public class GameEngine implements Serializable {
     }
 
     public Player getBankPlayer() {
-        if (currentManche == 0) {
-            return selectFirstRandomBankPlayer();
-        } else {
-            return bankPlayer;
-        }
+        return bankPlayer;
     }
 
     private Player selectFirstRandomBankPlayer() {
@@ -143,7 +140,7 @@ public class GameEngine implements Serializable {
         return bankPlayer;
     }
 
-    private Player selectNextBankPlayer() {
+    private Player selectBankPlayer() {
         Player player;
         int indexList;
         if (currentManche == 0) {
@@ -165,10 +162,6 @@ public class GameEngine implements Serializable {
             bankPlayer = player;
         }
         return bankPlayer;
-    }
-
-    public void shuffleDeck() {
-        deck.shuffle();
     }
 
     /*
@@ -267,9 +260,6 @@ public class GameEngine implements Serializable {
     }
 
     public boolean isEndGame() {
-        System.out.println("Numero di manches totali: " + gameSetting.getManches());
-        System.out.println("Numero di manches totali: " + currentManche);
-        System.out.println("Giacatori in rosso: " + playerList.existsBankruptPlayer());
         if (gameSetting.getManches() == currentManche || playerList.existsBankruptPlayer()) {
             return true;
         }
@@ -278,7 +268,7 @@ public class GameEngine implements Serializable {
 
     public void closeManche() {
         applyPaymentRule();
-        selectNextBankPlayer();
+        selectBankPlayer();
         for (Player p : playerList.getPlayerAL()) {
             p.getCardList().clear();
             p.getBetList().clear();
