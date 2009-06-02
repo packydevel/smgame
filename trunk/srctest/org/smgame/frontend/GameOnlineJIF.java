@@ -7,6 +7,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,24 +26,25 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
     private List<JPanel> playerCardsListJP; //Lista pannelli giocatore-carte
     private List<JLabel> playerCardsListJL;
 
-    private JPanel playerOneJP;
-    private JPanel playerTwoJP;
+    private JPanel playerCpuJP;
+    private JPanel playerHumanJP;
+    private JPanel actionHumanJP;
 
-    private JLabel nameOneJL;
-    private JLabel creditOneJL;
-    private JLabel scoreOneJL;
-    private JLabel stakeOneJL;
-    private JTextField stakeOneJTF;
-    private JButton requestCardOneJB;
-    private JButton declareGoodOneJB;
+    private JLabel nameCpuJL;
+    private JLabel creditCpuJL;
+    private JLabel scoreCpuJL;
+    private JLabel stakeCpuJL;
+    //private JTextField stakeOneJTF;
+    //private JButton requestCardOneJB;
+    //private JButton declareGoodOneJB;
 
-    private JLabel nameTwoJL;
-    private JLabel creditTwoJL;
-    private JLabel scoreTwoJL;
-    private JLabel stakeTwoJL;
-    private JTextField stakeTwoJTF;
-    private JButton requestCardTwoJB;
-    private JButton declareGoodTwoJB;
+    private JLabel nameHumanJL;
+    private JLabel creditHumanJL;
+    private JLabel scoreHumanJL;
+    private JLabel stakeHumanJL;
+    private JTextField stakeHumanJTF;
+    private JButton requestCardJB;
+    private JButton declareGoodScoreJB;
 
     public GameOnlineJIF() {
         super(GUICoreMediator.getGameName(), false, true, false, false);
@@ -59,79 +62,124 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
     }
 
     private void initComponents(){
-        GridBagConstraints playerOneGBC = new GridBagConstraints();
-        GridBagConstraints playerTwoGBC = new GridBagConstraints();
+        GridBagConstraints playerCpuGBC = new GridBagConstraints();
+        GridBagConstraints playerHumanGBC = new GridBagConstraints();
+        GridBagConstraints actionHumanGBC = new GridBagConstraints();
+        GridBagConstraints paneCardsGBC = new GridBagConstraints();
 
-        playerOneGBC.insets = new Insets(1, 1, 1, 1);
-        playerOneGBC.weighty = 0;
-        playerOneGBC.weightx = 0;
-        playerOneGBC.anchor = GridBagConstraints.NORTHWEST;       
-        playerOneGBC.gridx = 0;
-        playerOneGBC.gridy = 0;
+        playerCpuGBC.insets = new Insets(1, 1, 1, 1);
+        playerCpuGBC.weighty = 0;
+        playerCpuGBC.weightx = 0;
+        playerCpuGBC.anchor = GridBagConstraints.CENTER;
+        playerCpuGBC.gridx = 0;
+        playerCpuGBC.gridy = 0;
 
-        playerTwoGBC.insets = new Insets(1, 1, 1, 1);
-        playerTwoGBC.weighty = 0;
-        playerTwoGBC.weightx = 0;
-        playerTwoGBC.anchor = GridBagConstraints.NORTHWEST;
-        playerTwoGBC.gridx = 0;
-        playerTwoGBC.gridy = 6;
+        playerCpuJP = new JPanel(new FlowLayout());
 
-        playerOneJP = new JPanel(new FlowLayout());
+        nameCpuJL = new JLabel(GUICoreMediator.getPlayerNameList().get(0));
+        nameCpuJL.setPreferredSize(new Dimension(100, 25));
+        playerCpuJP.add(nameCpuJL);
 
+        creditCpuJL = new JLabel("Credito: " + GUICoreMediator.getPlayerCredit(0));
+        creditCpuJL.setPreferredSize(new Dimension(100, 25));
+        playerCpuJP.add(creditCpuJL);
 
-        nameOneJL = new JLabel(GUICoreMediator.getPlayerNameList().get(0));
-        playerOneJP.add(nameOneJL);
-        creditOneJL = new JLabel("Credito: " + GUICoreMediator.getPlayerCredit(0));
-        playerOneJP.add(creditOneJL);
-        scoreOneJL = new JLabel("Punteggio: " + GUICoreMediator.getPlayerScore(0));
-        playerOneJP.add(scoreOneJL);
-        stakeOneJL = new JLabel("Puntata: "+GUICoreMediator.getPlayerStake(0));
-        playerOneJP.add(stakeOneJL);
-        stakeOneJTF = new JTextField();
-        stakeOneJTF.setColumns(10);
-        playerOneJP.add(stakeOneJTF);
-        requestCardOneJB = new JButton("Chiedi carta");
-        playerOneJP.add(requestCardOneJB);
-        declareGoodOneJB = new JButton("Sto bene");
-        playerOneJP.add(declareGoodOneJB);
-        playerOneJP.setVisible(true);
-        this.add(playerOneJP,playerOneGBC);
+        scoreCpuJL = new JLabel("Punteggio: " + GUICoreMediator.getPlayerScore(0));
+        scoreCpuJL.setPreferredSize(new Dimension(100, 25));
+        playerCpuJP.add(scoreCpuJL);
 
+        stakeCpuJL = new JLabel("Puntata: "+GUICoreMediator.getPlayerStake(0));
+        stakeCpuJL.setPreferredSize(new Dimension(100, 25));
+        playerCpuJP.add(stakeCpuJL);        
+        this.add(playerCpuJP,playerCpuGBC);
 
-        playerTwoJP = new JPanel();
-        nameTwoJL = new JLabel(GUICoreMediator.getPlayerNameList().get(1));
-        playerTwoJP.add(nameTwoJL);
-        creditTwoJL = new JLabel("Credito: " + GUICoreMediator.getPlayerCredit(1));
-        playerTwoJP.add(creditTwoJL);
-        scoreTwoJL = new JLabel("Punteggio: " + GUICoreMediator.getPlayerScore(1));
-        playerTwoJP.add(scoreTwoJL);
-        stakeTwoJL = new JLabel("Puntata: "+GUICoreMediator.getPlayerStake(0));
-        playerTwoJP.add(stakeTwoJL);
-        stakeTwoJTF = new JTextField();
-        stakeTwoJTF.setColumns(10);
-        playerTwoJP.add(stakeTwoJTF);
-        requestCardTwoJB = new JButton("Chiedi carta");
-        playerTwoJP.add(requestCardTwoJB);
-        declareGoodTwoJB = new JButton("Sto bene");
-        playerTwoJP.add(declareGoodTwoJB);
-        playerTwoJP.setVisible(true);
-        this.add(playerTwoJP,playerTwoGBC);
+        actionHumanGBC.insets = new Insets(1, 1, 1, 1);
+        actionHumanGBC.weighty = 0;
+        actionHumanGBC.weightx = 0;
+        actionHumanGBC.anchor = GridBagConstraints.CENTER;
+        actionHumanGBC.gridx = 0;
+        actionHumanGBC.gridy = 4;
 
-        playerCardsListJP = new ArrayList<JPanel>(4);
-        for (int i=0; i<4; i++){
+        actionHumanJP = new JPanel(new FlowLayout());
+
+        stakeHumanJTF = new JTextField();
+        stakeHumanJTF.setColumns(10);
+        actionHumanJP.add(stakeHumanJTF);
+
+        requestCardJB = new JButton("Chiedi carta");
+        requestCardJB.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                requestCard();
+            }
+        });
+        actionHumanJP.add(requestCardJB);
+
+        declareGoodScoreJB = new JButton("Sto bene");
+        declareGoodScoreJB.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                declareGoodScore();
+            }
+        });
+        actionHumanJP.add(declareGoodScoreJB);
+
+        this.add(actionHumanJP,actionHumanGBC);
+
+        playerHumanGBC.insets = new Insets(1, 1, 1, 1);
+        playerHumanGBC.weighty = 0;
+        playerHumanGBC.weightx = 0;
+        playerHumanGBC.anchor = GridBagConstraints.CENTER;
+        playerHumanGBC.gridx = 0;
+        playerHumanGBC.gridy = 5;
+
+        playerHumanJP = new JPanel();
+
+        nameHumanJL = new JLabel(GUICoreMediator.getPlayerNameList().get(1));
+        nameHumanJL.setPreferredSize(new Dimension(100, 25));
+        playerHumanJP.add(nameHumanJL);
+
+        creditHumanJL = new JLabel("Credito: " + GUICoreMediator.getPlayerCredit(1));
+        creditHumanJL.setPreferredSize(new Dimension(100, 25));
+        playerHumanJP.add(creditHumanJL);
+
+        scoreHumanJL = new JLabel("Punteggio: " + GUICoreMediator.getPlayerScore(1));
+        scoreHumanJL.setPreferredSize(new Dimension(100, 25));
+        playerHumanJP.add(scoreHumanJL);
+
+        stakeHumanJL = new JLabel("Puntata: "+GUICoreMediator.getPlayerStake(1));
+        stakeHumanJL.setPreferredSize(new Dimension(100, 25));
+        playerHumanJP.add(stakeHumanJL);
+        
+        this.add(playerHumanJP,playerHumanGBC);
+
+        paneCardsGBC.insets = new Insets(1, 1, 1, 1);
+        paneCardsGBC.weighty = 0;
+        paneCardsGBC.weightx = 0;
+        paneCardsGBC.anchor = GridBagConstraints.CENTER;
+        paneCardsGBC.gridx = 0;
+        playerCardsListJP = new ArrayList<JPanel>(2);
+        int j = 1;
+        for (int i=0; i<2; i++){
             playerCardsListJP.add(initPanelPlayersCards());
-            //this.add(playerCardsListJP.get(i), panelGBC);
+            paneCardsGBC.gridy = i+j;
+            this.add(playerCardsListJP.get(i),paneCardsGBC);
+            j++;
         }
+        JPanel tempPane = new JPanel(new FlowLayout());
+        tempPane.add(new JLabel());
+        tempPane.setPreferredSize(new Dimension(910, 100));
+        tempPane.setVisible(true);
+        paneCardsGBC.gridy = 2;
+        this.add(tempPane,paneCardsGBC);
     }
 
     //inizializza il pannello del player - carte
     private JPanel initPanelPlayersCards() {
         JPanel pane = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pane.setPreferredSize(new Dimension(480, 100));
+        pane.setPreferredSize(new Dimension(910, 100));
         pane.setBorder(new LineBorder(new Color(212, 208, 200)));
         ((FlowLayout) pane.getLayout()).setHgap(1);
         playerCardsListJL = new ArrayList<JLabel>(7);
-        for (int j = 0; j < 7; j++) {
+        for (int j = 0; j < 14; j++) {
             playerCardsListJL.add(new JLabel());
             playerCardsListJL.get(j).setPreferredSize(new Dimension(63, 99));
             playerCardsListJL.get(j).setBorder(new LineBorder(new Color(212, 208, 200)));
@@ -139,5 +187,20 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
         }
         return pane;
     } // initPanelPlayersCards
+
+    private void setEnabledActionHumanJP(boolean enabled){
+        stakeHumanJTF.setEditable(enabled);
+        stakeHumanJTF.setEnabled(enabled);
+        declareGoodScoreJB.setVisible(enabled);
+        requestCardJB.setVisible(enabled);
+    }
+
+    private void requestCard(){
+
+    }
+
+    private void declareGoodScore(){
+
+    }
 
 }
