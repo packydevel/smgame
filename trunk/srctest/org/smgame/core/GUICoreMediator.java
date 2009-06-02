@@ -91,11 +91,23 @@ public class GUICoreMediator {
         PlayerList.getInstance().resetInstance();
         PlayerList playerList = PlayerList.getInstance();                
 
-        playerList.getPlayerAL().add(new CPUPlayer("Alan Turing"));
+        String cpuName = "Alan Turing";
+        playerList.getPlayerAL().add(new CPUPlayer(cpuName));
         playerList.getPlayerAL().get(0).setCredit(1000);
         
         playerList.getPlayerAL().add(new HumanPlayer(playerName));
         playerList.getPlayerAL().get(1).setCredit(1000);
+
+        List<String> playerNameList = new ArrayList<String>(2);
+        playerNameList.add(cpuName);
+        playerNameList.add(playerName);
+
+        List<Boolean> playerTypeList = new ArrayList<Boolean>(2);
+        playerTypeList.add(new Boolean(true));
+        playerTypeList.add(new Boolean(false));
+
+
+        GUICoreMediator.playerNameList = playerNameList;
 
 
         if (currentGame != null) {
