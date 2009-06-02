@@ -160,11 +160,8 @@ public class NewOnLineGameJIF extends JInternalFrame {
 
             String gameName = gameNameJTF.getText();
             String playerName = playerJTF.getText();
-            System.out.println("playername");
             GUICoreMediator.createOnLineGame(gameName, null, playerName);
-            System.out.println("createonline");
             fireNewOnLineGameEvent(new NewOnLineGameEvent(this));
-            System.out.println("firenewonline");
         }
         dispose();
     }
