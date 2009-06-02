@@ -6,14 +6,17 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+
 import org.smgame.core.GUICoreMediator;
 
 public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
@@ -76,7 +79,7 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
         playerOneJP = new JPanel(new FlowLayout());
 
 
-        nameOneJL = new JLabel();
+        nameOneJL = new JLabel(GUICoreMediator.getPlayerNameList().get(0));
         playerOneJP.add(nameOneJL);
         creditOneJL = new JLabel("Credito: " + GUICoreMediator.getPlayerCredit(0));
         playerOneJP.add(creditOneJL);
@@ -85,6 +88,7 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
         stakeOneJL = new JLabel("Puntata: "+GUICoreMediator.getPlayerStake(0));
         playerOneJP.add(stakeOneJL);
         stakeOneJTF = new JTextField();
+        stakeOneJTF.setColumns(10);
         playerOneJP.add(stakeOneJTF);
         requestCardOneJB = new JButton("Chiedi carta");
         playerOneJP.add(requestCardOneJB);
@@ -95,15 +99,16 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
 
 
         playerTwoJP = new JPanel();
-        nameTwoJL = new JLabel();
+        nameTwoJL = new JLabel(GUICoreMediator.getPlayerNameList().get(1));
         playerTwoJP.add(nameTwoJL);
-        creditTwoJL = new JLabel();
+        creditTwoJL = new JLabel("Credito: " + GUICoreMediator.getPlayerCredit(1));
         playerTwoJP.add(creditTwoJL);
-        scoreTwoJL = new JLabel();
+        scoreTwoJL = new JLabel("Punteggio: " + GUICoreMediator.getPlayerScore(1));
         playerTwoJP.add(scoreTwoJL);
-        stakeTwoJL = new JLabel();
+        stakeTwoJL = new JLabel("Puntata: "+GUICoreMediator.getPlayerStake(0));
         playerTwoJP.add(stakeTwoJL);
         stakeTwoJTF = new JTextField();
+        stakeTwoJTF.setColumns(10);
         playerTwoJP.add(stakeTwoJTF);
         requestCardTwoJB = new JButton("Chiedi carta");
         playerTwoJP.add(requestCardTwoJB);

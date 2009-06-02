@@ -247,11 +247,13 @@ public class NewOffLineGameJIF extends JInternalFrame {
 
                 for (int j = 0; j < currentPlayersNumber; j++) {
                     playerNameList.add(playerJTF[j].getText());
+                    playerTypeList.add(new Boolean(cpuflagJCKB[j].isSelected()));
+                    /*
                     if (cpuflagJCKB[j].isSelected()) {
                         playerTypeList.add(new Boolean(true));
                     } else {
                         playerTypeList.add(new Boolean(false));
-                    }
+                    }*/
                 }
 
                 GUICoreMediator.createGame(gameName, null, playerNameList, playerTypeList);
