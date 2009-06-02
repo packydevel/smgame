@@ -106,9 +106,8 @@ public class GUICoreMediator {
         playerTypeList.add(new Boolean(true));
         playerTypeList.add(new Boolean(false));
 
-
         GUICoreMediator.playerNameList = playerNameList;
-
+        GUICoreMediator.playerTypeList = playerTypeList;
 
         if (currentGame != null) {
             currentGame.resetInstance();
