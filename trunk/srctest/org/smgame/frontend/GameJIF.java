@@ -3,12 +3,15 @@ package org.smgame.frontend;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +43,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private List<List<ImageIcon>> playersCardsImagesList;
     private List<JLabel> playerCardsListJL;
     GridBagConstraints panelGBC, labelGBC, textFieldGBC, buttonGBC;
-    private final ImageIcon backImage = new ImageIcon(Common.getResourceCards() + "dorso.jpg");
+    private final ImageIcon backImage = scaledImage(new ImageIcon(Common.getResourceCards() + "dorso.jpg"));
     private int size,  bankPlayerIndex,  currentPlayerIndex;
 
     /**Costruttore
@@ -200,7 +203,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         currentPlayerIndex = GUICoreMediator.nextPlayer();
 
         for (int i = 0; i < size; i++) {
-            icon = GUICoreMediator.getFirstCard(i);
+            icon = scaledImage(GUICoreMediator.getFirstCard(i));
             setStakeLabel(i, GUICoreMediator.getPlayerStake(i));
             playersCardsImagesList.get(i).add(icon);
             if (i == currentPlayerIndex) {
@@ -232,13 +235,12 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     }
 
     private void firstCardDiscovered(int i) {
-        ImageIcon icon;
         JPanel temp = playerCardsListJP.get(i);
-        icon = playersCardsImagesList.get(i).get(0);
+        ImageIcon icon = scaledImage(playersCardsImagesList.get(i).get(0));
         ((JLabel) temp.getComponent(0)).setIcon(icon);
     }
-    //Seleziona/evidenzia il mazziere di turno
 
+    //Seleziona/evidenzia il mazziere di turno
     private void selectBank(int i) {
         ((JLabel) playerNameListJL.get(i)).setOpaque(true);
         ((JLabel) playerNameListJL.get(i)).setBackground(new Color(255, 153, 0));
@@ -291,7 +293,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         int size;
         playersCardsImagesList.get(i).add(icon);
         size = playersCardsImagesList.get(i).size();
-        ((JLabel) playerCardsListJP.get(i).getComponent(size - 1)).setIcon(icon);
+        ((JLabel) playerCardsListJP.get(i).getComponent(size - 1)).setIcon(scaledImage(icon));
     }
 
     //esegue le azioni di richiesta carta
@@ -379,5 +381,17 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 dispose();
             }
         }
+    }
+
+    //Resizes an image using a Graphics2D object backed by a BufferedImage.
+    private ImageIcon scaledImage(ImageIcon srcImg){
+        int w = 32;
+        int h = 49;
+        BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = resizedImg.createGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.drawImage(srcImg.getImage(), 0, 0, w, h, null);
+        g2.dispose();
+        return new ImageIcon(resizedImg);
     }
 }//end gameJIF

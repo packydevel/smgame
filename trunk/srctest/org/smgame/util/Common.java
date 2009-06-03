@@ -6,6 +6,8 @@ public class Common {
     
     final static String separ = File.separator;
     final static String curDir = System.getProperty("user.dir");
+    final static String dirResource = "src" + separ + "org" + separ + "smgame" + separ +
+                "resource" + separ;
 
     /**Restituisce il percorso di lavoro corrente comprensivo di primo separatore
      *
@@ -21,10 +23,7 @@ public class Common {
      */
     public static String getResourceCards(){        
         /*TODO: aggiustare il path x le carte in merito alla scelta delle carte*/
-        String dir = getWorkspace() + "src" + separ + "org" + separ + "smgame" + separ +
-                "resource" + separ + "cartemini" + separ + "napoletane" + separ;
-        return dir;
+        return getWorkspace() + dirResource + separ + "cardimage" + separ + "napoletane" + separ;
     }
-
-
-}
+    
+}//end class
