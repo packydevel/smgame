@@ -76,7 +76,9 @@ public class PlayerList implements Serializable {
         Collections.rotate(tempList, -playerIndex);
 
         for (Player p : tempList) {
+            System.out.println(p.getName());
             if (p.hasKingSM()) {
+                System.out.println("IO HO 7 e 1/2 REALE: " + p.getName());
                 return p;
             }
         }
