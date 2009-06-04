@@ -4,12 +4,8 @@ import javax.swing.JOptionPane;
 
 public class PrintErrors {
 
-    public static void exception(BetOverflowException boe) {        
-        see_message(boe.getMessage());
-    }
-    
-    public static void exception(ScoreOverflowException soe) {        
-        see_message(soe.getMessage());
+    public static void exception(String message) {
+        see_message(message);
     }
     
     private static void see_message(String text) {
