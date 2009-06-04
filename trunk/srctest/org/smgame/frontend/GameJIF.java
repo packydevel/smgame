@@ -87,12 +87,14 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         labelGBC.anchor = GridBagConstraints.NORTHWEST;
 
         for (int i = 0; i < size; i++) {
-            playerNameMapJL.put(Integer.valueOf(i), new JLabel(offLineGameVO.getPlayerNameMap().get(Integer.valueOf(i))));
+            playerNameMapJL.put(Integer.valueOf(i),
+                    new JLabel(offLineGameVO.getPlayerNameMap().get(Integer.valueOf(i))));
             labelGBC.gridx = 0;
             labelGBC.gridy = 2 * i;
             add(playerNameMapJL.get(Integer.valueOf(i)), labelGBC);
 
-            playerCreditMapJL.put(Integer.valueOf(i), new JLabel(offLineGameVO.getPlayerCreditMap().get(Integer.valueOf(i))));
+            playerCreditMapJL.put(Integer.valueOf(i),
+                    new JLabel(offLineGameVO.getPlayerCreditMap().get(Integer.valueOf(i))));
             labelGBC.gridx = 0;
             labelGBC.gridy = 2 * i + 1;
             add(playerCreditMapJL.get(Integer.valueOf(i)), labelGBC);

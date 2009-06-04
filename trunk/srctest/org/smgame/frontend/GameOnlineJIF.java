@@ -56,6 +56,8 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
 
     private int bankPlayerIndex,  currentPlayerIndex;
 
+    private OnLineGameVO onLineGameVO;
+
     public GameOnlineJIF() {
         super(GUICoreMediator.getGameName(), false, true, false, false);
         int width = 960;
@@ -73,7 +75,7 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
     }
 
     private void initComponents(){
-        
+        onLineGameVO = GUICoreMediator.requestOnLineGameVO();
 
         playersCardsImagesList = new ArrayList<List<ImageIcon>>(2);
 
