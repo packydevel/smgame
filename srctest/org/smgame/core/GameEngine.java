@@ -59,15 +59,13 @@ public class GameEngine implements Serializable {
         playerList.resetInstance();
         bankPlayer = null;
         currentPlayer = null;
-        currentManche = 0;
+        currentManche = 1;
     }
 
-    public void startManche() {
+    public void start() {
         currentManche = 0;
-        bankPlayer = selectBankPlayer();
-        currentPlayer = nextPlayer();
+        startManche();
         deck.shuffle();
-        distributeFirstCard();
     }
 
     public void setDeck(Deck deck) {
@@ -137,18 +135,18 @@ public class GameEngine implements Serializable {
         Collections.shuffle(tempList);
         bankPlayer = tempList.get(0);
         bankPlayer.setRole(PlayerRole.Bank);
-        System.out.println("mazziere "+ bankPlayer.getName());
         return bankPlayer;
     }
 
     private Player selectBankPlayer() {
         Player player;
         int indexList;
-        if (currentManche == 0) {
+        if (currentManche == 1) {
             bankPlayer = selectFirstRandomBankPlayer();
         } else {
             player = playerList.firstKingSM(bankPlayer);
             if (player == null) {
+                System.out.println("Mazziere nullo");
                 if (deck.isIsEmptyDeck()) {
                     deck.setIsEmptyDeck(false);
                     indexList = playerList.getPlayerAL().indexOf(bankPlayer);
@@ -158,8 +156,10 @@ public class GameEngine implements Serializable {
                     player = bankPlayer;
                 }
             }
+            System.out.println("Mazziere attuale " + bankPlayer.getName());
             bankPlayer.setRole(PlayerRole.Normal);
             player.setRole(PlayerRole.Bank);
+            System.out.println("Mazziere attuale " + bankPlayer.getName());
             bankPlayer = player;
         }
         return bankPlayer;
@@ -231,15 +231,11 @@ public class GameEngine implements Serializable {
      *
      * @return
      */
-    public Player nextPlayer() {
+    public Player nextPlayer(Player player) {
+        int indexList;
+        currentPlayer = player;
         do {
-            int indexList;
-            if (currentPlayer == null) {
-                indexList = playerList.getPlayerAL().indexOf(bankPlayer);
-            } else {
-                indexList = playerList.getPlayerAL().indexOf(currentPlayer);
-            }
-
+            indexList = playerList.getPlayerAL().indexOf(currentPlayer);
             indexList = ++indexList % playerList.getPlayerAL().size();
             currentPlayer = playerList.getPlayerAL().get(indexList);
             if (currentPlayer instanceof CPUPlayer) {
@@ -276,19 +272,21 @@ public class GameEngine implements Serializable {
         return false;
     }
 
-    public void closeManche() {
-        applyPaymentRule();
-        selectBankPlayer();
-
+    public void startManche() {
         for (Player p : playerList.getPlayerAL()) {
             p.getCardList().clear();
             p.getBetList().clear();
             p.setStatus(null);
         }
 
-        distributeFirstCard();
-        currentPlayer = nextPlayer();
         currentManche++;
+        selectBankPlayer();
+        distributeFirstCard();
+        currentPlayer = nextPlayer(bankPlayer);
+    }
+
+    public void closeManche() {
+        applyPaymentRule();
     }
 
     public boolean isEndManche() {
@@ -300,7 +298,7 @@ public class GameEngine implements Serializable {
     }
 
     public boolean isEndGame() {
-        if (gameSetting.getManches() == currentManche || playerList.existsBankruptPlayer()) {
+        if ((gameSetting.getManches() == currentManche && isEndManche()) || playerList.existsBankruptPlayer()) {
             return true;
         }
 

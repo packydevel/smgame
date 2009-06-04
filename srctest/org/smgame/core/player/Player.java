@@ -86,14 +86,22 @@ public abstract class Player implements Serializable {
 
         if (hasJollyCard) {
             bestValue = JollyCard.getBestValue(score);
-            score+=bestValue;
+            score += bestValue;
         }
 
         return score;
     }
 
     public boolean hasKingSM() {
-        if (getScore()==7.5 && cardList.size()==2) {
+        if (hasMaxScore() && cardList.size() == 2) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean hasMaxScore() {
+        if (getScore() == 7.5) {
             return true;
         }
 

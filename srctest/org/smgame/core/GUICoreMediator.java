@@ -10,12 +10,9 @@ import java.io.ObjectOutputStream;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
-import java.util.ListIterator;
 import javax.swing.ImageIcon;
 
 import org.smgame.core.player.CPUPlayer;
@@ -88,7 +85,7 @@ public class GUICoreMediator {
         currentGame.setGameSetting(GameSetting.getInstance());
         currentGame.setPlayerList(playerList);
         currentGame.generateGameEngine();
-        currentGame.getGameEngine().startManche();
+        currentGame.getGameEngine().start();
 
         gameList.add(currentGame);
     }
@@ -125,7 +122,7 @@ public class GUICoreMediator {
         currentGame.setGameSetting(gameSetting);
         currentGame.setPlayerList(playerList);
         currentGame.generateGameEngine();
-        currentGame.getGameEngine().startManche();
+        currentGame.getGameEngine().start();
 
         gameList.add(currentGame);
     }
@@ -320,6 +317,11 @@ public class GUICoreMediator {
 
         System.out.println("La manche è finita? " + currentGame.getGameEngine().isEndManche());
 
+        if (currentGame.getGameEngine().isEndManche()) {
+            currentGame.getGameEngine().closeManche();
+            currentGame.getGameEngine().startManche();
+        }
+
         return offLineGameVO;
     }
 
@@ -328,10 +330,6 @@ public class GUICoreMediator {
      * @return
      */
     private static void selectNextPlayer() {
-        currentGame.getGameEngine().nextPlayer();
-    }
-
-    public static void closeManche() {
-        currentGame.getGameEngine().closeManche();
+        currentGame.getGameEngine().nextPlayer(currentGame.getGameEngine().getCurrentPlayer());
     }
 } //end  class

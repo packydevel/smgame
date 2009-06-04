@@ -20,12 +20,11 @@ public class CPUPlayer extends Player implements Serializable {
      *
      * @return
      */
-    public boolean askAnotherCard() {
-        if (getScore() < MIN_SCORE) {
+    public boolean isGoodScore() {
+        if (getScore() > MIN_SCORE) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**richiede una puntata
