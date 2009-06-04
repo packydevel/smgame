@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
 import org.smgame.core.player.PlayerStatus;
 import org.smgame.frontend.OffLineGameVO;
+import org.smgame.frontend.OnLineGameVO;
 import org.smgame.main.Game;
 import org.smgame.main.GameSetting;
 import org.smgame.util.BetOverflowException;
@@ -36,6 +38,7 @@ public class GUICoreMediator {
 
     private static ArrayList<Game> gameList = new ArrayList<Game>();
     private static OffLineGameVO offLineGameVO = new OffLineGameVO();
+    private static OnLineGameVO onLineGameVO = new OnLineGameVO();
     private static Game currentGame = null;
     private static List<String> playerNameList;
     private static List<Boolean> playerTypeList;
@@ -316,6 +319,10 @@ public class GUICoreMediator {
         }
     }
 
+    /**Richiede l'oggetto OffLineGameVO
+     *
+     * @return
+     */
     public static OffLineGameVO requestOffLineGameVO() {
 
         ArrayList<ImageIcon> playerCardsImageList = new ArrayList<ImageIcon>();
@@ -358,7 +365,7 @@ public class GUICoreMediator {
             offLineGameVO.getPlayerScoreMap().put(Integer.valueOf(i), "Punteggio: " + 
                     formatter.format(tempPlayer.getScore()));
 
-            if (currentGame.getPlayerList().getPlayerAL().get(i).equals(currentGame.getGameEngine().getBankPlayer())) {
+            if (tempPlayer.equals(currentGame.getGameEngine().getBankPlayer())) {
                 offLineGameVO.getPlayerRoleMap().put(Integer.valueOf(i), Boolean.TRUE);
             } else {
                 offLineGameVO.getPlayerRoleMap().put(Integer.valueOf(i), Boolean.FALSE);
@@ -397,10 +404,16 @@ public class GUICoreMediator {
         return offLineGameVO;
     }
 
-    /**Restituisce la posizione del prossimo giocatore
+    /**richiede l'oggetto OnLineGameVO
      *
      * @return
      */
+    public static OnLineGameVO requestOnLineGameVO() {
+
+        return onLineGameVO;
+    }
+
+    //Restituisce la posizione del prossimo giocatore
     private static void selectNextPlayer() {
         currentGame.getGameEngine().nextPlayer(currentGame.getGameEngine().getCurrentPlayer());
     }
