@@ -8,6 +8,7 @@ import org.smgame.core.card.Card;
 import org.smgame.core.card.Deck;
 import org.smgame.core.card.Point;
 import org.smgame.core.card.Suit;
+import org.smgame.core.player.CPUPlayer;
 import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
 import org.smgame.core.player.PlayerRole;
@@ -61,10 +62,12 @@ public class GameEngine implements Serializable {
         currentManche = 0;
     }
 
-    public void start() {
+    public void startManche() {
         currentManche = 0;
         bankPlayer = selectBankPlayer();
+        currentPlayer = nextPlayer();
         deck.shuffle();
+        distributeFirstCard();
     }
 
     public void setDeck(Deck deck) {
@@ -79,13 +82,12 @@ public class GameEngine implements Serializable {
         this.playerList = playerList;
     }
 
-    public Card getFirstCard(Player player) {
+    public void distributeFirstCard() {
         Card card;
-        card = deck.getNextCard();
-        player.setStatus(PlayerStatus.GoodScore);
-        player.getCardList().add(card);
-
-        return card;
+        for (Player p : playerList.getPlayerAL()) {
+            card = deck.getNextCard();
+            p.getCardList().add(card);
+        }
     }
 
     /**Richiede carta
@@ -93,7 +95,7 @@ public class GameEngine implements Serializable {
      * @param player giocatore che chiede la carta
      * @param bet puntata da effettuare
      */
-    public Card requestCard(Player player, double bet) throws BetOverflowException, ScoreOverflowException {
+    public void requestCard(Player player, double bet) throws BetOverflowException, ScoreOverflowException {
         Card card;
 
         if ((player.getCredit() - player.getStake()) < bet) {
@@ -115,8 +117,6 @@ public class GameEngine implements Serializable {
                 throw new ScoreOverflowException("Mi spiace, Hai Sballato!!!", card);
             }
         }
-
-        return card;
     }
 
     public void declareGoodScore(Player player, double bet) throws BetOverflowException {
@@ -232,17 +232,32 @@ public class GameEngine implements Serializable {
      * @return
      */
     public Player nextPlayer() {
-        int indexList;
-        if (currentPlayer == null) {
-            indexList = playerList.getPlayerAL().indexOf(bankPlayer);
-        } else {
-            indexList = playerList.getPlayerAL().indexOf(currentPlayer);
-        }
+        do {
+            int indexList;
+            if (currentPlayer == null) {
+                indexList = playerList.getPlayerAL().indexOf(bankPlayer);
+            } else {
+                indexList = playerList.getPlayerAL().indexOf(currentPlayer);
+            }
 
-        indexList = ++indexList % playerList.getPlayerAL().size();
-        currentPlayer = playerList.getPlayerAL().get(indexList);
+            indexList = ++indexList % playerList.getPlayerAL().size();
+            currentPlayer = playerList.getPlayerAL().get(indexList);
+            if (currentPlayer instanceof CPUPlayer) {
+                playCPU((CPUPlayer) currentPlayer);
+            }
+        } while (currentPlayer instanceof CPUPlayer && !currentPlayer.equals(bankPlayer));
 
         return currentPlayer;
+    }
+
+    private void playCPU(CPUPlayer player) {
+        try {
+            while (!player.isGoodScore()) {
+                requestCard(player, player.requestBet());
+            }
+            declareGoodScore(player, player.requestBet());
+        } catch (Exception e) {
+        }
     }
 
     /**restituisce il giocatore corrente
@@ -257,6 +272,30 @@ public class GameEngine implements Serializable {
         if (player.getScore() == 7.5) {
             return true;
         }
+
+        return false;
+    }
+
+    public void closeManche() {
+        applyPaymentRule();
+        selectBankPlayer();
+
+        for (Player p : playerList.getPlayerAL()) {
+            p.getCardList().clear();
+            p.getBetList().clear();
+            p.setStatus(null);
+        }
+
+        distributeFirstCard();
+        currentPlayer = nextPlayer();
+        currentManche++;
+    }
+
+    public boolean isEndManche() {
+        if (currentPlayer.equals(bankPlayer) && currentPlayer.getStatus() != null) {
+            return true;
+        }
+
         return false;
     }
 
@@ -264,24 +303,7 @@ public class GameEngine implements Serializable {
         if (gameSetting.getManches() == currentManche || playerList.existsBankruptPlayer()) {
             return true;
         }
-        return false;
-    }
 
-    public void closeManche() {
-        applyPaymentRule();
-        selectBankPlayer();
-        for (Player p : playerList.getPlayerAL()) {
-            p.getCardList().clear();
-            p.getBetList().clear();
-        }
-        currentPlayer = null;
-        currentManche++;
-    }
-
-    public boolean isEndManche() {
-        if (currentPlayer.equals(bankPlayer)) {
-            return true;
-        }
         return false;
     }
 }//end class
