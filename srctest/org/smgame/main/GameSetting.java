@@ -26,23 +26,27 @@ public class GameSetting {
     private int jollyValue;
     private String smDAmblePaid;
 
-    /**Costruttore
-     *
-     */
+    //Costruttore privato
     private GameSetting() {
         manches = 2;
         credit = MIN_CREDIT;
         //jolly = Deck.getInstance().getSelectedCard(Point.Re, Suit.Danari);
     }
 
+    /**Restituisce l'istanza dei settaggi di gioco
+     *
+     * @return
+     */
     public static GameSetting getInstance() {
         if (gameSetting == null) {
             gameSetting = new GameSetting();
         }
-
         return gameSetting;
     }
 
+    /**Azzera/resetta l'istanza dei settaggi
+     *
+     */
     public void resetInstance() {
         players = 4;
         manches = 2;
@@ -63,19 +67,30 @@ public class GameSetting {
         }
     }
 
+    /**restituisce il numero di manches
+     *
+     * @return
+     */
     public int getManches() {
         return manches;
     }
 
+    /**imposta il numero di manches
+     *
+     * @param manches
+     */
     public void setManches(int manches) {
         if (manches < MIN_PLAYERS || manches > MAX_PLAYERS) {
             System.out.println("Numero errato di manches!!!");
         } else {
             this.players = manches;
         }
-
     }
 
+    /**imposta il credito
+     *
+     * @param credit
+     */
     public void setCredit(double credit) {
         if (credit < MIN_CREDIT || manches > MAX_CREDIT) {
             System.out.println("Inserire un credito corretto!!!");
@@ -90,4 +105,5 @@ public class GameSetting {
     public int getNumPlayers() {
         return players;
     }
-}
+
+}//end class
