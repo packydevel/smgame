@@ -93,13 +93,13 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
 
         playerCpuJP = new JPanel(new FlowLayout());
 
-        nameCpuJL = new JLabel(GUICoreMediator.getPlayerNameList().get(0));
+        nameCpuJL = new JLabel(onLineGameVO.getPlayerNameMap().get(0));
         nameCpuJL.setPreferredSize(dimension);
         nameCpuJL.setForeground(new Color(255,0,0));
         nameCpuJL.setFont(font);
         playerCpuJP.add(nameCpuJL);
 
-        creditCpuJL = new JLabel("Credito: " + GUICoreMediator.getPlayerCredit(0));
+        creditCpuJL = new JLabel(onLineGameVO.getPlayerCreditMap().get(0));
         creditCpuJL.setPreferredSize(dimension);
         creditCpuJL.setFont(font);
         playerCpuJP.add(creditCpuJL);
@@ -160,13 +160,13 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
 
         playerHumanJP = new JPanel();
 
-        nameHumanJL = new JLabel(GUICoreMediator.getPlayerNameList().get(1));
+        nameHumanJL = new JLabel(onLineGameVO.getPlayerNameMap().get(1));
         nameHumanJL.setFont(font);
         nameHumanJL.setPreferredSize(new Dimension(200, 30));
         nameHumanJL.setForeground(new Color(0, 0, 255));
         playerHumanJP.add(nameHumanJL);
 
-        creditHumanJL = new JLabel("Credito: " + GUICoreMediator.getPlayerCredit(1));
+        creditHumanJL = new JLabel(onLineGameVO.getPlayerCreditMap().get(1));
         creditHumanJL.setFont(font);
         creditHumanJL.setPreferredSize(new Dimension(200, 30));
         playerHumanJP.add(creditHumanJL);
@@ -232,11 +232,11 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
 
         for (int i = 0; i < 2; i++) {
             icon = GUICoreMediator.getFirstCard(i);
-            setStakeLabel(i, GUICoreMediator.getPlayerStake(i));
+            setStakeLabel(i, onLineGameVO.getPlayerStake()[i]);
             playersCardsImagesList.get(i).add(icon);
             if (i == currentPlayerIndex) {
                 ((JLabel) playerCardsListJP.get(i).getComponent(0)).setIcon(icon);
-                setScoreLabel(i, GUICoreMediator.getPlayerScore(i));
+                setScoreLabel(i, onLineGameVO.getPlayerScore()[i]);
                 //showActionPanelContent(currentPlayerIndex);
             } else {
                 firstCardCovered(i);

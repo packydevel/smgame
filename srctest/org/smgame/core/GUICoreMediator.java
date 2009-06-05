@@ -417,7 +417,6 @@ public class GUICoreMediator {
      * @return
      */
     public static OnLineGameVO requestOnLineGameVO() {
-
         return onLineGameVO;
     }
 

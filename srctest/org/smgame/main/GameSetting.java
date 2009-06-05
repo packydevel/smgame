@@ -28,7 +28,7 @@ public class GameSetting {
 
     //Costruttore privato
     private GameSetting() {
-        manches = 2;
+        manches = 5;
         credit = MIN_CREDIT;
         //jolly = Deck.getInstance().getSelectedCard(Point.Re, Suit.Danari);
     }
