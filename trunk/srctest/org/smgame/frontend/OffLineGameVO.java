@@ -1,17 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.frontend;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 
-/**
- *
- * @author packyuser
- */
 public class OffLineGameVO {
 
     private ArrayList<Integer> playerList = new ArrayList<Integer>();
@@ -29,37 +21,70 @@ public class OffLineGameVO {
     private boolean endManche = false,  endGame = false;
     String exceptionMessage;
 
+    /**Restituisce la mappa dei nomi giocatori
+     *
+     * @return
+     */
     public HashMap<Integer, String> getPlayerNameMap() {
         return playerNameMap;
     }
 
+    /**Restituisce la mappa dei crediti giocatori
+     *
+     * @return
+     */
     public HashMap<Integer, String> getPlayerCreditMap() {
         return playerCreditMap;
     }
 
+    /**Restituisce la mappa di lista di imageicon
+     *
+     * @return
+     */
     public HashMap<Integer, ArrayList<ImageIcon>> getPlayerCardsImageMap() {
         return playerCardsImageMap;
     }
 
+    /**Restituisce la lista indice dei giocatori
+     *
+     * @return
+     */
     public ArrayList<Integer> getPlayerIndexList() {
         return playerList;
     }
 
+    /**Restituisce la mappa dei punteggi giocatori
+     *
+     * @return
+     */
     public HashMap<Integer, String> getPlayerScoreMap() {
         return playerScoreMap;
     }
 
+    /**Restituisce la mappa delle puntate dei giocatori
+     *
+     * @return
+     */
     public HashMap<Integer, String> getPlayerStakeMap() {
         return playerStakeMap;
     }
 
+    /**restituisce la mappa dei booleani per la prima carta scoperta dei giocatori
+     *
+     * @return
+     */
     public HashMap<Integer, Boolean> getPlayerFirstCardDiscoveredMap() {
         return playerFirstCardDiscoveredMap;
     }
 
+    /**restituisce la mappa dei booleani relatiiv al ruolo dei giocatori (mazziere/normale)
+     *
+     * @return
+     */
     public HashMap<Integer, Boolean> getPlayerRoleMap() {
         return playerRoleMap;
     }
+
 
     public HashMap<Integer, Boolean> getPlayerPlayingMap() {
         return playerPlayingMap;

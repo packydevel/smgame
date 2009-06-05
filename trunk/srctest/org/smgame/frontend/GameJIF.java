@@ -284,7 +284,8 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 ((JLabel) playerCardsMapJP.get(i).getComponent(j)).setIcon(null);
             }
             for (int j = 0; j < offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).size(); j++) {
-                ((JLabel) playerCardsMapJP.get(i).getComponent(j)).setIcon(scaledImage(offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).get(j)));
+                ((JLabel) playerCardsMapJP.get(i).getComponent(j)).setIcon(
+                        scaledImage(offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).get(j)));
             }
             System.out.println("il numero attuale delle carte è: " + offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).size());
             playerStakeMapJL.get(i).setText(offLineGameVO.getPlayerStakeMap().get(Integer.valueOf(i)));
