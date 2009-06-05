@@ -35,7 +35,7 @@ public class CPUPlayer extends Player implements Serializable {
         if (role == PlayerRole.Bank) {
             return 0.00;
         } else {
-            return credit / 100 + 1;
+            return credit / 100;
         }
     }
 }
