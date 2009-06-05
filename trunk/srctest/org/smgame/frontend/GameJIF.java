@@ -241,19 +241,28 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     }
 
     private void resetBetJTF(int i) {
-        ((JTextField) playerActionMapJP.get(i).getComponent(0)).setText("0");
+        ((JTextField) playerActionMapJP.get(i).getComponent(0)).setText("");
     }
 
     private void requestCard(int i) {
-        String value = getBet(i);
+        String value;
         double bet;
-        resetBetJTF(i);
-        if ((!value.equalsIgnoreCase("")) || ((value.equalsIgnoreCase("")))) {
-            bet = (value.equalsIgnoreCase("") ? 0.00 : Double.valueOf(value));
-            GUICoreMediator.requestCard(i, bet);
-            offLineGameVO = GUICoreMediator.requestOffLineGameVO();
-            refreshComponent();
+
+        if (getBetJTF(i).isEnabled()) {
+            value = getBet(i);
+            if (!value.equalsIgnoreCase("") && Double.valueOf(value) != 0.00) {
+                bet = Double.valueOf(value);
+            } else {
+                return;
+            }
+        } else {
+            bet = 0.00;
         }
+
+        GUICoreMediator.requestCard(i, bet);
+        resetBetJTF(i);
+        offLineGameVO = GUICoreMediator.requestOffLineGameVO();
+        refreshComponent();
     } //end request card
 
     private void declareGoodScore(int i) {
@@ -294,9 +303,11 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 hideActionPanelContent(i);
             }
 
-            if (offLineGameVO.getPlayerStatusMap().get(Integer.valueOf(i)) == Boolean.TRUE || offLineGameVO.getPlayerMaxScore().get(Integer.valueOf(i)) == Boolean.TRUE) {
+            if (offLineGameVO.getPlayerStatusMap().get(Integer.valueOf(i)) == Boolean.TRUE || offLineGameVO.getPlayerMaxScoreMap().get(Integer.valueOf(i)) == Boolean.TRUE) {
                 ((JLabel) playerCardsMapJP.get(i).getComponent(0)).setIcon(scaledImage(offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).get(0)));
             }
+
+            getBetJTF(i).setEnabled(offLineGameVO.getPlayerRequestBetMap().get(Integer.valueOf(i)));
         }
 
         if (offLineGameVO.isEndManche()) {
@@ -313,7 +324,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     }
 
     //Resizes an image using a Graphics2D object backed by a BufferedImage.
-    private ImageIcon scaledImage(ImageIcon srcImg){
+    private ImageIcon scaledImage(ImageIcon srcImg) {
         int w = 32;
         int h = 49;
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
