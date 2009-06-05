@@ -24,7 +24,8 @@ public class OffLineGameVO {
     private HashMap<Integer, Boolean> playerRoleMap = new HashMap<Integer, Boolean>();
     private HashMap<Integer, Boolean> playerPlayingMap = new HashMap<Integer, Boolean>();
     private HashMap<Integer, Boolean> playerStatusMap = new HashMap<Integer, Boolean>();
-    private HashMap<Integer, Boolean> playerMaxScore = new HashMap<Integer, Boolean>();
+    private HashMap<Integer, Boolean> playerMaxScoreMap = new HashMap<Integer, Boolean>();
+    private HashMap<Integer, Boolean> playerRequestBetMap = new HashMap<Integer, Boolean>();
     private boolean endManche = false,  endGame = false;
     String exceptionMessage;
 
@@ -68,8 +69,12 @@ public class OffLineGameVO {
         return playerStatusMap;
     }
 
-    public HashMap<Integer, Boolean> getPlayerMaxScore() {
-        return playerMaxScore;
+    public HashMap<Integer, Boolean> getPlayerMaxScoreMap() {
+        return playerMaxScoreMap;
+    }
+
+    public HashMap<Integer, Boolean> getPlayerRequestBetMap() {
+        return playerRequestBetMap;
     }
 
     public boolean isEndManche() {
