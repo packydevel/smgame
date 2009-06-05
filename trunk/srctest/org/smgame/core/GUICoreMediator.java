@@ -20,6 +20,7 @@ import org.smgame.core.player.CPUPlayer;
 import org.smgame.core.player.HumanPlayer;
 import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
+import org.smgame.core.player.PlayerRole;
 import org.smgame.core.player.PlayerStatus;
 import org.smgame.frontend.OffLineGameVO;
 import org.smgame.frontend.OnLineGameVO;
@@ -76,7 +77,7 @@ public class GUICoreMediator {
      * @param playerTypeList
      */
     public static void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList,
-                                    List<Boolean> playerTypeList) {
+            List<Boolean> playerTypeList) {
         PlayerList.getInstance().resetInstance();
         PlayerList playerList = PlayerList.getInstance();
         GUICoreMediator.playerNameList = playerNameList;
@@ -118,12 +119,12 @@ public class GUICoreMediator {
      */
     public static void createOnLineGame(String gameName, GameSetting gameSetting, String playerName) {
         PlayerList.getInstance().resetInstance();
-        PlayerList playerList = PlayerList.getInstance();                
+        PlayerList playerList = PlayerList.getInstance();
 
         String cpuName = "Alan Turing";
         playerList.getPlayerAL().add(new CPUPlayer(cpuName));
         playerList.getPlayerAL().get(0).setCredit(1000);
-        
+
         playerList.getPlayerAL().add(new HumanPlayer(playerName));
         playerList.getPlayerAL().get(1).setCredit(1000);
 
@@ -334,11 +335,12 @@ public class GUICoreMediator {
         offLineGameVO.getPlayerFirstCardDiscoveredMap().clear();
         offLineGameVO.getPlayerRoleMap().clear();
         offLineGameVO.getPlayerPlayingMap().clear();
+        offLineGameVO.getPlayerRequestBetMap().clear();
 
         for (int i = 0; i < offLineGameVO.getPlayerIndexList().size(); i++) {
             Player tempPlayer = currentGame.getPlayerList().getPlayerAL().get(i);
 
-            offLineGameVO.getPlayerCreditMap().put(Integer.valueOf(i), "Credito: " + 
+            offLineGameVO.getPlayerCreditMap().put(Integer.valueOf(i), "Credito: " +
                     formatter.format(tempPlayer.getCredit()));
             offLineGameVO.getPlayerCardsImageMap().put(Integer.valueOf(i), new ArrayList<ImageIcon>());
             playerCardsImageList = offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i));
@@ -360,9 +362,9 @@ public class GUICoreMediator {
                 offLineGameVO.getPlayerFirstCardDiscoveredMap().put(Integer.valueOf(i), Boolean.FALSE);
             }
 
-            offLineGameVO.getPlayerStakeMap().put(Integer.valueOf(i), "Puntata: " + 
+            offLineGameVO.getPlayerStakeMap().put(Integer.valueOf(i), "Puntata: " +
                     formatter.format(tempPlayer.getStake()));
-            offLineGameVO.getPlayerScoreMap().put(Integer.valueOf(i), "Punteggio: " + 
+            offLineGameVO.getPlayerScoreMap().put(Integer.valueOf(i), "Punteggio: " +
                     formatter.format(tempPlayer.getScore()));
 
             if (tempPlayer.equals(currentGame.getGameEngine().getBankPlayer())) {
@@ -373,7 +375,7 @@ public class GUICoreMediator {
 
             if (tempPlayer.getStatus() == PlayerStatus.ScoreOverflow) {
                 offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).remove(0);
-                offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).add(0, 
+                offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).add(0,
                         tempPlayer.getCardList().get(0).getFrontImage());
             }
 
@@ -381,6 +383,12 @@ public class GUICoreMediator {
                 offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).remove(0);
                 offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).add(
                         0, tempPlayer.getCardList().get(0).getFrontImage());
+            }
+
+            if (tempPlayer.getBetList().size() > 0 || tempPlayer.getRole()==PlayerRole.Bank) {
+                offLineGameVO.getPlayerRequestBetMap().put(Integer.valueOf(i), Boolean.FALSE);
+            } else {
+                offLineGameVO.getPlayerRequestBetMap().put(Integer.valueOf(i), Boolean.TRUE);
             }
 
             if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) &&
