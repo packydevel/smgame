@@ -18,6 +18,8 @@ public class OnLineGameVO {
     private HashMap<Integer, Boolean> playerPlayingMap = new HashMap<Integer, Boolean>();
     private HashMap<Integer, Boolean> playerStatusMap = new HashMap<Integer, Boolean>();
     private HashMap<Integer, Boolean> playerMaxScore = new HashMap<Integer, Boolean>();
+    private HashMap<Integer, Boolean> playerMaxScoreMap = new HashMap<Integer, Boolean>();
+    private HashMap<Integer, Boolean> playerRequestBetMap = new HashMap<Integer, Boolean>();
     private boolean endManche = false,  endGame = false;
     String exceptionMessage;
 
@@ -85,6 +87,85 @@ public class OnLineGameVO {
         return playerRoleMap;
     }
 
+        /**Restituisce la mappa dei booleani relativa ai giocatori che giocano,
+     *quindi il possesso del turno attuale
+     *
+     * @return
+     */
+    public HashMap<Integer, Boolean> getPlayerPlayingMap() {
+        return playerPlayingMap;
+    }
 
+    /**Restituisce la mappa dei booleani relativa allo stato del momento del giocatore
+     *
+     * @return
+     */
+    public HashMap<Integer, Boolean> getPlayerStatusMap() {
+        return playerStatusMap;
+    }
 
-}
+    /**Restituisce la mappa dei booleani dei giocatori che hanno il massimo punteggio
+     *
+     * @return
+     */
+    public HashMap<Integer, Boolean> getPlayerMaxScoreMap() {
+        return playerMaxScoreMap;
+    }
+
+    /**REstituisce la mappa dei booleanni dei player che hanno richiesto la carta
+     *
+     * @return
+     */
+    public HashMap<Integer, Boolean> getPlayerRequestBetMap() {
+        return playerRequestBetMap;
+    }
+
+    /**restituisce se è finita la manche
+     *
+     * @return
+     */
+    public boolean isEndManche() {
+        return endManche;
+    }
+
+    /**imposta la fine della manche
+     *
+     * @param flag
+     */
+    public void setEndManche(boolean flag) {
+        endManche = flag;
+    }
+
+    /**REstituisce la fine dell partita
+     *
+     * @return
+     */
+    public boolean isEndGame() {
+        return endGame;
+    }
+
+    /**imposta la fine della partita
+     *
+     * @param flag
+     */
+    public void setEndGame(boolean flag) {
+        endGame = flag;
+    }
+
+    /**Restituisce il messaggio dell'eccezione
+     *
+     * @return
+     */
+    public String getExceptionMessage() {
+        return exceptionMessage;
+    }
+
+    /**imposta il messaggio dell'eccezione
+     *
+     * @param message
+     */
+    public void setExceptionMessage(String message) {
+        exceptionMessage = message;
+    }
+
+}//end class
