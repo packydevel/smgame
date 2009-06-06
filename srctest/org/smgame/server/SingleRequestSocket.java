@@ -34,6 +34,7 @@ public class SingleRequestSocket extends Thread {
     }
 
     public void run() {
+/*
         String requestCommand;
         Object requestParameter;
         boolean exit = false;
@@ -94,5 +95,8 @@ public class SingleRequestSocket extends Thread {
             System.out.println("errore di I/O");
         } catch (ClassNotFoundException cnfe) {
         }
+*/
     }
+
+ 
 }

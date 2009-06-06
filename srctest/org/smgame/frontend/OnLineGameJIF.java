@@ -75,6 +75,7 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF{
     }
 
     private void initComponents(){
+        /*
         onLineGameVO = GUICoreMediator.requestOnLineGameVO();
 
         playersCardsImagesList = new ArrayList<List<ImageIcon>>(2);
@@ -204,6 +205,7 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF{
         tempPane.setVisible(true);
         paneCardsGBC.gridy = 2;
         this.add(tempPane,paneCardsGBC);
+         */
     }
 
     //inizializza il pannello del player - carte
@@ -223,6 +225,7 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF{
     } // initPanelPlayersCards
 
     private void initBoard() {
+        /*
         ImageIcon icon;
         deselectBank(bankPlayerIndex);
         bankPlayerIndex = GUICoreMediator.getBankPlayer();
@@ -243,6 +246,7 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF{
                 setScoreLabel(i, "");
             }
         }
+         */
     }
 
     private void setEnabledActionHumanJP(boolean enabled){

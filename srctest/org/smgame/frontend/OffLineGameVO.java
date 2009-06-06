@@ -85,7 +85,11 @@ public class OffLineGameVO {
         return playerRoleMap;
     }
 
-
+    /**Restituisce la mappa dei booleani relativa ai giocatori che giocano,
+     *quindi il possesso del turno attuale
+     *
+     * @return
+     */
     public HashMap<Integer, Boolean> getPlayerPlayingMap() {
         return playerPlayingMap;
     }
@@ -94,6 +98,10 @@ public class OffLineGameVO {
         return playerStatusMap;
     }
 
+    /**Restituisce la mappa dei booleani dei giocatori che hanno il massimo punteggio
+     *
+     * @return
+     */
     public HashMap<Integer, Boolean> getPlayerMaxScoreMap() {
         return playerMaxScoreMap;
     }
