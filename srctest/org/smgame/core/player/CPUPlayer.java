@@ -32,8 +32,8 @@ public class CPUPlayer extends Player implements Serializable {
      * @return
      */
     public boolean isGoodScore() {
-        double threshold = 0.00, hypotethicScore;
-        double[] hypotheticValues = new double[7];
+        double threshold = 0.00, hypotethicScore, i;
+        int allHypotheticValues, allGoodValues;
         //HashMap<Player, PlayerStatus> playerStatusMap = (HashMap<Player, PlayerStatus>) playerList.getPlayerStatusMap();
         //HashMap<Player, Double> playerVisibleScoreMap = (HashMap<Player, Double>) playerList.getPlayerVisibleScoreMap();
 
@@ -55,24 +55,34 @@ public class CPUPlayer extends Player implements Serializable {
                     if (p.getStatus() == PlayerStatus.ScoreOverflow) {
                         threshold += p.getStake();
                     } else {
-                        if (p.getVisibleScore() == 0.00) {
-                            if (getScore() < 6) {
-                                threshold -= p.getStake();
-                            } else {
-                                threshold += p.getStake();
-                            }
-                        } else if (p.hasSM()) {
+                        if (p.hasSM()) {
                             if (getScore() < 7.50) {
                                 threshold -= p.getStake();
                             } else {
                                 threshold += p.getStake();
                             }
                         } else {
-                            if (p.getVisibleScore() >= getScore()) {
-                                threshold -= p.getStake();
-                            } else {
-                                threshold += p.getStake();
-                            }
+                            i = 0.5;
+                            allHypotheticValues = 0;
+                            allGoodValues = 0;
+                            do {
+                                if ((p.getVisibleScore() + i) <= 7) {
+                                    allHypotheticValues++;
+                                    if ((p.getVisibleScore() + i) <= getScore()) {
+                                        allGoodValues++;
+                                    }
+                                }
+                                if (i == 0.5) {
+                                    i = 1;
+                                } else {
+                                    i++;
+                                }
+                            } while (i <= 7);
+
+                            System.out.println(p.getName() + " - " + "Good: " + allGoodValues + " All: " + allHypotheticValues);
+                            double temp = (((2 * (double) allGoodValues) / (double) allHypotheticValues) - 1) * p.getStake();
+                            System.out.println("thresold "+ temp);
+                            threshold += temp;
                         }
                     }
                 }
