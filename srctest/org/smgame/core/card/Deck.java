@@ -30,7 +30,7 @@ public class Deck implements Serializable {
     private static Deck currentDeck = null; //mazzo corrente
     private transient Iterator<Card> onGameCardsIterator;
     private Card nextCard; //prossima carta
-    private boolean isEmptyDeck;
+    private boolean emptyDeck;
 
     //costruttore privato
     private Deck() {
@@ -90,7 +90,7 @@ public class Deck implements Serializable {
         offGameCardList.clear();
         onGameCardList.addAll(currentDeck.CARDS);   
         onGameCardsIterator = onGameCardList.iterator();
-        isEmptyDeck=false;
+        emptyDeck=false;
     }
 
     /**
@@ -110,7 +110,7 @@ public class Deck implements Serializable {
             offGameCardList.clear();
             Collections.shuffle(onGameCardList, new Random(System.currentTimeMillis()));
             onGameCardsIterator = onGameCardList.iterator();
-            isEmptyDeck=false;
+            emptyDeck=true;
         }
 
         nextCard = onGameCardsIterator.next();
@@ -143,11 +143,11 @@ public class Deck implements Serializable {
         return null;
     }
 
-    public boolean isIsEmptyDeck() {
-        return isEmptyDeck;
+    public boolean isEmptyDeck() {
+        return emptyDeck;
     }
 
-    public void setIsEmptyDeck(boolean isEmptyDeck) {
-        this.isEmptyDeck = isEmptyDeck;
+    public void setEmptyDeck(boolean isEmptyDeck) {
+        this.emptyDeck = isEmptyDeck;
     }
 } //end class
