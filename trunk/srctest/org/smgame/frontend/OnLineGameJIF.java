@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
@@ -46,17 +47,16 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
     private JButton declareGoodScoreJB;
     private Font font = new Font("TimesRoman", Font.PLAIN, 20);
     private Dimension dimension = new Dimension(200, 30);
-    private Dimension imageDim = new Dimension(63, 99);
     private final ImageIcon backImage = new ImageIcon(Common.getResourceCards() + "dorso.jpg");
-    private int bankPlayerIndex,  currentPlayerIndex;
+    private int currentIndex;
     private OnLineGameVO onLineGameVO;
 
     public OnLineGameJIF() {
         super(GUICoreMediator.getGameName(), false, true, false, false);
         int width = 960;
         int height = 640;
-        int xbound = (getContentPane().getWidth() - width) / 2;
-        int ybound = (getContentPane().getHeight() - height) / 2;
+        //int xbound = (getContentPane().getWidth() - width) / 2;
+        //int ybound = (getContentPane().getHeight() - height) / 2;
         setPreferredSize(new Dimension(width, height));
         //setBounds(xbound, ybound, xbound + width, ybound + height);
         setLayout(new GridBagLayout());
@@ -231,16 +231,14 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
             for (int j = 0; j < 14; j++) {
                 ((JLabel) playerCardsListJP.get(i).getComponent(j)).setIcon(null);
             }
-            
+            //
             for (int j = 0; j < onLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).size(); j++) {
                 ((JLabel) playerCardsListJP.get(i).getComponent(j)).setIcon(
                         onLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).get(j));
             }
-            
             //visualizzo il testo delle label punteggio e puntata
             setStakeLabel(i, onLineGameVO.getPlayerStakeMap().get(Integer.valueOf(i)));
             setScoreLabel(i, onLineGameVO.getPlayerScoreMap().get(Integer.valueOf(i)));
-
             //seleziono mazziere di turno
             if (onLineGameVO.getPlayerRoleMap().get(Integer.valueOf(i)) == Boolean.TRUE) {
                 selectBank(i);
@@ -248,20 +246,32 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
                 deselectBank(i);
             }
 
-            /*
-            currentPlayerIndex = GUICoreMediator.nextPlayer();
-            for (int i = 0; i < 2; i++) {                
-                if (i == currentPlayerIndex) {
-                    ((JLabel) playerCardsListJP.get(i).getComponent(0)).setIcon(icon);
-                    setScoreLabel(i, onLineGameVO.getPlayerScore()[i]);
-                //showActionPanelContent(currentPlayerIndex);
-                } else {
-                    firstCardCovered(i);
-                    setScoreLabel(i, "");
-                }
-            }*/
-        }
-    }
+            if (onLineGameVO.getPlayerPlayingMap().get(Integer.valueOf(i)) == Boolean.TRUE) {
+                setEnabledActionHumanJP(true);
+                currentIndex = i;
+            } else {
+                setEnabledActionHumanJP(false);
+            }
+
+            if (onLineGameVO.getPlayerStatusMap().get(Integer.valueOf(i)) == Boolean.TRUE ||
+                    onLineGameVO.getPlayerMaxScoreMap().get(Integer.valueOf(i)) == Boolean.TRUE) {
+                ((JLabel) playerCardsListJP.get(i).getComponent(0)).setIcon(
+                        onLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).get(0));
+            }
+        }//end for iniziale
+        if (onLineGameVO.isEndManche()) {
+            JOptionPane.showMessageDialog(this, "Questa manche è terminata!!!");
+            //TODO: richiamare in qualche modo la scoreboard
+            //GUICoreMediator.closeManche();
+            if (onLineGameVO.isEndGame()) {
+                JOptionPane.showMessageDialog(this, "Questa partita è terminata!!!");
+                //GUICoreMediator.closeGame();
+                dispose();
+            } else {
+                initBoard();
+            }
+        } //end isEndManche
+    } //end refresh
 
     private void setEnabledActionHumanJP(boolean enabled) {
         stakeHumanJTF.setEditable(enabled);
