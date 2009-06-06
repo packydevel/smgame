@@ -32,11 +32,14 @@ public class CPUPlayer extends Player implements Serializable {
      * @return
      */
     public boolean isGoodScore() {
-        double threshold = 0.00;
-        HashMap<Player, PlayerStatus> playerStatusMap = (HashMap<Player, PlayerStatus>) playerList.getPlayerStatusMap();
-        HashMap<Player, Double> playerVisibleScoreMap = (HashMap<Player, Double>) playerList.getPlayerVisibleScoreMap();
+        double threshold = 0.00, hypotethicScore;
+        double[] hypotheticValues = new double[7];
+        //HashMap<Player, PlayerStatus> playerStatusMap = (HashMap<Player, PlayerStatus>) playerList.getPlayerStatusMap();
+        //HashMap<Player, Double> playerVisibleScoreMap = (HashMap<Player, Double>) playerList.getPlayerVisibleScoreMap();
 
-        //if (role == PlayerRole.Normal) {
+
+
+        if (role == PlayerRole.Normal) {
             if (cardList.get(0).getPoint() == Point.Re && cardList.get(0).getSuit() == Suit.Danari && cardList.size() == 1) {
                 return false;
             } else if ((cardList.get(0).getPoint() == Point.Re && cardList.get(0).getSuit() == Suit.Danari && cardList.size() > 1)) {
@@ -46,26 +49,41 @@ public class CPUPlayer extends Player implements Serializable {
                     return true;
                 }
             }
-//        } else {
-//
-//            for (Player p : playerList.getPlayerAL()) {
-//                if (!p.equals(this)) {
-//                    if (p.getStatus() == PlayerStatus.ScoreOverflow) {
-//                        threshold += p.getStake();
-//                    } else {
-//                        if (p.getVisibleScore() > getScore()) {
-//                            threshold -= p.getStake();
-//                        } else {
-//                            threshold += p.getStake();
-//                        }
-//                    }
-//                }
-//            }
-//
-//            if (threshold >= 0.00) {
-//                return true;
-//            }
-        //}
+        } else {
+            for (Player p : PlayerList.getInstance().getPlayerAL()) {
+                if (!p.equals(this)) {
+                    if (p.getStatus() == PlayerStatus.ScoreOverflow) {
+                        threshold += p.getStake();
+                    } else {
+                        if (p.getVisibleScore() == 0.00) {
+                            if (getScore() < 6) {
+                                threshold -= p.getStake();
+                            } else {
+                                threshold += p.getStake();
+                            }
+                        } else if (p.hasSM()) {
+                            if (getScore() < 7.50) {
+                                threshold -= p.getStake();
+                            } else {
+                                threshold += p.getStake();
+                            }
+                        } else {
+                            if (p.getVisibleScore() >= getScore()) {
+                                threshold -= p.getStake();
+                            } else {
+                                threshold += p.getStake();
+                            }
+                        }
+                    }
+                }
+            }
+
+            System.out.println(name + " - " + threshold);
+
+            if (threshold >= 0.00) {
+                return true;
+            }
+        }
 
         return false;
     }

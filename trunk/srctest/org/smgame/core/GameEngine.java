@@ -276,8 +276,6 @@ public class GameEngine implements Serializable {
     private void playCPU(CPUPlayer player) {
         try {
             while (!player.isGoodScore()) {
-                
-                System.out.println(player.getName() + " - "+ player.isGoodScore());
                 if (player.getBetList().size() == 0) {
                     requestCard(player, player.requestBet());
                 } else {
@@ -291,6 +289,7 @@ public class GameEngine implements Serializable {
                 declareGoodScore(player, 0.00);
             }
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -328,7 +327,7 @@ public class GameEngine implements Serializable {
         currentPlayer = nextPlayer(bankPlayer);
 
         for (Player p : playerList.getPlayerAL()) {
-            System.out.println(p.getName() +" - "+ p.getRole());
+            System.out.println(p.getName() + " - " + p.getRole());
         }
     }
 
