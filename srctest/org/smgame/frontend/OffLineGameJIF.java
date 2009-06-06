@@ -49,9 +49,9 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
         super(GUICoreMediator.getGameName(), false, true, false, false);
         int width = 960;
         int height = 640;
-        int xbound = (getContentPane().getWidth() - width) / 2;
-        int ybound = (getContentPane().getHeight() - height) / 2;
         setPreferredSize(new Dimension(width, height));
+        //int xbound = (getContentPane().getWidth() - width) / 2;
+        //int ybound = (getContentPane().getHeight() - height) / 2;
         //setBounds(xbound, ybound, xbound + width, ybound + height);
         setLayout(new GridBagLayout());
         initComponents();
