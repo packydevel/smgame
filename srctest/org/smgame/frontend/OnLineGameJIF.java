@@ -24,7 +24,7 @@ import javax.swing.border.LineBorder;
 import org.smgame.core.GUICoreMediator;
 import org.smgame.util.Common;
 
-public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
+public class OnLineGameJIF extends JInternalFrame implements IGameJIF{
 
     private List<JPanel> playerCardsListJP; //Lista pannelli giocatore-carte
     private List<JLabel> playerCardsListJL;
@@ -58,7 +58,7 @@ public class GameOnlineJIF extends JInternalFrame implements IGameJIF{
 
     private OnLineGameVO onLineGameVO;
 
-    public GameOnlineJIF() {
+    public OnLineGameJIF() {
         super(GUICoreMediator.getGameName(), false, true, false, false);
         int width = 960;
         int height = 640;
