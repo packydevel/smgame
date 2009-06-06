@@ -181,14 +181,16 @@ public class GameEngine implements Serializable {
         } else {
             player = playerHasFirstKingSM;
             if (player == null) {
-                if (deck.isIsEmptyDeck()) {
-                    deck.setIsEmptyDeck(false);
+                if (deck.isEmptyDeck()) {
                     indexList = playerList.getPlayerAL().indexOf(bankPlayer);
                     indexList = ++indexList % playerList.getPlayerAL().size();
                     player = playerList.getPlayerAL().get(indexList);
+                    deck.setEmptyDeck(false);
                 } else {
                     player = bankPlayer;
                 }
+            } else {
+                deck.resetInstance();
             }
 
             bankPlayer.setRole(PlayerRole.Normal);
