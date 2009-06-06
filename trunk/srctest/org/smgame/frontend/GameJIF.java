@@ -266,15 +266,24 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     } //end request card
 
     private void declareGoodScore(int i) {
-        String value = getBet(i);
+        String value;
         double bet;
 
-        if ((!value.equalsIgnoreCase("")) || ((value.equalsIgnoreCase("")))) {
-            bet = (value.equalsIgnoreCase("") ? 0.00 : Double.valueOf(value));
-            GUICoreMediator.declareGoodScore(i, bet);
-            offLineGameVO = GUICoreMediator.requestOffLineGameVO();
-            refreshComponent();
+        if (getBetJTF(i).isEnabled()) {
+            value = getBet(i);
+            if (!value.equalsIgnoreCase("") && Double.valueOf(value) != 0.00) {
+                bet = Double.valueOf(value);
+            } else {
+                return;
+            }
+        } else {
+            bet = 0.00;
         }
+
+        GUICoreMediator.declareGoodScore(i, bet);
+        resetBetJTF(i);
+        offLineGameVO = GUICoreMediator.requestOffLineGameVO();
+        refreshComponent();
     }
 
     private void refreshComponent() {
@@ -287,7 +296,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 ((JLabel) playerCardsMapJP.get(i).getComponent(j)).setIcon(
                         scaledImage(offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).get(j)));
             }
-            System.out.println("il numero attuale delle carte è: " + offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).size());
+           
             playerStakeMapJL.get(i).setText(offLineGameVO.getPlayerStakeMap().get(Integer.valueOf(i)));
             playerScoreMapJL.get(i).setText(offLineGameVO.getPlayerScoreMap().get(Integer.valueOf(i)));
 

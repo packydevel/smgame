@@ -6,10 +6,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import java.util.Random;
 import org.smgame.core.card.Card;
 import org.smgame.core.card.Deck;
-import org.smgame.core.card.Point;
-import org.smgame.core.card.Suit;
 import org.smgame.core.player.CPUPlayer;
 import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
@@ -35,9 +34,11 @@ public class GameEngine implements Serializable {
     private int currentManche;
     private Player bankPlayer;
     private Player currentPlayer;
+    private Player playerHasFirstKingSM;
 
     //costruttore privato
-    private GameEngine() {}
+    private GameEngine() {
+    }
 
     /**Restituisce l'istanza della classe
      *
@@ -62,14 +63,14 @@ public class GameEngine implements Serializable {
         playerList.resetInstance();
         bankPlayer = null;
         currentPlayer = null;
+        playerHasFirstKingSM = null;
         currentManche = 1;
     }
 
-
     public void start() {
         currentManche = 0;
-        startManche();
         deck.shuffle();
+        startManche();
     }
 
     /**imposta il mazzo
@@ -165,7 +166,7 @@ public class GameEngine implements Serializable {
     //seleziona il primo mazziere
     private Player selectFirstRandomBankPlayer() {
         List<Player> tempList = new ArrayList<Player>(playerList.getPlayerAL());
-        Collections.shuffle(tempList);
+        Collections.shuffle(tempList, new Random(System.currentTimeMillis()));
         bankPlayer = tempList.get(0);
         bankPlayer.setRole(PlayerRole.Bank);
         return bankPlayer;
@@ -178,9 +179,8 @@ public class GameEngine implements Serializable {
         if (currentManche == 1) {
             bankPlayer = selectFirstRandomBankPlayer();
         } else {
-            player = playerList.firstKingSM(bankPlayer);
+            player = playerHasFirstKingSM;
             if (player == null) {
-                System.out.println("Mazziere nullo");
                 if (deck.isIsEmptyDeck()) {
                     deck.setIsEmptyDeck(false);
                     indexList = playerList.getPlayerAL().indexOf(bankPlayer);
@@ -190,16 +190,15 @@ public class GameEngine implements Serializable {
                     player = bankPlayer;
                 }
             }
-            System.out.println("Mazziere attuale " + bankPlayer.getName());
+
             bankPlayer.setRole(PlayerRole.Normal);
             player.setRole(PlayerRole.Bank);
-            System.out.println("Mazziere attuale " + bankPlayer.getName());
             bankPlayer = player;
+            playerHasFirstKingSM = null;
         }
         return bankPlayer;
     }
 
-    
     //Valutazione tra i punteggi realizzati al 7 1/2 seondo le regole di WikiPedia
     //TODO: integrare caso 7mezzo reale con matta  che batte 7mezzo illegittimo mazziere
     //p.s. rendere + leggibile?
@@ -210,46 +209,14 @@ public class GameEngine implements Serializable {
             if (player.getScore() > bankPlayer.getScore()) {
                 compare = true;
             } else if (player.getScore() == bankPlayer.getScore()) {
-                if (player.getScore() == 7.5) {
-                    if ((player.getCardList().size() == 2) &&
-                            ((player.getCardList().get(0).getPoint() == Point.Re && player.getCardList().get(0).getSuit() == Suit.Danari) ||
-                            (player.getCardList().get(1).getPoint() == Point.Re && player.getCardList().get(1).getSuit() == Suit.Danari))) {
-                        if (bankPlayer.getCardList().size() != 2) {
-                            compare = true;
-                        }
-                    }
+                if (player.hasKingSMJolly() && !bankPlayer.hasKingSM()) {
+                    compare = true;
                 }
             }
         } else {
             compare = true;
         }
         return compare;
-        /*if (player.getStatus() == PlayerStatus.GoodScore &&
-         bankPlayer.getStatus() == PlayerStatus.GoodScore) {
-            if (player.getScore() > bankPlayer.getScore()) {
-                return true;
-            } else if (player.getScore() < bankPlayer.getScore()) {
-                return false;
-            } else {
-                if (player.getScore() == 7.5) {
-                    if ((player.getCardList().size() == 2) &&
-                            ((player.getCardList().get(0).getPoint() == Point.Re && player.getCardList().get(0).getSuit() == Suit.Danari) ||
-                            (player.getCardList().get(1).getPoint() == Point.Re && player.getCardList().get(1).getSuit() == Suit.Danari))) {
-                        if (bankPlayer.getCardList().size() == 2) {
-                            return false;
-                        } else {
-                            return true;
-                        }
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-            }
-        } else {
-            return true;
-        }*/
     }
 
     /*
@@ -307,9 +274,18 @@ public class GameEngine implements Serializable {
     private void playCPU(CPUPlayer player) {
         try {
             while (!player.isGoodScore()) {
-                requestCard(player, player.requestBet());
+                if (player.getBetList().size() == 0) {
+                    requestCard(player, player.requestBet());
+                } else {
+                    requestCard(player, 0.00);
+                }
             }
-            declareGoodScore(player, player.requestBet());
+
+            if (player.getBetList().size() == 0) {
+                declareGoodScore(player, player.requestBet());
+            } else {
+                declareGoodScore(player, 0.00);
+            }
         } catch (Exception e) {
         }
     }
@@ -331,6 +307,7 @@ public class GameEngine implements Serializable {
         if (player.getScore() == 7.5) {
             return true;
         }
+
         return false;
     }
 
@@ -354,6 +331,12 @@ public class GameEngine implements Serializable {
      */
     public void closeManche() {
         applyPaymentRule();
+        playerHasFirstKingSM = playerList.firstKingSM(bankPlayer);
+        for (Player p : playerList.getPlayerAL()) {
+            if (p.getStatus() == PlayerStatus.GoodScore) {
+                deck.addOffGameCards(p.getCardList());
+            }
+        }
     }
 
     /**controlla se è terminata la manche
@@ -364,6 +347,7 @@ public class GameEngine implements Serializable {
         if (currentPlayer.equals(bankPlayer) && currentPlayer.getStatus() != null) {
             return true;
         }
+
         return false;
     }
 
@@ -375,7 +359,7 @@ public class GameEngine implements Serializable {
         if ((gameSetting.getManches() == currentManche && isEndManche()) || playerList.existsBankruptPlayer()) {
             return true;
         }
+
         return false;
     }
-
 }//end class

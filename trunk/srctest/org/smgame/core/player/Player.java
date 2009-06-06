@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import org.smgame.core.card.Card;
 import org.smgame.core.card.JollyCard;
+import org.smgame.core.card.Point;
+import org.smgame.core.card.Suit;
 
 /**Classe astratta Giocatore
  * 
@@ -15,10 +17,9 @@ public abstract class Player implements Serializable {
     protected String name; //nome giocatore
     protected double credit; //credito
     protected double bet; //puntata
-    protected boolean hasJollyCard = false;
+    //protected boolean hasJollyCard = false;
     protected ArrayList<Card> cardList = new ArrayList<Card>(); //
     protected ArrayList<Double> betList = new ArrayList<Double>(12);
-    protected double MIN_SCORE = 4.0;
     protected double MIN_MARGIN = 0.5;
     protected PlayerRole role; //ruolo giocatore
     protected PlayerStatus status; //status del giocatore dopo la sua giocata
@@ -75,6 +76,7 @@ public abstract class Player implements Serializable {
     public double getScore() {
         double bestValue;
         double score = 0;
+        boolean hasJollyCard = false;
 
         for (Card c : cardList) {
             if (c instanceof JollyCard) {
@@ -94,6 +96,16 @@ public abstract class Player implements Serializable {
 
     public boolean hasKingSM() {
         if (hasMaxScore() && cardList.size() == 2) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean hasKingSMJolly() {
+        if (hasKingSM() &&
+                ((getCardList().get(0).getPoint() == Point.Re && getCardList().get(0).getSuit() == Suit.Danari) ||
+                (getCardList().get(1).getPoint() == Point.Re && getCardList().get(1).getSuit() == Suit.Danari))) {
             return true;
         }
 

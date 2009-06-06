@@ -11,7 +11,6 @@ public class HumanPlayer extends Player implements Serializable {
 
    public HumanPlayer(String name) {
         super(name);
-        MIN_SCORE = 4.0;
         MIN_MARGIN = 0.5;
     }
 }

@@ -345,11 +345,11 @@ public class GUICoreMediator {
             offLineGameVO.getPlayerCardsImageMap().put(Integer.valueOf(i), new ArrayList<ImageIcon>());
             playerCardsImageList = offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i));
             for (int j = 0; j < tempPlayer.getCardList().size(); j++) {
-                if (!tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer())) {
-                    if (j == 0) {
-                        playerCardsImageList.add(backImage);
-                    } else {
+                if (j == 0) {
+                    if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) || tempPlayer.getStatus() == PlayerStatus.ScoreOverflow || tempPlayer.hasMaxScore() || currentGame.getGameEngine().isEndManche()) {
                         playerCardsImageList.add(tempPlayer.getCardList().get(j).getFrontImage());
+                    } else {
+                        playerCardsImageList.add(backImage);
                     }
                 } else {
                     playerCardsImageList.add(tempPlayer.getCardList().get(j).getFrontImage());
@@ -373,19 +373,7 @@ public class GUICoreMediator {
                 offLineGameVO.getPlayerRoleMap().put(Integer.valueOf(i), Boolean.FALSE);
             }
 
-            if (tempPlayer.getStatus() == PlayerStatus.ScoreOverflow) {
-                offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).remove(0);
-                offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).add(0,
-                        tempPlayer.getCardList().get(0).getFrontImage());
-            }
-
-            if (tempPlayer.hasMaxScore()) {
-                offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).remove(0);
-                offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).add(
-                        0, tempPlayer.getCardList().get(0).getFrontImage());
-            }
-
-            if (tempPlayer.getBetList().size() > 0 || tempPlayer.getRole()==PlayerRole.Bank) {
+            if (tempPlayer.getBetList().size() > 0 || tempPlayer.getRole() == PlayerRole.Bank) {
                 offLineGameVO.getPlayerRequestBetMap().put(Integer.valueOf(i), Boolean.FALSE);
             } else {
                 offLineGameVO.getPlayerRequestBetMap().put(Integer.valueOf(i), Boolean.TRUE);
