@@ -28,7 +28,7 @@ public class GameSetting {
 
     //Costruttore privato
     private GameSetting() {
-        manches = 5;
+        manches = 10;
         credit = MIN_CREDIT;
         //jolly = Deck.getInstance().getSelectedCard(Point.Re, Suit.Danari);
     }
@@ -49,7 +49,7 @@ public class GameSetting {
      */
     public void resetInstance() {
         players = 4;
-        manches = 2;
+        manches = 10;
         credit = MIN_CREDIT;
         jolly = Deck.getInstance().getSelectedCard(Point.Re, Suit.Danari);
         smDAmblePaid = "double";

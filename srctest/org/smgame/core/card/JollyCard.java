@@ -28,7 +28,6 @@ public class JollyCard extends Card {
                 if (score + VALUES[i] <= 7.5) {
                     value = VALUES[i];
                 }
-
             }
             return value;
         }

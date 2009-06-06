@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import javax.swing.ImageIcon;
 import org.smgame.util.Common;
 
@@ -96,7 +97,7 @@ public class Deck implements Serializable {
      * 
      */
     public void shuffle() {
-        Collections.shuffle(onGameCardList);
+        Collections.shuffle(onGameCardList, new Random(System.currentTimeMillis()));
     }
 
     /**Restituisce la prossima carta
@@ -107,12 +108,14 @@ public class Deck implements Serializable {
         if (!onGameCardsIterator.hasNext()) {
             onGameCardList.addAll(offGameCardList);
             offGameCardList.clear();
-            Collections.shuffle(onGameCardList);
+            Collections.shuffle(onGameCardList, new Random(System.currentTimeMillis()));
             onGameCardsIterator = onGameCardList.iterator();
             isEmptyDeck=false;
         }
 
         nextCard = onGameCardsIterator.next();
+        onGameCardsIterator.remove();
+        System.out.println("Il numero di carte rimaste è: "+ onGameCardList.size());
         //totalRemainingCards--;
 
         return nextCard;
