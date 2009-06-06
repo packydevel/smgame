@@ -325,6 +325,7 @@ public class GameEngine implements Serializable {
 
         currentManche++;
         selectBankPlayer();
+        deck.shuffle();
         distributeFirstCard();
         currentPlayer = nextPlayer(bankPlayer);
     }

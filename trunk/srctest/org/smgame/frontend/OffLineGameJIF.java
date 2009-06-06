@@ -27,7 +27,7 @@ import javax.swing.border.LineBorder;
 
 import org.smgame.core.GUICoreMediator;
 
-public class GameJIF extends JInternalFrame implements IGameJIF {
+public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
 
     private ArrayList<Integer> playerList;
     private HashMap<Integer, JLabel> playerNameMapJL;
@@ -45,7 +45,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     /**Costruttore
      *
      */
-    public GameJIF() {
+    public OffLineGameJIF() {
         super(GUICoreMediator.getGameName(), false, true, false, false);
         int width = 960;
         int height = 640;

@@ -346,7 +346,7 @@ public class GUICoreMediator {
             playerCardsImageList = offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i));
             for (int j = 0; j < tempPlayer.getCardList().size(); j++) {
                 if (j == 0) {
-                    if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) || tempPlayer.getStatus() == PlayerStatus.ScoreOverflow || tempPlayer.hasMaxScore() || currentGame.getGameEngine().isEndManche()) {
+                    if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) || tempPlayer.getStatus() == PlayerStatus.ScoreOverflow || tempPlayer.hasMaxScore() || (currentGame.getGameEngine().isEndManche() && currentGame.getGameEngine().getBankPlayer().getStatus() == PlayerStatus.GoodScore)) {
                         playerCardsImageList.add(tempPlayer.getCardList().get(j).getFrontImage());
                     } else {
                         playerCardsImageList.add(backImage);
