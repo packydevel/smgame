@@ -12,14 +12,14 @@ import java.util.HashMap;
 import java.util.Date;
 import java.util.Set;
 
-import org.monopoly.client.Game;
+//import org.monopoly.client.Game;
 
 /**
  *
  * @author Administrator
  */
 public class RequestExecutor {
-
+/*
     private final String vFileString = "games.dat";
     private HashMap<Long, Game> gameList;
 
@@ -30,7 +30,7 @@ public class RequestExecutor {
     public Set<Long> getGamesList() throws Exception {
         try {
             loadFile();
-            return gameList.keySet();
+//            return gameList.keySet();
             
         } catch (Exception e) {
             throw new Exception("Impossibile recuperare le partite salvate!!!");
@@ -40,7 +40,7 @@ public class RequestExecutor {
     private void loadFile() throws Exception {
         FileInputStream fis = new FileInputStream(vFileString);
         ObjectInputStream ois = new ObjectInputStream(fis);
-        gameList = (HashMap<Long, Game>) ois.readObject();
+//        gameList = (HashMap<Long, Game>) ois.readObject();
         fis.close();
         ois.close();
     }
@@ -85,4 +85,5 @@ public class RequestExecutor {
         fos.close();
         oos.close();
     }
+ */
 }
