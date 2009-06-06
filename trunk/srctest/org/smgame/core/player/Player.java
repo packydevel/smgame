@@ -31,6 +31,7 @@ public abstract class Player implements Serializable {
      */
     public Player(String name) {
         this.name = name;
+        this.role = PlayerRole.Normal;
     }
 
     /**Restituisce il nome giocatore
@@ -75,7 +76,7 @@ public abstract class Player implements Serializable {
      */
     public double getScore() {
         double bestValue;
-        double score = 0;
+        double score = 0.00;
         boolean hasJollyCard = false;
 
         for (Card c : cardList) {
@@ -94,26 +95,55 @@ public abstract class Player implements Serializable {
         return score;
     }
 
-    public boolean hasKingSM() {
-        if (hasMaxScore() && cardList.size() == 2) {
+    double getVisibleScore() {
+        Card firstCard = cardList.get(0);
+        double score = 0.00;
+
+        if (status == PlayerStatus.ScoreOverflow || hasSM()) {
+            return getScore();
+        } else {
+            if (firstCard instanceof JollyCard) {
+                for (Card c : cardList) {
+                    if (!c.equals(firstCard)) {
+                        score += c.getValue();
+                    }
+                }
+                return score;
+            } else {
+                return getScore() - firstCard.getValue();
+            }
+        }
+    }
+//
+//    private boolean hasJollyCard() {
+//        for (Card c : cardList) {
+//            if (c instanceof JollyCard) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//
+    public boolean hasSM() {
+        if (getScore() == 7.5) {
             return true;
         }
 
         return false;
     }
 
-    public boolean hasKingSMJolly() {
+    public boolean hasKingSM() {
+        if (hasSM() && cardList.size() == 2) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean hasJollyKingSM() {
         if (hasKingSM() &&
                 ((getCardList().get(0).getPoint() == Point.Re && getCardList().get(0).getSuit() == Suit.Danari) ||
                 (getCardList().get(1).getPoint() == Point.Re && getCardList().get(1).getSuit() == Suit.Danari))) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public boolean hasMaxScore() {
-        if (getScore() == 7.5) {
             return true;
         }
 

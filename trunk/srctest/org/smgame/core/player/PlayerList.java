@@ -3,8 +3,10 @@ package org.smgame.core.player;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**Classe lista giocatori
  *
@@ -81,5 +83,25 @@ public class PlayerList implements Serializable {
             }
         }
         return null;
+    }
+
+    Map<Player, PlayerStatus> getPlayerStatusMap() {
+        HashMap<Player, PlayerStatus> map = new HashMap<Player, PlayerStatus>();
+
+        for (Player p : playerAL) {
+            map.put(p, p.getStatus());
+        }
+
+        return map;
+    }
+
+    Map<Player, Double> getPlayerVisibleScoreMap() {
+        HashMap<Player, Double> map = new HashMap<Player, Double>();
+
+        for (Player p : playerAL) {
+            map.put(p, p.getVisibleScore());
+        }
+
+        return map;
     }
 }

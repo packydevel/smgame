@@ -12,7 +12,6 @@ import org.smgame.core.card.Suit;
  */
 public class CPUPlayer extends Player implements Serializable {
 
-    private final double MAX_CREDIT = 100.0; //massimo credito
     private final double MIN_SCORE = 4.5; //minimo punteggio
     private final HashMap<Double, Double> valueWeightMap = new HashMap<Double, Double>();
 
@@ -33,16 +32,41 @@ public class CPUPlayer extends Player implements Serializable {
      * @return
      */
     public boolean isGoodScore() {
+        double threshold = 0.00;
+        HashMap<Player, PlayerStatus> playerStatusMap = (HashMap<Player, PlayerStatus>) playerList.getPlayerStatusMap();
+        HashMap<Player, Double> playerVisibleScoreMap = (HashMap<Player, Double>) playerList.getPlayerVisibleScoreMap();
 
-        if (cardList.get(0).getPoint() == Point.Re && cardList.get(0).getSuit() == Suit.Danari && cardList.size() == 1) {
-            return false;
-        } else if ((cardList.get(0).getPoint() == Point.Re && cardList.get(0).getSuit() == Suit.Danari && cardList.size() > 1)) {
-            return true;
-        } else {
-            if (getScore() > MIN_SCORE) {
+        //if (role == PlayerRole.Normal) {
+            if (cardList.get(0).getPoint() == Point.Re && cardList.get(0).getSuit() == Suit.Danari && cardList.size() == 1) {
+                return false;
+            } else if ((cardList.get(0).getPoint() == Point.Re && cardList.get(0).getSuit() == Suit.Danari && cardList.size() > 1)) {
                 return true;
+            } else {
+                if (getScore() > MIN_SCORE) {
+                    return true;
+                }
             }
-        }
+//        } else {
+//
+//            for (Player p : playerList.getPlayerAL()) {
+//                if (!p.equals(this)) {
+//                    if (p.getStatus() == PlayerStatus.ScoreOverflow) {
+//                        threshold += p.getStake();
+//                    } else {
+//                        if (p.getVisibleScore() > getScore()) {
+//                            threshold -= p.getStake();
+//                        } else {
+//                            threshold += p.getStake();
+//                        }
+//                    }
+//                }
+//            }
+//
+//            if (threshold >= 0.00) {
+//                return true;
+//            }
+        //}
+
         return false;
     }
 
@@ -62,7 +86,7 @@ public class CPUPlayer extends Player implements Serializable {
                 bet = Math.floor((valueWeightMap.get(getScore())) / 1000 * credit);
             }
 
-            if (bet > credit || bet == 0) {
+            if (bet > credit || bet == 0.00) {
                 return credit;
             }
             return bet;

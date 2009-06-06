@@ -211,7 +211,7 @@ public class GameEngine implements Serializable {
             if (player.getScore() > bankPlayer.getScore()) {
                 compare = true;
             } else if (player.getScore() == bankPlayer.getScore()) {
-                if (player.hasKingSMJolly() && !bankPlayer.hasKingSM()) {
+                if (player.hasJollyKingSM() && !bankPlayer.hasKingSM()) {
                     compare = true;
                 }
             }
@@ -276,6 +276,8 @@ public class GameEngine implements Serializable {
     private void playCPU(CPUPlayer player) {
         try {
             while (!player.isGoodScore()) {
+                
+                System.out.println(player.getName() + " - "+ player.isGoodScore());
                 if (player.getBetList().size() == 0) {
                     requestCard(player, player.requestBet());
                 } else {
@@ -306,11 +308,7 @@ public class GameEngine implements Serializable {
      * @return
      */
     public boolean isMaxScore(Player player) {
-        if (player.getScore() == 7.5) {
-            return true;
-        }
-
-        return false;
+        return player.hasSM();
     }
 
     /**inizia la manche
@@ -328,6 +326,10 @@ public class GameEngine implements Serializable {
         deck.shuffle();
         distributeFirstCard();
         currentPlayer = nextPlayer(bankPlayer);
+
+        for (Player p : playerList.getPlayerAL()) {
+            System.out.println(p.getName() +" - "+ p.getRole());
+        }
     }
 
     /**chiudi la manche
