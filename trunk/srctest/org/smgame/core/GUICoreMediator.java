@@ -423,7 +423,6 @@ public class GUICoreMediator {
 
         for (int i = 0; i < onLineGameVO.getPlayerIndexList().size(); i++) {
             Player tempPlayer = currentGame.getPlayerList().getPlayerAL().get(i);
-            System.out.println(tempPlayer.getName());
 
             onLineGameVO.getPlayerCreditMap().put(Integer.valueOf(i), "Credito: " +
                     formatter.format(tempPlayer.getCredit()));
