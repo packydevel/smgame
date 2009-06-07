@@ -339,8 +339,9 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
         } else {
             nameHumanJL.setOpaque(true);
             nameHumanJL.setBackground(new Color(255, 153, 0));
+            stakeHumanJTF.setEnabled(false);
         }
-    //getBetJTF(bankPlayerIndex).setEnabled(true);
+    
     }
 
     //Deseleziona l'ex-mazziere di turno, che diventa un player normale
@@ -351,8 +352,8 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
         } else {
             nameHumanJL.setOpaque(false);
             nameHumanJL.setBackground(new Color(212, 208, 200));
+            stakeHumanJTF.setEnabled(true);
         }
-    //getBetJTF(bankPlayerIndex).setEnabled(true);
     }
 
     //Imposta il testo della label relativa al credito residuo
