@@ -33,10 +33,11 @@ public class NewOffLineGameJIF extends JInternalFrame {
 
     JPanel playersJP, preferencesJP;
     GridBagConstraints labelGBC, textFieldGBC, comboBoxGBC, checkBoxGBC, buttonGBC;
-    JLabel playersNumberJL;
+    JLabel playersNumberJL, cpuflagJL;
     JComboBox playersNumberJCB;
     JButton cancelJB;
     JButton okJB;
+    JCheckBox allcpuflagJCKB;
     JCheckBox cpuflagJCKB[];
     JLabel gameNameJL;
     JLabel playerJL[];
@@ -51,10 +52,9 @@ public class NewOffLineGameJIF extends JInternalFrame {
      */
     public NewOffLineGameJIF() {
         super("Nuova Partita", false, true, false, false);
-        setSize(400, 450);
+        setSize(400, 500);
 
         JTabbedPane tabbedPane = new JTabbedPane();
-//ImageIcon icon = createImageIcon("images/middle.gif");
 
         playersJP = new JPanel();
         tabbedPane.addTab("Giocatori", null, playersJP,
@@ -131,12 +131,29 @@ public class NewOffLineGameJIF extends JInternalFrame {
             }
         });
 
+        cpuflagJL = new JLabel("CPU flag");
+        labelGBC.gridx = 2;
+        labelGBC.gridy = 1;
+        playersJP.add(cpuflagJL, labelGBC);
+
+        allcpuflagJCKB = new JCheckBox();
+        checkBoxGBC.gridx = 2;
+        checkBoxGBC.gridy = 2;
+        checkBoxGBC.ipadx = 50;
+        playersJP.add(allcpuflagJCKB, checkBoxGBC);
+        allcpuflagJCKB.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent evt) {
+                newGameActionPerformed(evt);
+            }
+        });
+
         cancelJB = new JButton("Annulla");
         cancelJB.setName("cancelJB");
         cancelJB.setPreferredSize(new Dimension(70, 20));
         cancelJB.setVisible(true);
         buttonGBC.gridx = 2;
-        buttonGBC.gridy = 14;
+        buttonGBC.gridy = 15;
         cancelJB.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
@@ -150,7 +167,7 @@ public class NewOffLineGameJIF extends JInternalFrame {
         okJB.setEnabled(false);
         okJB.setVisible(true);
         buttonGBC.gridx = 1;
-        buttonGBC.gridy = 14;
+        buttonGBC.gridy = 15;
         buttonGBC.weightx = 1;
         okJB.addActionListener(new ActionListener() {
 
@@ -170,6 +187,8 @@ public class NewOffLineGameJIF extends JInternalFrame {
     }
 
     private void newGameActionPerformed(ActionEvent evt) {
+        int i;
+        int y = 3;
 
         if (evt.getSource() instanceof JComboBox) {
 
@@ -186,11 +205,9 @@ public class NewOffLineGameJIF extends JInternalFrame {
                 }
             }
 
-            this.validate();
+            validate();
 
-            int i = currentPlayersNumber;
-            int y = 2;
-
+            i = currentPlayersNumber;
             playerJL = new JLabel[i];
             playerJTF = new JTextField[i];
             cpuflagJCKB = new JCheckBox[i];
@@ -219,7 +236,6 @@ public class NewOffLineGameJIF extends JInternalFrame {
                 playersJP.add(cpuflagJCKB[j], checkBoxGBC);
                 if (j == 0) {
                     cpuflagJCKB[j].setVisible(false);
-
                 } else {
                     cpuflagJCKB[j].setVisible(true);
                 }
@@ -228,7 +244,19 @@ public class NewOffLineGameJIF extends JInternalFrame {
             }
             previousPlayersNumber = currentPlayersNumber;
             okJB.setEnabled(true);
-            this.validate();
+            validate();
+        } else if (evt.getSource() instanceof JCheckBox) {
+            if (((JCheckBox) evt.getSource()).equals(allcpuflagJCKB)) {
+                for (int j = 0; j < currentPlayersNumber; j++) {
+                    if (j != 0) {
+                        cpuflagJCKB[j].setSelected(allcpuflagJCKB.isSelected());
+                        if (playerJTF[j].getText().length() == 0) {
+                            playerJTF[j].setText("CPU Player +" + j);
+                        }
+                    }
+                }
+                validate();
+            }
         } else if (evt.getSource() instanceof JButton) {
 
             if ((JButton) evt.getSource() == okJB) {
