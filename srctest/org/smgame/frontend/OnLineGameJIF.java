@@ -317,9 +317,9 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
     //Imposta il testo della label relativa al credito residuo
     private void setCreditLabel(int i, String credit) {
         if (i == 0) {
-            creditCpuJL.setText("Credito: " + credit);
+            creditCpuJL.setText(credit);
         } else {
-            creditHumanJL.setText("Credito: " + credit);
+            creditHumanJL.setText(credit);
         }
     }
 
