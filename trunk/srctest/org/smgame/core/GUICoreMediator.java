@@ -120,24 +120,29 @@ public class GUICoreMediator {
     public static void createOnLineGame(String gameName, GameSetting gameSetting, String playerName) {
         PlayerList.getInstance().resetInstance();
         PlayerList playerList = PlayerList.getInstance();
+        onLineGameVO.getPlayerIndexList().clear();
 
         String cpuName = "Alan Turing";
         playerList.getPlayerAL().add(new CPUPlayer(cpuName));
         playerList.getPlayerAL().get(0).setCredit(1000);
+        onLineGameVO.getPlayerIndexList().add(Integer.valueOf(0));
+        onLineGameVO.getPlayerNameMap().put(Integer.valueOf(0), cpuName);
 
         playerList.getPlayerAL().add(new HumanPlayer(playerName));
         playerList.getPlayerAL().get(1).setCredit(1000);
+        onLineGameVO.getPlayerIndexList().add(Integer.valueOf(1));
+        onLineGameVO.getPlayerNameMap().put(Integer.valueOf(1), playerName);
 
-        List<String> playerNameList = new ArrayList<String>(2);
+        playerNameList = new ArrayList<String>(2);
         playerNameList.add(cpuName);
         playerNameList.add(playerName);
 
-        List<Boolean> playerTypeList = new ArrayList<Boolean>(2);
+        playerTypeList = new ArrayList<Boolean>(2);
         playerTypeList.add(new Boolean(true));
         playerTypeList.add(new Boolean(false));
 
         GUICoreMediator.playerNameList = playerNameList;
-        GUICoreMediator.playerTypeList = playerTypeList;
+        GUICoreMediator.playerTypeList = playerTypeList;                
 
         if (currentGame != null) {
             currentGame.resetInstance();
@@ -146,7 +151,7 @@ public class GUICoreMediator {
         currentGame.generateGameID();
         currentGame.setGameName(gameName);
         currentGame.setCreationDate(new Date());
-        currentGame.setGameSetting(gameSetting);
+        currentGame.setGameSetting(gameSetting.getInstance());
         currentGame.setPlayerList(playerList);
         currentGame.generateGameEngine();
         currentGame.getGameEngine().start();
@@ -418,6 +423,7 @@ public class GUICoreMediator {
 
         for (int i = 0; i < onLineGameVO.getPlayerIndexList().size(); i++) {
             Player tempPlayer = currentGame.getPlayerList().getPlayerAL().get(i);
+            System.out.println(tempPlayer.getName());
 
             onLineGameVO.getPlayerCreditMap().put(Integer.valueOf(i), "Credito: " +
                     formatter.format(tempPlayer.getCredit()));
