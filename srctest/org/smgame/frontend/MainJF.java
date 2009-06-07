@@ -4,6 +4,7 @@ import org.smgame.core.GUICoreMediator;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -22,9 +23,12 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
     private LoadGameJIF loadGameJIF;
     private OffLineGameJIF gameJIF;
     private OnLineGameJIF gameonlineJIF;
+    private MenuVO menuVO;
 
     public MainJF() {
         super("SMGame - Gioco Italiano del Sette e 1/2");
+
+        ArrayList<String> menuItemNameList = new ArrayList<String>();
 
         setSize(1024, 768);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -39,50 +43,28 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
         setVisible(true);
 
         menuJMB = new MenuJMB();
+        for (JMenuItem jmi : menuJMB.getMenuItemListJMI()) {
+            jmi.addActionListener(new ActionListener() {
 
-        menuJMB.getNewOnLineGameJMI().addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    jMenu1ActionPerformed(evt);
+                }
+            });
+        }
 
-            public void actionPerformed(ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
-            }
-        });
+        setJMenuBar(menuJMB);
 
-        menuJMB.getNewOffLineGameJMI().addActionListener(new ActionListener() {
+        GUICoreMediator.addMenuItem(menuItemNameList);
 
-            public void actionPerformed(ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
-            }
-        });
+        refreshMenuItem();
+    }
 
-        menuJMB.getLoadGameJMI().addActionListener(new ActionListener() {
+    private void refreshMenuItem() {
+        menuVO = GUICoreMediator.requestMenuVO();
 
-            public void actionPerformed(ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
-            }
-        });
-
-        menuJMB.getSaveGameJMI().addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
-            }
-        });
-
-        menuJMB.getCloseGameJMI().addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
-            }
-        });
-
-        menuJMB.getExitGameJMI().addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
-            }
-        });
-
-        setJMenuBar(menuJMB.getJMenuBar1());
+        for (JMenuItem jmi : menuJMB.getMenuItemListJMI()) {
+            jmi.setEnabled(menuVO.getItemEnabledMap().get(jmi.getName()));
+        }
     }
 
     private void jMenu1ActionPerformed(ActionEvent evt) {
@@ -94,8 +76,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
                 newOnLineGameJIF.addInternalFrameListener(this);
                 newOnLineGameJIF.addMyEventListener(this);
                 desktop.add(newOnLineGameJIF);
-                menuJMB.getNewOnLineGameJMI().setEnabled(false);
-                menuJMB.getCloseGameJMI().setEnabled(true);
+                refreshMenuItem();
             } else {
                 System.out.println("Esiste già una partita aperta");
             }
@@ -107,8 +88,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
                 newGameJIF.addInternalFrameListener(this);
                 newGameJIF.addMyEventListener(this);
                 desktop.add(newGameJIF);
-                menuJMB.getNewOnLineGameJMI().setEnabled(false);
-                menuJMB.getCloseGameJMI().setEnabled(true);
+                refreshMenuItem();
             } else {
                 System.out.println("Esiste già una partita aperta");
             }
@@ -119,7 +99,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
                 loadGameJIF.setVisible(true);
                 loadGameJIF.addInternalFrameListener(this);
                 desktop.add(loadGameJIF);
-                menuJMB.getLoadGameJMI().setEnabled(false);
+                refreshMenuItem();
             } else {
                 System.out.println("Esiste già una partita aperta");
             }
@@ -133,8 +113,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
             GUICoreMediator.closeGame();
             for (JInternalFrame jiframe : desktop.getAllFrames()) {
                 jiframe.dispose();
-                menuJMB.getNewOffLineGameJMI().setEnabled(true);
-                menuJMB.getCloseGameJMI().setEnabled(false);
+                refreshMenuItem();
             }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getExitGameJMI()) {
             this.dispose();
@@ -149,25 +128,15 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
 
     public void internalFrameClosed(InternalFrameEvent e) {
         if (e.getInternalFrame() instanceof NewOffLineGameJIF) {
-            if (gameJIF == null) {
-                menuJMB.getNewOnLineGameJMI().setEnabled(true);
-                menuJMB.getCloseGameJMI().setEnabled(false);
-                menuJMB.getSaveGameJMI().setEnabled(false);
-            }
+            refreshMenuItem();
         } else if (e.getInternalFrame() instanceof LoadGameJIF) {
-            menuJMB.getNewOnLineGameJMI().setEnabled(true);
-            menuJMB.getCloseGameJMI().setEnabled(false);
-            menuJMB.getSaveGameJMI().setEnabled(false);
+            refreshMenuItem();
         } else if (e.getInternalFrame() instanceof OffLineGameJIF) {
             GUICoreMediator.closeGame();
-            menuJMB.getNewOnLineGameJMI().setEnabled(true);
-            menuJMB.getCloseGameJMI().setEnabled(false);
-            menuJMB.getSaveGameJMI().setEnabled(false);
+            refreshMenuItem();
         } else if (e.getInternalFrame() instanceof OnLineGameJIF) {
             GUICoreMediator.closeGame();
-            menuJMB.getNewOffLineGameJMI().setEnabled(true);
-            menuJMB.getCloseGameJMI().setEnabled(false);
-            menuJMB.getSaveGameJMI().setEnabled(false);
+            refreshMenuItem();
         }
     }
 
@@ -188,9 +157,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
         gameonlineJIF.setVisible(true);
         gameonlineJIF.addInternalFrameListener(this);
         desktop.add(gameonlineJIF);
-        menuJMB.getNewOffLineGameJMI().setEnabled(false);
-        menuJMB.getSaveGameJMI().setEnabled(true);
-        menuJMB.getCloseGameJMI().setEnabled(true);
+        refreshMenuItem();
     }
 
     public void newOffLineGameCreating(NewOffLineGameEvent e) {
@@ -198,8 +165,6 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
         gameJIF.setVisible(true);
         gameJIF.addInternalFrameListener(this);
         desktop.add(gameJIF);
-        menuJMB.getNewOnLineGameJMI().setEnabled(false);
-        menuJMB.getSaveGameJMI().setEnabled(true);
-        menuJMB.getCloseGameJMI().setEnabled(true);
+        refreshMenuItem();
     }
 } 

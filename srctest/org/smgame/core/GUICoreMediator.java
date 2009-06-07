@@ -22,8 +22,9 @@ import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
 import org.smgame.core.player.PlayerRole;
 import org.smgame.core.player.PlayerStatus;
+import org.smgame.frontend.MenuVO;
 import org.smgame.frontend.OffLineGameVO;
-import org.smgame.frontend.requestOnLineGameVO;
+import org.smgame.frontend.OnLineGameVO;
 import org.smgame.main.Game;
 import org.smgame.main.GameSetting;
 import org.smgame.util.BetOverflowException;
@@ -38,14 +39,21 @@ import org.smgame.util.NoGamesException;
 public class GUICoreMediator {
 
     private static ArrayList<Game> gameList = new ArrayList<Game>();
+    private static MenuVO menuVO = new MenuVO();
     private static OffLineGameVO offLineGameVO = new OffLineGameVO();
-    private static requestOnLineGameVO onLineGameVO = new requestOnLineGameVO();
+    private static OnLineGameVO onLineGameVO = new OnLineGameVO();
     private static Game currentGame = null;
     private static List<String> playerNameList;
     private static List<Boolean> playerTypeList;
     private static final String FILENAME = Common.getWorkspace() + "games.dat";
     private static final NumberFormat formatter = new DecimalFormat("#0.00");
     private static final ImageIcon backImage = new ImageIcon(Common.getResourceCards() + "dorso.jpg");
+
+    public static void addMenuItem(List<String> menuItemList) {
+        for (String s : menuItemList) {
+            menuVO.getItemEnabledMap().put(s, false);
+        }
+    }
 
     /**Chiedi per nuova partita
      *
@@ -142,7 +150,7 @@ public class GUICoreMediator {
         playerTypeList.add(new Boolean(false));
 
         GUICoreMediator.playerNameList = playerNameList;
-        GUICoreMediator.playerTypeList = playerTypeList;                
+        GUICoreMediator.playerTypeList = playerTypeList;
 
         if (currentGame != null) {
             currentGame.resetInstance();
@@ -325,6 +333,34 @@ public class GUICoreMediator {
         }
     }
 
+    public static MenuVO requestMenuVO() {
+
+        menuVO.getItemEnabledMap().clear();
+
+        if (currentGame == null) {
+            menuVO.getItemEnabledMap().put("newOnLineGameJMI", true);
+            menuVO.getItemEnabledMap().put("newOffLineGameJMI", true);
+            menuVO.getItemEnabledMap().put("loadGameJMI", true);
+            menuVO.getItemEnabledMap().put("saveGameJMI", false);
+            menuVO.getItemEnabledMap().put("closeGameJMI", false);
+        } else {
+            menuVO.getItemEnabledMap().put("newOnLineGameJMI", false);
+            menuVO.getItemEnabledMap().put("newOffLineGameJMI", false);
+            menuVO.getItemEnabledMap().put("loadGameJMI", false);
+            menuVO.getItemEnabledMap().put("saveGameJMI", true);
+            menuVO.getItemEnabledMap().put("closeGameJMI", true);
+        }
+
+
+        menuVO.getItemEnabledMap().put("exitGameJMI", true);
+        menuVO.getItemEnabledMap().put("gameSettingsJMI", true);
+        menuVO.getItemEnabledMap().put("globalSettingsJMI", true);
+        menuVO.getItemEnabledMap().put("helpContentsJMI", true);
+        menuVO.getItemEnabledMap().put("aboutJMI", true);
+
+        return menuVO;
+    }
+
     /**Richiede l'oggetto OffLineGameVO
      *
      * @return
@@ -405,11 +441,11 @@ public class GUICoreMediator {
         return offLineGameVO;
     }
 
-    /**richiede l'oggetto requestOnLineGameVO
+    /**richiede l'oggetto OnLineGameVO
      *
      * @return
      */
-    public static requestOnLineGameVO requestOnLineGameVO() {
+    public static OnLineGameVO requestOnLineGameVO() {
         ArrayList<ImageIcon> playerCardsImageList = new ArrayList<ImageIcon>();
 
         onLineGameVO.getPlayerCreditMap().clear();
@@ -482,7 +518,7 @@ public class GUICoreMediator {
             currentGame.getGameEngine().closeManche();
             currentGame.getGameEngine().startManche();
         }
-        
+
         return onLineGameVO;
     }
 
