@@ -49,7 +49,7 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
     private Dimension dimension = new Dimension(200, 30);
     private final ImageIcon backImage = new ImageIcon(Common.getResourceCards() + "dorso.jpg");
     private int currentIndex;
-    private requestOnLineGameVO onLineGameVO;
+    private OnLineGameVO onLineGameVO;
 
     public OnLineGameJIF() {
         super(GUICoreMediator.getGameName(), false, true, false, false);
