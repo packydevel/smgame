@@ -89,6 +89,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
         for (int i = 0; i < size; i++) {
             playerNameMapJL.put(Integer.valueOf(i),
                     new JLabel(offLineGameVO.getPlayerNameMap().get(Integer.valueOf(i))));
+            playerNameMapJL.get(i).setPreferredSize(new Dimension(120, 20));
             labelGBC.gridx = 0;
             labelGBC.gridy = 2 * i;
             add(playerNameMapJL.get(Integer.valueOf(i)), labelGBC);
@@ -125,12 +126,14 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             add(playerActionMapJP.get(Integer.valueOf(i)), panelGBC);
 
             playerStakeMapJL.put(Integer.valueOf(i), new JLabel(offLineGameVO.getPlayerStakeMap().get(Integer.valueOf(i))));
+            playerStakeMapJL.get(i).setPreferredSize(new Dimension(100, 20));
             labelGBC.gridx = 2;
             labelGBC.gridy = 2 * i + 1;
             labelGBC.anchor = GridBagConstraints.NORTHWEST;
             add(playerStakeMapJL.get(Integer.valueOf(i)), labelGBC);
 
             playerScoreMapJL.put(Integer.valueOf(i), new JLabel(offLineGameVO.getPlayerScoreMap().get(Integer.valueOf(i))));
+            playerStakeMapJL.get(i).setPreferredSize(new Dimension(100, 20));
             labelGBC.gridx = 3;
             labelGBC.gridy = 2 * i + 1;
             labelGBC.anchor = GridBagConstraints.NORTHWEST;
@@ -296,7 +299,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
                 ((JLabel) playerCardsMapJP.get(i).getComponent(j)).setIcon(
                         scaledImage(offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).get(j)));
             }
-           
+
             playerStakeMapJL.get(i).setText(offLineGameVO.getPlayerStakeMap().get(Integer.valueOf(i)));
             playerScoreMapJL.get(i).setText(offLineGameVO.getPlayerScoreMap().get(Integer.valueOf(i)));
 
