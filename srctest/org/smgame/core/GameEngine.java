@@ -360,7 +360,8 @@ public class GameEngine implements Serializable {
      * @return
      */
     public boolean isEndGame() {
-        if ((gameSetting.getManches() == currentManche && isEndManche()) || playerList.existsBankruptPlayer()) {
+        if ((gameSetting.getManches() == currentManche && isEndManche()) ||
+                playerList.existsBankruptPlayer()) {
             return true;
         }
 

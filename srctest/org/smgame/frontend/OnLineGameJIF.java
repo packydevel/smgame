@@ -86,10 +86,12 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
 
         playerCpuJP = new JPanel(new FlowLayout());
 
-        nameCpuJL = new JLabel(onLineGameVO.getPlayerNameMap().get(0));
+        nameCpuJL = new JLabel(onLineGameVO.getPlayerNameMap().get(Integer.valueOf(0)));
+        System.out.println(onLineGameVO.getPlayerNameMap().get(0));
         nameCpuJL.setPreferredSize(dimension);
         nameCpuJL.setForeground(new Color(255, 0, 0));
         nameCpuJL.setFont(font);
+        nameCpuJL.setVisible(true);
         playerCpuJP.add(nameCpuJL);
 
         creditCpuJL = new JLabel();
@@ -155,10 +157,12 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
 
         playerHumanJP = new JPanel();
 
-        nameHumanJL = new JLabel(onLineGameVO.getPlayerNameMap().get(1));
+        nameHumanJL = new JLabel(onLineGameVO.getPlayerNameMap().get(Integer.valueOf(1)));
+        System.out.println(onLineGameVO.getPlayerNameMap().get(Integer.valueOf(1)));
         nameHumanJL.setFont(font);
         nameHumanJL.setPreferredSize(new Dimension(200, 30));
         nameHumanJL.setForeground(new Color(0, 0, 255));
+        nameHumanJL.setVisible(true);
         playerHumanJP.add(nameHumanJL);
 
         creditHumanJL = new JLabel();
@@ -186,7 +190,7 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
         playerCardsListJP = new ArrayList<JPanel>(2);
         int j = 1;
         for (int i = 0; i < 2; i++) {
-            playerCardsImagesList = onLineGameVO.getPlayerCardsImageMap().get(i);
+            playerCardsImagesList = onLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i));
             playersCardsImagesList.add(playerCardsImagesList);
             playerCardsListJP.add(initPanelPlayersCards());
             paneCardsGBC.gridy = i + j;
@@ -322,18 +326,18 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
     //Imposta il testo della label relativa alla puntata
     private void setStakeLabel(int i, String stake) {
         if (i == 0) {
-            stakeCpuJL.setText("Puntata: " + stake);
+            stakeCpuJL.setText(stake);
         } else {
-            stakeHumanJL.setText("Puntata: " + stake);
+            stakeHumanJL.setText(stake);
         }
     }
 
     //Imposta il testo della label relativa al punteggio
     private void setScoreLabel(int i, String score) {
         if (i == 0) {
-            scoreCpuJL.setText("Punteggio: " + score);
+            scoreCpuJL.setText(score);
         } else {
-            scoreHumanJL.setText("Punteggio: " + score);
+            scoreHumanJL.setText(score);
         }
     }
 
