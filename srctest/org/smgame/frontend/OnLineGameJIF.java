@@ -261,6 +261,8 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
                 ((JLabel) playerCardsListJP.get(i).getComponent(0)).setIcon(
                         onLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).get(0));
             }
+
+           stakeHumanJTF.setEnabled(onLineGameVO.getPlayerRequestBetMap().get(Integer.valueOf(1)));
         }//end for iniziale
         if (onLineGameVO.isEndManche()) {
             JOptionPane.showMessageDialog(this, "Questa manche è terminata!!!");
