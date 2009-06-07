@@ -251,7 +251,7 @@ public class NewOffLineGameJIF extends JInternalFrame {
                     if (j != 0) {
                         cpuflagJCKB[j].setSelected(allcpuflagJCKB.isSelected());
                         if (playerJTF[j].getText().length() == 0) {
-                            playerJTF[j].setText("CPU Player +" + j);
+                            playerJTF[j].setText("CPU Player " + j);
                         }
                     }
                 }
