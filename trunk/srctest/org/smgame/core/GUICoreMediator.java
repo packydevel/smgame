@@ -490,4 +490,16 @@ public class GUICoreMediator {
     private static void selectNextPlayer() {
         currentGame.getGameEngine().nextPlayer(currentGame.getGameEngine().getCurrentPlayer());
     }
+
+    public static Object[][] requestDataReport(){
+        int size = playerNameList.size();
+        Object[][] data = new Object[size][4];
+        for (int i=0; i<size; i++){
+            data[i][0] = offLineGameVO.getPlayerNameMap().get(Integer.valueOf(i));
+            data[i][1] = offLineGameVO.getPlayerScoreMap().get(Integer.valueOf(i));
+            data[i][2] = offLineGameVO.getPlayerStakeMap().get(Integer.valueOf(i));
+            data[i][3] = offLineGameVO.getPlayerCreditMap().get(Integer.valueOf(i));
+        }
+        return data;
+    }
 } //end  class
