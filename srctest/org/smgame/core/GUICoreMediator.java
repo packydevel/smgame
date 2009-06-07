@@ -405,6 +405,79 @@ public class GUICoreMediator {
      * @return
      */
     public static OnLineGameVO requestOnLineGameVO() {
+        ArrayList<ImageIcon> playerCardsImageList = new ArrayList<ImageIcon>();
+
+        onLineGameVO.getPlayerCreditMap().clear();
+        onLineGameVO.getPlayerCardsImageMap().clear();
+        onLineGameVO.getPlayerStakeMap().clear();
+        onLineGameVO.getPlayerScoreMap().clear();
+        onLineGameVO.getPlayerFirstCardDiscoveredMap().clear();
+        onLineGameVO.getPlayerRoleMap().clear();
+        onLineGameVO.getPlayerPlayingMap().clear();
+        onLineGameVO.getPlayerRequestBetMap().clear();
+
+        for (int i = 0; i < onLineGameVO.getPlayerIndexList().size(); i++) {
+            Player tempPlayer = currentGame.getPlayerList().getPlayerAL().get(i);
+
+            onLineGameVO.getPlayerCreditMap().put(Integer.valueOf(i), "Credito: " +
+                    formatter.format(tempPlayer.getCredit()));
+            onLineGameVO.getPlayerCardsImageMap().put(Integer.valueOf(i), new ArrayList<ImageIcon>());
+            playerCardsImageList = onLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i));
+            for (int j = 0; j < tempPlayer.getCardList().size(); j++) {
+                if (j == 0) {
+                    if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) ||
+                            tempPlayer.getStatus() == PlayerStatus.ScoreOverflow || tempPlayer.hasSM() ||
+                            (currentGame.getGameEngine().isEndManche() && currentGame.getGameEngine().getBankPlayer().getStatus() == PlayerStatus.GoodScore)) {
+                        playerCardsImageList.add(tempPlayer.getCardList().get(j).getFrontImage());
+                    } else {
+                        playerCardsImageList.add(backImage);
+                    }
+                } else {
+                    playerCardsImageList.add(tempPlayer.getCardList().get(j).getFrontImage());
+                }
+            } //end for interno
+
+            if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer())) {
+                onLineGameVO.getPlayerFirstCardDiscoveredMap().put(Integer.valueOf(i), Boolean.TRUE);
+            } else {
+                onLineGameVO.getPlayerFirstCardDiscoveredMap().put(Integer.valueOf(i), Boolean.FALSE);
+            }
+
+            onLineGameVO.getPlayerStakeMap().put(Integer.valueOf(i), "Puntata: " +
+                    formatter.format(tempPlayer.getStake()));
+            onLineGameVO.getPlayerScoreMap().put(Integer.valueOf(i), "Punteggio: " +
+                    formatter.format(tempPlayer.getScore()));
+
+            if (tempPlayer.equals(currentGame.getGameEngine().getBankPlayer())) {
+                onLineGameVO.getPlayerRoleMap().put(Integer.valueOf(i), Boolean.TRUE);
+            } else {
+                onLineGameVO.getPlayerRoleMap().put(Integer.valueOf(i), Boolean.FALSE);
+            }
+
+            if (tempPlayer.getBetList().size() > 0 || tempPlayer.getRole() == PlayerRole.Bank) {
+                onLineGameVO.getPlayerRequestBetMap().put(Integer.valueOf(i), Boolean.FALSE);
+            } else {
+                onLineGameVO.getPlayerRequestBetMap().put(Integer.valueOf(i), Boolean.TRUE);
+            }
+
+            if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) &&
+                    !currentGame.getGameEngine().isEndManche() && !currentGame.getGameEngine().isEndGame()) {
+                onLineGameVO.getPlayerPlayingMap().put(Integer.valueOf(i), Boolean.TRUE);
+            } else {
+                onLineGameVO.getPlayerPlayingMap().put(Integer.valueOf(i), Boolean.FALSE);
+            }
+        }//end for
+
+        onLineGameVO.setEndManche(currentGame.getGameEngine().isEndManche());
+        onLineGameVO.setEndGame(currentGame.getGameEngine().isEndGame());
+
+        System.out.println("La manche è finita? " + currentGame.getGameEngine().isEndManche());
+
+        if (currentGame.getGameEngine().isEndManche()) {
+            currentGame.getGameEngine().closeManche();
+            currentGame.getGameEngine().startManche();
+        }
+        
         return onLineGameVO;
     }
 
