@@ -62,27 +62,31 @@ public class CPUPlayer extends Player implements Serializable {
                                 threshold += p.getStake();
                             }
                         } else {
-                            i = 0.5;
-                            allHypotheticValues = 0;
-                            allGoodValues = 0;
-                            do {
-                                if ((p.getVisibleScore() + i) <= 7) {
-                                    allHypotheticValues++;
-                                    if ((p.getVisibleScore() + i) <= getScore()) {
-                                        allGoodValues++;
+                            if (getScore() <= MIN_SCORE) {
+                                return false;
+                            } else {
+                                i = 0.5;
+                                allHypotheticValues = 0;
+                                allGoodValues = 0;
+                                do {
+                                    if ((p.getVisibleScore() + i) <= 7) {
+                                        allHypotheticValues++;
+                                        if ((p.getVisibleScore() + i) <= getScore()) {
+                                            allGoodValues++;
+                                        }
                                     }
-                                }
-                                if (i == 0.5) {
-                                    i = 1;
-                                } else {
-                                    i++;
-                                }
-                            } while (i <= 7);
+                                    if (i == 0.5) {
+                                        i = 1;
+                                    } else {
+                                        i++;
+                                    }
+                                } while (i <= 7);
 
-                            System.out.println(p.getName() + " - " + "Good: " + allGoodValues + " All: " + allHypotheticValues);
-                            double temp = (((2 * (double) allGoodValues) / (double) allHypotheticValues) - 1) * p.getStake();
-                            System.out.println("thresold "+ temp);
-                            threshold += temp;
+                                System.out.println(p.getName() + " - " + "Good: " + allGoodValues + " All: " + allHypotheticValues);
+                                double temp = (((2 * (double) allGoodValues) / (double) allHypotheticValues) - 1) * p.getStake();
+                                System.out.println("thresold " + temp);
+                                threshold += temp;
+                            }
                         }
                     }
                 }
