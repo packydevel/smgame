@@ -87,7 +87,6 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
         playerCpuJP = new JPanel(new FlowLayout());
 
         nameCpuJL = new JLabel(onLineGameVO.getPlayerNameMap().get(Integer.valueOf(0)));
-        System.out.println(onLineGameVO.getPlayerNameMap().get(0));
         nameCpuJL.setPreferredSize(dimension);
         nameCpuJL.setForeground(new Color(255, 0, 0));
         nameCpuJL.setFont(font);
@@ -158,7 +157,6 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
         playerHumanJP = new JPanel();
 
         nameHumanJL = new JLabel(onLineGameVO.getPlayerNameMap().get(Integer.valueOf(1)));
-        System.out.println(onLineGameVO.getPlayerNameMap().get(Integer.valueOf(1)));
         nameHumanJL.setFont(font);
         nameHumanJL.setPreferredSize(new Dimension(200, 30));
         nameHumanJL.setForeground(new Color(0, 0, 255));
@@ -285,9 +283,52 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
     }
 
     private void requestCard() {
-    }
+        String value;
+        double bet;
+
+        if (stakeHumanJTF.isEnabled()) {
+            value = getBet();
+            if (!value.equalsIgnoreCase("") && Double.valueOf(value) != 0.00) {
+                bet = Double.valueOf(value);
+            } else {
+                return;
+            }
+        } else {
+            bet = 0.00;
+        }
+        GUICoreMediator.requestCard(1, bet);
+        resetBetJTF();
+        onLineGameVO = GUICoreMediator.requestOnLineGameVO();
+        refreshComponents();
+    }    
 
     private void declareGoodScore() {
+        String value;
+        double bet;
+
+        if (stakeHumanJTF.isEnabled()) {
+            value = getBet();
+            if (!value.equalsIgnoreCase("") && Double.valueOf(value) != 0.00) {
+                bet = Double.valueOf(value);
+            } else {
+                return;
+            }
+        } else {
+            bet = 0.00;
+        }
+
+        GUICoreMediator.declareGoodScore(1, bet);
+        resetBetJTF();
+        onLineGameVO = GUICoreMediator.requestOnLineGameVO();
+        refreshComponents();
+    }
+
+    private void resetBetJTF() {
+        stakeHumanJTF.setText("");
+    }
+
+    private String getBet() {
+        return stakeHumanJTF.getText();
     }
 
     //Seleziona l'ex-mazziere di turno
