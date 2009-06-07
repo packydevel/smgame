@@ -23,7 +23,7 @@ import org.smgame.core.player.PlayerList;
 import org.smgame.core.player.PlayerRole;
 import org.smgame.core.player.PlayerStatus;
 import org.smgame.frontend.OffLineGameVO;
-import org.smgame.frontend.OnLineGameVO;
+import org.smgame.frontend.requestOnLineGameVO;
 import org.smgame.main.Game;
 import org.smgame.main.GameSetting;
 import org.smgame.util.BetOverflowException;
@@ -39,7 +39,7 @@ public class GUICoreMediator {
 
     private static ArrayList<Game> gameList = new ArrayList<Game>();
     private static OffLineGameVO offLineGameVO = new OffLineGameVO();
-    private static OnLineGameVO onLineGameVO = new OnLineGameVO();
+    private static requestOnLineGameVO onLineGameVO = new requestOnLineGameVO();
     private static Game currentGame = null;
     private static List<String> playerNameList;
     private static List<Boolean> playerTypeList;
@@ -405,11 +405,11 @@ public class GUICoreMediator {
         return offLineGameVO;
     }
 
-    /**richiede l'oggetto OnLineGameVO
+    /**richiede l'oggetto requestOnLineGameVO
      *
      * @return
      */
-    public static OnLineGameVO requestOnLineGameVO() {
+    public static requestOnLineGameVO requestOnLineGameVO() {
         ArrayList<ImageIcon> playerCardsImageList = new ArrayList<ImageIcon>();
 
         onLineGameVO.getPlayerCreditMap().clear();

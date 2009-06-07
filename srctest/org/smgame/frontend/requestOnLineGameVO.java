@@ -5,7 +5,7 @@ import java.util.HashMap;
 import javax.swing.ImageIcon;
 
 
-public class OnLineGameVO {
+public class requestOnLineGameVO {
 
     private ArrayList<Integer> playerList = new ArrayList<Integer>();
     private HashMap<Integer, String> playerNameMap = new HashMap<Integer, String>();
