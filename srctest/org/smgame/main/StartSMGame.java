@@ -6,6 +6,7 @@ import java.util.Collections;
 import javax.swing.UIManager;
 import org.smgame.core.GUICoreMediator;
 import org.smgame.frontend.MainJF;
+import org.smgame.util.Logging;
 
 /**
  *
@@ -20,6 +21,7 @@ public class StartSMGame {
                 try {
                     UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
                 } catch (Exception e) {
+                    Logging.logExceptionSevere(e);
                 }
                 MainJF frame = new MainJF();
             }
@@ -28,7 +30,7 @@ public class StartSMGame {
         try {
             GUICoreMediator.loadGames();
         } catch (Exception e) {
-            //e.printStackTrace();
+            Logging.logExceptionSevere(e);
             System.out.println("Errore nel caricamento!!!");
         }
     }
