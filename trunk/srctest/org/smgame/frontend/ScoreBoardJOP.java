@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import org.smgame.util.ColumnSorter;
 
@@ -23,19 +24,30 @@ public class ScoreBoardJOP extends JPanel{
         scoreboardJT = new JTable();
         scoreboardJT.setModel(tableModel(data));
         scoreboardJT.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        resizeColumn(0, 150);
+
+        resizeColumn(0, 140);
         resizeColumn(1, 80);
         resizeColumn(2, 80);
-        resizeColumn(1, 120);
+        resizeColumn(1, 100);
+
+        JTableHeader header = scoreboardJT.getTableHeader();
+
+
         add(typeEndJL,BorderLayout.NORTH);
         add(new JScrollPane(scoreboardJT),BorderLayout.CENTER);
         setVisible(true);
     }
 
     private DefaultTableModel tableModel(Object[][] data){
-        String[] columnNames = {"Giocatore", "Punteggio", "Vincita", "Credito Residuo"};
-        return new DefaultTableModel(data, columnNames);
-    }
+        String[] columnNames = {"Giocatore", "Punteggio", "Vincita", "Credito"};
+        return new DefaultTableModel(data, columnNames){
+            boolean[] canEdit = new boolean [] {false, false, false, false};
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        };
+    }//end 
 
     private void resizeColumn(int nColumn, int width){
         TableColumn col = scoreboardJT.getColumnModel().getColumn(nColumn);
@@ -60,5 +72,4 @@ public class ScoreBoardJOP extends JPanel{
         model.fireTableStructureChanged();
     }
 
-
-}
+} //end class
