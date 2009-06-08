@@ -17,6 +17,7 @@ public abstract class Player implements Serializable {
     protected String name; //nome giocatore
     protected double credit; //credito
     protected double bet; //puntata
+    protected double lastWinLoseAmount;
     //protected boolean hasJollyCard = false;
     protected ArrayList<Card> cardList = new ArrayList<Card>(); //
     protected ArrayList<Double> betList = new ArrayList<Double>(12);
@@ -195,5 +196,13 @@ public abstract class Player implements Serializable {
 
     public void setStatus(PlayerStatus status) {
         this.status = status;
+    }
+
+    public double getLastWinLoseAmount() {
+        return lastWinLoseAmount;
+    }
+
+    public void setLastWinLoseAmount(double lastWinLoseAmount) {
+        this.lastWinLoseAmount = lastWinLoseAmount;
     }
 } //end class

@@ -99,8 +99,8 @@ public class GUICoreMediator {
             } else {
                 playerList.getPlayerAL().add(new HumanPlayer(playerNameList.get(i)));
             }
-            offLineGameVO.getPlayerIndexList().add(Integer.valueOf(i));
-            offLineGameVO.getPlayerNameMap().put(Integer.valueOf(i), playerNameList.get(i));
+            offLineGameVO.getPlayerIndexList().add(i);
+            offLineGameVO.getPlayerNameMap().put(i, playerNameList.get(i));
             playerList.getPlayerAL().get(i).setCredit(1000);
         }
 
@@ -381,10 +381,10 @@ public class GUICoreMediator {
         for (int i = 0; i < offLineGameVO.getPlayerIndexList().size(); i++) {
             Player tempPlayer = currentGame.getPlayerList().getPlayerAL().get(i);
 
-            offLineGameVO.getPlayerCreditMap().put(Integer.valueOf(i), "Credito: " +
+            offLineGameVO.getPlayerCreditMap().put(i, "Credito: " +
                     formatter.format(tempPlayer.getCredit()));
-            offLineGameVO.getPlayerCardsImageMap().put(Integer.valueOf(i), new ArrayList<ImageIcon>());
-            playerCardsImageList = offLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i));
+            offLineGameVO.getPlayerCardsImageMap().put(i, new ArrayList<ImageIcon>());
+            playerCardsImageList = offLineGameVO.getPlayerCardsImageMap().get(i);
             for (int j = 0; j < tempPlayer.getCardList().size(); j++) {
                 if (j == 0) {
                     if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) || tempPlayer.getStatus() == PlayerStatus.ScoreOverflow || tempPlayer.hasSM() || (currentGame.getGameEngine().isEndManche() && currentGame.getGameEngine().getBankPlayer().getStatus() == PlayerStatus.GoodScore)) {
@@ -398,33 +398,33 @@ public class GUICoreMediator {
             }
 
             if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer())) {
-                offLineGameVO.getPlayerFirstCardDiscoveredMap().put(Integer.valueOf(i), Boolean.TRUE);
+                offLineGameVO.getPlayerFirstCardDiscoveredMap().put(i, Boolean.TRUE);
             } else {
-                offLineGameVO.getPlayerFirstCardDiscoveredMap().put(Integer.valueOf(i), Boolean.FALSE);
+                offLineGameVO.getPlayerFirstCardDiscoveredMap().put(i, Boolean.FALSE);
             }
 
-            offLineGameVO.getPlayerStakeMap().put(Integer.valueOf(i), "Puntata: " +
+            offLineGameVO.getPlayerStakeMap().put(i, "Puntata: " +
                     formatter.format(tempPlayer.getStake()));
-            offLineGameVO.getPlayerScoreMap().put(Integer.valueOf(i), "Punteggio: " +
+            offLineGameVO.getPlayerScoreMap().put(i, "Punteggio: " +
                     formatter.format(tempPlayer.getScore()));
 
             if (tempPlayer.equals(currentGame.getGameEngine().getBankPlayer())) {
-                offLineGameVO.getPlayerRoleMap().put(Integer.valueOf(i), Boolean.TRUE);
+                offLineGameVO.getPlayerRoleMap().put(i, Boolean.TRUE);
             } else {
-                offLineGameVO.getPlayerRoleMap().put(Integer.valueOf(i), Boolean.FALSE);
+                offLineGameVO.getPlayerRoleMap().put(i, Boolean.FALSE);
             }
 
             if (tempPlayer.getBetList().size() > 0 || tempPlayer.getRole() == PlayerRole.Bank) {
-                offLineGameVO.getPlayerRequestBetMap().put(Integer.valueOf(i), Boolean.FALSE);
+                offLineGameVO.getPlayerRequestBetMap().put(i, Boolean.FALSE);
             } else {
-                offLineGameVO.getPlayerRequestBetMap().put(Integer.valueOf(i), Boolean.TRUE);
+                offLineGameVO.getPlayerRequestBetMap().put(i, Boolean.TRUE);
             }
 
             if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) &&
                     !currentGame.getGameEngine().isEndManche() && !currentGame.getGameEngine().isEndGame()) {
-                offLineGameVO.getPlayerPlayingMap().put(Integer.valueOf(i), Boolean.TRUE);
+                offLineGameVO.getPlayerPlayingMap().put(i, Boolean.TRUE);
             } else {
-                offLineGameVO.getPlayerPlayingMap().put(Integer.valueOf(i), Boolean.FALSE);
+                offLineGameVO.getPlayerPlayingMap().put(i, Boolean.FALSE);
             }
         } //end for
 
@@ -460,10 +460,10 @@ public class GUICoreMediator {
         for (int i = 0; i < onLineGameVO.getPlayerIndexList().size(); i++) {
             Player tempPlayer = currentGame.getPlayerList().getPlayerAL().get(i);
 
-            onLineGameVO.getPlayerCreditMap().put(Integer.valueOf(i), "Credito: " +
+            onLineGameVO.getPlayerCreditMap().put(i, "Credito: " +
                     formatter.format(tempPlayer.getCredit()));
-            onLineGameVO.getPlayerCardsImageMap().put(Integer.valueOf(i), new ArrayList<ImageIcon>());
-            playerCardsImageList = onLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i));
+            onLineGameVO.getPlayerCardsImageMap().put(i, new ArrayList<ImageIcon>());
+            playerCardsImageList = onLineGameVO.getPlayerCardsImageMap().get(i);
             for (int j = 0; j < tempPlayer.getCardList().size(); j++) {
                 if (j == 0) {
                     if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) ||
@@ -479,33 +479,39 @@ public class GUICoreMediator {
             } //end for interno
 
             if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer())) {
-                onLineGameVO.getPlayerFirstCardDiscoveredMap().put(Integer.valueOf(i), Boolean.TRUE);
+                onLineGameVO.getPlayerFirstCardDiscoveredMap().put(i, Boolean.TRUE);
             } else {
-                onLineGameVO.getPlayerFirstCardDiscoveredMap().put(Integer.valueOf(i), Boolean.FALSE);
+                onLineGameVO.getPlayerFirstCardDiscoveredMap().put(i, Boolean.FALSE);
             }
 
-            onLineGameVO.getPlayerStakeMap().put(Integer.valueOf(i), "Puntata: " +
+            onLineGameVO.getPlayerStakeMap().put(i, "Puntata: " +
                     formatter.format(tempPlayer.getStake()));
-            onLineGameVO.getPlayerScoreMap().put(Integer.valueOf(i), "Punteggio: " +
+            onLineGameVO.getPlayerScoreMap().put(i, "Punteggio: " +
                     formatter.format(tempPlayer.getScore()));
 
-            if (tempPlayer.equals(currentGame.getGameEngine().getBankPlayer())) {
-                onLineGameVO.getPlayerRoleMap().put(Integer.valueOf(i), Boolean.TRUE);
+            if (tempPlayer.getStatus()==PlayerStatus.ScoreOverflow) {
+                onLineGameVO.getPlayerStatusMap().put(i, Boolean.TRUE);
             } else {
-                onLineGameVO.getPlayerRoleMap().put(Integer.valueOf(i), Boolean.FALSE);
+                onLineGameVO.getPlayerStatusMap().put(i, Boolean.FALSE);
+            }
+
+            if (tempPlayer.equals(currentGame.getGameEngine().getBankPlayer())) {
+                onLineGameVO.getPlayerRoleMap().put(i, Boolean.TRUE);
+            } else {
+                onLineGameVO.getPlayerRoleMap().put(i, Boolean.FALSE);
             }
 
             if (tempPlayer.getBetList().size() > 0 || tempPlayer.getRole() == PlayerRole.Bank) {
-                onLineGameVO.getPlayerRequestBetMap().put(Integer.valueOf(i), Boolean.FALSE);
+                onLineGameVO.getPlayerRequestBetMap().put(i, Boolean.FALSE);
             } else {
-                onLineGameVO.getPlayerRequestBetMap().put(Integer.valueOf(i), Boolean.TRUE);
+                onLineGameVO.getPlayerRequestBetMap().put(i, Boolean.TRUE);
             }
 
             if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) &&
                     !currentGame.getGameEngine().isEndManche() && !currentGame.getGameEngine().isEndGame()) {
-                onLineGameVO.getPlayerPlayingMap().put(Integer.valueOf(i), Boolean.TRUE);
+                onLineGameVO.getPlayerPlayingMap().put(i, Boolean.TRUE);
             } else {
-                onLineGameVO.getPlayerPlayingMap().put(Integer.valueOf(i), Boolean.FALSE);
+                onLineGameVO.getPlayerPlayingMap().put(i, Boolean.FALSE);
             }
         }//end for
 
