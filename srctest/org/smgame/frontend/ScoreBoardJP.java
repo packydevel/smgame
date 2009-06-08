@@ -29,9 +29,10 @@ public class ScoreBoardJP extends JPanel {
         setWitdhColumn(0, 140);
         setWitdhColumn(1, 80);
         setWitdhColumn(2, 80);
-        setWitdhColumn(1, 100);
+        setWitdhColumn(3, 100);
 
         scoreboardJT.setFocusable(false);
+        scoreboardJT.getTableHeader().setReorderingAllowed(false);
 
         add(typeEndJL, BorderLayout.NORTH);
         add(new JScrollPane(scoreboardJT), BorderLayout.CENTER);
@@ -57,6 +58,10 @@ public class ScoreBoardJP extends JPanel {
         col.setMinWidth(width);
         col.setPreferredWidth(width);
         col.setMaxWidth(width);
+    }
+
+    private void setBankColor(){
+
     }
 
 } //end class

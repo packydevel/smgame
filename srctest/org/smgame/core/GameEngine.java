@@ -364,6 +364,7 @@ public class GameEngine implements Serializable {
      * @return
      */
     public boolean isEndManche() {
+        System.out.println(currentPlayer.getName() + " | "+ bankPlayer.getName());
         if (currentPlayer.equals(bankPlayer) && currentPlayer.getStatus() != null) {
             return true;
         }
