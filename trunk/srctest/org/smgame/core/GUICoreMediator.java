@@ -536,15 +536,18 @@ public class GUICoreMediator {
     public static Object[][] requestDataReport(){
         int size = playerNameList.size();
         Object[][] data = new Object[size][4];
-
         for (int i=0; i<size; i++){
             Player tempPlayer = currentGame.getPlayerList().getPlayerAL().get(i);
-
-            data[i][0] = offLineGameVO.getPlayerNameMap().get(i);
-            data[i][1] = formatter.format(tempPlayer.getLastWinLoseAmount());
-            data[i][2] = formatter.format(tempPlayer.getScore());
+            //nome giocatore
+            data[i][0] = tempPlayer.getName();
+            //punteggio
+            data[i][1] = formatter.format(tempPlayer.getScore());
+            //vincita
+            data[i][2] = formatter.format(tempPlayer.getLastWinLoseAmount());
+            //credito
             data[i][3] = formatter.format(tempPlayer.getCredit());
         }
         return data;
     }
+
 } //end  class
