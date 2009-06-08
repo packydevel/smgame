@@ -9,7 +9,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-public class ScoreBoardJOP extends JPanel {
+public class ScoreBoardJP extends JPanel {
 
     private JLabel typeEndJL;
     private JTable scoreboardJT;
@@ -19,7 +19,7 @@ public class ScoreBoardJOP extends JPanel {
      * @param status stato della partita
      * @param data matrice dei dati
      */
-    public ScoreBoardJOP(String status, Object[][] data) {
+    public ScoreBoardJP(String status, Object[][] data) {
         setPreferredSize(new Dimension(400, 250));
         setLayout(new BorderLayout());
         typeEndJL = new JLabel(status);
