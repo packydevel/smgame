@@ -13,6 +13,7 @@ public class ColumnSorter implements Comparator {
         this.colIndex = colIndex;
         this.ascending = ascending;
     }
+    
 
     public int compare(Object a, Object b) {
         Vector v1 = (Vector) a;
