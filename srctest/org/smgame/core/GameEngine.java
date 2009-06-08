@@ -230,7 +230,7 @@ public class GameEngine implements Serializable {
      * Luka puoi verificare???
      */
     private void applyPaymentRule() {
-        Double amount;
+        Double amount, bankAmount=0.00;
 
         for (Player p : gameEngine.playerList.getPlayerAL()) {
             if (p.getStatus() == PlayerStatus.GoodScore && !p.equals(bankPlayer)) {
@@ -239,30 +239,31 @@ public class GameEngine implements Serializable {
                         amount = 2 * p.getStake();
                         p.setLastWinLoseAmount(amount);
                         p.setCredit(p.getCredit() + amount);
-                        bankPlayer.setCredit(bankPlayer.getCredit() - amount);
                     } else {
                         //vincita giocatore normale
                         amount = p.getStake();
                         p.setLastWinLoseAmount(amount);
                         p.setCredit(p.getCredit() + amount);
-                        bankPlayer.setCredit(bankPlayer.getCredit() - amount);
                     }
+                    bankAmount+=amount;
                 } else {
                     if (bankPlayer.hasKingSM()) {
                         amount = 2 * p.getStake();
                         p.setLastWinLoseAmount(-amount);
                         p.setCredit(p.getCredit() - amount);
-                        bankPlayer.setCredit(bankPlayer.getCredit() + amount);
                     } else {
                         amount = p.getStake();
                         p.setLastWinLoseAmount(-amount);
                         p.setCredit(p.getCredit() - amount);
-                        bankPlayer.setCredit(bankPlayer.getCredit() + amount);
+                        
                     }
+                    bankAmount-=amount;
                 }
             }
         }
 
+        bankPlayer.setLastWinLoseAmount(bankAmount);
+        bankPlayer.setCredit(bankPlayer.getCredit() + bankAmount);
     }
 
     /**restituisce il prossimo giocatore

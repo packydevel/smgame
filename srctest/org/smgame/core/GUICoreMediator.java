@@ -369,6 +369,11 @@ public class GUICoreMediator {
 
         ArrayList<ImageIcon> playerCardsImageList = new ArrayList<ImageIcon>();
 
+        if (offLineGameVO.isEndManche()) {
+            currentGame.getGameEngine().startManche();
+            offLineGameVO.setEndManche(currentGame.getGameEngine().isEndManche());
+        }
+
         offLineGameVO.getPlayerCreditMap().clear();
         offLineGameVO.getPlayerCardsImageMap().clear();
         offLineGameVO.getPlayerStakeMap().clear();
@@ -428,15 +433,16 @@ public class GUICoreMediator {
             }
         } //end for
 
-        offLineGameVO.setEndManche(currentGame.getGameEngine().isEndManche());
-        offLineGameVO.setEndGame(currentGame.getGameEngine().isEndGame());
+        
 
         System.out.println("La manche è finita? " + currentGame.getGameEngine().isEndManche());
 
         if (currentGame.getGameEngine().isEndManche()) {
             currentGame.getGameEngine().closeManche();
-            currentGame.getGameEngine().startManche();
         }
+
+        offLineGameVO.setEndManche(currentGame.getGameEngine().isEndManche());
+        offLineGameVO.setEndGame(currentGame.getGameEngine().isEndGame());
 
         return offLineGameVO;
     }
