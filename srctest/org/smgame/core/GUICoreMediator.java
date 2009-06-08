@@ -378,6 +378,7 @@ public class GUICoreMediator {
         offLineGameVO.getPlayerCardsImageMap().clear();
         offLineGameVO.getPlayerStakeMap().clear();
         offLineGameVO.getPlayerScoreMap().clear();
+        offLineGameVO.getPlayerStatusMap().clear();
         offLineGameVO.getPlayerFirstCardDiscoveredMap().clear();
         offLineGameVO.getPlayerRoleMap().clear();
         offLineGameVO.getPlayerPlayingMap().clear();
@@ -410,8 +411,19 @@ public class GUICoreMediator {
 
             offLineGameVO.getPlayerStakeMap().put(i, "Puntata: " +
                     formatter.format(tempPlayer.getStake()));
-            offLineGameVO.getPlayerScoreMap().put(i, "Punteggio: " +
-                    formatter.format(tempPlayer.getScore()));
+
+            if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) || tempPlayer.getStatus() == PlayerStatus.ScoreOverflow || tempPlayer.hasSM() || (currentGame.getGameEngine().isEndManche() && currentGame.getGameEngine().getBankPlayer().getStatus() == PlayerStatus.GoodScore)) {
+                offLineGameVO.getPlayerScoreMap().put(i, "Punteggio: " +
+                        formatter.format(tempPlayer.getScore()));
+            } else {
+                offLineGameVO.getPlayerScoreMap().put(i, "Punteggio: ");
+            }
+
+            if (tempPlayer.getStatus() != null) {
+                offLineGameVO.getPlayerStatusMap().put(i, tempPlayer.getStatus().toString());
+            } else {
+                offLineGameVO.getPlayerStatusMap().put(i, null);
+            }
 
             if (tempPlayer.equals(currentGame.getGameEngine().getBankPlayer())) {
                 offLineGameVO.getPlayerRoleMap().put(i, Boolean.TRUE);
@@ -433,7 +445,7 @@ public class GUICoreMediator {
             }
         } //end for
 
-        
+
 
         System.out.println("La manche è finita? " + currentGame.getGameEngine().isEndManche());
 
@@ -495,7 +507,7 @@ public class GUICoreMediator {
             onLineGameVO.getPlayerScoreMap().put(i, "Punteggio: " +
                     formatter.format(tempPlayer.getScore()));
 
-            if (tempPlayer.getStatus()==PlayerStatus.ScoreOverflow) {
+            if (tempPlayer.getStatus() == PlayerStatus.ScoreOverflow) {
                 onLineGameVO.getPlayerStatusMap().put(i, Boolean.TRUE);
             } else {
                 onLineGameVO.getPlayerStatusMap().put(i, Boolean.FALSE);
@@ -539,10 +551,10 @@ public class GUICoreMediator {
         currentGame.getGameEngine().nextPlayer(currentGame.getGameEngine().getCurrentPlayer());
     }
 
-    public static Object[][] requestDataReport(){
+    public static Object[][] requestDataReport() {
         int size = playerNameList.size();
         Object[][] data = new Object[size][4];
-        for (int i=0; i<size; i++){
+        for (int i = 0; i < size; i++) {
             Player tempPlayer = currentGame.getPlayerList().getPlayerAL().get(i);
             //nome giocatore
             data[i][0] = tempPlayer.getName();
@@ -555,5 +567,4 @@ public class GUICoreMediator {
         }
         return data;
     }
-
 } //end  class

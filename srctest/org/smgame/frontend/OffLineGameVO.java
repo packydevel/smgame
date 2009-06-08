@@ -15,7 +15,7 @@ public class OffLineGameVO {
     private HashMap<Integer, Boolean> playerFirstCardDiscoveredMap = new HashMap<Integer, Boolean>();
     private HashMap<Integer, Boolean> playerRoleMap = new HashMap<Integer, Boolean>();
     private HashMap<Integer, Boolean> playerPlayingMap = new HashMap<Integer, Boolean>();
-    private HashMap<Integer, Boolean> playerStatusMap = new HashMap<Integer, Boolean>();
+    private HashMap<Integer, String> playerStatusMap = new HashMap<Integer, String>();
     private HashMap<Integer, Boolean> playerMaxScoreMap = new HashMap<Integer, Boolean>();
     private HashMap<Integer, Boolean> playerRequestBetMap = new HashMap<Integer, Boolean>();
     private boolean endManche = false,  endGame = false;
@@ -98,7 +98,7 @@ public class OffLineGameVO {
      *
      * @return
      */
-    public HashMap<Integer, Boolean> getPlayerStatusMap() {
+    public HashMap<Integer, String> getPlayerStatusMap() {
         return playerStatusMap;
     }
 
@@ -165,5 +165,4 @@ public class OffLineGameVO {
     public void setExceptionMessage(String message) {
         exceptionMessage = message;
     }
-
 }//end class
