@@ -228,9 +228,9 @@ public class GameEngine implements Serializable {
      */
     private void applyPaymentRule() {
         for (Player p : gameEngine.playerList.getPlayerAL()) {
-            if (p.getStatus() == PlayerStatus.GoodScore) {
+            if (p.getStatus() == PlayerStatus.GoodScore && !p.equals(bankPlayer)) {
                 if (compareScore(p)) {
-                    if (p.getScore() == 7.5 && p.getCardList().size() == 2) {
+                    if (p.hasKingSM()) {
                         //vincita giocatore doppia x effetto sette e mezzo reale
                         p.setCredit(p.getCredit() + 2 * p.getStake());
                         bankPlayer.setCredit(bankPlayer.getCredit() - 2 * p.getStake());
@@ -240,7 +240,7 @@ public class GameEngine implements Serializable {
                         bankPlayer.setCredit(bankPlayer.getCredit() - p.getStake());
                     }
                 } else {
-                    if (bankPlayer.getScore() == 7.5 && bankPlayer.getCardList().size() == 2) {
+                    if (bankPlayer.hasKingSM()) {
                         p.setCredit(p.getCredit() - 2 * p.getStake());
                         bankPlayer.setCredit(bankPlayer.getCredit() + 2 * p.getStake());
                     } else {
