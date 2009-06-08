@@ -147,14 +147,10 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
         } else if (e.getInternalFrame() instanceof OffLineGameJIF) {
             GUICoreMediator.closeGame();
             refreshMenuItem();
-
         } else if (e.getInternalFrame() instanceof OnLineGameJIF) {
             GUICoreMediator.closeGame();
             refreshMenuItem();
-
         }
-
-
     }
 
     public void internalFrameOpened(InternalFrameEvent e) {
@@ -175,7 +171,6 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
         gameonlineJIF.addInternalFrameListener(this);
         desktop.add(gameonlineJIF);
         refreshMenuItem();
-
     }
 
     public void newOffLineGameCreating(NewOffLineGameEvent e) {
@@ -184,6 +179,5 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
         gameJIF.addInternalFrameListener(this);
         desktop.add(gameJIF);
         refreshMenuItem();
-
     }
 } 
