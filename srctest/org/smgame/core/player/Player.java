@@ -18,7 +18,7 @@ public abstract class Player implements Serializable {
     protected double credit; //credito
     protected double bet; //puntata
     protected double lastWinLoseAmount;
-    protected double lastPoint;
+    protected double lastScore;
     //protected boolean hasJollyCard = false;
     protected ArrayList<Card> cardList = new ArrayList<Card>(); //
     protected ArrayList<Double> betList = new ArrayList<Double>(12);
@@ -68,6 +68,10 @@ public abstract class Player implements Serializable {
         return cardList;
     }
 
+    /**imposta la puntata
+     *
+     * @param bet
+     */
     public void setBet(double bet) {
         this.bet = bet;
     }
@@ -97,6 +101,7 @@ public abstract class Player implements Serializable {
         return score;
     }
 
+    //restituisce il punteggio visibile
     double getVisibleScore() {
         Card firstCard = cardList.get(0);
         double score = 0.00;
@@ -126,29 +131,39 @@ public abstract class Player implements Serializable {
 //        return false;
 //    }
 //
+
+    /**verifica se c'è sette e mezzo
+     *
+     * @return
+     */
     public boolean hasSM() {
         if (getScore() == 7.5) {
             return true;
         }
-
         return false;
     }
 
+    /**verifica se c'è sette e mezzo reale
+     *
+     * @return
+     */
     public boolean hasKingSM() {
         if (hasSM() && cardList.size() == 2) {
             return true;
         }
-
         return false;
     }
 
+    /**Verifica se c'è sette e mezzo reale con matta
+     *
+     * @return
+     */
     public boolean hasJollyKingSM() {
         if (hasKingSM() &&
                 ((getCardList().get(0).getPoint() == Point.Re && getCardList().get(0).getSuit() == Suit.Danari) ||
                 (getCardList().get(1).getPoint() == Point.Re && getCardList().get(1).getSuit() == Suit.Danari))) {
             return true;
         }
-
         return false;
     }
 
@@ -177,7 +192,7 @@ public abstract class Player implements Serializable {
         this.playerList = playerList;
     }
 
-    /**Restituisce il valore totale???
+    /**Restituisce la puntata
      * 
      * @return
      */
@@ -191,27 +206,52 @@ public abstract class Player implements Serializable {
         return stake;
     }
 
+    /**restituisce lo stato
+     *
+     * @return
+     */
     public PlayerStatus getStatus() {
         return status;
     }
 
+    /**imposta lo stato
+     *
+     * @param status
+     */
     public void setStatus(PlayerStatus status) {
         this.status = status;
     }
 
+    /**Restituisce l'ammontare dell'ultima vincita/perdita
+     *
+     * @return
+     */
     public double getLastWinLoseAmount() {
         return lastWinLoseAmount;
     }
 
+    /**Imposta l'ammontare dell'ultima vincita/perdita
+     *
+     * @param lastWinLoseAmount
+     */
     public void setLastWinLoseAmount(double lastWinLoseAmount) {
         this.lastWinLoseAmount = lastWinLoseAmount;
     }
 
-    public double getLastPoint() {
-        return lastPoint;
+    /**restituisce l'ultimo punteggio
+     *
+     * @return
+     */
+    public double getLastScore() {
+        return lastScore;
     }
 
-    public void setLastPoint(double lastPoint) {
-        this.lastPoint = lastPoint;
+    /**Imposta l'ultimo punteggio
+     *
+     * @param lastScore
+     */
+    public void setLastPoint(double lastScore) {
+        this.lastScore = lastScore;
     }
+
 } //end class
