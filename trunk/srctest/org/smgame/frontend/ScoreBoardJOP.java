@@ -11,32 +11,31 @@ public class ScoreBoardJOP extends JPanel{
     private static ScoreBoardJOP scoreboard;
     private JLabel typeEndJL;
     private JTable scoreboardJT;
-    private final String[] columnNames = {"Giocatore", "Punteggio", "Vincita", "Credito"};
+    private final String[] columnNames = {"Giocatore", "Punteggio", "Vincita", "Credito Residuo"};
 
 
-    private ScoreBoardJOP(String status, Object[][] data){
+    public ScoreBoardJOP(String status, Object[][] data){
         typeEndJL = new JLabel(status);
-        scoreboardJT = new JTable();        
+        scoreboardJT = new JTable();
         setTableModel(data);
-        this.setPreferredSize(new Dimension(150, 400));
-        this.setLayout(new BorderLayout());
-        this.add(typeEndJL,BorderLayout.NORTH);
-        this.add(scoreboardJT,BorderLayout.CENTER);
-        this.setVisible(true);
+        setPreferredSize(new Dimension(300, 400));
+        setLayout(new BorderLayout());
+        add(typeEndJL, BorderLayout.NORTH);
+        add(scoreboardJT, BorderLayout.CENTER);
+        setVisible(true);
     }
-
-    public static void showScoreBoard(String status, Object[][] data){
-        if (scoreboard==null)
-            scoreboard = new ScoreBoardJOP(status, data);
-    }
+//
+//    public static void showScoreBoard(String status, Object[][] data){
+//        if (scoreboard==null)
+//            scoreboard = new ScoreBoardJOP(status, data);
+//    }
 
     private void setTableModel(Object[][] data){
         DefaultTableModel dtm = new DefaultTableModel(data, columnNames);
         scoreboardJT.setModel(dtm);
     }
-
-    public static void resetIstance(){
-        scoreboard=null;
-    }
+//    public static void resetIstance(){
+//        scoreboard=null;
+//    }
 
 }

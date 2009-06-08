@@ -262,7 +262,7 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
                         onLineGameVO.getPlayerCardsImageMap().get(Integer.valueOf(i)).get(0));
             }
 
-           stakeHumanJTF.setEnabled(onLineGameVO.getPlayerRequestBetMap().get(Integer.valueOf(1)));
+            stakeHumanJTF.setEnabled(onLineGameVO.getPlayerRequestBetMap().get(Integer.valueOf(1)));
         }//end for iniziale
         if (onLineGameVO.isEndManche()) {
             JOptionPane.showMessageDialog(this, "Questa manche è terminata!!!");
@@ -303,7 +303,7 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
         resetBetJTF();
         onLineGameVO = GUICoreMediator.requestOnLineGameVO();
         refreshComponents();
-    }    
+    }
 
     private void declareGoodScore() {
         String value;
@@ -344,7 +344,7 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
             nameHumanJL.setBackground(new Color(255, 153, 0));
             stakeHumanJTF.setEnabled(false);
         }
-    
+
     }
 
     //Deseleziona l'ex-mazziere di turno, che diventa un player normale
