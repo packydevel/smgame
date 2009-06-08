@@ -343,12 +343,14 @@ public class GUICoreMediator {
             menuVO.getItemEnabledMap().put("loadGameJMI", true);
             menuVO.getItemEnabledMap().put("saveGameJMI", false);
             menuVO.getItemEnabledMap().put("closeGameJMI", false);
+            menuVO.getItemEnabledMap().put("scoreBoardJMI", false);
         } else {
             menuVO.getItemEnabledMap().put("newOnLineGameJMI", false);
             menuVO.getItemEnabledMap().put("newOffLineGameJMI", false);
             menuVO.getItemEnabledMap().put("loadGameJMI", false);
             menuVO.getItemEnabledMap().put("saveGameJMI", true);
             menuVO.getItemEnabledMap().put("closeGameJMI", true);
+            menuVO.getItemEnabledMap().put("scoreBoardJMI", true);
         }
 
 

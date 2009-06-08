@@ -14,7 +14,7 @@ public class MenuJMB extends JMenuBar {
 
     private JMenu gameJM;
     private JMenu newGameJM;
-    private JMenu playerJM;
+    private JMenu scoreBoardJM;
     private JMenu settingsJM;
     private JMenu helpJM;
     private JMenuItem newOnLineGameJMI;
@@ -23,6 +23,7 @@ public class MenuJMB extends JMenuBar {
     private JMenuItem saveGameJMI;
     private JMenuItem closeGameJMI;
     private JMenuItem exitGameJMI;
+    private JMenuItem scoreBoardJMI;
     private JMenuItem gameSettingsJMI;
     private JMenuItem globalSettingsJMI;
     private JMenuItem helpContentsJMI;
@@ -70,37 +71,44 @@ public class MenuJMB extends JMenuBar {
 
         newGameJM = new JMenu("newGameJM");
         newGameJM.setText("Nuova");
+        newGameJM.setName("newGameJM");
         newGameJM.add(newOnLineGameJMI);
         newGameJM.add(newOffLineGameJMI);
 
         gameJM = new JMenu("GameJM");
-        gameJM.setText("Game");
+        gameJM.setText("Partita");
         gameJM.add(newGameJM);
         gameJM.add(loadGameJMI);
         gameJM.add(saveGameJMI);
         gameJM.add(closeGameJMI);
         gameJM.add(exitGameJMI);
 
-        playerJM = new JMenu("PlayerJM");
-        playerJM.setText("Player");
+        scoreBoardJMI = new JMenuItem("ScoreBoardJMI");
+        scoreBoardJMI.setText("ScoreBoard");
+        scoreBoardJMI.setName("scoreBoardJMI");
+        menuItemListJMI.add(scoreBoardJMI);
+
+        scoreBoardJM = new JMenu("ScoreBoardJM");
+        scoreBoardJM.setText("Punteggio");
+        scoreBoardJM.add(scoreBoardJMI);
 
         gameSettingsJMI = new JMenuItem("GameSettingsJMI");
-        gameSettingsJMI.setText("Game Settings ...");
+        gameSettingsJMI.setText("Preferenze di gioco");
         gameSettingsJMI.setName("gameSettingsJMI");
         menuItemListJMI.add(gameSettingsJMI);
 
         globalSettingsJMI = new JMenuItem("GlobalSettingsJMI");
-        globalSettingsJMI.setText("Global Settings ...");
+        globalSettingsJMI.setText("Preferenze globali");
         globalSettingsJMI.setName("globalSettingsJMI");
         menuItemListJMI.add(globalSettingsJMI);
 
         settingsJM = new JMenu("SettingsJM");
-        settingsJM.setText("Settings");
+        settingsJM.setText("Preferenze");
         settingsJM.add(gameSettingsJMI);
         settingsJM.add(globalSettingsJMI);
 
         helpContentsJMI = new JMenuItem("HelpContentsJMI");
-        helpContentsJMI.setText("Contents Help");
+        helpContentsJMI.setText("Sommario");
         helpContentsJMI.setName("helpContentsJMI");
         menuItemListJMI.add(helpContentsJMI);
 
@@ -114,12 +122,10 @@ public class MenuJMB extends JMenuBar {
         helpJM.add(helpContentsJMI);
         helpJM.add(aboutJMI);
 
-
         add(gameJM);
-        add(playerJM);
+        add(scoreBoardJM);
         add(settingsJM);
         add(helpJM);
-
     }
 
     public JMenuItem getCloseGameJMI() {
@@ -150,12 +156,16 @@ public class MenuJMB extends JMenuBar {
         return newOffLineGameJMI;
     }
 
-    public JMenu getPlayerJM() {
-        return playerJM;
+    public JMenu getScoreBoardJM() {
+        return scoreBoardJM;
     }
 
     public JMenuItem getSaveGameJMI() {
         return saveGameJMI;
+    }
+
+    public JMenuItem getScoreBoardJMI() {
+        return scoreBoardJMI;
     }
 
     public List<JMenuItem> getMenuItemListJMI() {
