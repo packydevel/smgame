@@ -130,7 +130,11 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
                     JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
                 this.dispose();
             }
+        } else if ((JMenuItem) evt.getSource() == menuJMB.getScoreBoardJMI()) {
+            JOptionPane.showMessageDialog(this, new ScoreBoardJP("manche finita", GUICoreMediator.requestDataReport()), "Score Board", JOptionPane.INFORMATION_MESSAGE);
         }
+
+
     }
 
     public void internalFrameDeactivated(InternalFrameEvent e) {
