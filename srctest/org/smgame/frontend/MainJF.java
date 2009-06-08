@@ -9,6 +9,7 @@ import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 
@@ -110,13 +111,25 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
                 e.printStackTrace();
             }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getCloseGameJMI()) {
-            GUICoreMediator.closeGame();
-            for (JInternalFrame jiframe : desktop.getAllFrames()) {
-                jiframe.dispose();
-                refreshMenuItem();
+            if (JOptionPane.showInternalConfirmDialog(desktop, "Sei sicuro di voler chiudere la Partita? I passaggi di gioco non salvati saranno persi!", "Info",
+                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE) == 0) {
+                try {
+                    GUICoreMediator.saveGame();
+                } catch (Exception e) {
+                    JOptionPane.showInternalMessageDialog(desktop, "Impossibile salvare la partita! " + e.getMessage(), "Errore",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+                GUICoreMediator.closeGame();
+                for (JInternalFrame jiframe : desktop.getAllFrames()) {
+                    jiframe.dispose();
+                    refreshMenuItem();
+                }
             }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getExitGameJMI()) {
-            this.dispose();
+            if (JOptionPane.showInternalConfirmDialog(desktop, "Sei sicuro di voler uscire? Le partite non salvate saranno perse!", "Info",
+                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
+                this.dispose();
+            }
         }
     }
 
@@ -134,10 +147,14 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
         } else if (e.getInternalFrame() instanceof OffLineGameJIF) {
             GUICoreMediator.closeGame();
             refreshMenuItem();
+
         } else if (e.getInternalFrame() instanceof OnLineGameJIF) {
             GUICoreMediator.closeGame();
             refreshMenuItem();
+
         }
+
+
     }
 
     public void internalFrameOpened(InternalFrameEvent e) {
@@ -158,6 +175,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
         gameonlineJIF.addInternalFrameListener(this);
         desktop.add(gameonlineJIF);
         refreshMenuItem();
+
     }
 
     public void newOffLineGameCreating(NewOffLineGameEvent e) {
@@ -166,5 +184,6 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
         gameJIF.addInternalFrameListener(this);
         desktop.add(gameJIF);
         refreshMenuItem();
+
     }
 } 

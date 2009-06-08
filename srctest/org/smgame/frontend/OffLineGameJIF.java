@@ -290,6 +290,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
     }
 
     private void refreshComponent() {
+        Object [][] dataReport = GUICoreMediator.requestDataReport();
         for (int i = 0; i < offLineGameVO.getPlayerIndexList().size(); i++) {
             playerCreditMapJL.get(i).setText(offLineGameVO.getPlayerCreditMap().get(Integer.valueOf(i)));
             for (int j = 0; j < 14; j++) {
@@ -321,10 +322,10 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             }
 
             getBetJTF(i).setEnabled(offLineGameVO.getPlayerRequestBetMap().get(Integer.valueOf(i)));
-        }
+        } //end for
 
         if (offLineGameVO.isEndManche()) {
-            JOptionPane.showMessageDialog(this, new ScoreBoardJOP("prova", GUICoreMediator.requestDataReport()), "Score Board", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, new ScoreBoardJOP("prova", dataReport), "Score Board", JOptionPane.INFORMATION_MESSAGE);
             //TODO: richiamare in qualche modo la scoreboard
 //            ScoreBoardJOP.showScoreBoard("test", GUICoreMediator.requestDataReport());
 //            ScoreBoardJOP.resetIstance();

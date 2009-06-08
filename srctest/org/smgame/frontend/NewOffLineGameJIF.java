@@ -31,9 +31,9 @@ import org.smgame.core.GUICoreMediator;
  */
 public class NewOffLineGameJIF extends JInternalFrame {
 
-    JPanel playersJP, preferencesJP;
+    JPanel playerJP, preferenceJP;
     GridBagConstraints labelGBC, textFieldGBC, comboBoxGBC, checkBoxGBC, buttonGBC;
-    JLabel playersNumberJL, cpuflagJL;
+    JLabel playersNumberJL, cpuflagJL, mancheNumberJL, jollyCardJL, kingSMPayRuleJL;
     JComboBox playersNumberJCB;
     JButton cancelJB;
     JButton okJB;
@@ -41,7 +41,7 @@ public class NewOffLineGameJIF extends JInternalFrame {
     JCheckBox cpuflagJCKB[];
     JLabel gameNameJL;
     JLabel playerJL[];
-    JTextField gameNameJTF;
+    JTextField gameNameJTF, mancheNumberJTF, jollyCardJTF, kingSMPayRuleJTF;
     JTextField playerJTF[];
     String eventSource;
     int previousPlayersNumber = 0;
@@ -56,19 +56,19 @@ public class NewOffLineGameJIF extends JInternalFrame {
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        playersJP = new JPanel();
-        tabbedPane.addTab("Giocatori", null, playersJP,
+        playerJP = new JPanel();
+        tabbedPane.addTab("Giocatori", null, playerJP,
                 "Does nothing");
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
-        preferencesJP = new JPanel();
-        tabbedPane.addTab("Preferenze", null, preferencesJP,
+        preferenceJP = new JPanel();
+        tabbedPane.addTab("Preferenze", null, preferenceJP,
                 "Does twice as much nothing");
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
 
-        playersJP.setLayout(new GridBagLayout());
-        preferencesJP.setLayout(new GridBagLayout());
+        playerJP.setLayout(new GridBagLayout());
+        preferenceJP.setLayout(new GridBagLayout());
 
         labelGBC = new GridBagConstraints();
         labelGBC.weightx = 0;
@@ -100,30 +100,29 @@ public class NewOffLineGameJIF extends JInternalFrame {
         buttonGBC.insets = new Insets(2, 2, 2, 2);
         buttonGBC.anchor = GridBagConstraints.SOUTHEAST;
 
-
         gameNameJL = new JLabel("Nome Partita:");
         labelGBC.gridx = 0;
         labelGBC.gridy = 0;
-        playersJP.add(gameNameJL, labelGBC);
+        playerJP.add(gameNameJL, labelGBC);
 
         gameNameJTF = new JTextField(20);
         textFieldGBC.gridx = 1;
         textFieldGBC.gridy = 0;
         textFieldGBC.gridwidth = 2;
         textFieldGBC.fill = GridBagConstraints.HORIZONTAL;
-        playersJP.add(gameNameJTF, textFieldGBC);
+        playerJP.add(gameNameJTF, textFieldGBC);
 
         playersNumberJL = new JLabel("Numero di giocatori:");
         labelGBC.gridx = 0;
         labelGBC.gridy = 1;
-        playersJP.add(playersNumberJL, labelGBC);
+        playerJP.add(playersNumberJL, labelGBC);
 
         Integer playersNumber[] = {null, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
 
         playersNumberJCB = new JComboBox(playersNumber);
         comboBoxGBC.gridx = 1;
         comboBoxGBC.gridy = 1;
-        playersJP.add(playersNumberJCB, comboBoxGBC);
+        playerJP.add(playersNumberJCB, comboBoxGBC);
         playersNumberJCB.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
@@ -134,13 +133,13 @@ public class NewOffLineGameJIF extends JInternalFrame {
         cpuflagJL = new JLabel("CPU flag");
         labelGBC.gridx = 2;
         labelGBC.gridy = 1;
-        playersJP.add(cpuflagJL, labelGBC);
+        playerJP.add(cpuflagJL, labelGBC);
 
         allcpuflagJCKB = new JCheckBox();
         checkBoxGBC.gridx = 2;
         checkBoxGBC.gridy = 2;
         checkBoxGBC.ipadx = 50;
-        playersJP.add(allcpuflagJCKB, checkBoxGBC);
+        playerJP.add(allcpuflagJCKB, checkBoxGBC);
         allcpuflagJCKB.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
@@ -160,7 +159,7 @@ public class NewOffLineGameJIF extends JInternalFrame {
                 newGameActionPerformed(evt);
             }
         });
-        playersJP.add(cancelJB, buttonGBC);
+        playerJP.add(cancelJB, buttonGBC);
 
         okJB = new JButton("OK");
         okJB.setPreferredSize(new Dimension(70, 20));
@@ -175,9 +174,50 @@ public class NewOffLineGameJIF extends JInternalFrame {
                 newGameActionPerformed(evt);
             }
         });
-        playersJP.add(okJB, buttonGBC);
+        playerJP.add(okJB, buttonGBC);
 
         textFieldGBC.fill = GridBagConstraints.NONE;
+
+        mancheNumberJL = new JLabel("Numero Manches:");
+        labelGBC.gridx = 0;
+        labelGBC.gridy = 0;
+        preferenceJP.add(mancheNumberJL, labelGBC);
+
+        mancheNumberJTF = new JTextField();
+        mancheNumberJTF.setText("10");
+        mancheNumberJTF.setEnabled(false);
+        textFieldGBC.gridx = 1;
+        textFieldGBC.gridy = 0;
+        preferenceJP.add(mancheNumberJTF, textFieldGBC);
+
+        jollyCardJL = new JLabel("Matta:");
+        labelGBC.gridx = 0;
+        labelGBC.gridy = 1;
+        preferenceJP.add(jollyCardJL, labelGBC);
+
+        jollyCardJTF = new JTextField();
+        jollyCardJTF.setText("Re di Denari");
+        jollyCardJTF.setEnabled(false);
+        textFieldGBC.gridx = 1;
+        textFieldGBC.gridy = 1;
+        preferenceJP.add(jollyCardJTF, textFieldGBC);
+
+        kingSMPayRuleJL = new JLabel("Pagamento del Sette e Mezzo Reale: ");
+        labelGBC.gridx = 0;
+        labelGBC.gridy = 2;
+        preferenceJP.add(kingSMPayRuleJL, labelGBC);
+
+        kingSMPayRuleJTF = new JTextField();
+        kingSMPayRuleJTF.setText("doppio");
+        kingSMPayRuleJTF.setEnabled(false);
+        textFieldGBC.gridx = 1;
+        textFieldGBC.gridy = 2;
+        textFieldGBC.weightx = 1;
+        textFieldGBC.weighty = 1;
+        preferenceJP.add(kingSMPayRuleJTF, textFieldGBC);
+
+        textFieldGBC.weightx = 0;
+        textFieldGBC.weighty = 0;
 
         add(tabbedPane);
     }
@@ -199,13 +239,13 @@ public class NewOffLineGameJIF extends JInternalFrame {
             currentPlayersNumber = ((Integer) playersNumberJCB.getSelectedItem()).intValue();
             if (currentPlayersNumber != previousPlayersNumber && previousPlayersNumber != 0) {
                 for (int j = 0; j < previousPlayersNumber; j++) {
-                    playersJP.remove(playerJL[j]);
-                    playersJP.remove(playerJTF[j]);
-                    playersJP.remove(cpuflagJCKB[j]);
+                    playerJP.remove(playerJL[j]);
+                    playerJP.remove(playerJTF[j]);
+                    playerJP.remove(cpuflagJCKB[j]);
+                    validate();
                 }
+                allcpuflagJCKB.setSelected(false);
             }
-
-            validate();
 
             i = currentPlayersNumber;
             playerJL = new JLabel[i];
@@ -217,7 +257,7 @@ public class NewOffLineGameJIF extends JInternalFrame {
                 playerJL[j] = new JLabel("Giocatore " + (j + 1) + ":");
                 labelGBC.gridx = 0;
                 labelGBC.gridy = y;
-                playersJP.add(playerJL[j], labelGBC);
+                playerJP.add(playerJL[j], labelGBC);
                 playerJL[j].setVisible(true);
 
                 playerJTF[j] = new JTextField();
@@ -225,7 +265,7 @@ public class NewOffLineGameJIF extends JInternalFrame {
                 textFieldGBC.gridx = 1;
                 textFieldGBC.gridy = y;
                 textFieldGBC.ipadx = 100;
-                playersJP.add(playerJTF[j], textFieldGBC);
+                playerJP.add(playerJTF[j], textFieldGBC);
                 playerJTF[j].setVisible(true);
 
 
@@ -233,7 +273,7 @@ public class NewOffLineGameJIF extends JInternalFrame {
                 checkBoxGBC.gridx = 2;
                 checkBoxGBC.gridy = y;
                 checkBoxGBC.ipadx = 50;
-                playersJP.add(cpuflagJCKB[j], checkBoxGBC);
+                playerJP.add(cpuflagJCKB[j], checkBoxGBC);
                 if (j == 0) {
                     cpuflagJCKB[j].setVisible(false);
                 } else {
