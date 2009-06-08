@@ -331,7 +331,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             //GUICoreMediator.closeManche();
             if (offLineGameVO.isEndGame()) {
                 JOptionPane.showMessageDialog(this, "Questa partita è terminata!!!");
-                //GUICoreMediator.closeGame();
+                GUICoreMediator.closeGame();
                 dispose();
             } else {
                 initBoard();
