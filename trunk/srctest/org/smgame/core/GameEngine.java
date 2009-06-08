@@ -230,7 +230,7 @@ public class GameEngine implements Serializable {
      * Luka puoi verificare???
      */
     private void applyPaymentRule() {
-        Double amount, bankAmount=0.00;
+        Double amount, bankAmount = 0.00;
 
         for (Player p : gameEngine.playerList.getPlayerAL()) {
             if (p.getStatus() == PlayerStatus.GoodScore && !p.equals(bankPlayer)) {
@@ -245,7 +245,7 @@ public class GameEngine implements Serializable {
                         p.setLastWinLoseAmount(amount);
                         p.setCredit(p.getCredit() + amount);
                     }
-                    bankAmount+=amount;
+                    bankAmount -= amount;
                 } else {
                     if (bankPlayer.hasKingSM()) {
                         amount = 2 * p.getStake();
@@ -255,10 +255,12 @@ public class GameEngine implements Serializable {
                         amount = p.getStake();
                         p.setLastWinLoseAmount(-amount);
                         p.setCredit(p.getCredit() - amount);
-                        
                     }
-                    bankAmount-=amount;
+                    bankAmount += amount;
                 }
+            } else if (p.getStatus() == PlayerStatus.ScoreOverflow && !p.equals(bankPlayer)) {
+                amount = p.getStake();
+                bankAmount += amount;
             }
         }
 
