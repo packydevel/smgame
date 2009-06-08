@@ -118,6 +118,7 @@ public class GameEngine implements Serializable {
      */
     public void requestCard(Player player, double bet) throws BetOverflowException, ScoreOverflowException {
         Card card;
+        Double amount;
 
         if ((player.getCredit() - player.getStake()) < bet) {
             throw new BetOverflowException("Non hai sufficiente Credito per eseguire questa puntata!!!");
@@ -131,8 +132,10 @@ public class GameEngine implements Serializable {
             if (player.getScore() > 7.5) {
                 deck.addOffGameCards(player.getCardList());
                 if (player.getRole() != PlayerRole.Bank) {
-                    player.setCredit(player.getCredit() - player.getStake());
-                    bankPlayer.setCredit(bankPlayer.getCredit() + player.getStake());
+                    amount = player.getStake();
+                    player.setLastWinLoseAmount(-amount);
+                    player.setCredit(player.getCredit() - amount);
+                    bankPlayer.setCredit(bankPlayer.getCredit() + amount);
                 }
                 player.setStatus(PlayerStatus.ScoreOverflow);
                 throw new ScoreOverflowException("Mi spiace, Hai Sballato!!!", card);
@@ -227,25 +230,34 @@ public class GameEngine implements Serializable {
      * Luka puoi verificare???
      */
     private void applyPaymentRule() {
+        Double amount;
+
         for (Player p : gameEngine.playerList.getPlayerAL()) {
             if (p.getStatus() == PlayerStatus.GoodScore && !p.equals(bankPlayer)) {
                 if (compareScore(p)) {
                     if (p.hasKingSM()) {
-                        //vincita giocatore doppia x effetto sette e mezzo reale
-                        p.setCredit(p.getCredit() + 2 * p.getStake());
-                        bankPlayer.setCredit(bankPlayer.getCredit() - 2 * p.getStake());
+                        amount = 2 * p.getStake();
+                        p.setLastWinLoseAmount(amount);
+                        p.setCredit(p.getCredit() + amount);
+                        bankPlayer.setCredit(bankPlayer.getCredit() - amount);
                     } else {
                         //vincita giocatore normale
-                        p.setCredit(p.getCredit() + p.getStake());
-                        bankPlayer.setCredit(bankPlayer.getCredit() - p.getStake());
+                        amount = p.getStake();
+                        p.setLastWinLoseAmount(amount);
+                        p.setCredit(p.getCredit() + amount);
+                        bankPlayer.setCredit(bankPlayer.getCredit() - amount);
                     }
                 } else {
                     if (bankPlayer.hasKingSM()) {
-                        p.setCredit(p.getCredit() - 2 * p.getStake());
-                        bankPlayer.setCredit(bankPlayer.getCredit() + 2 * p.getStake());
+                        amount = 2 * p.getStake();
+                        p.setLastWinLoseAmount(-amount);
+                        p.setCredit(p.getCredit() - amount);
+                        bankPlayer.setCredit(bankPlayer.getCredit() + amount);
                     } else {
-                        p.setCredit(p.getCredit() - p.getStake());
-                        bankPlayer.setCredit(bankPlayer.getCredit() + p.getStake());
+                        amount = p.getStake();
+                        p.setLastWinLoseAmount(-amount);
+                        p.setCredit(p.getCredit() - amount);
+                        bankPlayer.setCredit(bankPlayer.getCredit() + amount);
                     }
                 }
             }
