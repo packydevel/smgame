@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.table.AbstractTableModel;
 import org.smgame.core.GUICoreMediator;
+import org.smgame.util.Logging;
 
 /**
  *
@@ -29,7 +30,7 @@ public class LoadGameATM extends AbstractTableModel {
             gameCreationDateList = (ArrayList<Date>) GUICoreMediator.getGameCreationDateList();
             gameLastDateList = (ArrayList<Date>) GUICoreMediator.getGameLastDateList();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Logging.logExceptionSevere(e);
         }
     }
 

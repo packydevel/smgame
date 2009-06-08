@@ -12,6 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
+import org.smgame.util.Logging;
 
 public class MainJF extends JFrame implements InternalFrameListener, NewOffLineGameListener, NewOnLineGameListener {
 
@@ -108,7 +109,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
             try {
                 GUICoreMediator.saveGame();
             } catch (Exception e) {
-                e.printStackTrace();
+                Logging.logExceptionSevere(e);
             }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getCloseGameJMI()) {
             if (JOptionPane.showInternalConfirmDialog(desktop, "Sei sicuro di voler chiudere la Partita? I passaggi di gioco non salvati saranno persi!", "Info",
@@ -116,6 +117,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
                 try {
                     GUICoreMediator.saveGame();
                 } catch (Exception e) {
+                    Logging.logExceptionSevere(e);
                     JOptionPane.showInternalMessageDialog(desktop, "Impossibile salvare la partita! " + e.getMessage(), "Errore",
                             JOptionPane.ERROR_MESSAGE);
                 }

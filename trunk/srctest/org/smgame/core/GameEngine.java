@@ -5,8 +5,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import java.util.Random;
+
 import org.smgame.core.card.Card;
 import org.smgame.core.card.Deck;
 import org.smgame.core.player.CPUPlayer;
@@ -16,6 +16,7 @@ import org.smgame.core.player.PlayerRole;
 import org.smgame.core.player.PlayerStatus;
 import org.smgame.main.GameSetting;
 import org.smgame.util.BetOverflowException;
+import org.smgame.util.Logging;
 import org.smgame.util.ScoreOverflowException;
 
 /**Classe GameEngine, motore di gioco
@@ -205,8 +206,6 @@ public class GameEngine implements Serializable {
     }
 
     //Valutazione tra i punteggi realizzati al 7 1/2 seondo le regole di WikiPedia
-    //TODO: integrare caso 7mezzo reale con matta  che batte 7mezzo illegittimo mazziere
-    //p.s. rendere + leggibile?
     private boolean compareScore(Player player) {
         boolean compare = false;
         if (player.getStatus() == PlayerStatus.GoodScore &&
@@ -224,11 +223,7 @@ public class GameEngine implements Serializable {
         return compare;
     }
 
-    /*
-     * Determina quanto vince o perde un giocatore contro il banco
-     * secondo le regole di Wikipedia
-     * Luka puoi verificare???
-     */
+     //Determina quanto vince o perde un giocatore contro il banco secondo le regole di Wikipedia
     private void applyPaymentRule() {
         Double amount, bankAmountGoodScorePlayer = 0.00, bankAmountOverflowPlayer = 0.00;
 
@@ -305,7 +300,7 @@ public class GameEngine implements Serializable {
                 declareGoodScore(player, 0.00);
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Logging.logExceptionSevere(e);
         }
     }
 
@@ -384,4 +379,5 @@ public class GameEngine implements Serializable {
 
         return false;
     }
+
 }//end class

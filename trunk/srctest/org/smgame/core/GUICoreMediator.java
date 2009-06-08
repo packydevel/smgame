@@ -29,6 +29,7 @@ import org.smgame.main.Game;
 import org.smgame.main.GameSetting;
 import org.smgame.util.BetOverflowException;
 import org.smgame.util.Common;
+import org.smgame.util.Logging;
 import org.smgame.util.NoGamesException;
 
 /**Classe GUICoreMediator
@@ -86,6 +87,9 @@ public class GUICoreMediator {
      */
     public static void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList,
             List<Boolean> playerTypeList) {
+        Logging.createLog(gameName);
+        Logging.logInfo("Creazione game offline");
+        
         PlayerList.getInstance().resetInstance();
         PlayerList playerList = PlayerList.getInstance();
         GUICoreMediator.playerNameList = playerNameList;
@@ -93,7 +97,7 @@ public class GUICoreMediator {
         offLineGameVO.getPlayerIndexList().clear();
 
         for (int i = 0; i < playerNameList.size(); i++) {
-            System.out.println(playerNameList.get(i));
+            Logging.logInfo(playerNameList.get(i));
             if (playerTypeList.get(i).booleanValue()) {
                 playerList.getPlayerAL().add(new CPUPlayer(playerNameList.get(i)));
             } else {
@@ -312,6 +316,7 @@ public class GUICoreMediator {
                 selectNextPlayer();
             }
             offLineGameVO.setExceptionMessage(e.getMessage());
+            Logging.logExceptionSevere(e);
         }
     }
 
@@ -330,6 +335,7 @@ public class GUICoreMediator {
 
         } catch (BetOverflowException boe) {
             offLineGameVO.setExceptionMessage(boe.getMessage());
+            Logging.logExceptionWarning(boe);
         }
     }
 
