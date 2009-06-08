@@ -325,9 +325,8 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
         } //end for
 
         if (offLineGameVO.isEndManche()) {
-            System.out.println("Scoreboard visibile");
             JOptionPane.showMessageDialog(this, new ScoreBoardJP("manche finita", dataReport), "Score Board", JOptionPane.INFORMATION_MESSAGE);
-
+            System.out.println("Scoreboard visibile");            
             //GUICoreMediator.closeManche();
             if (offLineGameVO.isEndGame()) {
                 JOptionPane.showMessageDialog(this, "Questa partita è terminata!!!");

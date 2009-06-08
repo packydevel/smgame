@@ -15,6 +15,10 @@ public class CPUPlayer extends Player implements Serializable {
     private final double MIN_SCORE = 4.5; //minimo punteggio
     private final HashMap<Double, Double> valueWeightMap = new HashMap<Double, Double>();
 
+    /**Costruttore
+     *
+     * @param name nome del player cpu
+     */
     public CPUPlayer(String name) {
         super(name);
         valueWeightMap.put(Double.valueOf(0.50), Double.valueOf(5.00));
@@ -27,17 +31,15 @@ public class CPUPlayer extends Player implements Serializable {
         valueWeightMap.put(Double.valueOf(7.00), Double.valueOf(25.00));
     }
 
-    /**Chiede un'altra carta
+    /**Verifica se il player cpu ha un punteggio buono
      *
-     * @return
+     * @return true/false
      */
     public boolean isGoodScore() {
         double threshold = 0.00, hypotethicScore, i;
         int allHypotheticValues, allGoodValues;
         //HashMap<Player, PlayerStatus> playerStatusMap = (HashMap<Player, PlayerStatus>) playerList.getPlayerStatusMap();
         //HashMap<Player, Double> playerVisibleScoreMap = (HashMap<Player, Double>) playerList.getPlayerVisibleScoreMap();
-
-
 
         if (role == PlayerRole.Normal) {
             if (cardList.get(0).getPoint() == Point.Re && cardList.get(0).getSuit() == Suit.Danari && cardList.size() == 1) {
@@ -104,7 +106,7 @@ public class CPUPlayer extends Player implements Serializable {
 
     /**richiede una puntata
      *
-     * @return
+     * @return il valore della puntata
      */
     public double requestBet() {
         Double bet;
