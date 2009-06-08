@@ -24,7 +24,7 @@ public class GameSetting {
     private double credit;
     private Card jolly;
     private int jollyValue;
-    private String smDAmblePaid;
+    private String kingSMPayRule;
 
     //Costruttore privato
     private GameSetting() {
@@ -48,11 +48,10 @@ public class GameSetting {
      *
      */
     public void resetInstance() {
-        players = 4;
         manches = 10;
         credit = MIN_CREDIT;
         jolly = Deck.getInstance().getSelectedCard(Point.Re, Suit.Danari);
-        smDAmblePaid = "double";
+        kingSMPayRule = "double";
     }
 
     /**imposta il numero giocatori
@@ -98,12 +97,4 @@ public class GameSetting {
             this.credit = credit;
         }
     }
-
-    /**Restituisce il numero giocatori
-     *
-     */
-    public int getNumPlayers() {
-        return players;
-    }
-
 }//end class

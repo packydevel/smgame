@@ -4,7 +4,6 @@
  */
 package org.smgame.frontend;
 
-import java.lang.String;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.table.AbstractTableModel;
