@@ -329,10 +329,12 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             
             getBetJTF(i).setEnabled(offLineGameVO.getPlayerRequestBetMap().get(i));
         } //end for
-
+        System.out.println("offLineGameVO.isEndManche: "+offLineGameVO.isEndManche());
         if (offLineGameVO.isEndManche()) {
-            JOptionPane.showMessageDialog(this, new ScoreBoardJP("manche finita", dataReport), "Score Board", JOptionPane.INFORMATION_MESSAGE);
-            System.out.println("Scoreboard visibile");            
+            System.out.println("Scoreboard visibile");
+            JOptionPane.showMessageDialog(this,
+                    new ScoreBoardJP("Terminata manche n°" , dataReport), "Score Board",
+                    JOptionPane.INFORMATION_MESSAGE);
             //GUICoreMediator.closeManche();
             if (offLineGameVO.isEndGame()) {
                 JOptionPane.showMessageDialog(this, "Questa partita è terminata!!!");
