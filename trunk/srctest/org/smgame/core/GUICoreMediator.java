@@ -541,7 +541,7 @@ public class GUICoreMediator {
             Player tempPlayer = currentGame.getPlayerList().getPlayerAL().get(i);
 
             data[i][0] = offLineGameVO.getPlayerNameMap().get(i);
-            data[i][1] = formatter.format(tempPlayer.getStake());
+            data[i][1] = formatter.format(tempPlayer.getLastWinLoseAmount());
             data[i][2] = formatter.format(tempPlayer.getScore());
             data[i][3] = formatter.format(tempPlayer.getCredit());
         }
