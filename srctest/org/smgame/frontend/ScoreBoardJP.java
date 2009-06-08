@@ -32,7 +32,6 @@ public class ScoreBoardJP extends JPanel {
         setWitdhColumn(1, 100);
 
         scoreboardJT.setFocusable(false);
-        scoreboardJT.setCellSelectionEnabled(false);
 
         add(typeEndJL, BorderLayout.NORTH);
         add(new JScrollPane(scoreboardJT), BorderLayout.CENTER);
