@@ -1,5 +1,6 @@
 package org.smgame.main;
 
+import java.io.Serializable;
 import org.smgame.core.card.Card;
 import org.smgame.core.card.Deck;
 import org.smgame.core.card.Point;
@@ -10,7 +11,7 @@ import org.smgame.core.card.Suit;
  * @author luca
  * @author pasquale
  */
-public class GameSetting {
+public class GameSetting implements Serializable {
 
     private static GameSetting gameSetting = null;
     private final int MIN_PLAYERS = 2;
