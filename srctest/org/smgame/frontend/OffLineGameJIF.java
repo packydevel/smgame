@@ -33,6 +33,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import org.smgame.core.GUICoreMediator;
+import org.smgame.util.Logging;
 
 public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
 
@@ -364,6 +365,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             try {
                 bet = betValueFormatter.parse(getBet(i)).doubleValue();
             } catch (Exception e) {
+                Logging.logExceptionSevere(e);
             }
         }
 
@@ -382,6 +384,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             try {
                 bet = betValueFormatter.parse(getBet(i)).doubleValue();
             } catch (Exception e) {
+                Logging.logExceptionSevere(e);
             }
         }
 

@@ -574,23 +574,24 @@ public class GUICoreMediator {
         Object[][] data = new Object[size][4];
         for (int i = 0; i < size; i++) {
             //nome giocatore
-            JLabel player = new JLabel(offLineGameVO.getPlayerNameMap().get(i));
+            /*JLabel player = new JLabel(offLineGameVO.getPlayerNameMap().get(i));
             if (offLineGameVO.getPlayerRoleMap().get(i) == Boolean.TRUE){
                 player.setOpaque(true);
                 player.setBackground(new Color(255, 153, 0));
-            }
-            data[i][0] = player;
+            }*/
+            data[i][0] = offLineGameVO.getPlayerNameMap().get(i);
             //punteggio
             data[i][1] = offLineGameVO.getPlayerScoreMap().get(i).substring(10);
             //vincita
             double winlose = currentGame.getPlayerList().getPlayerAL().get(i).getLastWinLoseAmount();
-            JLabel winlose_jl = new JLabel(formatter.format(winlose));
-            if (winlose<0)
-                winlose_jl.setForeground(Color.RED);
-            data[i][2] = winlose_jl;
+            //JLabel winlose_jl = new JLabel(formatter.format(winlose));
+            //if (winlose<0)
+            //    winlose_jl.setForeground(Color.RED);
+            data[i][2] = formatter.format(winlose);
             //credito
             data[i][3] = offLineGameVO.getPlayerCreditMap().get(i).substring(9);
         }
         return data;
     }
+
 } //end  class
