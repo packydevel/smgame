@@ -324,9 +324,12 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
         getBetJTF(i).setEnabled(true);
     }
 
-//Imposta il colore del testo del giocatore umano, per differenziarlo dal giocatore CPU
+    /**Imposta il colore del testo del giocatore umano, per differenziarlo dal giocatore CPU
+     *
+     * @param i posizione del giocatore nell'hashmap
+     */
     private void setHumanColor(int i) {
-        ((JLabel) playerNameMapJL.get(i)).setForeground(Color.RED);
+        ((JLabel) playerNameMapJL.get(i)).setForeground(Color.GREEN);
     }
 
     private void setCPUColor(int i) {

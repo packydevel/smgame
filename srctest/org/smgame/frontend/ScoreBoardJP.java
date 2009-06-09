@@ -33,9 +33,6 @@ public class ScoreBoardJP extends JPanel {
         setWitdhColumn(2, 85);
         setWitdhColumn(3, 100);
 
-
-        setCellBankColor(posBankPlayer);
-
         scoreboardJT.setFocusable(false);
         scoreboardJT.getTableHeader().setReorderingAllowed(false);
 
@@ -63,10 +60,6 @@ public class ScoreBoardJP extends JPanel {
         col.setMinWidth(width);
         col.setPreferredWidth(width);
         col.setMaxWidth(width);
-    }
-
-    private void setCellBankColor(int posBank){        
-        
-    }
+    }    
 
 } //end class
