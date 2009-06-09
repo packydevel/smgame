@@ -24,18 +24,18 @@ public class ScoreBoardJP extends JPanel {
         setPreferredSize(new Dimension(400, 250));
         setLayout(new BorderLayout());
         typeEndJL = new JLabel(status);
+
         scoreboardJT = new JTable();
         scoreboardJT.setModel(tableModel(data));
         scoreboardJT.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        scoreboardJT.setFocusable(false);
+        scoreboardJT.getTableHeader().setReorderingAllowed(false);
 
         setWitdhColumn(0, 140);
         setWitdhColumn(1, 70);
         setWitdhColumn(2, 85);
         setWitdhColumn(3, 100);
-
-        scoreboardJT.setFocusable(false);
-        scoreboardJT.getTableHeader().setReorderingAllowed(false);
-
+        
         add(typeEndJL, BorderLayout.NORTH);
         add(new JScrollPane(scoreboardJT), BorderLayout.CENTER);
         setVisible(true);
