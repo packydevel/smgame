@@ -1,6 +1,7 @@
 package org.smgame.frontend;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -75,7 +76,11 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
     private void jMenu1ActionPerformed(ActionEvent evt) {
         if ((JMenuItem) evt.getSource() == menuJMB.getNewOnLineGameJMI()) {
             if (GUICoreMediator.askForNewGame()) {
+                int xbound = (1016 - 400) / 2;
+                int ybound = (652 - 450) / 2;
                 newOnLineGameJIF = new NewOnLineGameJIF();
+                newOnLineGameJIF.setPreferredSize(new Dimension(400, 450));
+                newOnLineGameJIF.setBounds(xbound, ybound, 400, 450);
                 newOnLineGameJIF.setVisible(true);
                 newOnLineGameJIF.addInternalFrameListener(this);
                 newOnLineGameJIF.addMyEventListener(this);
@@ -87,7 +92,11 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
 
         } else if ((JMenuItem) evt.getSource() == menuJMB.getNewOffLineGameJMI()) {
             if (GUICoreMediator.askForNewGame()) {
+                int xbound = (1016 - 400) / 2;
+                int ybound = (652 - 450) / 2;
                 newGameJIF = new NewOffLineGameJIF();
+                newGameJIF.setPreferredSize(new Dimension(400, 450));
+                newGameJIF.setBounds(xbound, ybound, 400, 450);
                 newGameJIF.setVisible(true);
                 newGameJIF.addInternalFrameListener(this);
                 newGameJIF.addMyEventListener(this);
@@ -148,10 +157,16 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
      * @param e
      */
     public void newOnLineGameCreating(NewOnLineGameEvent e) {
+        int xbound = (1016 - 960) / 2;
+        int ybound = (652 - 640) / 2;
+
         gameonlineJIF = new OnLineGameJIF();
+        gameonlineJIF.setPreferredSize(new Dimension(960, 640));
+        gameonlineJIF.setBounds(xbound, ybound, 960, 640);
         gameonlineJIF.setVisible(true);
         gameonlineJIF.addInternalFrameListener(this);
         desktop.add(gameonlineJIF);
+
         refreshMenuItem();
     }
 
@@ -160,10 +175,16 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
      * @param e
      */
     public void newOffLineGameCreating(NewOffLineGameEvent e) {
+        int xbound = (1016 - 960) / 2;
+        int ybound = (652 - 640) / 2;
+
         gameJIF = new OffLineGameJIF();
+        gameJIF.setPreferredSize(new Dimension(960, 640));
+        gameJIF.setBounds(xbound, ybound, 960, 640);
         gameJIF.setVisible(true);
         gameJIF.addInternalFrameListener(this);
         desktop.add(gameJIF);
+
         refreshMenuItem();
     }
 
@@ -185,15 +206,21 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
         }
     }
 
-    public void internalFrameDeactivated(InternalFrameEvent e) { }
+    public void internalFrameDeactivated(InternalFrameEvent e) {
+    }
 
-    public void internalFrameClosing(InternalFrameEvent e) { }   
+    public void internalFrameClosing(InternalFrameEvent e) {
+    }
 
-    public void internalFrameOpened(InternalFrameEvent e) { }
+    public void internalFrameOpened(InternalFrameEvent e) {
+    }
 
-    public void internalFrameIconified(InternalFrameEvent e) { }
+    public void internalFrameIconified(InternalFrameEvent e) {
+    }
 
-    public void internalFrameDeiconified(InternalFrameEvent e) { }
+    public void internalFrameDeiconified(InternalFrameEvent e) {
+    }
 
-    public void internalFrameActivated(InternalFrameEvent e) { }
+    public void internalFrameActivated(InternalFrameEvent e) {
+    }
 } //end class

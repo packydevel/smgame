@@ -118,19 +118,11 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
      */
     public OffLineGameJIF() {
         super(GUICoreMediator.getGameName(), false, true, false, false);
-        int width = 960;
-        int height = 640;
-        setPreferredSize(new Dimension(width, height));
-//        int xbound = (getDesktopPane().getWidth() - width) / 2;
-//        int ybound = (getDesktopPane().getHeight() - height) / 2;
-//        setBounds(xbound, ybound, xbound + width, ybound + height);
+
         setLayout(new GridBagLayout());
         initComponents();
-
         initBoard();
-
         pack();
-
     }
 
     private void initComponents() {
@@ -345,6 +337,14 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
         return ((JTextField) playerActionMapJP.get(i).getComponent(0));
     }
 
+    private JButton getRequestCardJB(int i) {
+        return ((JButton) playerActionMapJP.get(i).getComponent(1));
+    }
+
+    private JButton getDeclareGoodScoreJB(int i) {
+        return ((JButton) playerActionMapJP.get(i).getComponent(2));
+    }
+
 //preleva il valore della puntata
     private String getBet(int i) {
         return ((JTextField) playerActionMapJP.get(i).getComponent(0)).getText();
@@ -355,7 +355,6 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
     }
 
     private void requestCard(int i) {
-        String value;
         double bet = 0.00;
 
         if (getBetJTF(i).isEnabled()) {
@@ -374,7 +373,6 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
     } //end request card
 
     private void declareGoodScore(int i) {
-        String value;
         double bet = 0.00;
 
         if (getBetJTF(i).isEnabled()) {
@@ -418,6 +416,8 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
                 selectBank(i);
             } else {
                 deselectBank(i);
+                getRequestCardJB(i).setEnabled(false);
+                getDeclareGoodScoreJB(i).setEnabled(false);
             }
 
             if (offLineGameVO.getPlayerPlayingMap().get(i) == Boolean.TRUE) {

@@ -53,18 +53,12 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
 
     public OnLineGameJIF() {
         super(GUICoreMediator.getGameName(), false, true, false, false);
-        int width = 960;
-        int height = 640;
-        //int xbound = (getContentPane().getWidth() - width) / 2;
-        //int ybound = (getContentPane().getHeight() - height) / 2;
-        setPreferredSize(new Dimension(width, height));
-        //setBounds(xbound, ybound, xbound + width, ybound + height);
+
         setLayout(new GridBagLayout());
         initComponents();
         initBoard();
         setVisible(true);
         pack();
-
     }
 
     private void initComponents() {

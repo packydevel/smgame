@@ -120,8 +120,6 @@ public class GUICoreMediator {
         currentGame.setPlayerList(playerList);
         currentGame.generateGameEngine();
         currentGame.getGameEngine().start();
-
-        gameMap.put(currentGame.getGameID(), currentGame);
     }
 
     /**Crea partita online
@@ -188,6 +186,7 @@ public class GUICoreMediator {
      */
     public static void saveGame() throws FileNotFoundException, IOException {
         currentGame.setLastSaveDate(new Date());
+        gameMap.put(currentGame.getGameID(), currentGame);
         saveGames();
     }
 
@@ -213,7 +212,7 @@ public class GUICoreMediator {
      */
     public static void loadGame()
             throws FileNotFoundException, IOException, ClassNotFoundException {
-        //
+        currentGame=gameMap.get(0);
     }
 
     /**Carica partite
