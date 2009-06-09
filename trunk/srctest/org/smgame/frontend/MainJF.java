@@ -1,6 +1,5 @@
 package org.smgame.frontend;
 
-import org.smgame.core.GUICoreMediator;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +11,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
+import org.smgame.core.GUICoreMediator;
 import org.smgame.util.Logging;
 
 public class MainJF extends JFrame implements InternalFrameListener, NewOffLineGameListener, NewOnLineGameListener {
@@ -27,6 +27,9 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
     private OnLineGameJIF gameonlineJIF;
     private MenuVO menuVO;
 
+    /**
+     * 
+     */
     public MainJF() {
         super("SMGame - Gioco Italiano del Sette e 1/2");
 
@@ -70,7 +73,6 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
     }
 
     private void jMenu1ActionPerformed(ActionEvent evt) {
-
         if ((JMenuItem) evt.getSource() == menuJMB.getNewOnLineGameJMI()) {
             if (GUICoreMediator.askForNewGame()) {
                 newOnLineGameJIF = new NewOnLineGameJIF();
@@ -112,13 +114,15 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
                 Logging.logExceptionSevere(e);
             }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getCloseGameJMI()) {
-            if (JOptionPane.showInternalConfirmDialog(desktop, "Sei sicuro di voler chiudere la Partita? I passaggi di gioco non salvati saranno persi!", "Info",
-                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE) == 0) {
+            if (JOptionPane.showInternalConfirmDialog(desktop,
+                    "Sei sicuro di voler chiudere la Partita? I passaggi di gioco non salvati saranno persi!",
+                    "Info", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE) == 0) {
                 try {
                     GUICoreMediator.saveGame();
                 } catch (Exception e) {
                     Logging.logExceptionSevere(e);
-                    JOptionPane.showInternalMessageDialog(desktop, "Impossibile salvare la partita! " + e.getMessage(), "Errore",
+                    JOptionPane.showInternalMessageDialog(desktop,
+                            "Impossibile salvare la partita! " + e.getMessage(), "Errore",
                             JOptionPane.ERROR_MESSAGE);
                 }
                 GUICoreMediator.closeGame();
@@ -128,23 +132,45 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
                 }
             }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getExitGameJMI()) {
-            if (JOptionPane.showInternalConfirmDialog(desktop, "Sei sicuro di voler uscire? Le partite non salvate saranno perse!", "Info",
+            if (JOptionPane.showInternalConfirmDialog(desktop,
+                    "Sei sicuro di voler uscire? Le partite non salvate saranno perse!", "Info",
                     JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
                 this.dispose();
             }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getScoreBoardJMI()) {
-            JOptionPane.showMessageDialog(this, new ScoreBoardJP("manche finita", GUICoreMediator.requestDataReport()), "Score Board", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, new ScoreBoardJP("manche finita",
+                    GUICoreMediator.requestDataReport()), "Score Board", JOptionPane.INFORMATION_MESSAGE);
         }
-
-
     }
 
-    public void internalFrameDeactivated(InternalFrameEvent e) {
+    /**
+     *
+     * @param e
+     */
+    public void newOnLineGameCreating(NewOnLineGameEvent e) {
+        gameonlineJIF = new OnLineGameJIF();
+        gameonlineJIF.setVisible(true);
+        gameonlineJIF.addInternalFrameListener(this);
+        desktop.add(gameonlineJIF);
+        refreshMenuItem();
     }
 
-    public void internalFrameClosing(InternalFrameEvent e) {
+    /**
+     *
+     * @param e
+     */
+    public void newOffLineGameCreating(NewOffLineGameEvent e) {
+        gameJIF = new OffLineGameJIF();
+        gameJIF.setVisible(true);
+        gameJIF.addInternalFrameListener(this);
+        desktop.add(gameJIF);
+        refreshMenuItem();
     }
 
+    /**
+     * 
+     * @param e
+     */
     public void internalFrameClosed(InternalFrameEvent e) {
         if (e.getInternalFrame() instanceof NewOffLineGameJIF) {
             refreshMenuItem();
@@ -159,31 +185,15 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
         }
     }
 
-    public void internalFrameOpened(InternalFrameEvent e) {
-    }
+    public void internalFrameDeactivated(InternalFrameEvent e) { }
 
-    public void internalFrameIconified(InternalFrameEvent e) {
-    }
+    public void internalFrameClosing(InternalFrameEvent e) { }   
 
-    public void internalFrameDeiconified(InternalFrameEvent e) {
-    }
+    public void internalFrameOpened(InternalFrameEvent e) { }
 
-    public void internalFrameActivated(InternalFrameEvent e) {
-    }
+    public void internalFrameIconified(InternalFrameEvent e) { }
 
-    public void newOnLineGameCreating(NewOnLineGameEvent e) {
-        gameonlineJIF = new OnLineGameJIF();
-        gameonlineJIF.setVisible(true);
-        gameonlineJIF.addInternalFrameListener(this);
-        desktop.add(gameonlineJIF);
-        refreshMenuItem();
-    }
+    public void internalFrameDeiconified(InternalFrameEvent e) { }
 
-    public void newOffLineGameCreating(NewOffLineGameEvent e) {
-        gameJIF = new OffLineGameJIF();
-        gameJIF.setVisible(true);
-        gameJIF.addInternalFrameListener(this);
-        desktop.add(gameJIF);
-        refreshMenuItem();
-    }
-} 
+    public void internalFrameActivated(InternalFrameEvent e) { }
+} //end class
