@@ -24,14 +24,14 @@ public class StartSMGame {
                     Logging.logExceptionSevere(e);
                 }
                 MainJF frame = new MainJF();
-            }
-        });
+            } //end run
+        }); //end invokelater
 
         try {
             GUICoreMediator.loadGames();
         } catch (Exception e) {
-            Logging.logExceptionSevere(e);
             System.out.println("Errore nel caricamento!!!");
+            Logging.logExceptionSevere(e);
         }
     }
 }
