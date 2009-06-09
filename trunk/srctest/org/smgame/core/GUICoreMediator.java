@@ -1,5 +1,6 @@
 package org.smgame.core;
 
+import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+
+import javax.swing.JLabel;
 
 import org.smgame.core.player.CPUPlayer;
 import org.smgame.core.player.HumanPlayer;
@@ -571,11 +574,20 @@ public class GUICoreMediator {
         Object[][] data = new Object[size][4];
         for (int i = 0; i < size; i++) {
             //nome giocatore
-            data[i][0] = offLineGameVO.getPlayerNameMap().get(i);
+            JLabel player = new JLabel(offLineGameVO.getPlayerNameMap().get(i));
+            if (offLineGameVO.getPlayerRoleMap().get(i) == Boolean.TRUE){
+                player.setOpaque(true);
+                player.setBackground(new Color(255, 153, 0));
+            }
+            data[i][0] = player;
             //punteggio
             data[i][1] = offLineGameVO.getPlayerScoreMap().get(i).substring(10);
             //vincita
-            data[i][2] = formatter.format(currentGame.getPlayerList().getPlayerAL().get(i).getLastWinLoseAmount());
+            double winlose = currentGame.getPlayerList().getPlayerAL().get(i).getLastWinLoseAmount();
+            JLabel winlose_jl = new JLabel(formatter.format(winlose));
+            if (winlose<0)
+                winlose_jl.setForeground(Color.RED);
+            data[i][2] = winlose_jl;
             //credito
             data[i][3] = offLineGameVO.getPlayerCreditMap().get(i).substring(9);
         }
