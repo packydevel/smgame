@@ -2,6 +2,7 @@ package org.smgame.frontend;
 
 import java.awt.Dimension;
 import java.awt.BorderLayout;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -19,17 +20,21 @@ public class ScoreBoardJP extends JPanel {
      * @param status stato della partita
      * @param data matrice dei dati
      */
-    public ScoreBoardJP(String status, Object[][] data) {
+    public ScoreBoardJP(String status, Object[][] data, int posBankPlayer) {
         setPreferredSize(new Dimension(400, 250));
         setLayout(new BorderLayout());
         typeEndJL = new JLabel(status);
         scoreboardJT = new JTable();
         scoreboardJT.setModel(tableModel(data));
         scoreboardJT.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
         setWitdhColumn(0, 140);
         setWitdhColumn(1, 70);
         setWitdhColumn(2, 85);
         setWitdhColumn(3, 100);
+
+
+        setCellBankColor(posBankPlayer);
 
         scoreboardJT.setFocusable(false);
         scoreboardJT.getTableHeader().setReorderingAllowed(false);
@@ -60,8 +65,8 @@ public class ScoreBoardJP extends JPanel {
         col.setMaxWidth(width);
     }
 
-    private void setBankColor(){
-
+    private void setCellBankColor(int posBank){        
+        
     }
 
 } //end class

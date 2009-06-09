@@ -143,10 +143,10 @@ public class GameEngine implements Serializable {
                     bankPlayer.setCredit(bankPlayer.getCredit() + amount);
                 }
                 player.setStatus(PlayerStatus.ScoreOverflow);
-                throw new ScoreOverflowException("Mi spiace, Hai Sballato!!!", card);
+                throw new ScoreOverflowException(player.getName() + " Mi spiace, Hai Sballato!!!", card);
             }
         }
-    }
+    } // end requestCard
 
     /**Dichiarazione di stare bene
      *
