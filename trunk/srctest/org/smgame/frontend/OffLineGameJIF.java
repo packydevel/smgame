@@ -392,6 +392,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
     }
 
     private void refreshComponent() {
+        int bank = -1;
         Object[][] dataReport = GUICoreMediator.requestDataReport();
 
         for (int i = 0; i <
@@ -413,6 +414,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             playerStatusMapJL.get(i).setText(offLineGameVO.getPlayerStatusMap().get(i));
 
             if (offLineGameVO.getPlayerRoleMap().get(i) == Boolean.TRUE) {
+                bank=i;
                 selectBank(i);
             } else {
                 deselectBank(i);
@@ -430,9 +432,10 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
         } //end for
 
         if (offLineGameVO.isEndManche()) {
+            offLineGameVO.getPlayerRoleMap();
 
             JOptionPane.showMessageDialog(this,
-                    new ScoreBoardJP("Terminata manche n°", dataReport), "Score Board",
+                    new ScoreBoardJP("Terminata manche n°" , dataReport, bank), "Score Board",
                     JOptionPane.INFORMATION_MESSAGE);
 
             if (offLineGameVO.isEndGame()) {

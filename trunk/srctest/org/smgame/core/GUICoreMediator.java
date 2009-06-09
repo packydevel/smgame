@@ -323,9 +323,9 @@ public class GUICoreMediator {
             }
             offLineGameVO.setExceptionMessage(soe.getMessage());
             Logging.logExceptionWarning(soe);
-        } catch (Exception e) {
+        } /*catch (Exception e) {
             Logging.logExceptionSevere(e);
-        }
+        }*/
 
     }
 

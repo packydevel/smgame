@@ -139,7 +139,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
             }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getScoreBoardJMI()) {
             JOptionPane.showMessageDialog(this, new ScoreBoardJP("manche finita",
-                    GUICoreMediator.requestDataReport()), "Score Board", JOptionPane.INFORMATION_MESSAGE);
+                    GUICoreMediator.requestDataReport(), -1), "Score Board", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
