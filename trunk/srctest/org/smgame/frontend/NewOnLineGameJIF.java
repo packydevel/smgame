@@ -23,7 +23,7 @@ import org.smgame.core.GUICoreMediator;
  *
  * @author packyuser
  */
-public class NewOnLineGameJIF extends JInternalFrame {
+public class NewOnLineGameJIF extends JInternalFrame implements IGameJIF {
 
     JPanel playersJP, preferencesJP;
     GridBagConstraints labelGBC, textFieldGBC, checkBoxGBC, buttonGBC;
@@ -42,10 +42,8 @@ public class NewOnLineGameJIF extends JInternalFrame {
      */
     public NewOnLineGameJIF() {
         super("Nuova Partita", false, true, false, false);
-        setSize(400, 450);
 
         JTabbedPane tabbedPane = new JTabbedPane();
-//ImageIcon icon = createImageIcon("images/middle.gif");
 
         playersJP = new JPanel();
         tabbedPane.addTab("Giocatori", null, playersJP, "Inserisci il tuo nome");

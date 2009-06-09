@@ -29,7 +29,7 @@ import org.smgame.core.GUICoreMediator;
  * @author luca
  * @author pasquale
  */
-public class NewOffLineGameJIF extends JInternalFrame {
+public class NewOffLineGameJIF extends JInternalFrame implements IGameJIF {
 
     JPanel playerJP, preferenceJP;
     GridBagConstraints labelGBC, textFieldGBC, comboBoxGBC, checkBoxGBC, buttonGBC;
@@ -52,7 +52,6 @@ public class NewOffLineGameJIF extends JInternalFrame {
      */
     public NewOffLineGameJIF() {
         super("Nuova Partita", false, true, false, false);
-        setSize(400, 500);
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
