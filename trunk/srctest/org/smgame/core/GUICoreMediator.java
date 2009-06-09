@@ -32,6 +32,7 @@ import org.smgame.util.BetOverflowException;
 import org.smgame.util.Common;
 import org.smgame.util.Logging;
 import org.smgame.util.NoGamesException;
+import org.smgame.util.ScoreOverflowException;
 
 /**Classe GUICoreMediator
  * mediatore tra la gui e il core
@@ -49,7 +50,7 @@ public class GUICoreMediator {
     private static List<Boolean> playerTypeList;
     private static final String FILENAME = Common.getWorkspace() + "games.dat";
     private static final NumberFormat formatter = new DecimalFormat("#0.00");
-    private static final ImageIcon backImage = new ImageIcon(Common.getResourceCards() + "dorso.jpg");
+    private static final ImageIcon backImage = new ImageIcon(Common.getResourceCards("napoletane") + "dorso.jpg");
 
     public static void addMenuItem(List<String> menuItemList) {
         for (String s : menuItemList) {
@@ -87,9 +88,8 @@ public class GUICoreMediator {
      * @param playerTypeList
      */
     public static void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList,
-            List<Boolean> playerTypeList) {
-        Logging.createLog(gameName);
-        Logging.logInfo("Creazione game offline");
+            List<Boolean> playerTypeList) {        
+        Logging.logInfo("Creazione game offline ");
         
         PlayerList.getInstance().resetInstance();
         PlayerList playerList = PlayerList.getInstance();
@@ -311,13 +311,22 @@ public class GUICoreMediator {
 
         try {
             currentGame.getGameEngine().requestCard(player, bet);
-        } catch (Exception e) {
+        } catch (BetOverflowException boe) {
             if (!currentGame.getGameEngine().isEndManche()) {
                 selectNextPlayer();
             }
-            offLineGameVO.setExceptionMessage(e.getMessage());
+            offLineGameVO.setExceptionMessage(boe.getMessage());
+            Logging.logExceptionWarning(boe);
+        } catch (ScoreOverflowException soe) {
+            if (!currentGame.getGameEngine().isEndManche()) {
+                selectNextPlayer();
+            }
+            offLineGameVO.setExceptionMessage(soe.getMessage());
+            Logging.logExceptionWarning(soe);
+        } catch (Exception e) {
             Logging.logExceptionSevere(e);
         }
+
     }
 
     /**Dichiarazione del giocatore di stare bene con eventuale puntata
