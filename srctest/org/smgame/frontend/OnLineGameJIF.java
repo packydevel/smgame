@@ -47,7 +47,7 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
     private JButton declareGoodScoreJB;
     private Font font = new Font("TimesRoman", Font.PLAIN, 20);
     private Dimension dimension = new Dimension(200, 30);
-    private final ImageIcon backImage = new ImageIcon(Common.getResourceCards() + "dorso.jpg");
+    private final ImageIcon backImage = new ImageIcon(Common.getResourceCards("napoletane") + "dorso.jpg");
     private int currentIndex;
     private OnLineGameVO onLineGameVO;
 
