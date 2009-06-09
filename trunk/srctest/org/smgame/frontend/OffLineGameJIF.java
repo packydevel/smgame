@@ -50,10 +50,9 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
     private GridBagConstraints panelGBC,  labelGBC,  textFieldGBC,  buttonGBC;
     private int size,  currentIndex;
     private BetInputVerifier betInputVerifier = new BetInputVerifier();
+    private DecimalFormat betValueFormatter;
 
     class BetInputVerifier extends InputVerifier implements KeyListener {
-
-        DecimalFormat betValueFormatter;
 
         BetInputVerifier() {
             super();
@@ -83,7 +82,6 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             }
 
             try {
-
                 if ((betValueFormatter.format(betValueFormatter.parse(betText).doubleValue())).equals(betText)) {
                     requestCardJB.setEnabled(true);
                     declareGoodScoreJB.setEnabled(true);
@@ -91,12 +89,11 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
                 }
 
             } catch (ParseException pe) {
-                System.out.println("Testo di merda: " + betText);
                 requestCardJB.setEnabled(false);
                 declareGoodScoreJB.setEnabled(false);
                 return false;
             }
-            
+
             return true;
         }
 
@@ -359,18 +356,13 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
 
     private void requestCard(int i) {
         String value;
-        double bet;
+        double bet = 0.00;
 
         if (getBetJTF(i).isEnabled()) {
-            value = getBet(i);
-            if (!value.equalsIgnoreCase("") && Double.valueOf(value) != 0.00) {
-                bet = Double.valueOf(value);
-            } else {
-                return;
+            try {
+                bet = betValueFormatter.parse(getBet(i)).doubleValue();
+            } catch (Exception e) {
             }
-
-        } else {
-            bet = 0.00;
         }
 
         GUICoreMediator.requestCard(i, bet);
@@ -383,18 +375,13 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
 
     private void declareGoodScore(int i) {
         String value;
-        double bet;
+        double bet = 0.00;
 
         if (getBetJTF(i).isEnabled()) {
-            value = getBet(i);
-            if (!value.equalsIgnoreCase("") && Double.valueOf(value) != 0.00) {
-                bet = Double.valueOf(value);
-            } else {
-                return;
+            try {
+                bet = betValueFormatter.parse(getBet(i)).doubleValue();
+            } catch (Exception e) {
             }
-
-        } else {
-            bet = 0.00;
         }
 
         GUICoreMediator.declareGoodScore(i, bet);
@@ -402,7 +389,6 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
         offLineGameVO =
                 GUICoreMediator.requestOffLineGameVO();
         refreshComponent();
-
     }
 
     private void refreshComponent() {
