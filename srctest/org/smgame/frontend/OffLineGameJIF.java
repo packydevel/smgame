@@ -329,7 +329,9 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             
             getBetJTF(i).setEnabled(offLineGameVO.getPlayerRequestBetMap().get(i));
         } //end for
+
         System.out.println("offLineGameVO.isEndManche: "+offLineGameVO.isEndManche());
+
         if (offLineGameVO.isEndManche()) {
             System.out.println("Scoreboard visibile");
             JOptionPane.showMessageDialog(this,
