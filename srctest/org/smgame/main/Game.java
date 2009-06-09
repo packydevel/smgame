@@ -61,6 +61,10 @@ public class Game implements Serializable {
         this.gameID = new GregorianCalendar().getTimeInMillis();
     }
 
+    public long getGameID() {
+        return gameID;
+    }
+
     /**imposta il nome della partita
      *
      * @param gameName

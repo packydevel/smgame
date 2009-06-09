@@ -12,6 +12,7 @@ import java.text.NumberFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -39,7 +40,7 @@ import org.smgame.util.NoGamesException;
  */
 public class GUICoreMediator {
 
-    private static ArrayList<Game> gameList = new ArrayList<Game>();
+    private static HashMap<Long, Game> gameMap = new HashMap<Long, Game>();
     private static MenuVO menuVO = new MenuVO();
     private static OffLineGameVO offLineGameVO = new OffLineGameVO();
     private static OnLineGameVO onLineGameVO = new OnLineGameVO();
@@ -120,7 +121,7 @@ public class GUICoreMediator {
         currentGame.generateGameEngine();
         currentGame.getGameEngine().start();
 
-        gameList.add(currentGame);
+        gameMap.put(currentGame.getGameID(), currentGame);
     }
 
     /**Crea partita online
@@ -163,12 +164,12 @@ public class GUICoreMediator {
         currentGame.generateGameID();
         currentGame.setGameName(gameName);
         currentGame.setCreationDate(new Date());
-        currentGame.setGameSetting(gameSetting.getInstance());
+        currentGame.setGameSetting(GameSetting.getInstance());
         currentGame.setPlayerList(playerList);
         currentGame.generateGameEngine();
         currentGame.getGameEngine().start();
 
-        gameList.add(currentGame);
+        gameMap.put(currentGame.getGameID(), currentGame);
     }
 
     /**Chiudi partita
@@ -198,7 +199,7 @@ public class GUICoreMediator {
     public static void saveGames() throws FileNotFoundException, IOException {
         FileOutputStream fos = new FileOutputStream(FILENAME);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(gameList);
+        oos.writeObject(gameMap);
         oos.flush();
         oos.close();
         fos.close();
@@ -225,7 +226,7 @@ public class GUICoreMediator {
             throws FileNotFoundException, IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream(FILENAME);
         ObjectInputStream ois = new ObjectInputStream(fis);
-        gameList = (ArrayList<Game>) ois.readObject();
+        gameMap = (HashMap<Long, Game>) ois.readObject();
         ois.close();
         fis.close();
     }
@@ -237,15 +238,14 @@ public class GUICoreMediator {
      */
     public static List<String> getGameNameList() throws NoGamesException {
         List<String> gameNameList = new ArrayList<String>();
-        if (gameList.size() != 0) {
-            for (Game g : gameList) {
+        if (gameMap.size() != 0) {
+            for (Game g : gameMap.values()) {
                 gameNameList.add(g.getGameName());
             }
             return gameNameList;
         } else {
             throw new NoGamesException("Non ci sono partite da caricare");
         }
-
     }
 
     /**Restituisce la lista delle date di creazione delle partite
@@ -255,8 +255,8 @@ public class GUICoreMediator {
      */
     public static List<Date> getGameCreationDateList() throws NoGamesException {
         List<Date> gameCreationDateList = new ArrayList<Date>();
-        if (gameList.size() != 0) {
-            for (Game g : gameList) {
+        if (gameMap.size() != 0) {
+            for (Game g : gameMap.values()) {
                 gameCreationDateList.add(g.getCreationDate());
             }
 
@@ -273,8 +273,8 @@ public class GUICoreMediator {
      */
     public static List<Date> getGameLastDateList() throws NoGamesException {
         List<Date> gameLastDateList = new ArrayList<Date>();
-        if (gameList.size() != 0) {
-            for (Game g : gameList) {
+        if (gameMap.size() != 0) {
+            for (Game g : gameMap.values()) {
                 gameLastDateList.add(g.getCreationDate());
             }
 
@@ -379,7 +379,7 @@ public class GUICoreMediator {
 
         if (offLineGameVO.isEndManche()) {
             currentGame.getGameEngine().startManche();
-            offLineGameVO.setEndManche(currentGame.getGameEngine().isEndManche());
+            offLineGameVO.setEndManche(false);
         }
 
         offLineGameVO.getPlayerCreditMap().clear();
@@ -453,15 +453,12 @@ public class GUICoreMediator {
             }
         } //end for
 
-
-
-        System.out.println("La manche è finita? " + currentGame.getGameEngine().isEndManche());
-
         if (currentGame.getGameEngine().isEndManche()) {
+            System.out.println("Ho settato ora la fine della manche!!!");
             currentGame.getGameEngine().closeManche();
+            offLineGameVO.setEndManche(true);
         }
 
-        offLineGameVO.setEndManche(currentGame.getGameEngine().isEndManche());
         offLineGameVO.setEndGame(currentGame.getGameEngine().isEndGame());
 
         return offLineGameVO;
@@ -544,8 +541,6 @@ public class GUICoreMediator {
         onLineGameVO.setEndManche(currentGame.getGameEngine().isEndManche());
         onLineGameVO.setEndGame(currentGame.getGameEngine().isEndGame());
 
-        System.out.println("La manche è finita? " + currentGame.getGameEngine().isEndManche());
-
         if (currentGame.getGameEngine().isEndManche()) {
             currentGame.getGameEngine().closeManche();
             currentGame.getGameEngine().startManche();
@@ -562,7 +557,7 @@ public class GUICoreMediator {
     public static Object[][] requestDataReport() {
         int size = playerNameList.size();
         Object[][] data = new Object[size][4];
-        offLineGameVO = requestOffLineGameVO();
+
         for (int i = 0; i < size; i++) {
             //nome giocatore
             data[i][0] = offLineGameVO.getPlayerNameMap().get(i);

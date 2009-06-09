@@ -17,7 +17,7 @@ public class Card implements Serializable {
     private Suit suit; //seme
     private ImageIcon image;
     private ImageIcon icon;
-    private final ImageIcon backImage=new ImageIcon(Common.getResourceCards() + "dorso.gif");
+    private transient final ImageIcon backImage=new ImageIcon(Common.getResourceCards() + "dorso.gif");
     private double value; //valore
 
     /**Costruttore con tre parametri
