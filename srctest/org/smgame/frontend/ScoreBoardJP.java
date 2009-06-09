@@ -27,8 +27,8 @@ public class ScoreBoardJP extends JPanel {
         scoreboardJT.setModel(tableModel(data));
         scoreboardJT.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         setWitdhColumn(0, 140);
-        setWitdhColumn(1, 80);
-        setWitdhColumn(2, 80);
+        setWitdhColumn(1, 70);
+        setWitdhColumn(2, 85);
         setWitdhColumn(3, 100);
 
         scoreboardJT.setFocusable(false);

@@ -554,19 +554,22 @@ public class GUICoreMediator {
         currentGame.getGameEngine().nextPlayer(currentGame.getGameEngine().getCurrentPlayer());
     }
 
+    /**Richiede i dati per popolare la scoreboard di fine manche
+     *
+     * @return matrice di dati
+     */
     public static Object[][] requestDataReport() {
         int size = playerNameList.size();
         Object[][] data = new Object[size][4];
-
         for (int i = 0; i < size; i++) {
             //nome giocatore
             data[i][0] = offLineGameVO.getPlayerNameMap().get(i);
             //punteggio
-            data[i][1] = offLineGameVO.getPlayerScoreMap().get(i);
+            data[i][1] = offLineGameVO.getPlayerScoreMap().get(i).substring(10);
             //vincita
             data[i][2] = formatter.format(currentGame.getPlayerList().getPlayerAL().get(i).getLastWinLoseAmount());
             //credito
-            data[i][3] = offLineGameVO.getPlayerCreditMap().get(i);
+            data[i][3] = offLineGameVO.getPlayerCreditMap().get(i).substring(9);
         }
         return data;
     }

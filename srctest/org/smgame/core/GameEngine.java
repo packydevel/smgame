@@ -37,9 +37,10 @@ public class GameEngine implements Serializable {
     private Player currentPlayer;
     private Player playerHasFirstKingSM;
 
-    //costruttore privato
-    private GameEngine() {
-    }
+    /**costruttore privato
+     * 
+     */
+    private GameEngine() { }
 
     /**Restituisce l'istanza della classe
      *
@@ -68,6 +69,9 @@ public class GameEngine implements Serializable {
         currentManche = 1;
     }
 
+    /**inizia la partita
+     *
+     */
     public void start() {
         currentManche = 0;
         deck.shuffle();
@@ -76,7 +80,7 @@ public class GameEngine implements Serializable {
 
     /**imposta il mazzo
      *
-     * @param deck
+     * @param deck mazzo
      */
     public void setDeck(Deck deck) {
         this.deck = deck;
@@ -84,7 +88,7 @@ public class GameEngine implements Serializable {
 
     /**imposta i settaggi di gioco
      *
-     * @param gameSetting
+     * @param gameSetting settaggi
      */
     public void setGameSetting(GameSetting gameSetting) {
         this.gameSetting = gameSetting;
@@ -92,7 +96,7 @@ public class GameEngine implements Serializable {
 
     /**imposta la lista dei player
      *
-     * @param playerList
+     * @param playerList lista giocatori
      */
     public void setPlayerList(PlayerList playerList) {
         this.playerList = playerList;
@@ -167,7 +171,10 @@ public class GameEngine implements Serializable {
         return bankPlayer;
     }
 
-    //seleziona il primo mazziere
+    /**seleziona il primo mazziere della partita
+     *
+     * @return giocatore mazziere
+     */
     private Player selectFirstRandomBankPlayer() {
         List<Player> tempList = new ArrayList<Player>(playerList.getPlayerAL());
         Collections.shuffle(tempList, new Random(System.currentTimeMillis()));
@@ -176,7 +183,10 @@ public class GameEngine implements Serializable {
         return bankPlayer;
     }
 
-    //seleziona il mazziere
+    /**seleziona il mazziere
+     *
+     * @return giocatore mazziere
+     */
     private Player selectBankPlayer() {
         Player player;
         int indexList;
@@ -205,7 +215,11 @@ public class GameEngine implements Serializable {
         return bankPlayer;
     }
 
-    //Valutazione tra i punteggi realizzati al 7 1/2 seondo le regole di WikiPedia
+    /**Valutazione tra i punteggi realizzati al 7 1/2 seondo le regole di WikiPedia
+     *
+     * @param player giocatore da comparare
+     * @return true se il giocatore vince sul mazziere, altrimenti false
+     */
     private boolean compareScore(Player player) {
         boolean compare = false;
         if (player.getStatus() == PlayerStatus.GoodScore &&
@@ -223,7 +237,9 @@ public class GameEngine implements Serializable {
         return compare;
     }
 
-     //Determina quanto vince o perde un giocatore contro il banco secondo le regole di Wikipedia
+     /**Determina quanto vince o perde un giocatore contro il banco secondo le regole di Wikipedia
+      *
+      */
     private void applyPaymentRule() {
         Double amount, bankAmountGoodScorePlayer = 0.00, bankAmountOverflowPlayer = 0.00;
 
@@ -262,10 +278,11 @@ public class GameEngine implements Serializable {
 
         bankPlayer.setLastWinLoseAmount(bankAmountGoodScorePlayer + bankAmountOverflowPlayer);
         bankPlayer.setCredit(bankPlayer.getCredit() + bankAmountGoodScorePlayer);
-    }
+    } //end applyPaymentRule
 
     /**restituisce il prossimo giocatore
      *
+     * @param player giocatore attuale
      * @return prossimo giocatore
      */
     public Player nextPlayer(Player player) {
@@ -283,7 +300,10 @@ public class GameEngine implements Serializable {
         return currentPlayer;
     }
 
-    //
+    /**azioni che deve eseguire il giocatore cpu
+     *
+     * @param player giocatore cpu del momento
+     */
     private void playCPU(CPUPlayer player) {
         try {
             while (!player.isGoodScore()) {
@@ -302,7 +322,7 @@ public class GameEngine implements Serializable {
         } catch (Exception e) {
             Logging.logExceptionSevere(e);
         }
-    }
+    }//end playcpu
 
     /**restituisce il giocatore corrente
      *
@@ -314,8 +334,8 @@ public class GameEngine implements Serializable {
 
     /**Restituisce la verifica sul massimo punteggio cioè 7.5
      *
-     * @param player
-     * @return
+     * @param player giocatore da verificare
+     * @return true se ha 7,5 altrimenti false
      */
     public boolean isMaxScore(Player player) {
         return player.hasSM();
@@ -359,11 +379,9 @@ public class GameEngine implements Serializable {
      * @return
      */
     public boolean isEndManche() {
-        System.out.println(currentPlayer.getName() + " | "+ bankPlayer.getName());
         if (currentPlayer.equals(bankPlayer) && currentPlayer.getStatus() != null) {
             return true;
         }
-
         return false;
     }
 
@@ -376,7 +394,6 @@ public class GameEngine implements Serializable {
                 playerList.existsBankruptPlayer()) {
             return true;
         }
-
         return false;
     }
 
