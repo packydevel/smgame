@@ -89,7 +89,7 @@ public class Deck implements Serializable {
     public void resetInstance() {
         onGameCardList.clear();
         offGameCardList.clear();
-        onGameCardList.addAll(currentDeck.CARDS);
+        onGameCardList.addAll(CARDS);
         onGameCardsIterator = onGameCardList.iterator();
         emptyDeck = false;
     }
@@ -107,7 +107,7 @@ public class Deck implements Serializable {
      */
     public Card getNextCard() {
 
-        if (onGameCardList == null) {
+        if (onGameCardsIterator == null) {
             onGameCardsIterator = onGameCardList.iterator();
         }
 

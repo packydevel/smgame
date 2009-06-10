@@ -44,8 +44,6 @@ public class GUICoreMediator {
     private static OnLineGameVO onLineGameVO = new OnLineGameVO();
     private static LoadGameVO loadGameVO = new LoadGameVO();
     private static Game currentGame = null;
-    private static List<String> playerNameList;
-    private static List<Boolean> playerTypeList;
     private static final String FILENAME = Common.getWorkspace() + "games.dat";
     private static final NumberFormat formatter = new DecimalFormat("#0.00");
     private static final ImageIcon backImage = new ImageIcon(Common.getResourceCards("napoletane") + "dorso.jpg");
@@ -87,23 +85,16 @@ public class GUICoreMediator {
      */
     public static void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList,
             List<Boolean> playerTypeList) {
-        //Logging.logInfo("Creazione game offline ");
 
         PlayerList.getInstance().resetInstance();
         PlayerList playerList = PlayerList.getInstance();
-        GUICoreMediator.playerNameList = playerNameList;
-        GUICoreMediator.playerTypeList = playerTypeList;
-        offLineGameVO.getPlayerIndexList().clear();
 
         for (int i = 0; i < playerNameList.size(); i++) {
-            // Logging.logInfo(playerNameList.get(i));
             if (playerTypeList.get(i).booleanValue()) {
                 playerList.getPlayerAL().add(new CPUPlayer(playerNameList.get(i)));
             } else {
                 playerList.getPlayerAL().add(new HumanPlayer(playerNameList.get(i)));
             }
-            offLineGameVO.getPlayerIndexList().add(i);
-            offLineGameVO.getPlayerNameMap().put(i, playerNameList.get(i));
             playerList.getPlayerAL().get(i).setCredit(1000);
         }
 
@@ -143,16 +134,11 @@ public class GUICoreMediator {
         onLineGameVO.getPlayerIndexList().add(Integer.valueOf(1));
         onLineGameVO.getPlayerNameMap().put(Integer.valueOf(1), playerName);
 
-        playerNameList = new ArrayList<String>(2);
-        playerNameList.add(cpuName);
-        playerNameList.add(playerName);
+        offLineGameVO.getPlayerNameMap().put(1, cpuName);
+        offLineGameVO.getPlayerNameMap().put(1, playerName);
 
-        playerTypeList = new ArrayList<Boolean>(2);
-        playerTypeList.add(new Boolean(true));
-        playerTypeList.add(new Boolean(false));
-
-        GUICoreMediator.playerNameList = playerNameList;
-        GUICoreMediator.playerTypeList = playerTypeList;
+        offLineGameVO.getPlayerTypeMap().put(1, true);
+        offLineGameVO.getPlayerTypeMap().put(2, false);
 
         if (currentGame != null) {
             currentGame.resetInstance();
@@ -175,8 +161,7 @@ public class GUICoreMediator {
      */
     public static void closeGame() {
         currentGame = null;
-        playerNameList = null;
-        playerTypeList = null;
+        offLineGameVO.clear();
     }
 
     /**Salva partita
@@ -357,21 +342,16 @@ public class GUICoreMediator {
             offLineGameVO.setEndManche(false);
         }
 
-        offLineGameVO.getPlayerTypeMap().clear();
-        offLineGameVO.getPlayerCreditMap().clear();
-        offLineGameVO.getPlayerCardsImageMap().clear();
-        offLineGameVO.getPlayerStakeMap().clear();
-        offLineGameVO.getPlayerScoreMap().clear();
-        offLineGameVO.getPlayerStatusMap().clear();
-        offLineGameVO.getPlayerFirstCardDiscoveredMap().clear();
-        offLineGameVO.getPlayerRoleMap().clear();
-        offLineGameVO.getPlayerPlayingMap().clear();
-        offLineGameVO.getPlayerRequestBetMap().clear();
+        offLineGameVO.clear();
 
-        for (int i = 0; i < offLineGameVO.getPlayerIndexList().size(); i++) {
+        for (int i = 0; i < currentGame.getPlayerList().getPlayerAL().size(); i++) {
             Player tempPlayer = currentGame.getPlayerList().getPlayerAL().get(i);
 
-            if (currentGame.getPlayerList().getPlayerAL().get(i) instanceof CPUPlayer) {
+            offLineGameVO.getPlayerIndexList().add(i);
+
+            offLineGameVO.getPlayerNameMap().put(i, tempPlayer.getName());
+
+            if (tempPlayer instanceof CPUPlayer) {
                 offLineGameVO.getPlayerTypeMap().put(i, true);
             } else {
                 offLineGameVO.getPlayerTypeMap().put(i, false);
@@ -548,8 +528,8 @@ public class GUICoreMediator {
             //nome giocatore
             /*JLabel player = new JLabel(offLineGameVO.getPlayerNameMap().get(i));
             if (offLineGameVO.getPlayerRoleMap().get(i) == Boolean.TRUE){
-                player.setOpaque(true);
-                player.setBackground(new Color(255, 153, 0));
+            player.setOpaque(true);
+            player.setBackground(new Color(255, 153, 0));
             }*/
             data[i][0] = offLineGameVO.getPlayerNameMap().get(i);
             //punteggio
@@ -565,5 +545,4 @@ public class GUICoreMediator {
         }
         return data;
     }
-
 } //end  class

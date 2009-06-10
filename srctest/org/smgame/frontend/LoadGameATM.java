@@ -25,13 +25,12 @@ public class LoadGameATM extends AbstractTableModel {
         }
     }
 
-    public String getColumnName(
-            int col) {
+    public String getColumnName(int col) {
         return columnNames[col].toString();
     }
 
     public int getRowCount() {
-        if (loadGameVO==null) {
+        if (loadGameVO == null) {
             return 0;
         }
         System.out.println(loadGameVO.getGameNameList());
