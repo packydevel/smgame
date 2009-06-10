@@ -17,12 +17,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import org.smgame.core.player.CPUPlayer;
-import org.smgame.core.player.HumanPlayer;
-import org.smgame.core.player.Player;
-import org.smgame.core.player.PlayerList;
-import org.smgame.core.player.PlayerRole;
-import org.smgame.core.player.PlayerStatus;
+import org.smgame.core.player.*;
 import org.smgame.frontend.LoadGameVO;
 import org.smgame.frontend.MenuVO;
 import org.smgame.frontend.OffLineGameVO;
@@ -294,7 +289,7 @@ public class GUICoreMediator {
                 selectNextPlayer();
             }
             offLineGameVO.setExceptionMessage(soe.getMessage());
-            //Logging.logExceptionWarning(soe);
+            Logging.logExceptionWarning(soe);
         } /*catch (Exception e) {
     Logging.logExceptionSevere(e);
     }*/
@@ -313,7 +308,6 @@ public class GUICoreMediator {
             if (!currentGame.getGameEngine().isEndManche()) {
                 selectNextPlayer();
             }
-
         } catch (BetOverflowException boe) {
             offLineGameVO.setExceptionMessage(boe.getMessage());
             Logging.logExceptionWarning(boe);
