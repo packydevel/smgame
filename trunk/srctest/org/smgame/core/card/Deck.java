@@ -16,19 +16,20 @@ import org.smgame.util.Common;
  * @author luca
  */
 public class Deck implements Serializable {
-    //costanti
 
-    //TODO: ma ha senso double?
-    private final double[] ALL_VALUE = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 0.5, 0.5, 0.5};//tutti i valori
-    private final ArrayList<Card> CARDS = new ArrayList<Card>();
-    private ArrayList<Card> onGameCardList = new ArrayList<Card>();
-    private ArrayList<Card> offGameCardList = new ArrayList<Card>();
+    private static Deck currentDeck = null; //mazzo corrente
+
+    //costanti
     private final int TOTAL_CARDS = 40; //carte totali
     private final int TOTAL_CARDS_PER_SUIT = 10; //carte totali per seme
+    private final double[] ALL_VALUE = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 0.5, 0.5, 0.5};//tutti i valori
+    private final ArrayList<Card> CARDS = new ArrayList<Card>();
+
     //variabili
-    protected int totalRemainingCards = TOTAL_CARDS; //carte rimanenti
-    private static Deck currentDeck = null; //mazzo corrente
-    private Iterator<Card> onGameCardsIterator;
+    private ArrayList<Card> onGameCardList = new ArrayList<Card>();
+    private ArrayList<Card> offGameCardList = new ArrayList<Card>();
+    private int totalRemainingCards = TOTAL_CARDS; //carte rimanenti
+    private transient Iterator<Card> onGameCardsIterator;
     private Card nextCard; //prossima carta
     private boolean emptyDeck;
 
@@ -88,9 +89,9 @@ public class Deck implements Serializable {
     public void resetInstance() {
         onGameCardList.clear();
         offGameCardList.clear();
-        onGameCardList.addAll(currentDeck.CARDS);   
+        onGameCardList.addAll(currentDeck.CARDS);
         onGameCardsIterator = onGameCardList.iterator();
-        emptyDeck=false;
+        emptyDeck = false;
     }
 
     /**
@@ -105,17 +106,22 @@ public class Deck implements Serializable {
      * @return prossima carta
      */
     public Card getNextCard() {
+
+        if (onGameCardList == null) {
+            onGameCardsIterator = onGameCardList.iterator();
+        }
+
         if (!onGameCardsIterator.hasNext()) {
             onGameCardList.addAll(offGameCardList);
             offGameCardList.clear();
             Collections.shuffle(onGameCardList, new Random(System.currentTimeMillis()));
             onGameCardsIterator = onGameCardList.iterator();
-            emptyDeck=true;
+            emptyDeck = true;
         }
 
-        nextCard = onGameCardsIterator.next();
+        nextCard = (Card) onGameCardsIterator.next();
         onGameCardsIterator.remove();
-        System.out.println("Il numero di carte rimaste è: "+ onGameCardList.size());
+        System.out.println("Il numero di carte rimaste è: " + onGameCardList.size());
         //totalRemainingCards--;
 
         return nextCard;

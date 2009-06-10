@@ -121,7 +121,8 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
             try {
                 GUICoreMediator.saveGame();
             } catch (Exception e) {
-                Logging.logExceptionSevere(e);
+                //Logging.logExceptionSevere(e);
+                e.printStackTrace();
             }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getCloseGameJMI()) {
             if (JOptionPane.showInternalConfirmDialog(desktop,

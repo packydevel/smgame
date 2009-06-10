@@ -409,19 +409,18 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
                 selectBank(i);
             } else {
                 deselectBank(i);
-                getRequestCardJB(i).setEnabled(false);
-                getDeclareGoodScoreJB(i).setEnabled(false);
             }
 
             if (offLineGameVO.getPlayerPlayingMap().get(i) == Boolean.TRUE) {
                 showActionPanelContent(i);
-                currentIndex =
-                        i;
+                currentIndex = i;
             } else {
                 hideActionPanelContent(i);
             }
 
             getBetJTF(i).setEnabled(offLineGameVO.getPlayerRequestBetMap().get(i));
+            getRequestCardJB(i).setEnabled(!offLineGameVO.getPlayerRequestBetMap().get(i));
+            getDeclareGoodScoreJB(i).setEnabled(!offLineGameVO.getPlayerRequestBetMap().get(i));
         } //end for
 
         if (offLineGameVO.isEndManche()) {
