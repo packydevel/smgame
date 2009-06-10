@@ -6,7 +6,6 @@
 package org.smgame.frontend;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -16,14 +15,14 @@ import java.util.HashMap;
 public class LoadGameVO {
     private ArrayList<String> gameNameList = new ArrayList<String>();
     private HashMap<String, String> gameNameGameModeMap = new HashMap<String, String>();
-    private HashMap<String, Date> gameNameCreationDateMap = new HashMap<String, Date>();
-    private HashMap<String, Date> gameNameLastSaveDateMap = new HashMap<String, Date>();
+    private HashMap<String, String> gameNameCreationDateMap = new HashMap<String, String>();
+    private HashMap<String, String> gameNameLastSaveDateMap = new HashMap<String, String>();
 
-    public HashMap<String, Date> getGameNameCreationDateMap() {
+    public HashMap<String, String> getGameNameCreationDateMap() {
         return gameNameCreationDateMap;
     }
 
-    public HashMap<String, Date> getGameNameLastSaveDateMap() {
+    public HashMap<String, String> getGameNameLastSaveDateMap() {
         return gameNameLastSaveDateMap;
     }
 

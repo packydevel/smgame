@@ -31,15 +31,13 @@ public class LoadGameJIF extends JInternalFrame {
     JPanel rootJP;
     JScrollPane tableJSP;
     GridBagConstraints rootGBC, tableGBC, buttonGBC;
-    JButton cancelJB;
-    JButton okJB;
+    JButton cancelJB, okJB;
     JLabel gameNameJL;
-    int previousPlayersNumber = 0;
-    int currentPlayersNumber;
+    int previousPlayersNumber = 0, currentPlayersNumber;
 
     public LoadGameJIF() {
         super("Carica Partita", false, true, false, false);
-        setSize(500, 250);
+        setSize(550, 250);
         gameATM = new LoadGameATM();
         gameJT = new JTable(gameATM);
         gameJT.setFillsViewportHeight(true);
@@ -111,7 +109,6 @@ public class LoadGameJIF extends JInternalFrame {
             dispose();
         } else {
             if (gameJT.getSelectedRow() != -1) {
-
                 try {
                     GUICoreMediator.loadGame((String) gameJT.getValueAt(gameJT.getSelectedRow(), 0));
                 } catch (Exception e) {
