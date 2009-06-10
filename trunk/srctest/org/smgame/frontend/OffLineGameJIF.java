@@ -131,7 +131,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
         playerList = offLineGameVO.getPlayerIndexList();
 
         size = playerList.size();
-
+        System.out.println(offLineGameVO.getPlayerNameMap());
         playerNameMapJL = new HashMap<Integer, JLabel>(size);
         playerCreditMapJL = new HashMap<Integer, JLabel>(size);
         playerCardsMapJP = new HashMap<Integer, JPanel>(size);

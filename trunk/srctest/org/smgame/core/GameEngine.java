@@ -243,7 +243,7 @@ public class GameEngine implements Serializable {
     private void applyPaymentRule() {
         Double amount, bankAmountGoodScorePlayer = 0.00, bankAmountOverflowPlayer = 0.00;
 
-        for (Player p : gameEngine.playerList.getPlayerAL()) {
+        for (Player p : playerList.getPlayerAL()) {
             if (p.getStatus() == PlayerStatus.GoodScore && !p.equals(bankPlayer)) {
                 if (compareScore(p)) {
                     if (p.hasKingSM()) {

@@ -174,4 +174,19 @@ public class OffLineGameVO {
     public void setExceptionMessage(String message) {
         exceptionMessage = message;
     }
+
+    public void clear() {
+        getPlayerIndexList().clear();
+        getPlayerNameMap().clear();
+        getPlayerTypeMap().clear();
+        getPlayerCreditMap().clear();
+        getPlayerCardsImageMap().clear();
+        getPlayerStakeMap().clear();
+        getPlayerScoreMap().clear();
+        getPlayerStatusMap().clear();
+        getPlayerFirstCardDiscoveredMap().clear();
+        getPlayerRoleMap().clear();
+        getPlayerPlayingMap().clear();
+        getPlayerRequestBetMap().clear();
+    }
 }//end class
