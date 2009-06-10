@@ -41,13 +41,20 @@ public class LoadGameATM extends AbstractTableModel {
     }
 
     public Object getValueAt(int row, int col) {
+        System.out.println(row);
+
+
         if (col == 0) {
+            System.out.println("Sono qui "+loadGameVO.getGameNameList());
             return loadGameVO.getGameNameList().get(row);
         } else if (col == 1) {
+            System.out.println("Sono qui "+loadGameVO.getGameNameGameModeMap());
             return loadGameVO.getGameNameGameModeMap().get(row);
         } else if (col == 2) {
+            System.out.println("Sono qui "+loadGameVO.getGameNameCreationDateMap());
             return loadGameVO.getGameNameCreationDateMap().get(row);
         } else if (col == 3) {
+            System.out.println("Sono qui "+loadGameVO.getGameNameLastSaveDateMap());
             return loadGameVO.getGameNameLastSaveDateMap().get(row);
         }
 
@@ -56,9 +63,5 @@ public class LoadGameATM extends AbstractTableModel {
 
     public boolean isCellEditable(int row, int col) {
         return false;
-    }
-
-    public void setValueAt(Object value, int row, int col) {
-        fireTableCellUpdated(row, col);
     }
 }
