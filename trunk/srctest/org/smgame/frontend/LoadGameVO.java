@@ -34,4 +34,11 @@ public class LoadGameVO {
     public HashMap<String, String> getGameNameGameModeMap() {
         return gameNameGameModeMap;
     }
+
+    public void clear() {
+        getGameNameList().clear();
+        getGameNameGameModeMap().clear();
+        getGameNameCreationDateMap().clear();
+        getGameNameLastSaveDateMap().clear();
+    }
 }

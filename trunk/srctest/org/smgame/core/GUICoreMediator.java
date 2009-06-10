@@ -227,10 +227,7 @@ public class GUICoreMediator {
      * @throws org.smgame.util.NoGamesException
      */
     public static LoadGameVO requestLoadGameVO() throws NoGamesException {
-        loadGameVO.getGameNameList().clear();
-        loadGameVO.getGameNameGameModeMap().clear();
-        loadGameVO.getGameNameCreationDateMap().clear();
-        loadGameVO.getGameNameLastSaveDateMap().clear();
+        loadGameVO.clear();
 
         if (gameMap.size() != 0) {
             for (Game g : gameMap.values()) {
@@ -238,6 +235,7 @@ public class GUICoreMediator {
                 loadGameVO.getGameNameGameModeMap().put(g.getGameName(), g.getGameMode().toString());
                 loadGameVO.getGameNameCreationDateMap().put(g.getGameName(), g.getCreationDate());
                 loadGameVO.getGameNameLastSaveDateMap().put(g.getGameName(), g.getLastSaveDate());
+                System.out.println(loadGameVO.getGameNameGameModeMap());
             }
             return loadGameVO;
         } else {
