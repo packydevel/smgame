@@ -537,7 +537,7 @@ public class GUICoreMediator {
             data[i][2] = numberFormat.format(winlose);
             //credito
             //data[i][3] = offLineGameVO.getPlayerCreditMap().get(i).substring(9);
-            data[i][3] = formatter.format(currentGame.getPlayerList().getPlayerAL().get(i).getCredit());
+            data[i][3] = numberFormat.format(currentGame.getPlayerList().getPlayerAL().get(i).getCredit());
         }
         return data;
     }
