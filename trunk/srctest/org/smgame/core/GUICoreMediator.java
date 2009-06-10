@@ -26,10 +26,12 @@ import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
 import org.smgame.core.player.PlayerRole;
 import org.smgame.core.player.PlayerStatus;
+import org.smgame.frontend.LoadGameVO;
 import org.smgame.frontend.MenuVO;
 import org.smgame.frontend.OffLineGameVO;
 import org.smgame.frontend.OnLineGameVO;
 import org.smgame.main.Game;
+import org.smgame.main.GameMode;
 import org.smgame.main.GameSetting;
 import org.smgame.util.BetOverflowException;
 import org.smgame.util.Common;
@@ -48,6 +50,7 @@ public class GUICoreMediator {
     private static MenuVO menuVO = new MenuVO();
     private static OffLineGameVO offLineGameVO = new OffLineGameVO();
     private static OnLineGameVO onLineGameVO = new OnLineGameVO();
+    private static LoadGameVO loadGameVO = new LoadGameVO();
     private static Game currentGame = null;
     private static List<String> playerNameList;
     private static List<Boolean> playerTypeList;
@@ -61,7 +64,7 @@ public class GUICoreMediator {
         }
     }
 
-    /**Chiedi per nuova partita
+    /**Richiesta di poter creare una nuova partita
      *
      * @return
      */
@@ -72,7 +75,7 @@ public class GUICoreMediator {
         return true;
     }
 
-    /**Chiedi per caricare partita
+    /**Richiesta di caricare una partita
      *
      * @return
      */
@@ -91,9 +94,9 @@ public class GUICoreMediator {
      * @param playerTypeList
      */
     public static void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList,
-            List<Boolean> playerTypeList) {        
-        Logging.logInfo("Creazione game offline ");
-        
+            List<Boolean> playerTypeList) {
+        //Logging.logInfo("Creazione game offline ");
+
         PlayerList.getInstance().resetInstance();
         PlayerList playerList = PlayerList.getInstance();
         GUICoreMediator.playerNameList = playerNameList;
@@ -101,7 +104,7 @@ public class GUICoreMediator {
         offLineGameVO.getPlayerIndexList().clear();
 
         for (int i = 0; i < playerNameList.size(); i++) {
-            Logging.logInfo(playerNameList.get(i));
+            // Logging.logInfo(playerNameList.get(i));
             if (playerTypeList.get(i).booleanValue()) {
                 playerList.getPlayerAL().add(new CPUPlayer(playerNameList.get(i)));
             } else {
@@ -118,6 +121,7 @@ public class GUICoreMediator {
         currentGame = Game.getInstance();
         currentGame.generateGameID();
         currentGame.setGameName(gameName);
+        currentGame.setGameMode(GameMode.OFFLINE);
         currentGame.setCreationDate(new Date());
         currentGame.setGameSetting(GameSetting.getInstance());
         currentGame.setPlayerList(playerList);
@@ -164,6 +168,7 @@ public class GUICoreMediator {
         currentGame = Game.getInstance();
         currentGame.generateGameID();
         currentGame.setGameName(gameName);
+        currentGame.setGameMode(GameMode.ONLINE);
         currentGame.setCreationDate(new Date());
         currentGame.setGameSetting(GameSetting.getInstance());
         currentGame.setPlayerList(playerList);
@@ -213,9 +218,14 @@ public class GUICoreMediator {
      * @throws java.io.IOException
      * @throws java.lang.ClassNotFoundException
      */
-    public static void loadGame()
+    public static void loadGame(String gameName)
             throws FileNotFoundException, IOException, ClassNotFoundException {
-        currentGame=gameMap.get(0);
+        for (Game g : gameMap.values()) {
+            if (g.getGameName().equals(gameName)) {
+                currentGame = g;
+                return;
+            }
+        }
     }
 
     /**Carica partite
@@ -233,54 +243,26 @@ public class GUICoreMediator {
         fis.close();
     }
 
-    /**Restituisce la lista dei nomi delle partite
+    /**Restituisce un oggetto contenente l'elenco dei nomi delle partite, il tipo, la data di creazione, la data di ultimo salvataggio
+     * secondo il pattern Value Objected
      *
      * @return
      * @throws org.smgame.util.NoGamesException
      */
-    public static List<String> getGameNameList() throws NoGamesException {
-        List<String> gameNameList = new ArrayList<String>();
+    public static LoadGameVO requestLoadGameVO() throws NoGamesException {
+        loadGameVO.getGameNameList().clear();
+        loadGameVO.getGameNameGameModeMap().clear();
+        loadGameVO.getGameNameCreationDateMap().clear();
+        loadGameVO.getGameNameLastSaveDateMap().clear();
+
         if (gameMap.size() != 0) {
             for (Game g : gameMap.values()) {
-                gameNameList.add(g.getGameName());
+                loadGameVO.getGameNameList().add(g.getGameName());
+                loadGameVO.getGameNameGameModeMap().put(g.getGameName(), g.getGameMode().toString());
+                loadGameVO.getGameNameCreationDateMap().put(g.getGameName(), g.getCreationDate());
+                loadGameVO.getGameNameLastSaveDateMap().put(g.getGameName(), g.getLastSaveDate());
             }
-            return gameNameList;
-        } else {
-            throw new NoGamesException("Non ci sono partite da caricare");
-        }
-    }
-
-    /**Restituisce la lista delle date di creazione delle partite
-     *
-     * @return
-     * @throws org.smgame.util.NoGamesException
-     */
-    public static List<Date> getGameCreationDateList() throws NoGamesException {
-        List<Date> gameCreationDateList = new ArrayList<Date>();
-        if (gameMap.size() != 0) {
-            for (Game g : gameMap.values()) {
-                gameCreationDateList.add(g.getCreationDate());
-            }
-
-            return gameCreationDateList;
-        } else {
-            throw new NoGamesException("Non ci sono partite da caricare");
-        }
-    }
-
-    /**Restituisce la data dell'ultima partita
-     *
-     * @return
-     * @throws org.smgame.util.NoGamesException
-     */
-    public static List<Date> getGameLastDateList() throws NoGamesException {
-        List<Date> gameLastDateList = new ArrayList<Date>();
-        if (gameMap.size() != 0) {
-            for (Game g : gameMap.values()) {
-                gameLastDateList.add(g.getCreationDate());
-            }
-
-            return gameLastDateList;
+            return loadGameVO;
         } else {
             throw new NoGamesException("Non ci sono partite da caricare");
         }
@@ -292,15 +274,6 @@ public class GUICoreMediator {
      */
     public static String getGameName() {
         return currentGame.getGameName();
-    }
-
-    /**restituisce la lista dei tipi dei giocatori
-     * human = Boolean.false
-     *
-     * @return lista Boolean cpu/human
-     */
-    public static List<Boolean> getPlayerTypeList() {
-        return playerTypeList;
     }
 
     /**Richiesta della carta da parte del giocatore, con eventuale puntata
@@ -324,10 +297,10 @@ public class GUICoreMediator {
                 selectNextPlayer();
             }
             offLineGameVO.setExceptionMessage(soe.getMessage());
-            Logging.logExceptionWarning(soe);
+            //Logging.logExceptionWarning(soe);
         } /*catch (Exception e) {
-            Logging.logExceptionSevere(e);
-        }*/
+    Logging.logExceptionSevere(e);
+    }*/
 
     }
 
@@ -393,6 +366,7 @@ public class GUICoreMediator {
             offLineGameVO.setEndManche(false);
         }
 
+        offLineGameVO.getPlayerTypeMap().clear();
         offLineGameVO.getPlayerCreditMap().clear();
         offLineGameVO.getPlayerCardsImageMap().clear();
         offLineGameVO.getPlayerStakeMap().clear();
@@ -406,8 +380,15 @@ public class GUICoreMediator {
         for (int i = 0; i < offLineGameVO.getPlayerIndexList().size(); i++) {
             Player tempPlayer = currentGame.getPlayerList().getPlayerAL().get(i);
 
+            if (currentGame.getPlayerList().getPlayerAL().get(i) instanceof CPUPlayer) {
+                offLineGameVO.getPlayerTypeMap().put(i, true);
+            } else {
+                offLineGameVO.getPlayerTypeMap().put(i, false);
+            }
+
             offLineGameVO.getPlayerCreditMap().put(i, "Credito: " +
                     formatter.format(tempPlayer.getCredit()));
+
             offLineGameVO.getPlayerCardsImageMap().put(i, new ArrayList<ImageIcon>());
             playerCardsImageList = offLineGameVO.getPlayerCardsImageMap().get(i);
             for (int j = 0; j < tempPlayer.getCardList().size(); j++) {
@@ -570,7 +551,7 @@ public class GUICoreMediator {
      * @return matrice di dati
      */
     public static Object[][] requestDataReport() {
-        int size = playerNameList.size();
+        int size = offLineGameVO.getPlayerIndexList().size();
         Object[][] data = new Object[size][4];
         for (int i = 0; i < size; i++) {
             //nome giocatore

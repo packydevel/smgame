@@ -28,7 +28,7 @@ public class Deck implements Serializable {
     //variabili
     protected int totalRemainingCards = TOTAL_CARDS; //carte rimanenti
     private static Deck currentDeck = null; //mazzo corrente
-    private transient Iterator<Card> onGameCardsIterator;
+    private Iterator<Card> onGameCardsIterator;
     private Card nextCard; //prossima carta
     private boolean emptyDeck;
 
