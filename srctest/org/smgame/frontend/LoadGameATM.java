@@ -4,11 +4,8 @@
  */
 package org.smgame.frontend;
 
-import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.table.AbstractTableModel;
 import org.smgame.core.GUICoreMediator;
-import org.smgame.util.Logging;
 
 /**
  *
@@ -16,21 +13,15 @@ import org.smgame.util.Logging;
  */
 public class LoadGameATM extends AbstractTableModel {
 
-    private final String[] columnNames = {"Partita",
-        "Data di Creazione",
-        "Data ultimo Salvataggio"};
-    private ArrayList<String> gameNameList;
-    private ArrayList<Date> gameCreationDateList;
-    private ArrayList<Date> gameLastDateList;
+    private final String[] columnNames = {"Partita", "Tipo", "Data di Creazione", "Data ultimo Salvataggio"};
+    private LoadGameVO loadGameVO;
 
     public LoadGameATM() {
         super();
         try {
-            gameNameList = (ArrayList<String>) GUICoreMediator.getGameNameList();
-            gameCreationDateList = (ArrayList<Date>) GUICoreMediator.getGameCreationDateList();
-            gameLastDateList = (ArrayList<Date>) GUICoreMediator.getGameLastDateList();
+            loadGameVO = GUICoreMediator.requestLoadGameVO();
         } catch (Exception e) {
-            Logging.logExceptionSevere(e);
+            //Logging.logExceptionSevere(e);
         }
     }
 
@@ -40,7 +31,11 @@ public class LoadGameATM extends AbstractTableModel {
     }
 
     public int getRowCount() {
-        return gameNameList.size();
+        if (loadGameVO==null) {
+            return 0;
+        }
+        System.out.println(loadGameVO.getGameNameList());
+        return loadGameVO.getGameNameList().size();
     }
 
     public int getColumnCount() {
@@ -48,14 +43,16 @@ public class LoadGameATM extends AbstractTableModel {
     }
 
     public Object getValueAt(int row, int col) {
-
         if (col == 0) {
-            return gameNameList.get(row);
+            return loadGameVO.getGameNameList().get(row);
         } else if (col == 1) {
-            return gameCreationDateList.get(row);
+            return loadGameVO.getGameNameGameModeMap().get(row);
         } else if (col == 2) {
-            return gameLastDateList.get(row);
+            return loadGameVO.getGameNameCreationDateMap().get(row);
+        } else if (col == 2) {
+            return loadGameVO.getGameNameLastSaveDateMap().get(row);
         }
+
         return -1;
     }
 

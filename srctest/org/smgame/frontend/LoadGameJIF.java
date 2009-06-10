@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.EventListenerList;
 
 /**
  *
@@ -81,22 +82,23 @@ public class LoadGameJIF extends JInternalFrame {
         buttonGBC.gridx = 1;
         buttonGBC.gridy = 1;
         cancelJB.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent evt) {
-                loadGameActionPerformed(evt);
+                loadGame(evt);
             }
         });
         rootJP.add(cancelJB, buttonGBC);
 
         okJB = new JButton("OK");
         okJB.setPreferredSize(new Dimension(70, 20));
-        okJB.setEnabled(false);
         okJB.setVisible(true);
         buttonGBC.gridx = 0;
         buttonGBC.gridy = 1;
         buttonGBC.weightx = 1;
         okJB.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent evt) {
-                loadGameActionPerformed(evt);
+                loadGame(evt);
             }
         });
         rootJP.add(okJB, buttonGBC);
@@ -104,9 +106,44 @@ public class LoadGameJIF extends JInternalFrame {
         add(rootJP);
     }
 
-     private void loadGameActionPerformed(ActionEvent evt) {
-         if (evt.getSource()==cancelJB) {
-             dispose();
-         }
-     }
+    private void loadGame(ActionEvent evt) {
+        if (evt.getSource().equals(cancelJB)) {
+            dispose();
+        } else {
+            if (gameJT.getSelectedRow() != -1) {
+
+                try {
+                    GUICoreMediator.loadGame((String) gameJT.getValueAt(gameJT.getSelectedRow(), 0));
+                    System.out.println("Sono qui");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                fireNewOffLineGameEvent(new NewOffLineGameEvent(this));
+                dispose();
+            }
+        }
+    }
+    protected EventListenerList eventListenerList = new javax.swing.event.EventListenerList();
+
+    // This methods allows classes to register for MyEvents
+    public void addMyEventListener(NewOffLineGameListener listener) {
+        listenerList.add(NewOffLineGameListener.class, listener);
+    }
+
+    // This methods allows classes to unregister for MyEvents
+    public void removeMyEventListener(NewOffLineGameListener listener) {
+        listenerList.remove(NewOffLineGameListener.class, listener);
+    }
+
+    // This private class is used to fire MyEvents
+    void fireNewOffLineGameEvent(NewOffLineGameEvent e) {
+        Object[] listeners = listenerList.getListenerList();
+        for (int i = 0; i <
+                listeners.length; i +=
+                        2) {
+            if (listeners[i] == NewOffLineGameListener.class) {
+                ((NewOffLineGameListener) listeners[i + 1]).newOffLineGameCreating(e);
+            }
+        }
+    }
 }

@@ -41,7 +41,6 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
     private HashMap<Integer, JLabel> playerNameMapJL;
     private HashMap<Integer, JLabel> playerCreditMapJL; //lista label credito giocatori;
     private HashMap<Integer, JPanel> playerCardsMapJP; //Lista pannelli giocatore-carte
-    private List<Boolean> playerTypeList;
     private HashMap<Integer, JLabel> playerStakeMapJL; //lista label puntate giocatori
     private HashMap<Integer, JLabel> playerScoreMapJL; //lista label punteggio giocatori
     private HashMap<Integer, JLabel> playerStatusMapJL;
@@ -128,32 +127,20 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
 
     private void initComponents() {
         offLineGameVO = GUICoreMediator.requestOffLineGameVO();
-        playerList =
-                offLineGameVO.getPlayerIndexList();
 
-        playerTypeList =
-                GUICoreMediator.getPlayerTypeList();
+        playerList = offLineGameVO.getPlayerIndexList();
 
-        size =
-                playerList.size();
+        size = playerList.size();
 
-        playerNameMapJL =
-                new HashMap<Integer, JLabel>(size);
-        playerCreditMapJL =
-                new HashMap<Integer, JLabel>(size);
-        playerCardsMapJP =
-                new HashMap<Integer, JPanel>(size);
-        playerActionMapJP =
-                new HashMap<Integer, JPanel>(size);
-        playerStakeMapJL =
-                new HashMap<Integer, JLabel>(size);
-        playerScoreMapJL =
-                new HashMap<Integer, JLabel>(size);
-        playerStatusMapJL =
-                new HashMap<Integer, JLabel>(size);
+        playerNameMapJL = new HashMap<Integer, JLabel>(size);
+        playerCreditMapJL = new HashMap<Integer, JLabel>(size);
+        playerCardsMapJP = new HashMap<Integer, JPanel>(size);
+        playerActionMapJP = new HashMap<Integer, JPanel>(size);
+        playerStakeMapJL = new HashMap<Integer, JLabel>(size);
+        playerScoreMapJL = new HashMap<Integer, JLabel>(size);
+        playerStatusMapJL = new HashMap<Integer, JLabel>(size);
 
-        panelGBC =
-                new GridBagConstraints();
+        panelGBC = new GridBagConstraints();
         panelGBC.insets = new Insets(1, 1, 1, 1);
         panelGBC.weighty = 0;
         panelGBC.weightx = 0;
@@ -190,7 +177,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             playerCardsMapJP.put(i, initPanelPlayersCards());
             add(playerCardsMapJP.get(i), panelGBC);
 
-            if (playerTypeList.get(i).equals(Boolean.FALSE)) {
+            if (offLineGameVO.getPlayerTypeMap().get(i) == false) {
                 setHumanColor(i);
             } else {
                 setCPUColor(i);
@@ -418,7 +405,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             playerStatusMapJL.get(i).setText(offLineGameVO.getPlayerStatusMap().get(i));
 
             if (offLineGameVO.getPlayerRoleMap().get(i) == Boolean.TRUE) {
-                bank=i;
+                bank = i;
                 selectBank(i);
             } else {
                 deselectBank(i);
@@ -441,7 +428,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             offLineGameVO.getPlayerRoleMap();
 
             JOptionPane.showMessageDialog(this,
-                    new ScoreBoardJP("Terminata manche n°" , dataReport, bank), "Score Board",
+                    new ScoreBoardJP("Terminata manche n°", dataReport, bank), "Score Board",
                     JOptionPane.INFORMATION_MESSAGE);
 
             if (offLineGameVO.isEndGame()) {

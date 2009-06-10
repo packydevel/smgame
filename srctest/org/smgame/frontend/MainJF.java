@@ -111,6 +111,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
                 loadGameJIF = new LoadGameJIF();
                 loadGameJIF.setVisible(true);
                 loadGameJIF.addInternalFrameListener(this);
+                loadGameJIF.addMyEventListener(this);
                 desktop.add(loadGameJIF);
                 refreshMenuItem();
             } else {

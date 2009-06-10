@@ -8,6 +8,7 @@ public class OffLineGameVO {
 
     private ArrayList<Integer> playerList = new ArrayList<Integer>();
     private HashMap<Integer, String> playerNameMap = new HashMap<Integer, String>();
+    private HashMap<Integer, Boolean> playerTypeMap = new HashMap<Integer, Boolean>();
     private HashMap<Integer, String> playerCreditMap = new HashMap<Integer, String>();
     private HashMap<Integer, ArrayList<ImageIcon>> playerCardsImageMap = new HashMap<Integer, ArrayList<ImageIcon>>();
     private HashMap<Integer, String> playerStakeMap = new HashMap<Integer, String>();
@@ -27,6 +28,14 @@ public class OffLineGameVO {
      */
     public HashMap<Integer, String> getPlayerNameMap() {
         return playerNameMap;
+    }
+
+    /**Restituisce la mappa del tipo di giocatori
+     *
+     * @return
+     */
+    public HashMap<Integer, Boolean> getPlayerTypeMap() {
+        return playerTypeMap;
     }
 
     /**Restituisce la mappa dei crediti giocatori

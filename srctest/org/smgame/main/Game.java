@@ -17,11 +17,12 @@ public class Game implements Serializable {
     private static Game game;
     private long gameID;
     private String gameName;
+    private GameMode gameMode;
     private GameSetting gameSetting;
     private GameEngine gameEngine;
     private Deck deck;
     private PlayerList playerList;
-    private Date creationDate,  lastSaveDate;
+    private Date creationDate, lastSaveDate;
 
     //Costruttore privato
     private Game() {
@@ -71,6 +72,14 @@ public class Game implements Serializable {
      */
     public void setGameName(String gameName) {
         this.gameName = gameName;
+    }
+
+    public GameMode getGameMode() {
+        return gameMode;
+    }
+
+    public void setGameMode(GameMode gameMode) {
+        this.gameMode = gameMode;
     }
 
     /**imposta i settaggi della partita

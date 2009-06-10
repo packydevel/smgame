@@ -42,6 +42,4 @@ public class Logging {
     public static void logInfo(String msg){
         logger.info(msg);
     }
-
-
 }
