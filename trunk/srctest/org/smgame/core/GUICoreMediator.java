@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
@@ -45,7 +46,9 @@ public class GUICoreMediator {
     private static LoadGameVO loadGameVO = new LoadGameVO();
     private static Game currentGame = null;
     private static final String FILENAME = Common.getWorkspace() + "games.dat";
-    private static final NumberFormat formatter = new DecimalFormat("#0.00");
+    private static final NumberFormat numberFormat = new DecimalFormat("#0.00");
+        private static final DateFormat dateFormat = DateFormat.getInstance();
+
     private static final ImageIcon backImage = new ImageIcon(Common.getResourceCards("napoletane") + "dorso.jpg");
 
     public static void addMenuItem(List<String> menuItemList) {
@@ -233,8 +236,8 @@ public class GUICoreMediator {
             for (Game g : gameMap.values()) {
                 loadGameVO.getGameNameList().add(g.getGameName());
                 loadGameVO.getGameNameGameModeMap().put(g.getGameName(), g.getGameMode().toString());
-                loadGameVO.getGameNameCreationDateMap().put(g.getGameName(), g.getCreationDate());
-                loadGameVO.getGameNameLastSaveDateMap().put(g.getGameName(), g.getLastSaveDate());
+                loadGameVO.getGameNameCreationDateMap().put(g.getGameName(), dateFormat.format(g.getCreationDate()));
+                loadGameVO.getGameNameLastSaveDateMap().put(g.getGameName(), dateFormat.format(g.getLastSaveDate()));
                 System.out.println(loadGameVO.getGameNameGameModeMap());
             }
             return loadGameVO;
@@ -356,7 +359,7 @@ public class GUICoreMediator {
             }
 
             offLineGameVO.getPlayerCreditMap().put(i, "Credito: " +
-                    formatter.format(tempPlayer.getCredit()));
+                    numberFormat.format(tempPlayer.getCredit()));
 
             offLineGameVO.getPlayerCardsImageMap().put(i, new ArrayList<ImageIcon>());
             playerCardsImageList = offLineGameVO.getPlayerCardsImageMap().get(i);
@@ -379,11 +382,11 @@ public class GUICoreMediator {
             }
 
             offLineGameVO.getPlayerStakeMap().put(i, "Puntata: " +
-                    formatter.format(tempPlayer.getStake()));
+                    numberFormat.format(tempPlayer.getStake()));
 
             if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) || tempPlayer.getStatus() == PlayerStatus.ScoreOverflow || tempPlayer.hasSM() || (currentGame.getGameEngine().isEndManche() && currentGame.getGameEngine().getBankPlayer().getStatus() == PlayerStatus.GoodScore)) {
                 offLineGameVO.getPlayerScoreMap().put(i, "Punteggio: " +
-                        formatter.format(tempPlayer.getScore()));
+                        numberFormat.format(tempPlayer.getScore()));
             } else {
                 offLineGameVO.getPlayerScoreMap().put(i, "Punteggio: ");
             }
@@ -448,7 +451,7 @@ public class GUICoreMediator {
             Player tempPlayer = currentGame.getPlayerList().getPlayerAL().get(i);
 
             onLineGameVO.getPlayerCreditMap().put(i, "Credito: " +
-                    formatter.format(tempPlayer.getCredit()));
+                    numberFormat.format(tempPlayer.getCredit()));
             onLineGameVO.getPlayerCardsImageMap().put(i, new ArrayList<ImageIcon>());
             playerCardsImageList = onLineGameVO.getPlayerCardsImageMap().get(i);
             for (int j = 0; j < tempPlayer.getCardList().size(); j++) {
@@ -472,9 +475,9 @@ public class GUICoreMediator {
             }
 
             onLineGameVO.getPlayerStakeMap().put(i, "Puntata: " +
-                    formatter.format(tempPlayer.getStake()));
+                    numberFormat.format(tempPlayer.getStake()));
             onLineGameVO.getPlayerScoreMap().put(i, "Punteggio: " +
-                    formatter.format(tempPlayer.getScore()));
+                    numberFormat.format(tempPlayer.getScore()));
 
             if (tempPlayer.getStatus() == PlayerStatus.ScoreOverflow) {
                 onLineGameVO.getPlayerStatusMap().put(i, Boolean.TRUE);
@@ -531,7 +534,7 @@ public class GUICoreMediator {
             data[i][1] = offLineGameVO.getPlayerScoreMap().get(i).substring(10);
             //vincita
             double winlose = currentGame.getPlayerList().getPlayerAL().get(i).getLastWinLoseAmount();
-            data[i][2] = formatter.format(winlose);
+            data[i][2] = numberFormat.format(winlose);
             //credito
             //data[i][3] = offLineGameVO.getPlayerCreditMap().get(i).substring(9);
             data[i][3] = formatter.format(currentGame.getPlayerList().getPlayerAL().get(i).getCredit());
