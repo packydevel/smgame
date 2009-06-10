@@ -117,7 +117,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
      *
      */
     public OffLineGameJIF() {
-        super(GUICoreMediator.getGameName(), false, true, false, false);
+        super(null, false, true, false, false);
 
         setLayout(new GridBagLayout());
         initComponents();
@@ -127,6 +127,8 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
 
     private void initComponents() {
         offLineGameVO = GUICoreMediator.requestOffLineGameVO();
+
+        setTitle(GUICoreMediator.getGameTitle() + offLineGameVO.getCurrentManche());
 
         playerList = offLineGameVO.getPlayerIndexList();
 
@@ -427,7 +429,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             offLineGameVO.getPlayerRoleMap();
 
             JOptionPane.showMessageDialog(this,
-                    new ScoreBoardJP("Terminata manche n°", dataReport, bank), "Score Board",
+                    new ScoreBoardJP("Terminata Manche n° " + offLineGameVO.getCurrentManche(), dataReport, bank), "Score Board",
                     JOptionPane.INFORMATION_MESSAGE);
 
             if (offLineGameVO.isEndGame()) {

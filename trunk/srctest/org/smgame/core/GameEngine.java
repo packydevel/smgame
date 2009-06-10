@@ -362,6 +362,10 @@ public class GameEngine implements Serializable {
         }
     }
 
+    public int getCurrentManche() {
+        return currentManche;
+    }
+
     /**chiudi la manche
      */
     public void closeManche() {
