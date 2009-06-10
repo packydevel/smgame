@@ -52,7 +52,7 @@ public class OnLineGameJIF extends JInternalFrame implements IGameJIF {
     private OnLineGameVO onLineGameVO;
 
     public OnLineGameJIF() {
-        super(GUICoreMediator.getGameName(), false, true, false, false);
+        super(GUICoreMediator.getGameTitle(), false, true, false, false);
 
         setLayout(new GridBagLayout());
         initComponents();

@@ -20,6 +20,7 @@ public class OffLineGameVO {
     private HashMap<Integer, Boolean> playerMaxScoreMap = new HashMap<Integer, Boolean>();
     private HashMap<Integer, Boolean> playerRequestBetMap = new HashMap<Integer, Boolean>();
     private boolean endManche = false,  endGame = false;
+    private int currentManche;
     String exceptionMessage;
 
     /**Restituisce la mappa dei nomi giocatori
@@ -157,6 +158,14 @@ public class OffLineGameVO {
      */
     public void setEndGame(boolean flag) {
         endGame = flag;
+    }
+
+    public int getCurrentManche() {
+        return currentManche;
+    }
+
+    public void setCurrentManche(int currentManche) {
+        this.currentManche = currentManche;
     }
 
     /**Restituisce il messaggio dell'eccezione
