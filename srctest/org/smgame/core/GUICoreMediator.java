@@ -1,6 +1,5 @@
 package org.smgame.core;
 
-import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -17,8 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.ImageIcon;
-
-import javax.swing.JLabel;
 
 import org.smgame.core.player.CPUPlayer;
 import org.smgame.core.player.HumanPlayer;
