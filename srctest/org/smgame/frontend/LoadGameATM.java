@@ -33,7 +33,6 @@ public class LoadGameATM extends AbstractTableModel {
         if (loadGameVO == null) {
             return 0;
         }
-        System.out.println(loadGameVO.getGameNameList());
         return loadGameVO.getGameNameList().size();
     }
 
@@ -48,7 +47,7 @@ public class LoadGameATM extends AbstractTableModel {
             return loadGameVO.getGameNameGameModeMap().get(row);
         } else if (col == 2) {
             return loadGameVO.getGameNameCreationDateMap().get(row);
-        } else if (col == 2) {
+        } else if (col == 3) {
             return loadGameVO.getGameNameLastSaveDateMap().get(row);
         }
 

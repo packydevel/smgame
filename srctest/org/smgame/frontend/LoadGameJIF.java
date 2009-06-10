@@ -114,7 +114,6 @@ public class LoadGameJIF extends JInternalFrame {
 
                 try {
                     GUICoreMediator.loadGame((String) gameJT.getValueAt(gameJT.getSelectedRow(), 0));
-                    System.out.println("Sono qui");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
