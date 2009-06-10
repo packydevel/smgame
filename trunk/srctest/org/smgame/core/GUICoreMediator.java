@@ -238,7 +238,6 @@ public class GUICoreMediator {
                 loadGameVO.getGameNameGameModeMap().put(g.getGameName(), g.getGameMode().toString());
                 loadGameVO.getGameNameCreationDateMap().put(g.getGameName(), dateFormat.format(g.getCreationDate()));
                 loadGameVO.getGameNameLastSaveDateMap().put(g.getGameName(), dateFormat.format(g.getLastSaveDate()));
-                System.out.println(loadGameVO.getGameNameGameModeMap());
             }
             return loadGameVO;
         } else {

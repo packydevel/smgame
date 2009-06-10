@@ -13,7 +13,7 @@ import org.smgame.core.GUICoreMediator;
  */
 public class LoadGameATM extends AbstractTableModel {
 
-    private final String[] columnNames = {"Partita", "Tipo", "Data di Creazione", "Data ultimo Salvataggio"};
+    private final String[] columnNames = {"Partita", "Tipo", "Data Creazione", "Data Ultimo Salvataggio"};
     private LoadGameVO loadGameVO;
 
     public LoadGameATM() {
@@ -41,21 +41,16 @@ public class LoadGameATM extends AbstractTableModel {
     }
 
     public Object getValueAt(int row, int col) {
-        System.out.println(row);
-
+        String gameName = loadGameVO.getGameNameList().get(row);
 
         if (col == 0) {
-            System.out.println("Sono qui "+loadGameVO.getGameNameList());
-            return loadGameVO.getGameNameList().get(row);
+            return gameName;
         } else if (col == 1) {
-            System.out.println("Sono qui "+loadGameVO.getGameNameGameModeMap());
-            return loadGameVO.getGameNameGameModeMap().get(row);
+            return loadGameVO.getGameNameGameModeMap().get(gameName);
         } else if (col == 2) {
-            System.out.println("Sono qui "+loadGameVO.getGameNameCreationDateMap());
-            return loadGameVO.getGameNameCreationDateMap().get(row);
+            return loadGameVO.getGameNameCreationDateMap().get(gameName);
         } else if (col == 3) {
-            System.out.println("Sono qui "+loadGameVO.getGameNameLastSaveDateMap());
-            return loadGameVO.getGameNameLastSaveDateMap().get(row);
+            return loadGameVO.getGameNameLastSaveDateMap().get(gameName);
         }
 
         return -1;

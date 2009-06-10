@@ -37,7 +37,7 @@ public class LoadGameJIF extends JInternalFrame {
 
     public LoadGameJIF() {
         super("Carica Partita", false, true, false, false);
-        setSize(550, 250);
+        setSize(600, 250);
         gameATM = new LoadGameATM();
         gameJT = new JTable(gameATM);
         gameJT.setFillsViewportHeight(true);
