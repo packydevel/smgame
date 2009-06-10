@@ -273,9 +273,9 @@ public class GUICoreMediator {
             }
             offLineGameVO.setExceptionMessage(soe.getMessage());
             Logging.logExceptionWarning(soe);
-        } /*catch (Exception e) {
-    Logging.logExceptionSevere(e);
-    }*/
+        } catch (Exception e) {
+            Logging.logExceptionSevere(e);
+        }
 
     }
 
@@ -533,7 +533,8 @@ public class GUICoreMediator {
             double winlose = currentGame.getPlayerList().getPlayerAL().get(i).getLastWinLoseAmount();
             data[i][2] = formatter.format(winlose);
             //credito
-            data[i][3] = offLineGameVO.getPlayerCreditMap().get(i).substring(9);
+            //data[i][3] = offLineGameVO.getPlayerCreditMap().get(i).substring(9);
+            data[i][3] = formatter.format(currentGame.getPlayerList().getPlayerAL().get(i).getCredit());
         }
         return data;
     }

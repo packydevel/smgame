@@ -35,8 +35,12 @@ public class Logging {
         logger.severe(e.getMessage());
     }
 
-    public static void logExceptionWarning(Exception e){
-        logger.warning(e.getMessage());
+    public static void logExceptionWarning(BetOverflowException boe){
+        logger.warning(boe.getMessage());
+    }
+
+    public static void logExceptionWarning(ScoreOverflowException soe){
+        logger.warning(soe.getMessage());
     }
 
     public static void logInfo(String msg){
