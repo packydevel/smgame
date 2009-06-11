@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -16,8 +17,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
+import org.smgame.backend.DBTransactions;
 import org.smgame.core.player.*;
 import org.smgame.frontend.LoadGameVO;
 import org.smgame.frontend.MenuVO;
@@ -397,6 +401,17 @@ public class GUICoreMediator {
             System.out.println("Ho settato ora la fine della manche!!!");
             currentGame.getGameEngine().closeManche();
             offLineGameVO.setEndManche(true);
+            try {
+                addRecordDB();
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
 
         offLineGameVO.setCurrentManche(currentGame.getGameEngine().getCurrentManche());
@@ -517,4 +532,15 @@ public class GUICoreMediator {
         }
         return data;
     }
+
+    private static void addRecordDB() throws ClassNotFoundException, SQLException, IOException, Exception{
+        System.out.println("Scrittura sul db");
+        long id = currentGame.getGameID();
+        for (Player p : currentGame.getPlayerList().getPlayerAL()) {
+            DBTransactions dbt = new DBTransactions(id, GameEngine.getInstance().getCurrentManche(),
+                                                    p.getName(), p.getScore(), p.getLastWinLoseAmount());
+            dbt.addTransaction();
+        }
+    }
+
 } //end  class

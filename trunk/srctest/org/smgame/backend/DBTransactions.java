@@ -12,7 +12,7 @@ public class DBTransactions {
 
     private final String table = " transactions ";
     private long id_game;
-    private long manche;
+    private int manche;
     private String player;
     private double score;
     private double win;
@@ -33,7 +33,7 @@ public class DBTransactions {
      * @param score punteggio
      * @param win vincita
      */
-    public DBTransactions(long id_game, long manche, String player, double score, double win) {
+    public DBTransactions(long id_game, int manche, String player, double score, double win) {
         this.id_game = id_game;
         this.manche = manche;
         this.player = player;
@@ -73,11 +73,11 @@ public class DBTransactions {
         return win;
     }
 
-    public long getManche() {
+    public int getManche() {
         return manche;
     }
 
-    public void setManche(long manche) {
+    public void setManche(int manche) {
         this.manche = manche;
     }
 
@@ -90,9 +90,9 @@ public class DBTransactions {
      */
     public void addTransaction() throws ClassNotFoundException, SQLException, IOException, Exception {
         Connection conn = DBAccess.getConnection();
-        String sql = "INSERT INTO" + table + "VALUES (?,?,?,?)";
+        String sql = "INSERT INTO" + table + "VALUES (?,?,?,?,?)";
         PreparedStatement prpstmt = conn.prepareStatement(sql);
-        setParameter(prpstmt, 1, getId_game(), Types.INTEGER);
+        setParameter(prpstmt, 1, getId_game(), Types.BIGINT);
         setParameter(prpstmt, 2, getManche(), Types.INTEGER);
         setParameter(prpstmt, 3, getPlayer(), Types.VARCHAR);
         setParameter(prpstmt, 4, getScore(), Types.DOUBLE);
@@ -115,11 +115,11 @@ public class DBTransactions {
         Connection conn = DBAccess.getConnection();
         String sql = "SELECT * FROM" + table + "WHERE game_id = ?";
         PreparedStatement prpstmt = conn.prepareStatement(sql);
-        setParameter(prpstmt, 1, getId_game(), Types.INTEGER);
+        setParameter(prpstmt, 1, getId_game(), Types.BIGINT);
 
         ResultSet rs = prpstmt.executeQuery();
         while (rs.next()) {
-            DBTransactions dbt = new DBTransactions(id_game, rs.getLong(2), rs.getString(3),
+            DBTransactions dbt = new DBTransactions(id_game, rs.getInt(2), rs.getString(3),
                     rs.getDouble(4), rs.getDouble(5));
             dbtransactionsAL.add(dbt);
         }
@@ -135,12 +135,12 @@ public class DBTransactions {
             if (type == Types.VARCHAR) {
                 stmt.setString(index, (String) value);
             } else if (type == Types.INTEGER) {
-                stmt.setLong(index, ((Integer) value).intValue());
+                stmt.setInt(index, ((Integer) value).intValue());
+            } else if (type == Types.BIGINT) {
+                stmt.setLong(index, ((Long) value).longValue());
             } else if (type == Types.DOUBLE) {
                 stmt.setDouble(index, ((Double) value).doubleValue());
-            } //else if (type == Types.TIMESTAMP)
-            //stmt.setTimestamp(index, ((Timestamp) valore));
-            else {
+            } else {
                 throw new Exception("Tipo di dato non gestito");
             }
         } //end else valore == null
