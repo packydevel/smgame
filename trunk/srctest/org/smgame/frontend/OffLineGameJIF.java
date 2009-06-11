@@ -162,7 +162,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
         for (int i = 0; i < size; i++) {
             playerNameMapJP.put(i, new JPanel(new GridLayout(1, 1), false));
             playerNameMapJP.get(i).setPreferredSize(new Dimension(140, 40));
-            playerNameMapJP.get(i).setBorder(BorderFactory.createTitledBorder(offLineGameVO.getPlayerNameMap().get(i)));
+            playerNameMapJP.get(i).setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.MAGENTA), offLineGameVO.getPlayerNameMap().get(i)));
             playerNameMapJP.get(i).add(new JLabel(offLineGameVO.getPlayerCreditMap().get(i)));
             panelGBC.gridx = 0;
             panelGBC.gridy = 2 * i;
