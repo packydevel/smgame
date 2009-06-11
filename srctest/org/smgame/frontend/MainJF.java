@@ -186,7 +186,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
         System.out.println(ybound);
         gameJIF = new OffLineGameJIF();
         gameJIF.setPreferredSize(new Dimension(internalFrameWidth, internalFrameHeight));
-        gameJIF.setBounds(xbound, 1, internalFrameWidth, internalFrameHeight);
+        gameJIF.setBounds(xbound, ybound, internalFrameWidth, internalFrameHeight);
         gameJIF.setVisible(true);
         gameJIF.addInternalFrameListener(this);
         desktop.add(gameJIF);

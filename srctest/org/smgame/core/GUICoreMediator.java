@@ -17,8 +17,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 import org.smgame.backend.DBTransactions;
