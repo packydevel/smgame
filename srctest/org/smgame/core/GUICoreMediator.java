@@ -47,36 +47,13 @@ public class GUICoreMediator {
     private static Game currentGame = null;
     private static final String FILENAME = Common.getWorkspace() + "games.dat";
     private static final NumberFormat numberFormat = new DecimalFormat("#0.00");
-        private static final DateFormat dateFormat = DateFormat.getInstance();
-
+    private static final DateFormat dateFormat = DateFormat.getInstance();
     private static final ImageIcon backImage = new ImageIcon(Common.getResourceCards("napoletane") + "dorso.jpg");
 
     public static void addMenuItem(List<String> menuItemList) {
         for (String s : menuItemList) {
             menuVO.getItemEnabledMap().put(s, false);
         }
-    }
-
-    /**Richiesta di poter creare una nuova partita
-     *
-     * @return
-     */
-    public static boolean askForNewGame() {
-        if (currentGame != null) {
-            return false;
-        }
-        return true;
-    }
-
-    /**Richiesta di caricare una partita
-     *
-     * @return
-     */
-    public static boolean askForLoadGame() {
-        if (currentGame != null) {
-            return false;
-        }
-        return true;
     }
 
     /**Crea partita offline

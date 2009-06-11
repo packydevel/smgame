@@ -6,9 +6,6 @@ package org.smgame.frontend;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
@@ -23,7 +20,7 @@ public class ToolBarJTB{
     public ToolBarJTB() {
 
         tb = new JToolBar(JToolBar.HORIZONTAL);
-        tb.setPreferredSize(new Dimension(1024, 25));
+        tb.setPreferredSize(new Dimension(1024, 20));
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new FlowLayout());
         //titlePanel.setSize(20, 1024);
