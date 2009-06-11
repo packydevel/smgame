@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DBTransactions {
 
-    private final String table = " transactions ";
+    private final String table = "TRANSACTIONS";
     private long id_game;
     private int manche;
     private String player;
@@ -90,7 +90,7 @@ public class DBTransactions {
      */
     public void addTransaction() throws ClassNotFoundException, SQLException, IOException, Exception {
         Connection conn = DBAccess.getConnection();
-        String sql = "INSERT INTO" + table + "VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO " + table + " VALUES (?,?,?,?,?)";
         PreparedStatement prpstmt = conn.prepareStatement(sql);
         setParameter(prpstmt, 1, getId_game(), Types.BIGINT);
         setParameter(prpstmt, 2, getManche(), Types.INTEGER);

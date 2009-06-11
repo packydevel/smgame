@@ -159,8 +159,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
         labelGBC.weightx = 0;
         labelGBC.anchor = GridBagConstraints.NORTHWEST;
 
-        for (int i = 0; i <
-                size; i++) {
+        for (int i = 0; i < size; i++) {
             playerNameMapJP.put(i, new JPanel(new GridLayout(1, 1), false));
             playerNameMapJP.get(i).setPreferredSize(new Dimension(140, 40));
             playerNameMapJP.get(i).setBorder(BorderFactory.createTitledBorder(offLineGameVO.getPlayerNameMap().get(i)));
@@ -171,11 +170,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             panelGBC.anchor = GridBagConstraints.WEST;
             add(playerNameMapJP.get(i), panelGBC);
 
-            playerCreditMapJL.put(i,
-                    new JLabel(offLineGameVO.getPlayerCreditMap().get(i)));
-//            labelGBC.gridx = 0;
-//            labelGBC.gridy = 2 * i + 1;
-//            add(playerCreditMapJL.get(i), labelGBC);
+            playerCreditMapJL.put(i, new JLabel(offLineGameVO.getPlayerCreditMap().get(i)));
 
             panelGBC.gridx = 1;
             panelGBC.gridy = 2 * i;
@@ -188,9 +183,9 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             add(playerCardsMapJP.get(i), panelGBC);
 
             if (offLineGameVO.getPlayerTypeMap().get(i) == false) {
-                setHumanColor(i);
+                setPlayerColor(i, Color.RED);
             } else {
-                setCPUColor(i);
+                setPlayerColor(i, Color.BLUE);
             }
 
             playerActionMapJP.put(i, initPanelActions());
@@ -323,12 +318,8 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
      *
      * @param i posizione del giocatore nell'hashmap
      */
-    private void setHumanColor(int i) {
-        ((TitledBorder) playerNameMapJP.get(i).getBorder()).setTitleColor(Color.RED);
-    }
-
-    private void setCPUColor(int i) {
-        ((TitledBorder) playerNameMapJP.get(i).getBorder()).setTitleColor(Color.BLUE);
+    private void setPlayerColor(int i, Color color) {
+        ((TitledBorder) playerNameMapJP.get(i).getBorder()).setTitleColor(color);
     }
 
     private JTextField getBetJTF(int i) {
