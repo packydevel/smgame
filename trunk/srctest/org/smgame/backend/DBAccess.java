@@ -73,6 +73,8 @@ public class DBAccess {
         Properties properties = new Properties();
         //directory di lavoro
         String file = Common.getResource() + "database.properties";
+
+        System.out.println(file);
         //caricamento del file properties
         properties.load(new FileInputStream(file));
         //DBMS = properties.getProperty("DBMS");
