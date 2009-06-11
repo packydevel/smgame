@@ -27,6 +27,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
     private OffLineGameJIF gameJIF;
     private OnLineGameJIF gameonlineJIF;
     private MenuVO menuVO;
+    private int desktopWidth,  desktopHeight,  internalFrameWidth,  internalFrameHeight,  xbound,  ybound;
 
     /**
      * 
@@ -43,10 +44,14 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
         statusBarJTB = new ToolBarJTB();
         desktop = new JDesktopPane();
         desktop.setDesktopManager(new GameDM());
-        getContentPane().add(BorderLayout.NORTH, toolBarJTB.getTb());
-        getContentPane().add(BorderLayout.SOUTH, statusBarJTB.getTb());
+        //getContentPane().add(BorderLayout.NORTH, toolBarJTB.getTb());
+        //getContentPane().add(BorderLayout.SOUTH, statusBarJTB.getTb());
         getContentPane().add(BorderLayout.CENTER, desktop);
         setVisible(true);
+        desktopWidth = desktop.getWidth();
+        desktopHeight = desktop.getHeight();
+        System.out.println(desktopWidth);
+        System.out.println(desktopHeight);
 
         menuJMB = new MenuJMB();
         for (JMenuItem jmi : menuJMB.getMenuItemListJMI()) {
@@ -75,54 +80,50 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
 
     private void jMenu1ActionPerformed(ActionEvent evt) {
         if ((JMenuItem) evt.getSource() == menuJMB.getNewOnLineGameJMI()) {
-            if (GUICoreMediator.askForNewGame()) {
-                int xbound = (1016 - 400) / 2;
-                int ybound = (652 - 450) / 2;
-                newOnLineGameJIF = new NewOnLineGameJIF();
-                newOnLineGameJIF.setPreferredSize(new Dimension(400, 450));
-                newOnLineGameJIF.setBounds(xbound, ybound, 400, 450);
-                newOnLineGameJIF.setVisible(true);
-                newOnLineGameJIF.addInternalFrameListener(this);
-                newOnLineGameJIF.addMyEventListener(this);
-                desktop.add(newOnLineGameJIF);
-                refreshMenuItem();
-            } else {
-                System.out.println("Esiste già una partita aperta");
-            }
-
+            internalFrameWidth = 400;
+            internalFrameHeight = 450;
+            xbound = (desktopWidth - internalFrameWidth) / 2;
+            ybound = (desktopHeight - internalFrameHeight) / 2;
+            newOnLineGameJIF = new NewOnLineGameJIF();
+            newOnLineGameJIF.setPreferredSize(new Dimension(internalFrameWidth, internalFrameHeight));
+            newOnLineGameJIF.setBounds(xbound, ybound, internalFrameWidth, internalFrameHeight);
+            newOnLineGameJIF.setVisible(true);
+            newOnLineGameJIF.addInternalFrameListener(this);
+            newOnLineGameJIF.addMyEventListener(this);
+            desktop.add(newOnLineGameJIF);
+            refreshMenuItem();
         } else if ((JMenuItem) evt.getSource() == menuJMB.getNewOffLineGameJMI()) {
-            if (GUICoreMediator.askForNewGame()) {
-                int xbound = (1016 - 400) / 2;
-                int ybound = (652 - 450) / 2;
-                newGameJIF = new NewOffLineGameJIF();
-                newGameJIF.setPreferredSize(new Dimension(400, 450));
-                newGameJIF.setBounds(xbound, ybound, 400, 450);
-                newGameJIF.setVisible(true);
-                newGameJIF.addInternalFrameListener(this);
-                newGameJIF.addMyEventListener(this);
-                desktop.add(newGameJIF);
-                refreshMenuItem();
-            } else {
-                System.out.println("Esiste già una partita aperta");
-            }
-
+            internalFrameWidth = 400;
+            internalFrameHeight = 500;
+            xbound = (desktopWidth - internalFrameWidth) / 2;
+            ybound = (desktopHeight - internalFrameHeight) / 2;
+            newGameJIF = new NewOffLineGameJIF();
+            newGameJIF.setPreferredSize(new Dimension(internalFrameWidth, internalFrameHeight));
+            newGameJIF.setBounds(xbound, ybound, internalFrameWidth, internalFrameHeight);
+            newGameJIF.setVisible(true);
+            newGameJIF.addInternalFrameListener(this);
+            newGameJIF.addMyEventListener(this);
+            desktop.add(newGameJIF);
+            refreshMenuItem();
         } else if ((JMenuItem) evt.getSource() == menuJMB.getLoadGameJMI()) {
-            if (GUICoreMediator.askForLoadGame()) {
-                loadGameJIF = new LoadGameJIF();
-                loadGameJIF.setVisible(true);
-                loadGameJIF.addInternalFrameListener(this);
-                loadGameJIF.addMyEventListener(this);
-                desktop.add(loadGameJIF);
-                refreshMenuItem();
-            } else {
-                System.out.println("Esiste già una partita aperta");
-            }
+            internalFrameWidth = 600;
+            internalFrameHeight = 250;
+            xbound = (desktopWidth - internalFrameWidth) / 2;
+            ybound = (desktopHeight - internalFrameHeight) / 2;
+            loadGameJIF = new LoadGameJIF();
+            loadGameJIF.setPreferredSize(new Dimension(internalFrameWidth, internalFrameHeight));
+            loadGameJIF.setBounds(xbound, ybound, internalFrameWidth, internalFrameHeight);
+            loadGameJIF.setVisible(true);
+            loadGameJIF.addInternalFrameListener(this);
+            loadGameJIF.addMyEventListener(this);
+            desktop.add(loadGameJIF);
+            refreshMenuItem();
+
         } else if ((JMenuItem) evt.getSource() == menuJMB.getSaveGameJMI()) {
             try {
                 GUICoreMediator.saveGame();
             } catch (Exception e) {
-                //Logging.logExceptionSevere(e);
-                e.printStackTrace();
+                Logging.logExceptionSevere(e);
             }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getCloseGameJMI()) {
             if (JOptionPane.showInternalConfirmDialog(desktop,
@@ -159,12 +160,13 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
      * @param e
      */
     public void newOnLineGameCreating(NewOnLineGameEvent e) {
-        int xbound = (1016 - 960) / 2;
-        int ybound = (652 - 640) / 2;
-
+        internalFrameWidth = 960;
+        internalFrameHeight = 660;
+        xbound = (desktopWidth - internalFrameWidth) / 2;
+        ybound = (desktopHeight - internalFrameHeight) / 2;
         gameonlineJIF = new OnLineGameJIF();
-        gameonlineJIF.setPreferredSize(new Dimension(960, 640));
-        gameonlineJIF.setBounds(xbound, ybound, 960, 640);
+        gameonlineJIF.setPreferredSize(new Dimension(internalFrameWidth, internalFrameHeight));
+        gameonlineJIF.setBounds(xbound, ybound, internalFrameWidth, internalFrameHeight);
         gameonlineJIF.setVisible(true);
         gameonlineJIF.addInternalFrameListener(this);
         desktop.add(gameonlineJIF);
@@ -177,12 +179,14 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
      * @param e
      */
     public void newOffLineGameCreating(NewOffLineGameEvent e) {
-        int xbound = (1016 - 960) / 2;
-        int ybound = (652 - 640) / 2;
-
+        internalFrameWidth = 960;
+        internalFrameHeight = 700;
+        xbound = (desktopWidth - internalFrameWidth) / 2;
+        ybound = (desktopHeight - internalFrameHeight) / 2;
+        System.out.println(ybound);
         gameJIF = new OffLineGameJIF();
-        gameJIF.setPreferredSize(new Dimension(960, 640));
-        gameJIF.setBounds(xbound, ybound, 960, 640);
+        gameJIF.setPreferredSize(new Dimension(internalFrameWidth, internalFrameHeight));
+        gameJIF.setBounds(xbound, 1, internalFrameWidth, internalFrameHeight);
         gameJIF.setVisible(true);
         gameJIF.addInternalFrameListener(this);
         desktop.add(gameJIF);

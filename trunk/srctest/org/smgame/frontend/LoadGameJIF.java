@@ -24,7 +24,7 @@ import javax.swing.event.EventListenerList;
  *
  * @author packyuser
  */
-public class LoadGameJIF extends JInternalFrame {
+public class LoadGameJIF extends JInternalFrame implements IGameJIF {
 
     JTable gameJT;
     LoadGameATM gameATM;
@@ -37,7 +37,7 @@ public class LoadGameJIF extends JInternalFrame {
 
     public LoadGameJIF() {
         super("Carica Partita", false, true, false, false);
-        setSize(600, 250);
+
         gameATM = new LoadGameATM();
         gameJT = new JTable(gameATM);
         gameJT.setFillsViewportHeight(true);
