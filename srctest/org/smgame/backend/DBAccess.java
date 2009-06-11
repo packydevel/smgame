@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import org.smgame.util.Common;
 
 public class DBAccess {
     //driver mysql
@@ -71,9 +72,8 @@ public class DBAccess {
     private void readProperties() throws IOException {
         Properties properties = new Properties();
         //directory di lavoro
-        String file = System.getProperty("user.dir") + "/config/database.properties";
-        //il percorso è la root di base del progetto, nel caso mio (luca) è c:\java\monopolimap
-        //quindi leggerà da c:\java\monopolimap\config\database.properties
+        String file = Common.getWorkspace() + "database.properties";
+        //caricamento del file properties
         properties.load(new FileInputStream(file));
         //DBMS = properties.getProperty("DBMS");
         URI = properties.getProperty("URI");
