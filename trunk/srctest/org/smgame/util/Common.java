@@ -1,6 +1,9 @@
 package org.smgame.util;
 
 import java.io.File;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -57,7 +60,36 @@ public class Common {
         GregorianCalendar cal = new GregorianCalendar();
         String data = cal.get(Calendar.YEAR) + (cal.get(Calendar.MONTH)+1) + cal.get(Calendar.DATE) + "_" +
                 cal.get(Calendar.HOUR_OF_DAY) + cal.get(Calendar.MINUTE) + cal.get(Calendar.SECOND);
+        System.out.println(data);
         return data;
     }
+
+    /**imposta i tipi di valore da usare per la preparedStatement
+     *
+     * @param stmt preparedstatement
+     * @param index indice
+     * @param value valore
+     * @param type tipo
+     * @throws java.sql.SQLException
+     * @throws java.lang.Exception
+     */
+    public static void setParameter(PreparedStatement stmt, int index,
+            Object value, int type) throws SQLException, Exception {
+        if (value == null) {
+            stmt.setNull(index, type);
+        } else {
+            if (type == Types.VARCHAR) {
+                stmt.setString(index, (String) value);
+            } else if (type == Types.INTEGER) {
+                stmt.setInt(index, ((Integer) value).intValue());
+            } else if (type == Types.BIGINT) {
+                stmt.setLong(index, ((Long) value).longValue());
+            } else if (type == Types.DOUBLE) {
+                stmt.setDouble(index, ((Double) value).doubleValue());
+            } else {
+                throw new Exception("Tipo di dato non gestito");
+            }
+        } //end
+    } //end setParameter
     
 }//end class

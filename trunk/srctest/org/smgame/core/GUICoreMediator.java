@@ -539,15 +539,14 @@ public class GUICoreMediator {
         int size = offLineGameVO.getPlayerIndexList().size();
         Object[][] data = new Object[size][4];
         for (int i = 0; i < size; i++) {
+            Player tempPlayer = currentGame.getPlayerList().getPlayerAL().get(i);
             data[i][0] = offLineGameVO.getPlayerNameMap().get(i);
             //punteggio
             data[i][1] = offLineGameVO.getPlayerScoreMap().get(i).substring(10);
             //vincita
-            double winlose = currentGame.getPlayerList().getPlayerAL().get(i).getLastWinLoseAmount();
-            data[i][2] = numberFormat.format(winlose);
+            data[i][2] = numberFormat.format(tempPlayer.getLastWinLoseAmount());
             //credito
-            //data[i][3] = offLineGameVO.getPlayerCreditMap().get(i).substring(9);
-            data[i][3] = numberFormat.format(currentGame.getPlayerList().getPlayerAL().get(i).getCredit());
+            data[i][3] = numberFormat.format(tempPlayer.getCredit());
         }
         return data;
     }
@@ -558,7 +557,7 @@ public class GUICoreMediator {
         for (Player p : currentGame.getPlayerList().getPlayerAL()) {
             DBTransactions dbt = new DBTransactions(id, GameEngine.getInstance().getCurrentManche(),
                     p.getName(), p.getScore(), p.getLastWinLoseAmount());
-            dbt.addTransaction();
+            dbt.executeSingleTransaction();
         }
     }
 } //end  class
