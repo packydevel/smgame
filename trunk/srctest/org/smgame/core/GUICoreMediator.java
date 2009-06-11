@@ -22,7 +22,9 @@ import javax.swing.ImageIcon;
 import org.smgame.backend.DBTransactions;
 import org.smgame.core.player.*;
 import org.smgame.frontend.LoadGameVO;
+import org.smgame.frontend.MainVO;
 import org.smgame.frontend.MenuVO;
+import org.smgame.frontend.MessageType;
 import org.smgame.frontend.OffLineGameVO;
 import org.smgame.frontend.OnLineGameVO;
 import org.smgame.main.Game;
@@ -42,6 +44,7 @@ import org.smgame.util.ScoreOverflowException;
 public class GUICoreMediator {
 
     private static HashMap<Long, Game> gameMap = new HashMap<Long, Game>();
+    private static MainVO mainVO = new MainVO();
     private static MenuVO menuVO = new MenuVO();
     private static OffLineGameVO offLineGameVO = new OffLineGameVO();
     private static OnLineGameVO onLineGameVO = new OnLineGameVO();
@@ -138,6 +141,11 @@ public class GUICoreMediator {
         gameMap.put(currentGame.getGameID(), currentGame);
     }
 
+    public static void askCloseGame() {
+        mainVO.setMessageType(MessageType.WARNING);
+        mainVO.setMessage("Sei sicuro di voler chiudere la Partita? I passaggi di gioco non salvati saranno persi!");
+    }
+
     /**Chiudi partita
      *
      */
@@ -151,7 +159,7 @@ public class GUICoreMediator {
      * @throws java.io.FileNotFoundException
      * @throws java.io.IOException
      */
-    public static void saveGame() throws FileNotFoundException, IOException {
+    public static void saveGame() {
         currentGame.setLastSaveDate(new Date());
         gameMap.put(currentGame.getGameID(), currentGame);
         saveGames();
@@ -162,13 +170,22 @@ public class GUICoreMediator {
      * @throws java.io.FileNotFoundException
      * @throws java.io.IOException
      */
-    public static void saveGames() throws FileNotFoundException, IOException {
-        FileOutputStream fos = new FileOutputStream(FILENAME);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(gameMap);
-        oos.flush();
-        oos.close();
-        fos.close();
+    private static void saveGames() {
+
+        try {
+            FileOutputStream fos = new FileOutputStream(FILENAME);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(gameMap);
+            oos.flush();
+            oos.close();
+            fos.close();
+            mainVO.setMessageType(MessageType.INFO);
+            mainVO.setMessage("La Partita è stata salvata correttamente!");
+        } catch (Exception e) {
+            Logging.logExceptionSevere(e);
+            mainVO.setMessageType(MessageType.ERROR);
+            mainVO.setMessage("Non è stato possibile salvare la partita");
+        }
     }
 
     /**Carica partita
@@ -200,6 +217,10 @@ public class GUICoreMediator {
         gameMap = (HashMap<Long, Game>) ois.readObject();
         ois.close();
         fis.close();
+    }
+
+    public static MainVO requestMainVO() {
+        return mainVO;
     }
 
     /**Restituisce un oggetto contenente l'elenco dei nomi delle partite, il tipo, la data di creazione, la data di ultimo salvataggio
@@ -531,14 +552,13 @@ public class GUICoreMediator {
         return data;
     }
 
-    private static void addRecordDB() throws ClassNotFoundException, SQLException, IOException, Exception{
+    private static void addRecordDB() throws ClassNotFoundException, SQLException, IOException, Exception {
         System.out.println("Scrittura sul db");
         long id = currentGame.getGameID();
         for (Player p : currentGame.getPlayerList().getPlayerAL()) {
             DBTransactions dbt = new DBTransactions(id, GameEngine.getInstance().getCurrentManche(),
-                                                    p.getName(), p.getScore(), p.getLastWinLoseAmount());
+                    p.getName(), p.getScore(), p.getLastWinLoseAmount());
             dbt.addTransaction();
         }
     }
-
 } //end  class
