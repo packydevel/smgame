@@ -303,14 +303,14 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
 
     //Seleziona/evidenzia il mazziere di turno
     private void selectBank(int i) {
-        ((TitledBorder) playerNameMapJP.get(i).getBorder()).setTitleColor(new Color(255, 153, 0));
+        playerNameMapJP.get(i).setBackground(Color.GREEN);
         getBetJTF(i).setEnabled(false);
 
     }
 
 //Deseleziona l'ex-mazziere di turno, che diventa un player normale
     private void deselectBank(int i) {
-        ((TitledBorder) playerNameMapJP.get(i).getBorder()).setTitleColor(new Color(212, 208, 200));
+        playerNameMapJP.get(i).setBackground(new Color(212, 208, 200));
         getBetJTF(i).setEnabled(true);
     }
 
