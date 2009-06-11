@@ -1,8 +1,3 @@
-/** Classe DbAccess/accesso database
- *
- * @author Traetta  Pasquale 450428
- * @author Mignogna Luca     467644
- */
 package org.smgame.backend;
 
 import java.io.FileInputStream;
@@ -12,7 +7,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 import org.smgame.util.Common;
+import org.smgame.util.Logging;
 
+/** Classe DbAccess/accesso database
+ *
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
+ */
 public class DBAccess {
     //driver mysql
     final private String DRIVER_CLASS_NAME_MYSQL = "org.gjt.mm.mysql.Driver";
@@ -31,33 +32,31 @@ public class DBAccess {
     //password per l'user
     private String PASSWORD;
     //oggetto connessione
-    private static Connection conn;
+    private static Connection conn=null;
 
+    /**Costruttore privato
+     *
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
+     * @throws java.io.IOException
+     */
     private DBAccess() throws ClassNotFoundException, SQLException, IOException {
-        conn = null;
         readProperties();
         //carico il driver JDBC MYSQL
         Class.forName(DRIVER_CLASS_NAME_MYSQL);
         //creo l'url JDBC per la connessione
-        String url = URI + SERVER + ":" + PORT + "/" + DATABASE;
-        System.out.println(url);
+        String url = URI + SERVER + ":" + PORT + "/" + DATABASE;        
         conn = DriverManager.getConnection(url, USER, PASSWORD);
+        Logging.logInfo("Connessione effettuata con: "+url);
     }
 
-    /**inizializza la connessione
-     *
-     */
-    public static void initConnection() throws ClassNotFoundException, SQLException, IOException {
-        DBAccess dba = new DBAccess();
-    }
-
-    /**Restituisce l'oggetto connessione
+    /**inizializza e restituisce l'oggetto connessione
      *
      * @return connessione
      */
     public static Connection getConnection() throws ClassNotFoundException, SQLException, IOException {
         if (conn == null) {
-            initConnection();
+            DBAccess dba = new DBAccess();
         }
         return conn;
     }
@@ -68,15 +67,18 @@ public class DBAccess {
     public static void closeConnection() throws SQLException {
         conn.close();
     }
-    //legge il file contenente le informazioni sul database
+
+    /**legge il file contenente le informazioni sul database e setta le variabili per la connessione
+     *
+     * @throws java.io.IOException
+     */
     private void readProperties() throws IOException {
         Properties properties = new Properties();
         //directory di lavoro
         String file = Common.getResource() + "database.properties";
-
-        System.out.println(file);
         //caricamento del file properties
         properties.load(new FileInputStream(file));
+        Logging.logInfo("Caricamento database.properties effettuato");
         //DBMS = properties.getProperty("DBMS");
         URI = properties.getProperty("URI");
         SERVER = properties.getProperty("SERVER");

@@ -7,19 +7,39 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import org.smgame.util.Common;
+import org.smgame.util.Logging;
 
+/** Classe DBTransactions/gestisce le transazioni col database
+ *
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
+ */
 public class DBTransactions {
 
-    private final String table = "TRANSACTIONS";
-    private long id_game;
-    private int manche;
-    private String player;
-    private double score;
-    private double win;
+    private final String table = "TRANSACTIONS"; //nome tabella
+    private final String col2 = "game_id";
+    private final String col3 = "manche";
+    private final String col4 = "player";
+    private final String col5 = "score";
+    private final String col6 = "winlose";
+
+    private long id_game; //id partita
+    private int manche; //numero manche
+    private String player; //nome giocatore
+    private double score; //punteggio
+    private double win; //vincita
+
+    private ArrayList<DBTransactions> transactionsAL;
+
+    /**Costruttore vuoto
+     *
+     */
+    public DBTransactions() {}
 
     /**Costruttore
      * 
-     * @param id_game idpartita
+     * @param id_game id partita
      */
     public DBTransactions(long id_game) {
         this.id_game = id_game;
@@ -27,7 +47,7 @@ public class DBTransactions {
 
     /**Costruttore
      *
-     * @param id_game idgioco
+     * @param id_game id partita
      * @param manche numero di manche nel gioco
      * @param player giocatore
      * @param score punteggio
@@ -73,31 +93,73 @@ public class DBTransactions {
         return win;
     }
 
+    /**Restituisce la manche
+     *
+     * @return numero di manche
+     */
     public int getManche() {
         return manche;
     }
 
+    /**imposta la manche
+     *
+     * @param manche numero di manche
+     */
     public void setManche(int manche) {
         this.manche = manche;
     }
 
-    /**aggiunge la transazione
+    /**registra su db la singola transazione
      *
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
      * @throws java.io.IOException
      * @throws java.lang.Exception
      */
-    public void addTransaction() throws ClassNotFoundException, SQLException, IOException, Exception {
+    public void executeSingleTransaction() throws ClassNotFoundException, SQLException,
+                                            IOException, Exception {
         Connection conn = DBAccess.getConnection();
-        String sql = "INSERT INTO " + table + " VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO " + table + "(" + col2 + "," + col3 + "," + col4 + "," + col5 + "," + col6 +
+                ") VALUES (?,?,?,?,?)";
         PreparedStatement prpstmt = conn.prepareStatement(sql);
-        setParameter(prpstmt, 1, getId_game(), Types.BIGINT);
-        setParameter(prpstmt, 2, getManche(), Types.INTEGER);
-        setParameter(prpstmt, 3, getPlayer(), Types.VARCHAR);
-        setParameter(prpstmt, 4, getScore(), Types.DOUBLE);
-        setParameter(prpstmt, 5, getWin(), Types.DOUBLE);
+        Common.setParameter(prpstmt, 1, getId_game(), Types.BIGINT);
+        Common.setParameter(prpstmt, 2, getManche(), Types.INTEGER);
+        Common.setParameter(prpstmt, 3, getPlayer(), Types.VARCHAR);
+        Common.setParameter(prpstmt, 4, getScore(), Types.DOUBLE);
+        Common.setParameter(prpstmt, 5, getWin(), Types.DOUBLE);
+        Logging.logInfo(prpstmt.toString());
         prpstmt.execute();
+    }
+    
+    /**registra su db tutto l'arraylist transazioni
+     * 
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
+     * @throws java.io.IOException
+     * @throws java.lang.Exception
+     */
+    public void executeArraylistTransactions() throws ClassNotFoundException, SQLException, 
+                                                IOException, Exception{
+        for (int i=0; i<transactionsAL.size(); i++)
+            transactionsAL.get(i).executeSingleTransaction();
+        resetArraylistTansactions();
+    }
+
+    /**Aggiunge all'arraylist una transazione da registrare a posteriori
+     *
+     * @param dbt transazione
+     */
+    public void addToArraylistTransactions(DBTransactions dbt){
+        if (transactionsAL==null)
+            transactionsAL = new ArrayList<DBTransactions>();
+        transactionsAL.add(dbt);
+    }
+
+    /**azzera/resetta l'arraylist
+     *
+     */
+    public void resetArraylistTansactions(){
+        transactionsAL = null;
     }
 
     /**Restituisce l'arraylist delle transazioni
@@ -108,15 +170,15 @@ public class DBTransactions {
      * @throws java.io.IOException
      * @throws java.lang.Exception
      */
-    public ArrayList<DBTransactions> getTransactions() throws
+    public ArrayList<DBTransactions> getTransactionsAL() throws
             ClassNotFoundException, SQLException, IOException, Exception {
 
         ArrayList<DBTransactions> dbtransactionsAL = new ArrayList<DBTransactions>();
         Connection conn = DBAccess.getConnection();
-        String sql = "SELECT * FROM " + table + " WHERE game_id = ?";
+        String sql = "SELECT * FROM " + table + " WHERE " + col2 + "= ?;";
         PreparedStatement prpstmt = conn.prepareStatement(sql);
-        setParameter(prpstmt, 1, getId_game(), Types.BIGINT);
-
+        Common.setParameter(prpstmt, 1, getId_game(), Types.BIGINT);
+        Logging.logInfo(prpstmt.toString());
         ResultSet rs = prpstmt.executeQuery();
         while (rs.next()) {
             DBTransactions dbt = new DBTransactions(id_game, rs.getInt(2), rs.getString(3),
@@ -124,26 +186,6 @@ public class DBTransactions {
             dbtransactionsAL.add(dbt);
         }
         return dbtransactionsAL;
-    }
-
-    //imposta i tipi per la preparedStatement
-    private void setParameter(PreparedStatement stmt, int index,
-            Object value, int type) throws SQLException, Exception {
-        if (value == null) {
-            stmt.setNull(index, type);
-        } else {
-            if (type == Types.VARCHAR) {
-                stmt.setString(index, (String) value);
-            } else if (type == Types.INTEGER) {
-                stmt.setInt(index, ((Integer) value).intValue());
-            } else if (type == Types.BIGINT) {
-                stmt.setLong(index, ((Long) value).longValue());
-            } else if (type == Types.DOUBLE) {
-                stmt.setDouble(index, ((Double) value).doubleValue());
-            } else {
-                throw new Exception("Tipo di dato non gestito");
-            }
-        } //end else valore == null
-    } //end setParameter
+    }    
 
 } //end class
