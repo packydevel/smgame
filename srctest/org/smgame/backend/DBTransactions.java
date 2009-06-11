@@ -113,7 +113,7 @@ public class DBTransactions {
 
         ArrayList<DBTransactions> dbtransactionsAL = new ArrayList<DBTransactions>();
         Connection conn = DBAccess.getConnection();
-        String sql = "SELECT * FROM" + table + "WHERE game_id = ?";
+        String sql = "SELECT * FROM " + table + " WHERE game_id = ?";
         PreparedStatement prpstmt = conn.prepareStatement(sql);
         setParameter(prpstmt, 1, getId_game(), Types.BIGINT);
 

@@ -72,7 +72,7 @@ public class DBAccess {
     private void readProperties() throws IOException {
         Properties properties = new Properties();
         //directory di lavoro
-        String file = Common.getWorkspace() + "database.properties";
+        String file = Common.getResource() + "database.properties";
         //caricamento del file properties
         properties.load(new FileInputStream(file));
         //DBMS = properties.getProperty("DBMS");
