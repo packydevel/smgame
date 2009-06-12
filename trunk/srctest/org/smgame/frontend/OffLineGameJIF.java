@@ -34,8 +34,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
-
 import javax.swing.border.TitledBorder;
+
 import org.smgame.core.GUICoreMediator;
 import org.smgame.util.Logging;
 
@@ -131,9 +131,6 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
 
     private void initComponents() {
         offLineGameVO = GUICoreMediator.requestOffLineGameVO();
-
-        setTitle(GUICoreMediator.getGameTitle() + offLineGameVO.getCurrentManche());
-
         playerList = offLineGameVO.getPlayerIndexList();
 
         size = playerList.size();
@@ -282,7 +279,6 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
     private void initBoard() {
         offLineGameVO = GUICoreMediator.requestOffLineGameVO();
         refreshComponent();
-
     }
 
     private void showActionPanelContent(int playerIndex) {
@@ -382,6 +378,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
 
     private void refreshComponent() {
         int bank = -1;
+        setTitle(GUICoreMediator.getGameTitle() + offLineGameVO.getCurrentManche());
         Object[][] dataReport = GUICoreMediator.requestDataReport();
 
         for (int i = 0; i < offLineGameVO.getPlayerIndexList().size(); i++) {
