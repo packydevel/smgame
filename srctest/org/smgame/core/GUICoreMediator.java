@@ -19,6 +19,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import org.omg.CORBA.TRANSACTION_MODE;
 import org.smgame.backend.DBTransactions;
 import org.smgame.core.player.*;
 import org.smgame.frontend.LoadGameVO;
@@ -50,10 +51,13 @@ public class GUICoreMediator {
     private static OnLineGameVO onLineGameVO = new OnLineGameVO();
     private static LoadGameVO loadGameVO = new LoadGameVO();
     private static Game currentGame = null;
+
     private static final String FILENAME = Common.getWorkspace() + "games.dat";
     private static final NumberFormat numberFormat = new DecimalFormat("#0.00");
     private static final DateFormat dateFormat = DateFormat.getInstance();
     private static final ImageIcon backImage = new ImageIcon(Common.getResourceCards("napoletane") + "dorso.jpg");
+
+    private static DBTransactions trans = new DBTransactions();
 
     public static void addMenuItem(List<String> menuItemList) {
         for (String s : menuItemList) {
@@ -163,6 +167,18 @@ public class GUICoreMediator {
         currentGame.setLastSaveDate(new Date());
         gameMap.put(currentGame.getGameID(), currentGame);
         saveGames();
+        try {
+            trans.executeArraylistTransactions();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        trans.resetArraylistTansactions();
     }
 
     /**Salva partite
@@ -171,7 +187,6 @@ public class GUICoreMediator {
      * @throws java.io.IOException
      */
     private static void saveGames() {
-
         try {
             FileOutputStream fos = new FileOutputStream(FILENAME);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -420,18 +435,8 @@ public class GUICoreMediator {
             System.out.println("Ho settato ora la fine della manche!!!");
             currentGame.getGameEngine().closeManche();
             offLineGameVO.setEndManche(true);
-            try {
-                addRecordDB();
-            } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
+            addTransactionAL();
+        }                
 
         offLineGameVO.setCurrentManche(currentGame.getGameEngine().getCurrentManche());
 
@@ -551,13 +556,13 @@ public class GUICoreMediator {
         return data;
     }
 
-    private static void addRecordDB() throws ClassNotFoundException, SQLException, IOException, Exception {
+    private static void addTransactionAL() {
         System.out.println("Scrittura sul db");
-        long id = currentGame.getGameID();
+        long game_id = currentGame.getGameID();
         for (Player p : currentGame.getPlayerList().getPlayerAL()) {
-            DBTransactions dbt = new DBTransactions(id, GameEngine.getInstance().getCurrentManche(),
-                    p.getName(), p.getScore(), p.getLastWinLoseAmount());
-            dbt.executeSingleTransaction();
+            DBTransactions dbt = new DBTransactions(game_id, GameEngine.getInstance().getCurrentManche(),
+                    p.getName(), p.getScore(), p.getLastWinLoseAmount(),p.getCardList());
+            trans.addToArraylistTransactions(dbt);
         }
     }
 } //end  class
