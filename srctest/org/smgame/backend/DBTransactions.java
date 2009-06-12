@@ -1,12 +1,17 @@
 package org.smgame.backend;
 
 import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+
 import java.util.ArrayList;
+
+import org.smgame.core.card.Card;
+
 import org.smgame.util.Common;
 import org.smgame.util.Logging;
 
@@ -17,18 +22,30 @@ import org.smgame.util.Logging;
  */
 public class DBTransactions {
 
-    private final String table = "TRANSACTIONS"; //nome tabella
-    private final String col2 = "game_id";
-    private final String col3 = "manche";
-    private final String col4 = "player";
-    private final String col5 = "score";
-    private final String col6 = "winlose";
+    private final String tableTrans = "TRANSACTIONS"; //nome tabella
+    private final String colTrans1 = "id";
+    private final String colTrans2 = "game_id";
+    private final String colTrans3 = "manche";
+    private final String colTrans4 = "player";
+    private final String colTrans5 = "score";
+    private final String colTrans6 = "winlose";
 
+    private final String tableCard = "CARDS c";
+    private final String col1Card = "c.id";
+    private final String col2Card = "c.suit";
+    private final String col3Card = "c.point";
+
+    private final String tableRelation = "TRANSACTION_CARD";
+    private final String col1Rel = "transaction_id";
+    private final String col2Rel = "card_id";
+
+    private long idT; //id transazione
     private long id_game; //id partita
     private int manche; //numero manche
     private String player; //nome giocatore
     private double score; //punteggio
     private double win; //vincita
+    private ArrayList<Card> cardAL;
 
     private ArrayList<DBTransactions> transactionsAL;
 
@@ -53,12 +70,31 @@ public class DBTransactions {
      * @param score punteggio
      * @param win vincita
      */
-    public DBTransactions(long id_game, int manche, String player, double score, double win) {
+    public DBTransactions(long id_game, int manche, String player, double score,
+                            double win) {
         this.id_game = id_game;
         this.manche = manche;
         this.player = player;
         this.score = score;
         this.win = win;
+    }
+
+    /**Costruttore
+     *
+     * @param id_game id partita
+     * @param manche numero di manche nel gioco
+     * @param player giocatore
+     * @param score punteggio
+     * @param win vincita
+     */
+    public DBTransactions(long id_game, int manche, String player, double score, 
+                            double win, ArrayList<Card> cardal) {
+        this.id_game = id_game;
+        this.manche = manche;
+        this.player = player;
+        this.score = score;
+        this.win = win;
+        this.cardAL = cardal;
     }
 
     /**Restituisce id gioco
@@ -101,12 +137,20 @@ public class DBTransactions {
         return manche;
     }
 
-    /**imposta la manche
+    /**imposta l'id della transazione
      *
-     * @param manche numero di manche
+     * @param id numero transazione
      */
-    public void setManche(int manche) {
-        this.manche = manche;
+    public void setIDT(long id) {
+        this.idT = id;
+    }
+
+    /**Restituisce l'id transazione
+     *
+     * @return id transazione
+     */
+    public long getIdT() {
+        return idT;
     }
 
     /**registra su db la singola transazione
@@ -119,8 +163,8 @@ public class DBTransactions {
     public void executeSingleTransaction() throws ClassNotFoundException, SQLException,
                                             IOException, Exception {
         Connection conn = DBAccess.getConnection();
-        String sql = "INSERT INTO " + table + "(" + col2 + "," + col3 + "," + col4 + "," + col5 + "," + col6 +
-                ") VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO " + tableTrans + "(" + colTrans2 + "," + colTrans3 + "," +
+                    colTrans4 + "," + colTrans5 + "," + colTrans6 + ") VALUES (?,?,?,?,?)";
         PreparedStatement prpstmt = conn.prepareStatement(sql);
         Common.setParameter(prpstmt, 1, getId_game(), Types.BIGINT);
         Common.setParameter(prpstmt, 2, getManche(), Types.INTEGER);
@@ -129,6 +173,8 @@ public class DBTransactions {
         Common.setParameter(prpstmt, 5, getWin(), Types.DOUBLE);
         Logging.logInfo(prpstmt.toString());
         prpstmt.execute();
+        setIDT(getLastInsertId(conn));
+        executeArraylistCardTransaction(conn);
     }
     
     /**registra su db tutto l'arraylist transazioni
@@ -143,6 +189,20 @@ public class DBTransactions {
         for (int i=0; i<transactionsAL.size(); i++)
             transactionsAL.get(i).executeSingleTransaction();
         resetArraylistTansactions();
+    }
+
+
+    private void executeArraylistCardTransaction(Connection conn) throws SQLException, Exception{
+        String sql = "INSERT INTO " + tableRelation + " VALUES (?,(SELECT " + col1Card +
+                    " FROM " + tableCard + " WHERE " + col2Card + "=? AND " + col3Card + "=?));";
+        for (int i=0; i<cardAL.size(); i++){
+            PreparedStatement prpstmt = conn.prepareStatement(sql);
+            Common.setParameter(prpstmt, 1, getIdT(), Types.BIGINT);
+            Common.setParameter(prpstmt, 2, cardAL.get(i).getSuit().toString(), Types.VARCHAR);
+            Common.setParameter(prpstmt, 3, cardAL.get(i).getPoint().toString(), Types.VARCHAR);
+            Logging.logInfo(prpstmt.toString());
+            prpstmt.execute();
+        }
     }
 
     /**Aggiunge all'arraylist una transazione da registrare a posteriori
@@ -175,7 +235,7 @@ public class DBTransactions {
 
         ArrayList<DBTransactions> dbtransactionsAL = new ArrayList<DBTransactions>();
         Connection conn = DBAccess.getConnection();
-        String sql = "SELECT * FROM " + table + " WHERE " + col2 + "= ?;";
+        String sql = "SELECT * FROM " + tableTrans + " WHERE " + colTrans2 + "= ?;";
         PreparedStatement prpstmt = conn.prepareStatement(sql);
         Common.setParameter(prpstmt, 1, getId_game(), Types.BIGINT);
         Logging.logInfo(prpstmt.toString());
@@ -186,6 +246,18 @@ public class DBTransactions {
             dbtransactionsAL.add(dbt);
         }
         return dbtransactionsAL;
-    }    
+    }
 
+    /**Cerca il massimo id nel db transazioni
+     *
+     */
+    private long getLastInsertId(Connection conn) throws ClassNotFoundException, SQLException, IOException{
+        long last_id = -1;
+        String sql = "SELECT LAST_INSERT_ID();";
+        PreparedStatement prpstmt = conn.prepareStatement(sql);
+        ResultSet rs = prpstmt.executeQuery();
+        if (rs.next())
+            last_id = rs.getLong(1);        
+        return last_id;
+    }
 } //end class
