@@ -164,9 +164,6 @@ public class GUICoreMediator {
      * @throws java.io.IOException
      */
     public static void saveGame() {
-        currentGame.setLastSaveDate(new Date());
-        gameMap.put(currentGame.getGameID(), currentGame);
-        saveGames();
         try {
             trans.executeArraylistTransactions();
         } catch (ClassNotFoundException ex) {
@@ -179,6 +176,9 @@ public class GUICoreMediator {
             ex.printStackTrace();
         }
         trans.resetArraylistTansactions();
+        currentGame.setLastSaveDate(new Date());
+        gameMap.put(currentGame.getGameID(), currentGame);
+        saveGames();        
     }
 
     /**Salva partite
