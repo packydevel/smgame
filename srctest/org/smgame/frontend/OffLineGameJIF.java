@@ -43,7 +43,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
 
     private ArrayList<Integer> playerList;
     private HashMap<Integer, JPanel> playerNameMapJP;
-    private HashMap<Integer, JLabel> playerCreditMapJL; //lista label credito giocatori;
+    //private HashMap<Integer, JLabel> playerCreditMapJL; //lista label credito giocatori;
     private HashMap<Integer, JPanel> playerCardsMapJP; //Lista pannelli giocatore-carte
     private HashMap<Integer, JLabel> playerStakeMapJL; //lista label puntate giocatori
     private HashMap<Integer, JLabel> playerScoreMapJL; //lista label punteggio giocatori
@@ -136,7 +136,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
         size = playerList.size();
         System.out.println(offLineGameVO.getPlayerNameMap());
         playerNameMapJP = new HashMap<Integer, JPanel>(size);
-        playerCreditMapJL = new HashMap<Integer, JLabel>(size);
+        //playerCreditMapJL = new HashMap<Integer, JLabel>(size);
         playerCardsMapJP = new HashMap<Integer, JPanel>(size);
         playerActionMapJP = new HashMap<Integer, JPanel>(size);
         playerStakeMapJL = new HashMap<Integer, JLabel>(size);
@@ -159,9 +159,10 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
         for (int i = 0; i < size; i++) {
             playerNameMapJP.put(i, new JPanel(new GridLayout(1, 1), false));
             playerNameMapJP.get(i).setPreferredSize(new Dimension(140, 40));
-            playerNameMapJP.get(i).setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.BLACK), offLineGameVO.getPlayerNameMap().get(i)));
+            playerNameMapJP.get(i).setBorder(BorderFactory.createTitledBorder(
+                    new LineBorder(Color.BLACK), offLineGameVO.getPlayerNameMap().get(i)));
             playerNameMapJP.get(i).add(new JLabel(offLineGameVO.getPlayerCreditMap().get(i)));
-            playerCreditMapJL.put(i, new JLabel(offLineGameVO.getPlayerCreditMap().get(i)));
+            //playerCreditMapJL.put(i, new JLabel(offLineGameVO.getPlayerCreditMap().get(i)));
             panelGBC.gridx = 0;
             panelGBC.gridy = 2 * i;
             panelGBC.gridwidth = 1;
@@ -380,7 +381,8 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
         Object[][] dataReport = GUICoreMediator.requestDataReport();
 
         for (int i = 0; i < offLineGameVO.getPlayerIndexList().size(); i++) {
-            playerCreditMapJL.get(i).setText(offLineGameVO.getPlayerCreditMap().get(i));
+            ((JLabel)playerNameMapJP.get(i).getComponent(0)).setText(offLineGameVO.getPlayerCreditMap().get(i));
+
             for (int j = 0; j <
                     14; j++) {
                 ((JLabel) playerCardsMapJP.get(i).getComponent(j)).setIcon(null);
