@@ -15,16 +15,14 @@ import org.smgame.server.IGameMediator;
  */
 public class ClientMediator {
 
-    public static void main(String[] args)
-            throws Exception {
+    public ClientMediator() throws Exception {
         System.setSecurityManager(new RMISecurityManager());
         Registry registry = LocateRegistry.getRegistry("localhost");
 
-
         IGameMediator t = (IGameMediator) registry.lookup("//localhost/ServerMediator");
-        //for (int i = 0; i < 10; i++) {
+
         while (true) {
-            System.out.println("Perfect time=" + t.getPerfectTime());}
-        //}
+            System.out.println("Perfect time=" + t.getPerfectTime());
+        }
     }
 }
