@@ -3,6 +3,7 @@ package org.smgame.frontend;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -162,7 +163,6 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             playerNameMapJP.get(i).setBorder(BorderFactory.createTitledBorder(
                     new LineBorder(Color.BLACK), offLineGameVO.getPlayerNameMap().get(i)));
             playerNameMapJP.get(i).add(new JLabel(offLineGameVO.getPlayerCreditMap().get(i)));
-            //playerCreditMapJL.put(i, new JLabel(offLineGameVO.getPlayerCreditMap().get(i)));
             panelGBC.gridx = 0;
             panelGBC.gridy = 2 * i;
             panelGBC.gridwidth = 1;
@@ -381,17 +381,14 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
         Object[][] dataReport = GUICoreMediator.requestDataReport();
 
         for (int i = 0; i < offLineGameVO.getPlayerIndexList().size(); i++) {
-            ((JLabel)playerNameMapJP.get(i).getComponent(0)).setText(offLineGameVO.getPlayerCreditMap().get(i));
+            ((JLabel) playerNameMapJP.get(i).getComponent(0)).setText(offLineGameVO.getPlayerCreditMap().get(i));
 
-            for (int j = 0; j <
-                    14; j++) {
+            for (int j = 0; j < 14; j++) {
                 ((JLabel) playerCardsMapJP.get(i).getComponent(j)).setIcon(null);
             }
 
-            for (int j = 0; j <
-                    offLineGameVO.getPlayerCardsImageMap().get(i).size(); j++) {
-                ((JLabel) playerCardsMapJP.get(i).getComponent(j)).setIcon(
-                        scaledImage(offLineGameVO.getPlayerCardsImageMap().get(i).get(j)));
+            for (int j = 0; j < offLineGameVO.getPlayerCardsImageMap().get(i).size(); j++) {
+                ((JLabel) playerCardsMapJP.get(i).getComponent(j)).setIcon(scaledImage(offLineGameVO.getPlayerCardsImageMap().get(i).get(j)));
             }
 
             playerStakeMapJL.get(i).setText(offLineGameVO.getPlayerStakeMap().get(i));
@@ -442,13 +439,13 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
     }
 
     //Resizes an image using a Graphics2D object backed by a BufferedImage.
-    private ImageIcon scaledImage(ImageIcon srcImg) {
-        int w = 32;
-        int h = 49;
-        BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+    private ImageIcon scaledImage(ImageIcon image) {
+        int width = 32;
+        int height = 49;
+        BufferedImage resizedImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = resizedImg.createGraphics();
         g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2.drawImage(srcImg.getImage(), 0, 0, w, h, null);
+        g2.drawImage(image.getImage(), 0, 0, width, height, null);
         g2.dispose();
         return new ImageIcon(resizedImg);
     }

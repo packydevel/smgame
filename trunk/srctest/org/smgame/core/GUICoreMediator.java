@@ -1,5 +1,7 @@
 package org.smgame.core;
 
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -19,7 +21,6 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import org.omg.CORBA.TRANSACTION_MODE;
 import org.smgame.backend.DBTransactions;
 import org.smgame.core.player.*;
 import org.smgame.frontend.LoadGameVO;
@@ -51,12 +52,10 @@ public class GUICoreMediator {
     private static OnLineGameVO onLineGameVO = new OnLineGameVO();
     private static LoadGameVO loadGameVO = new LoadGameVO();
     private static Game currentGame = null;
-
     private static final String FILENAME = Common.getWorkspace() + "games.dat";
     private static final NumberFormat numberFormat = new DecimalFormat("#0.00");
     private static final DateFormat dateFormat = DateFormat.getInstance();
     private static final ImageIcon backImage = new ImageIcon(Common.getResourceCards("napoletane") + "dorso.jpg");
-
     private static DBTransactions trans = new DBTransactions();
 
     public static void addMenuItem(List<String> menuItemList) {
@@ -178,7 +177,7 @@ public class GUICoreMediator {
         trans.resetArraylistTansactions();
         currentGame.setLastSaveDate(new Date());
         gameMap.put(currentGame.getGameID(), currentGame);
-        saveGames();        
+        saveGames();
     }
 
     /**Salva partite
@@ -389,6 +388,12 @@ public class GUICoreMediator {
                 }
             }
 
+            if (tempPlayer.getStatus() == PlayerStatus.ScoreOverflow) {
+                for (int j = 0; j < tempPlayer.getCardList().size(); j++) {
+                    playerCardsImageList.set(j, grayScaleImage(playerCardsImageList.get(j)));
+                }
+            }
+
             if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer())) {
                 offLineGameVO.getPlayerFirstCardDiscoveredMap().put(i, Boolean.TRUE);
             } else {
@@ -436,7 +441,7 @@ public class GUICoreMediator {
             currentGame.getGameEngine().closeManche();
             offLineGameVO.setEndManche(true);
             addTransactionAL();
-        }                
+        }
 
         offLineGameVO.setCurrentManche(currentGame.getGameEngine().getCurrentManche());
 
@@ -472,7 +477,7 @@ public class GUICoreMediator {
             for (int j = 0; j < tempPlayer.getCardList().size(); j++) {
                 if (j == 0) {
                     if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) ||
-                            tempPlayer.getStatus() == PlayerStatus.ScoreOverflow || tempPlayer.hasSM() ||
+                            tempPlayer.hasSM() || tempPlayer.getStatus() == PlayerStatus.ScoreOverflow ||
                             (currentGame.getGameEngine().isEndManche() && currentGame.getGameEngine().getBankPlayer().getStatus() == PlayerStatus.GoodScore)) {
                         playerCardsImageList.add(tempPlayer.getCardList().get(j).getFrontImage());
                     } else {
@@ -561,8 +566,18 @@ public class GUICoreMediator {
         long game_id = currentGame.getGameID();
         for (Player p : currentGame.getPlayerList().getPlayerAL()) {
             DBTransactions dbt = new DBTransactions(game_id, GameEngine.getInstance().getCurrentManche(),
-                    p.getName(), p.getScore(), p.getLastWinLoseAmount(),p.getCardList());
+                    p.getName(), p.getScore(), p.getLastWinLoseAmount(), p.getCardList());
             trans.addToArraylistTransactions(dbt);
         }
+    }
+
+    private static ImageIcon grayScaleImage(ImageIcon colorImage) {
+        int width = 62;
+        int height = 99;
+        BufferedImage grayScaleImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+        Graphics g = grayScaleImage.getGraphics();
+        g.drawImage(colorImage.getImage(), 0, 0, null);
+        g.dispose();
+        return new ImageIcon(grayScaleImage);
     }
 } //end  class
