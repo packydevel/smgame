@@ -11,7 +11,7 @@ import org.smgame.util.Logging;
  *
  * @author packyuser
  */
-public class StartSMGame {
+public class SMGameClient {
 
     public static void main(String[] args) {
         Logging.createLog(Common.getCurrentDateTime());
@@ -30,7 +30,6 @@ public class StartSMGame {
         try {
             GUICoreMediator.loadGames();
         } catch (Exception e) {
-            System.out.println("Errore nel caricamento!!!");
             Logging.logExceptionSevere(e);
         }
     }

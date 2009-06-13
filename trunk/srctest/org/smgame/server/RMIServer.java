@@ -14,38 +14,27 @@ import java.rmi.server.UnicastRemoteObject;
  *
  * @author packyuser
  */
-public class ServerMediator implements IGameMediator {
+public class RMIServer implements IGameMediator {
 
 // Must implement constructor
 // to throw RemoteException:
-    public ServerMediator() throws RemoteException {
-        super(); // Called automatically
-    }
+    public RMIServer() throws RemoteException {
 
-    public long getPerfectTime() throws RemoteException {
-        return System.currentTimeMillis();
-    }
-
-// Registration for RMI serving. Throw
-// exceptions out to the console.
-    public static void main(String[] args) throws Exception {
         try {
             String name = "//localhost/ServerMediator";
             System.setSecurityManager(new RMISecurityManager());
-            IGameMediator pt = new ServerMediator();
             Registry registry = LocateRegistry.getRegistry();
-            //registry.unbind(name);
-
-
-            //Naming.bind("//localhost/ServerMediator", pt);
-
-            IGameMediator stub = (IGameMediator) UnicastRemoteObject.exportObject(pt, 0);//, 2005);
+            IGameMediator stub = (IGameMediator) UnicastRemoteObject.exportObject(this, 0);//, 2005);
             registry.rebind(name, stub);
             System.out.println("Ready to do time");
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
+    }
+
+    public long getPerfectTime() throws RemoteException {
+        return System.currentTimeMillis();
     }
 }
 

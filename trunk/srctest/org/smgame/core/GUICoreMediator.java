@@ -1,6 +1,8 @@
 package org.smgame.core;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -379,12 +381,12 @@ public class GUICoreMediator {
             for (int j = 0; j < tempPlayer.getCardList().size(); j++) {
                 if (j == 0) {
                     if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) || tempPlayer.getStatus() == PlayerStatus.ScoreOverflow || tempPlayer.hasSM() || (currentGame.getGameEngine().isEndManche() && currentGame.getGameEngine().getBankPlayer().getStatus() == PlayerStatus.GoodScore)) {
-                        playerCardsImageList.add(tempPlayer.getCardList().get(j).getFrontImage());
+                        playerCardsImageList.add(scaledImage(tempPlayer.getCardList().get(j).getFrontImage()));
                     } else {
-                        playerCardsImageList.add(backImage);
+                        playerCardsImageList.add(scaledImage(backImage));
                     }
                 } else {
-                    playerCardsImageList.add(tempPlayer.getCardList().get(j).getFrontImage());
+                    playerCardsImageList.add(scaledImage(tempPlayer.getCardList().get(j).getFrontImage()));
                 }
             }
 
@@ -572,12 +574,24 @@ public class GUICoreMediator {
     }
 
     private static ImageIcon grayScaleImage(ImageIcon colorImage) {
-        int width = 62;
-        int height = 99;
+        int width = 32;
+        int height = 49;
         BufferedImage grayScaleImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
         Graphics g = grayScaleImage.getGraphics();
         g.drawImage(colorImage.getImage(), 0, 0, null);
         g.dispose();
         return new ImageIcon(grayScaleImage);
+    }
+
+    //Resizes an image using a Graphics2D object backed by a BufferedImage.
+    private static ImageIcon scaledImage(ImageIcon image) {
+        int width = 32;
+        int height = 49;
+        BufferedImage resizedImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = resizedImg.createGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.drawImage(image.getImage(), 0, 0, width, height, null);
+        g2.dispose();
+        return new ImageIcon(resizedImg);
     }
 } //end  class

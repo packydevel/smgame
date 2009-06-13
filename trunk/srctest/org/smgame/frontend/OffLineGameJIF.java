@@ -388,7 +388,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             }
 
             for (int j = 0; j < offLineGameVO.getPlayerCardsImageMap().get(i).size(); j++) {
-                ((JLabel) playerCardsMapJP.get(i).getComponent(j)).setIcon(scaledImage(offLineGameVO.getPlayerCardsImageMap().get(i).get(j)));
+                ((JLabel) playerCardsMapJP.get(i).getComponent(j)).setIcon(offLineGameVO.getPlayerCardsImageMap().get(i).get(j));
             }
 
             playerStakeMapJL.get(i).setText(offLineGameVO.getPlayerStakeMap().get(i));
@@ -436,17 +436,5 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             }
 
         }
-    }
-
-    //Resizes an image using a Graphics2D object backed by a BufferedImage.
-    private ImageIcon scaledImage(ImageIcon image) {
-        int width = 32;
-        int height = 49;
-        BufferedImage resizedImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2 = resizedImg.createGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2.drawImage(image.getImage(), 0, 0, width, height, null);
-        g2.dispose();
-        return new ImageIcon(resizedImg);
     }
 }//end gameJIF
