@@ -14,7 +14,7 @@ import org.smgame.core.player.Player;
 import org.smgame.core.player.PlayerList;
 import org.smgame.core.player.PlayerRole;
 import org.smgame.core.player.PlayerStatus;
-import org.smgame.main.GameSetting;
+import org.smgame.core.GameSetting;
 import org.smgame.util.BetOverflowException;
 import org.smgame.util.ScoreOverflowException;
 

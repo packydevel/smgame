@@ -1,4 +1,4 @@
-package org.smgame.main;
+package org.smgame.core;
 
 import java.io.Serializable;
 import java.util.Date;

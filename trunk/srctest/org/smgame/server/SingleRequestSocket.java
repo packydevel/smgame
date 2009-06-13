@@ -9,7 +9,7 @@ import java.net.Socket;
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
 
-import org.smgame.main.Game;
+import org.smgame.core.Game;
 
 /**
  *
