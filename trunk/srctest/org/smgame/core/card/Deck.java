@@ -34,7 +34,7 @@ public class Deck implements Serializable {
     private boolean emptyDeck;
 
     //costruttore privato
-    private Deck() {
+    public Deck() {
         String img = "";
         int i;
         Card c;
@@ -71,20 +71,6 @@ public class Deck implements Serializable {
         onGameCardList.addAll(CARDS);
         onGameCardsIterator = onGameCardList.iterator();
     } //end costruttore
-
-    /**Restituisce l'istanza corrente di mazzo
-     * 
-     * @return Deck mazzo
-     */
-    public static Deck getInstance() {
-        if (currentDeck == null) {
-            currentDeck = new Deck();
-        } else {
-            currentDeck.resetInstance();
-        }
-
-        return currentDeck;
-    } //end getInstance
 
     public void resetInstance() {
         onGameCardList.clear();

@@ -68,8 +68,7 @@ public class GUICoreMediator {
     public static void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList,
             List<Boolean> playerTypeList) {
 
-        PlayerList.getInstance().resetInstance();
-        PlayerList playerList = PlayerList.getInstance();
+        PlayerList playerList = new PlayerList();
 
         for (int i = 0; i < playerNameList.size(); i++) {
             if (playerTypeList.get(i).booleanValue()) {
@@ -78,17 +77,15 @@ public class GUICoreMediator {
                 playerList.getPlayerAL().add(new HumanPlayer(playerNameList.get(i)));
             }
             playerList.getPlayerAL().get(i).setCredit(1000);
+            playerList.getPlayerAL().get(i).setPlayerList(playerList);
         }
 
-        if (currentGame != null) {
-            currentGame.resetInstance();
-        }
-        currentGame = Game.getInstance();
+        currentGame = new Game();
         currentGame.generateGameID();
         currentGame.setGameName(gameName);
         currentGame.setGameMode(GameMode.OFFLINE);
         currentGame.setCreationDate(new Date());
-        currentGame.setGameSetting(GameSetting.getInstance());
+        currentGame.setGameSetting(new GameSetting());
         currentGame.setPlayerList(playerList);
         currentGame.generateGameEngine();
         System.out.println("Il numero dei giocatori passati al server è: " + currentGame.getPlayerList().getPlayerAL().size());
@@ -432,7 +429,7 @@ public class GUICoreMediator {
         System.out.println("Scrittura sul db");
         long game_id = currentGame.getGameID();
         for (Player p : currentGame.getPlayerList().getPlayerAL()) {
-            DBTransactions dbt = new DBTransactions(game_id, GameEngine.getInstance().getCurrentManche(),
+            DBTransactions dbt = new DBTransactions(game_id, currentGame.getGameEngine().getCurrentManche(),
                     p.getName(), p.getScore(), p.getLastWinLoseAmount(), p.getCardList());
             trans.addToArraylistTransactions(dbt);
         }

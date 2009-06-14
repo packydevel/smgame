@@ -1,6 +1,7 @@
 package org.smgame.core.player;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import org.smgame.core.card.Point;
 import org.smgame.core.card.Suit;
@@ -52,7 +53,7 @@ public class CPUPlayer extends Player implements Serializable {
                 }
             }
         } else {
-            for (Player p : PlayerList.getInstance().getPlayerAL()) {
+            for (Player p :playerList.getPlayerAL()) {
                 if (!p.equals(this)) {
                     if (p.getStatus() == PlayerStatus.ScoreOverflow) {
                         threshold += p.getStake();

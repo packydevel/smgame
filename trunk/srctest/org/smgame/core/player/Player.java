@@ -13,7 +13,7 @@ import org.smgame.core.card.Suit;
  * @author pasquale
  */
 public abstract class Player implements Serializable {
-
+    
     protected String name; //nome giocatore
     protected double credit; //credito
     protected double bet; //puntata
