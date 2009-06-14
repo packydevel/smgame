@@ -4,11 +4,21 @@
  */
 package org.smgame.server;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
+import org.smgame.core.GUICoreMediator;
+import org.smgame.core.GameSetting;
+import org.smgame.frontend.LoadGameVO;
+import org.smgame.frontend.MenuVO;
+import org.smgame.frontend.OffLineGameVO;
+import org.smgame.frontend.OnLineGameVO;
+import org.smgame.util.NoGamesException;
 
 /**
  *
@@ -33,8 +43,68 @@ public class RMIServer implements IGameMediator {
         }
     }
 
-    public long getPerfectTime() throws RemoteException {
-        return System.currentTimeMillis();
+    public void addMenuItem(List<String> menuItemList) {
+        GUICoreMediator.addMenuItem(menuItemList);
+    }
+
+    public void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) {
+        GUICoreMediator.createGame(gameName, gameSetting, playerNameList, playerTypeList);
+    }
+
+    public void createOnLineGame(String gameName, GameSetting gameSetting, String playerName) {
+        GUICoreMediator.createOnLineGame(gameName, gameSetting, playerName);
+    }
+
+    public void askCloseGame() {
+        GUICoreMediator.askCloseGame();
+    }
+
+    public void closeGame() {
+        GUICoreMediator.closeGame();
+    }
+
+    public void saveGame() {
+        GUICoreMediator.saveGame();
+    }
+
+    public void loadGame(String gameName) throws FileNotFoundException, IOException, ClassNotFoundException {
+        GUICoreMediator.loadGame(gameName);
+    }
+
+    public void loadGames() throws FileNotFoundException, IOException, ClassNotFoundException {
+        GUICoreMediator.loadGames();
+    }
+
+    public LoadGameVO requestLoadGameVO() throws NoGamesException {
+        return GUICoreMediator.requestLoadGameVO();
+    }
+
+    public String getGameTitle() {
+        return GUICoreMediator.getGameTitle();
+    }
+
+    public void requestCard(int playerIndex, double bet) {
+        GUICoreMediator.requestCard(playerIndex, bet);
+    }
+
+    public void declareGoodScore(int playerIndex, double bet) {
+        GUICoreMediator.declareGoodScore(playerIndex, bet);
+    }
+
+    public MenuVO requestMenuVO() {
+        return GUICoreMediator.requestMenuVO();
+    }
+
+    public OffLineGameVO requestOffLineGameVO() {
+        return GUICoreMediator.requestOffLineGameVO();
+    }
+
+    public OnLineGameVO requestOnLineGameVO() {
+        return GUICoreMediator.requestOnLineGameVO();
+    }
+
+    public Object[][] requestDataReport() {
+        return GUICoreMediator.requestDataReport();
     }
 }
 

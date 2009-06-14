@@ -13,6 +13,9 @@ import org.smgame.server.RMIServer;
 public class SMGameServer {
 
     public static void main(String[] args) throws Exception {
+        Runtime runtime = Runtime.getRuntime();
+        Process process = runtime.exec("rmiregistry");
+        Thread.sleep(5000);
         new RMIServer();
     }
 }
