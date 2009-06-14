@@ -45,7 +45,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private HashMap<Integer, JLabel> playerStatusMapJL;
     private HashMap<Integer, JPanel> playerActionMapJP; //Lista pannelli giocatore-carte
     private List<JLabel> playerCardsListJL;
-    private GameVO offLineGameVO;
+    private GameVO gameVO;
     private GridBagConstraints panelGBC,  labelGBC,  textFieldGBC,  buttonGBC;
     private int size,  currentIndex;
     private BetInputVerifier betInputVerifier = new BetInputVerifier();
@@ -125,11 +125,11 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     }
 
     private void initComponents() {
-        offLineGameVO = ClientMediator.getInstance().requestOffLineGameVO();
-        playerList = offLineGameVO.getPlayerIndexList();
+        gameVO = ClientMediator.getInstance().requestGameVO();
+        playerList = gameVO.getPlayerIndexList();
 
         size = playerList.size();
-        System.out.println(offLineGameVO.getPlayerNameMap());
+        System.out.println(gameVO.getPlayerNameMap());
         playerNameMapJP = new HashMap<Integer, JPanel>(size);
         playerCardsMapJP = new HashMap<Integer, JPanel>(size);
         playerActionMapJP = new HashMap<Integer, JPanel>(size);
@@ -153,8 +153,8 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             playerNameMapJP.put(i, new JPanel(new GridLayout(1, 1), false));
             playerNameMapJP.get(i).setPreferredSize(new Dimension(140, 40));
             playerNameMapJP.get(i).setBorder(BorderFactory.createTitledBorder(
-                    new LineBorder(Color.BLACK), offLineGameVO.getPlayerNameMap().get(i)));
-            playerNameMapJP.get(i).add(new JLabel(offLineGameVO.getPlayerCreditMap().get(i)));
+                    new LineBorder(Color.BLACK), gameVO.getPlayerNameMap().get(i)));
+            playerNameMapJP.get(i).add(new JLabel(gameVO.getPlayerCreditMap().get(i)));
             panelGBC.gridx = 0;
             panelGBC.gridy = 2 * i;
             panelGBC.gridwidth = 1;
@@ -174,7 +174,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             panelGBC.anchor = GridBagConstraints.NORTH;
             add(playerCardsMapJP.get(i), panelGBC);
 
-            if (offLineGameVO.getPlayerTypeMap().get(i) == false) {
+            if (gameVO.getPlayerTypeMap().get(i) == false) {
                 setPlayerColor(i, Color.RED);
             } else {
                 setPlayerColor(i, Color.BLUE);
@@ -191,21 +191,21 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             panelGBC.anchor = GridBagConstraints.WEST;
             add(playerActionMapJP.get(i), panelGBC);
 
-            playerStakeMapJL.put(i, new JLabel(offLineGameVO.getPlayerStakeMap().get(i)));
+            playerStakeMapJL.put(i, new JLabel(gameVO.getPlayerStakeMap().get(i)));
             playerStakeMapJL.get(i).setPreferredSize(new Dimension(100, 20));
             labelGBC.gridx = 2;
             labelGBC.gridy = 2 * i + 1;
             labelGBC.anchor = GridBagConstraints.NORTH;
             add(playerStakeMapJL.get(i), labelGBC);
 
-            playerScoreMapJL.put(i, new JLabel(offLineGameVO.getPlayerScoreMap().get(i)));
+            playerScoreMapJL.put(i, new JLabel(gameVO.getPlayerScoreMap().get(i)));
             playerScoreMapJL.get(i).setPreferredSize(new Dimension(100, 20));
             labelGBC.gridx = 3;
             labelGBC.gridy = 2 * i + 1;
             labelGBC.anchor = GridBagConstraints.NORTH;
             add(playerScoreMapJL.get(i), labelGBC);
 
-            playerStatusMapJL.put(i, new JLabel(offLineGameVO.getPlayerStatusMap().get(i)));
+            playerStatusMapJL.put(i, new JLabel(gameVO.getPlayerStatusMap().get(i)));
             playerStatusMapJL.get(i).setPreferredSize(new Dimension(100, 20));
             labelGBC.gridx = 4;
             labelGBC.gridy = 2 * i + 1;
@@ -270,7 +270,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     }
 
     private void initBoard() {
-        offLineGameVO = ClientMediator.getInstance().requestOffLineGameVO();
+        gameVO = ClientMediator.getInstance().requestGameVO();
         refreshComponent();
     }
 
@@ -343,8 +343,8 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
         ClientMediator.getInstance().requestCard(i, bet);
         resetBetJTF(i);
-        offLineGameVO =
-                ClientMediator.getInstance().requestOffLineGameVO();
+        gameVO =
+                ClientMediator.getInstance().requestGameVO();
         refreshComponent();
 
     } //end request card
@@ -362,66 +362,65 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
         ClientMediator.getInstance().declareGoodScore(i, bet);
         resetBetJTF(i);
-        offLineGameVO =
-                ClientMediator.getInstance().requestOffLineGameVO();
+        gameVO = ClientMediator.getInstance().requestGameVO();
         refreshComponent();
     }
 
     private void refreshComponent() {
         int bank = -1;
-        setTitle(ClientMediator.getInstance().getGameTitle() + offLineGameVO.getCurrentManche());
+        setTitle(ClientMediator.getInstance().getGameTitle() + gameVO.getCurrentManche());
         Object[][] dataReport = ClientMediator.getInstance().requestDataReport();
 
-        for (int i = 0; i < offLineGameVO.getPlayerIndexList().size(); i++) {
-            ((JLabel) playerNameMapJP.get(i).getComponent(0)).setText(offLineGameVO.getPlayerCreditMap().get(i));
+        for (int i = 0; i < gameVO.getPlayerIndexList().size(); i++) {
+            ((JLabel) playerNameMapJP.get(i).getComponent(0)).setText(gameVO.getPlayerCreditMap().get(i));
 
             for (int j = 0; j < 14; j++) {
                 ((JLabel) playerCardsMapJP.get(i).getComponent(j)).setIcon(null);
             }
 
-            for (int j = 0; j < offLineGameVO.getPlayerCardsImageMap().get(i).size(); j++) {
-                ((JLabel) playerCardsMapJP.get(i).getComponent(j)).setIcon(offLineGameVO.getPlayerCardsImageMap().get(i).get(j));
+            for (int j = 0; j < gameVO.getPlayerCardsImageMap().get(i).size(); j++) {
+                ((JLabel) playerCardsMapJP.get(i).getComponent(j)).setIcon(gameVO.getPlayerCardsImageMap().get(i).get(j));
             }
 
-            playerStakeMapJL.get(i).setText(offLineGameVO.getPlayerStakeMap().get(i));
-            playerScoreMapJL.get(i).setText(offLineGameVO.getPlayerScoreMap().get(i));
-            playerStatusMapJL.get(i).setText(offLineGameVO.getPlayerStatusMap().get(i));
+            playerStakeMapJL.get(i).setText(gameVO.getPlayerStakeMap().get(i));
+            playerScoreMapJL.get(i).setText(gameVO.getPlayerScoreMap().get(i));
+            playerStatusMapJL.get(i).setText(gameVO.getPlayerStatusMap().get(i));
 
-            if (offLineGameVO.getPlayerTypeMap().get(i) == false) {
+            if (gameVO.getPlayerTypeMap().get(i) == false) {
                 setPlayerColor(i, Color.RED);
             } else {
                 setPlayerColor(i, Color.BLUE);
             }
 
-            if (offLineGameVO.getPlayerRoleMap().get(i) == true) {
+            if (gameVO.getPlayerRoleMap().get(i) == true) {
                 bank = i;
                 selectBank(i);
-                System.out.println("Ti riconosco come mazziere:" +i);
+                System.out.println("Ti riconosco come mazziere:" + i);
             } else {
                 deselectBank(i);
-                System.out.println("Non ti riconosco come mazziere:" +i);
+                System.out.println("Non ti riconosco come mazziere:" + i);
             }
 
-            if (offLineGameVO.getPlayerPlayingMap().get(i) == true) {
+            if (gameVO.getPlayerPlayingMap().get(i) == true) {
                 showActionPanelContent(i);
                 currentIndex = i;
             } else {
                 hideActionPanelContent(i);
             }
 
-            getBetJTF(i).setEnabled(offLineGameVO.getPlayerRequestBetMap().get(i));
-            getRequestCardJB(i).setEnabled(!offLineGameVO.getPlayerRequestBetMap().get(i));
-            getDeclareGoodScoreJB(i).setEnabled(!offLineGameVO.getPlayerRequestBetMap().get(i));
+            getBetJTF(i).setEnabled(gameVO.getPlayerRequestBetMap().get(i));
+            getRequestCardJB(i).setEnabled(!gameVO.getPlayerRequestBetMap().get(i));
+            getDeclareGoodScoreJB(i).setEnabled(!gameVO.getPlayerRequestBetMap().get(i));
         } //end for
 
-        if (offLineGameVO.isEndManche()) {
-            offLineGameVO.getPlayerRoleMap();
+        if (gameVO.isEndManche()) {
+            gameVO.getPlayerRoleMap();
 
             JOptionPane.showMessageDialog(this,
-                    new ScoreBoardJP("Terminata Manche n° " + offLineGameVO.getCurrentManche(), dataReport, bank), "Score Board",
+                    new ScoreBoardJP("Terminata Manche n° " + gameVO.getCurrentManche(), dataReport, bank), "Score Board",
                     JOptionPane.INFORMATION_MESSAGE);
 
-            if (offLineGameVO.isEndGame()) {
+            if (gameVO.isEndGame()) {
                 JOptionPane.showMessageDialog(this, "Questa partita è terminata!!!");
                 dispose();
 

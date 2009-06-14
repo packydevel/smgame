@@ -51,10 +51,6 @@ public class RMIServer implements IGameMediator {
         GUICoreMediator.createGame(gameName, gameSetting, playerNameList, playerTypeList);
     }
 
-    public void createOnLineGame(String gameName, GameSetting gameSetting, String playerName) {
-        GUICoreMediator.createOnLineGame(gameName, gameSetting, playerName);
-    }
-
     public void askCloseGame() {
         GUICoreMediator.askCloseGame();
     }
@@ -95,12 +91,8 @@ public class RMIServer implements IGameMediator {
         return GUICoreMediator.requestMenuVO();
     }
 
-    public GameVO requestOffLineGameVO() {
+    public GameVO requestGameVO() {
         return GUICoreMediator.requestOffLineGameVO();
-    }
-
-    public OnLineGameVO requestOnLineGameVO() {
-        return GUICoreMediator.requestOnLineGameVO();
     }
 
     public Object[][] requestDataReport() {
