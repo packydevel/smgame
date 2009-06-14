@@ -21,7 +21,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import javax.swing.event.EventListenerList;
-import org.smgame.core.GUICoreMediator;
+import org.smgame.client.ClientMediator;
 
 /**internal frame new game
  *frame interno nuovo gioco
@@ -317,7 +317,7 @@ public class NewOffLineGameJIF extends JInternalFrame implements IGameJIF {
                     playerTypeList.add(new Boolean(cpuflagJCKB[j].isSelected()));
                 }
 
-                GUICoreMediator.createGame(gameName, null, playerNameList, playerTypeList);
+                ClientMediator.getInstance().createOffLineGame(gameName, null, playerNameList, playerTypeList);
 
                 fireNewOffLineGameEvent(new NewOffLineGameEvent(this));
             }
