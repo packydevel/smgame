@@ -101,7 +101,7 @@ public class RMIServer implements IGameMediator {
     }
 
     public GameVO requestGameVO() {
-        return GUICoreMediator.requestOffLineGameVO();
+        return GUICoreMediator.requestGameVO();
     }
 
     public Object[][] requestDataReport() {
