@@ -294,7 +294,7 @@ public class GUICoreMediator {
      *
      * @return
      */
-    public static GameVO requestOffLineGameVO() {
+    public static GameVO requestGameVO() {
 
         ArrayList<ImageIcon> playerCardsImageList = new ArrayList<ImageIcon>();
 
