@@ -74,11 +74,11 @@ public class ClientMediator {
     }
 
     public void createOffLineGame(String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) {
-        createGame(GameMode.ONLINE, gameName, gameSetting, playerNameList, playerTypeList);
+        createGame(GameMode.OFFLINE, gameName, gameSetting, playerNameList, playerTypeList);
     }
 
-    public void createOnLineGame(String gameName, GameSetting gameSetting, String playerName) {
-        //createGame(GameMode.ONLINE, gameName, gameSetting, playerName);
+    public void createOnLineGame(String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) {
+        createGame(GameMode.ONLINE, gameName, gameSetting, playerNameList, playerTypeList);
     }
 
     public void askCloseGame() {
@@ -165,24 +165,16 @@ public class ClientMediator {
         }
     }
 
-    public GameVO requestOffLineGameVO() {
+    public GameVO requestGameVO() {
         if (gameMode == GameMode.OFFLINE) {
             return GUICoreMediator.requestOffLineGameVO();
         } else {
             try {
-                return stub.requestOffLineGameVO();
+                return stub.requestGameVO();
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
             }
-        }
-    }
-
-    public OnLineGameVO requestOnLineGameVO() {
-        try {
-            return stub.requestOnLineGameVO();
-        } catch (Exception e) {
-            return null;
         }
     }
 

@@ -13,7 +13,6 @@ import org.smgame.core.GameSetting;
 import org.smgame.frontend.LoadGameVO;
 import org.smgame.frontend.MenuVO;
 import org.smgame.frontend.GameVO;
-import org.smgame.frontend.OnLineGameVO;
 import org.smgame.util.NoGamesException;
 
 /**
@@ -26,8 +25,6 @@ public interface IGameMediator extends Remote {
 
     public void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList,
             List<Boolean> playerTypeList) throws RemoteException;
-
-    public void createOnLineGame(String gameName, GameSetting gameSetting, String playerName) throws RemoteException;
 
     public void askCloseGame() throws RemoteException;
 
@@ -49,9 +46,7 @@ public interface IGameMediator extends Remote {
 
     public MenuVO requestMenuVO() throws RemoteException;
 
-    public GameVO requestOffLineGameVO() throws RemoteException;
-
-    public OnLineGameVO requestOnLineGameVO() throws RemoteException;
+    public GameVO requestGameVO() throws RemoteException;
 
     public Object[][] requestDataReport() throws RemoteException;
 }
