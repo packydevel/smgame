@@ -86,7 +86,8 @@ public class Card implements Serializable {
 
     /**Stampa la carta
      * descrizione, seme, valore
-     * @return
+     *
+     * @return carta stampata
      */
     @Override
     public String toString() {
