@@ -415,7 +415,6 @@ public class GUICoreMediator {
 
             if (tempPlayer.equals(currentGame.getGameEngine().getBankPlayer())) {
                 offLineGameVO.getPlayerRoleMap().put(i, Boolean.TRUE);
-                System.out.println("IO sono il mazziere:" +i);
             } else {
                 offLineGameVO.getPlayerRoleMap().put(i, Boolean.FALSE);
             }

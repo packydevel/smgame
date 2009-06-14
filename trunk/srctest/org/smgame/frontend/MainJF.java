@@ -14,13 +14,13 @@ import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 import org.smgame.core.GUICoreMediator;
 
-public class MainJF extends JFrame implements InternalFrameListener, NewOffLineGameListener, NewOnLineGameListener {
+public class MainJF extends JFrame implements InternalFrameListener, NewGameListener {
 
     private static JDesktopPane desktop;
     private MenuJMB menuJMB;
     private ToolBarJTB toolBarJTB;
     private ToolBarJTB statusBarJTB;
-    private NewOnLineGameJIF newOnLineGameJIF;
+    private NewOffLineGameJIF newOnLineGameJIF;
     private NewOffLineGameJIF newGameJIF;
     private LoadGameJIF loadGameJIF;
     private OffLineGameJIF gameJIF;
@@ -93,10 +93,10 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
     private void jMenu1ActionPerformed(ActionEvent evt) {
         if ((JMenuItem) evt.getSource() == menuJMB.getNewOnLineGameJMI()) {
             internalFrameWidth = 400;
-            internalFrameHeight = 450;
+            internalFrameHeight = 500;
             xbound = (desktopWidth - internalFrameWidth) / 2;
             ybound = (desktopHeight - internalFrameHeight) / 2;
-            newOnLineGameJIF = new NewOnLineGameJIF();
+            newOnLineGameJIF = new NewOffLineGameJIF(true);
             newOnLineGameJIF.setPreferredSize(new Dimension(internalFrameWidth, internalFrameHeight));
             newOnLineGameJIF.setBounds(xbound, ybound, internalFrameWidth, internalFrameHeight);
             newOnLineGameJIF.setVisible(true);
@@ -109,7 +109,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewOffLineG
             internalFrameHeight = 500;
             xbound = (desktopWidth - internalFrameWidth) / 2;
             ybound = (desktopHeight - internalFrameHeight) / 2;
-            newGameJIF = new NewOffLineGameJIF();
+            newGameJIF = new NewOffLineGameJIF(false);
             newGameJIF.setPreferredSize(new Dimension(internalFrameWidth, internalFrameHeight));
             newGameJIF.setBounds(xbound, ybound, internalFrameWidth, internalFrameHeight);
             newGameJIF.setVisible(true);

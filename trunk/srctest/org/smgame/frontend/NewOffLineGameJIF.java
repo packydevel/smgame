@@ -20,7 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
-import javax.swing.event.EventListenerList;
 import org.smgame.client.ClientMediator;
 
 /**internal frame new game
@@ -46,23 +45,26 @@ public class NewOffLineGameJIF extends JInternalFrame implements IGameJIF {
     String eventSource;
     int previousPlayersNumber = 0;
     int currentPlayersNumber;
+    boolean online;
 
     /**Costruttore
      *
      */
-    public NewOffLineGameJIF() {
+    public NewOffLineGameJIF(boolean online) {
         super("Nuova Partita", false, true, false, false);
+
+        this.online = online;
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
         playerJP = new JPanel();
         tabbedPane.addTab("Giocatori", null, playerJP,
-                "Does nothing");
+                "Giocatori della partita");
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
         preferenceJP = new JPanel();
         tabbedPane.addTab("Preferenze", null, preferenceJP,
-                "Does twice as much nothing");
+                "Preferenze di gioco");
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
 
@@ -135,6 +137,10 @@ public class NewOffLineGameJIF extends JInternalFrame implements IGameJIF {
         playerJP.add(cpuflagJL, labelGBC);
 
         allcpuflagJCKB = new JCheckBox();
+        if (online) {
+            allcpuflagJCKB.setSelected(true);
+            allcpuflagJCKB.setEnabled(false);
+        }
         checkBoxGBC.gridx = 2;
         checkBoxGBC.gridy = 2;
         checkBoxGBC.ipadx = 50;
@@ -243,7 +249,11 @@ public class NewOffLineGameJIF extends JInternalFrame implements IGameJIF {
                     playerJP.remove(cpuflagJCKB[j]);
                     validate();
                 }
-                allcpuflagJCKB.setSelected(false);
+                if (online) {
+                    allcpuflagJCKB.setSelected(true);
+                } else {
+                    allcpuflagJCKB.setSelected(false);
+                }
             }
 
             i = currentPlayersNumber;
@@ -261,6 +271,9 @@ public class NewOffLineGameJIF extends JInternalFrame implements IGameJIF {
 
                 playerJTF[j] = new JTextField();
                 playerJTF[j].setPreferredSize(new Dimension(80, 20));
+                if (online && j != 0) {
+                    playerJTF[j].setEnabled(false);
+                }
                 textFieldGBC.gridx = 1;
                 textFieldGBC.gridy = y;
                 textFieldGBC.ipadx = 100;
@@ -269,6 +282,13 @@ public class NewOffLineGameJIF extends JInternalFrame implements IGameJIF {
 
 
                 cpuflagJCKB[j] = new JCheckBox();
+                if (online) {
+                    cpuflagJCKB[j].setSelected(true);
+                    cpuflagJCKB[j].setEnabled(false);
+                    if (j != 0) {
+                        playerJTF[j].setText("CPU Player " + j);
+                    }
+                }
                 checkBoxGBC.gridx = 2;
                 checkBoxGBC.gridy = y;
                 checkBoxGBC.ipadx = 50;
@@ -319,31 +339,31 @@ public class NewOffLineGameJIF extends JInternalFrame implements IGameJIF {
 
                 ClientMediator.getInstance().createOffLineGame(gameName, null, playerNameList, playerTypeList);
 
-                fireNewOffLineGameEvent(new NewOffLineGameEvent(this));
+
+                fireNewGameEvent(new NewOnLineGameEvent(this));
             }
             dispose();
         }
     }
+    
     protected EventListenerList eventListenerList = new javax.swing.event.EventListenerList();
 
     // This methods allows classes to register for MyEvents
-    public void addMyEventListener(NewOffLineGameListener listener) {
-        listenerList.add(NewOffLineGameListener.class, listener);
+    public void addMyEventListener(NewGameListener listener) {
+        listenerList.add(NewGameListener.class, listener);
     }
 
     // This methods allows classes to unregister for MyEvents
-    public void removeMyEventListener(NewOffLineGameListener listener) {
-        listenerList.remove(NewOffLineGameListener.class, listener);
+    public void removeMyEventListener(NewGameListener listener) {
+        listenerList.remove(NewGameListener.class, listener);
     }
 
     // This private class is used to fire MyEvents
     void fireNewOffLineGameEvent(NewOffLineGameEvent e) {
         Object[] listeners = listenerList.getListenerList();
-        for (int i = 0; i <
-                listeners.length; i +=
-                        2) {
-            if (listeners[i] == NewOffLineGameListener.class) {
-                ((NewOffLineGameListener) listeners[i + 1]).newOffLineGameCreating(e);
+        for (int i = 0; i < listeners.length; i += 2) {
+            if (listeners[i] == NewGameListener.class) {
+                ((NewGameListener) listeners[i + 1]).newOffLineGameCreating(e);
             }
         }
     }
