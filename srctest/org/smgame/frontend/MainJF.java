@@ -23,7 +23,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
     private NewGameJIF newOnLineGameJIF;
     private NewGameJIF newGameJIF;
     private LoadGameJIF loadGameJIF;
-    private OffLineGameJIF gameJIF;
+    private GameJIF gameJIF;
     private OnLineGameJIF gameonlineJIF;
     private MenuVO menuVO;
     private int desktopWidth,  desktopHeight,  internalFrameWidth,  internalFrameHeight,  xbound,  ybound;
@@ -170,13 +170,13 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
      *
      * @param e
      */
-    public void newOffLineGameCreating(NewOffLineGameEvent e) {
+    public void newGameCreating(NewGameEvent e) {
         internalFrameWidth = 960;
         internalFrameHeight = 700;
         xbound = (desktopWidth - internalFrameWidth) / 2;
         ybound = (desktopHeight - internalFrameHeight) / 2;
         System.out.println(ybound);
-        gameJIF = new OffLineGameJIF();
+        gameJIF = new GameJIF();
         gameJIF.setPreferredSize(new Dimension(internalFrameWidth, internalFrameHeight));
         gameJIF.setBounds(xbound, ybound, internalFrameWidth, internalFrameHeight);
         gameJIF.setVisible(true);
@@ -206,7 +206,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         if (e.getInternalFrame() instanceof NewGameJIF) {
         } else if (e.getInternalFrame() instanceof LoadGameJIF) {
             refreshMenuItem();
-        } else if (e.getInternalFrame() instanceof OffLineGameJIF) {
+        } else if (e.getInternalFrame() instanceof GameJIF) {
             executeCloseGame();
         } else if (e.getInternalFrame() instanceof OnLineGameJIF) {
             executeCloseGame();

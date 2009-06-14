@@ -16,7 +16,7 @@ import org.smgame.core.GUICoreMediator;
 import org.smgame.core.GameSetting;
 import org.smgame.frontend.LoadGameVO;
 import org.smgame.frontend.MenuVO;
-import org.smgame.frontend.OffLineGameVO;
+import org.smgame.frontend.GameVO;
 import org.smgame.frontend.OnLineGameVO;
 import org.smgame.util.NoGamesException;
 
@@ -95,7 +95,7 @@ public class RMIServer implements IGameMediator {
         return GUICoreMediator.requestMenuVO();
     }
 
-    public OffLineGameVO requestOffLineGameVO() {
+    public GameVO requestOffLineGameVO() {
         return GUICoreMediator.requestOffLineGameVO();
     }
 
