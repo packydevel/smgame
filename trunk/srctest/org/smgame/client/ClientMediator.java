@@ -16,7 +16,6 @@ import org.smgame.core.GameSetting;
 import org.smgame.frontend.LoadGameVO;
 import org.smgame.frontend.MenuVO;
 import org.smgame.frontend.GameVO;
-import org.smgame.frontend.OnLineGameVO;
 import org.smgame.server.IGameMediator;
 import org.smgame.util.NoGamesException;
 

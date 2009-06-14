@@ -26,7 +26,6 @@ import org.smgame.frontend.MainVO;
 import org.smgame.frontend.MenuVO;
 import org.smgame.frontend.MessageType;
 import org.smgame.frontend.GameVO;
-import org.smgame.frontend.OnLineGameVO;
 import org.smgame.util.BetOverflowException;
 import org.smgame.util.Common;
 import org.smgame.util.ImageEdit;
@@ -44,8 +43,7 @@ public class GUICoreMediator {
     private static HashMap<Long, Game> gameMap = new HashMap<Long, Game>();
     private static MainVO mainVO = new MainVO();
     private static MenuVO menuVO = new MenuVO();
-    private static GameVO offLineGameVO = new GameVO();
-    private static OnLineGameVO onLineGameVO = new OnLineGameVO();
+    private static GameVO gameVO = new GameVO();
     private static LoadGameVO loadGameVO = new LoadGameVO();
     private static Game currentGame = null;
     private static final String FILENAME = Common.getWorkspace() + "games.dat";
@@ -97,50 +95,6 @@ public class GUICoreMediator {
         currentGame.getGameEngine().start();
     }
 
-    /**Crea partita online
-     *
-     * @param gameName
-     * @param gameSetting
-     * @param playerName
-     */
-    public static void createOnLineGame(String gameName, GameSetting gameSetting, String playerName) {
-        PlayerList.getInstance().resetInstance();
-        PlayerList playerList = PlayerList.getInstance();
-        onLineGameVO.getPlayerIndexList().clear();
-
-        String cpuName = "Alan Turing";
-        playerList.getPlayerAL().add(new CPUPlayer(cpuName));
-        playerList.getPlayerAL().get(0).setCredit(1000);
-        onLineGameVO.getPlayerIndexList().add(Integer.valueOf(0));
-        onLineGameVO.getPlayerNameMap().put(Integer.valueOf(0), cpuName);
-
-        playerList.getPlayerAL().add(new HumanPlayer(playerName));
-        playerList.getPlayerAL().get(1).setCredit(1000);
-        onLineGameVO.getPlayerIndexList().add(Integer.valueOf(1));
-        onLineGameVO.getPlayerNameMap().put(Integer.valueOf(1), playerName);
-
-        offLineGameVO.getPlayerNameMap().put(1, cpuName);
-        offLineGameVO.getPlayerNameMap().put(1, playerName);
-
-        offLineGameVO.getPlayerTypeMap().put(1, true);
-        offLineGameVO.getPlayerTypeMap().put(2, false);
-
-        if (currentGame != null) {
-            currentGame.resetInstance();
-        }
-        currentGame = Game.getInstance();
-        currentGame.generateGameID();
-        currentGame.setGameName(gameName);
-        currentGame.setGameMode(GameMode.ONLINE);
-        currentGame.setCreationDate(new Date());
-        currentGame.setGameSetting(GameSetting.getInstance());
-        currentGame.setPlayerList(playerList);
-        currentGame.generateGameEngine();
-        currentGame.getGameEngine().start();
-
-        gameMap.put(currentGame.getGameID(), currentGame);
-    }
-
     public static void askCloseGame() {
         mainVO.setMessageType(MessageType.WARNING);
         mainVO.setMessage("Sei sicuro di voler chiudere la Partita? I passaggi di gioco non salvati saranno persi!");
@@ -151,7 +105,7 @@ public class GUICoreMediator {
      */
     public static void closeGame() {
         currentGame = null;
-        offLineGameVO.clear();
+        gameVO.clear();
     }
 
     /**Salva partita
@@ -278,13 +232,13 @@ public class GUICoreMediator {
             if (!currentGame.getGameEngine().isEndManche()) {
                 selectNextPlayer();
             }
-            offLineGameVO.setExceptionMessage(boe.getMessage());
+            gameVO.setExceptionMessage(boe.getMessage());
             Logging.logExceptionWarning(boe);
         } catch (ScoreOverflowException soe) {
             if (!currentGame.getGameEngine().isEndManche()) {
                 selectNextPlayer();
             }
-            offLineGameVO.setExceptionMessage(soe.getMessage());
+            gameVO.setExceptionMessage(soe.getMessage());
             Logging.logExceptionWarning(soe);
         } catch (Exception e) {
             Logging.logExceptionSevere(e);
@@ -305,7 +259,7 @@ public class GUICoreMediator {
                 selectNextPlayer();
             }
         } catch (BetOverflowException boe) {
-            offLineGameVO.setExceptionMessage(boe.getMessage());
+            gameVO.setExceptionMessage(boe.getMessage());
             Logging.logExceptionWarning(boe);
         }
     }
@@ -348,31 +302,31 @@ public class GUICoreMediator {
 
         ArrayList<ImageIcon> playerCardsImageList = new ArrayList<ImageIcon>();
 
-        if (offLineGameVO.isEndManche()) {
+        if (gameVO.isEndManche()) {
             currentGame.getGameEngine().startManche();
-            offLineGameVO.setEndManche(false);
+            gameVO.setEndManche(false);
         }
 
-        offLineGameVO.clear();
+        gameVO.clear();
 
         for (int i = 0; i < currentGame.getPlayerList().getPlayerAL().size(); i++) {
             Player tempPlayer = currentGame.getPlayerList().getPlayerAL().get(i);
 
-            offLineGameVO.getPlayerIndexList().add(i);
+            gameVO.getPlayerIndexList().add(i);
 
-            offLineGameVO.getPlayerNameMap().put(i, tempPlayer.getName());
+            gameVO.getPlayerNameMap().put(i, tempPlayer.getName());
 
             if (tempPlayer instanceof CPUPlayer) {
-                offLineGameVO.getPlayerTypeMap().put(i, true);
+                gameVO.getPlayerTypeMap().put(i, true);
             } else {
-                offLineGameVO.getPlayerTypeMap().put(i, false);
+                gameVO.getPlayerTypeMap().put(i, false);
             }
 
-            offLineGameVO.getPlayerCreditMap().put(i, "Credito: " +
+            gameVO.getPlayerCreditMap().put(i, "Credito: " +
                     numberFormat.format(tempPlayer.getCredit()));
 
-            offLineGameVO.getPlayerCardsImageMap().put(i, new ArrayList<ImageIcon>());
-            playerCardsImageList = offLineGameVO.getPlayerCardsImageMap().get(i);
+            gameVO.getPlayerCardsImageMap().put(i, new ArrayList<ImageIcon>());
+            playerCardsImageList = gameVO.getPlayerCardsImageMap().get(i);
             for (int j = 0; j < tempPlayer.getCardList().size(); j++) {
                 if (j == 0) {
                     if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) || tempPlayer.getStatus() == PlayerStatus.ScoreOverflow || tempPlayer.hasSM() || (currentGame.getGameEngine().isEndManche() && currentGame.getGameEngine().getBankPlayer().getStatus() == PlayerStatus.GoodScore)) {
@@ -397,141 +351,57 @@ public class GUICoreMediator {
 //                offLineGameVO.getPlayerFirstCardDiscoveredMap().put(i, Boolean.FALSE);
 //            }
 
-            offLineGameVO.getPlayerStakeMap().put(i, "Puntata: " +
+            gameVO.getPlayerStakeMap().put(i, "Puntata: " +
                     numberFormat.format(tempPlayer.getStake()));
 
             if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) || tempPlayer.getStatus() == PlayerStatus.ScoreOverflow || tempPlayer.hasSM() || (currentGame.getGameEngine().isEndManche() && currentGame.getGameEngine().getBankPlayer().getStatus() == PlayerStatus.GoodScore)) {
-                offLineGameVO.getPlayerScoreMap().put(i, "Punteggio: " +
+                gameVO.getPlayerScoreMap().put(i, "Punteggio: " +
                         numberFormat.format(tempPlayer.getScore()));
             } else {
-                offLineGameVO.getPlayerScoreMap().put(i, "Punteggio: ");
+                gameVO.getPlayerScoreMap().put(i, "Punteggio: ");
             }
 
             if (tempPlayer.getStatus() != null) {
-                offLineGameVO.getPlayerStatusMap().put(i, tempPlayer.getStatus().toString());
+                gameVO.getPlayerStatusMap().put(i, tempPlayer.getStatus().toString());
             } else {
-                offLineGameVO.getPlayerStatusMap().put(i, null);
+                gameVO.getPlayerStatusMap().put(i, null);
             }
 
             if (tempPlayer.equals(currentGame.getGameEngine().getBankPlayer())) {
-                offLineGameVO.getPlayerRoleMap().put(i, true);
+                gameVO.getPlayerRoleMap().put(i, true);
             } else {
-                offLineGameVO.getPlayerRoleMap().put(i, false);
+                gameVO.getPlayerRoleMap().put(i, false);
             }
 
             if (tempPlayer.getBetList().size() > 0 || tempPlayer.getRole() == PlayerRole.Bank) {
-                offLineGameVO.getPlayerRequestBetMap().put(i, false);
+                gameVO.getPlayerRequestBetMap().put(i, false);
             } else {
-                offLineGameVO.getPlayerRequestBetMap().put(i, true);
+                gameVO.getPlayerRequestBetMap().put(i, true);
             }
 
             if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) &&
                     !currentGame.getGameEngine().isEndManche() && !currentGame.getGameEngine().isEndGame()) {
-                offLineGameVO.getPlayerPlayingMap().put(i, true);
+                gameVO.getPlayerPlayingMap().put(i, true);
             } else {
-                offLineGameVO.getPlayerPlayingMap().put(i, false);
+                gameVO.getPlayerPlayingMap().put(i, false);
             }
         } //end for
 
         if (currentGame.getGameEngine().isEndManche()) {
             System.out.println("Ho settato ora la fine della manche!!!");
             currentGame.getGameEngine().closeManche();
-            offLineGameVO.setEndManche(true);
+            gameVO.setEndManche(true);
             addTransactionAL();
         }
 
-        offLineGameVO.setCurrentManche(currentGame.getGameEngine().getCurrentManche());
+        gameVO.setCurrentManche(currentGame.getGameEngine().getCurrentManche());
 
-        offLineGameVO.setEndGame(currentGame.getGameEngine().isEndGame());
+        gameVO.setEndGame(currentGame.getGameEngine().isEndGame());
 
 
-        return offLineGameVO;
+        return gameVO;
     }
 
-    /**richiede l'oggetto OnLineGameVO
-     *
-     * @return
-     */
-    public static OnLineGameVO requestOnLineGameVO() {
-        ArrayList<ImageIcon> playerCardsImageList = new ArrayList<ImageIcon>();
-
-        onLineGameVO.getPlayerCreditMap().clear();
-        onLineGameVO.getPlayerCardsImageMap().clear();
-        onLineGameVO.getPlayerStakeMap().clear();
-        onLineGameVO.getPlayerScoreMap().clear();
-        onLineGameVO.getPlayerFirstCardDiscoveredMap().clear();
-        onLineGameVO.getPlayerRoleMap().clear();
-        onLineGameVO.getPlayerPlayingMap().clear();
-        onLineGameVO.getPlayerRequestBetMap().clear();
-
-        for (int i = 0; i < onLineGameVO.getPlayerIndexList().size(); i++) {
-            Player tempPlayer = currentGame.getPlayerList().getPlayerAL().get(i);
-
-            onLineGameVO.getPlayerCreditMap().put(i, "Credito: " +
-                    numberFormat.format(tempPlayer.getCredit()));
-            onLineGameVO.getPlayerCardsImageMap().put(i, new ArrayList<ImageIcon>());
-            playerCardsImageList = onLineGameVO.getPlayerCardsImageMap().get(i);
-            for (int j = 0; j < tempPlayer.getCardList().size(); j++) {
-                if (j == 0) {
-                    if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) ||
-                            tempPlayer.hasSM() || tempPlayer.getStatus() == PlayerStatus.ScoreOverflow ||
-                            (currentGame.getGameEngine().isEndManche() && currentGame.getGameEngine().getBankPlayer().getStatus() == PlayerStatus.GoodScore)) {
-                        playerCardsImageList.add(tempPlayer.getCardList().get(j).getFrontImage());
-                    } else {
-                        playerCardsImageList.add(backImage);
-                    }
-                } else {
-                    playerCardsImageList.add(tempPlayer.getCardList().get(j).getFrontImage());
-                }
-            } //end for interno
-
-            if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer())) {
-                onLineGameVO.getPlayerFirstCardDiscoveredMap().put(i, Boolean.TRUE);
-            } else {
-                onLineGameVO.getPlayerFirstCardDiscoveredMap().put(i, Boolean.FALSE);
-            }
-
-            onLineGameVO.getPlayerStakeMap().put(i, "Puntata: " +
-                    numberFormat.format(tempPlayer.getStake()));
-            onLineGameVO.getPlayerScoreMap().put(i, "Punteggio: " +
-                    numberFormat.format(tempPlayer.getScore()));
-
-            if (tempPlayer.getStatus() == PlayerStatus.ScoreOverflow) {
-                onLineGameVO.getPlayerStatusMap().put(i, Boolean.TRUE);
-            } else {
-                onLineGameVO.getPlayerStatusMap().put(i, Boolean.FALSE);
-            }
-
-            if (tempPlayer.equals(currentGame.getGameEngine().getBankPlayer())) {
-                onLineGameVO.getPlayerRoleMap().put(i, Boolean.TRUE);
-            } else {
-                onLineGameVO.getPlayerRoleMap().put(i, Boolean.FALSE);
-            }
-
-            if (tempPlayer.getBetList().size() > 0 || tempPlayer.getRole() == PlayerRole.Bank) {
-                onLineGameVO.getPlayerRequestBetMap().put(i, Boolean.FALSE);
-            } else {
-                onLineGameVO.getPlayerRequestBetMap().put(i, Boolean.TRUE);
-            }
-
-            if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) &&
-                    !currentGame.getGameEngine().isEndManche() && !currentGame.getGameEngine().isEndGame()) {
-                onLineGameVO.getPlayerPlayingMap().put(i, Boolean.TRUE);
-            } else {
-                onLineGameVO.getPlayerPlayingMap().put(i, Boolean.FALSE);
-            }
-        }//end for
-
-        onLineGameVO.setEndManche(currentGame.getGameEngine().isEndManche());
-        onLineGameVO.setEndGame(currentGame.getGameEngine().isEndGame());
-
-        if (currentGame.getGameEngine().isEndManche()) {
-            currentGame.getGameEngine().closeManche();
-            currentGame.getGameEngine().startManche();
-        }
-
-        return onLineGameVO;
-    }
 
     //Restituisce la posizione del prossimo giocatore
     private static void selectNextPlayer() {
@@ -543,13 +413,13 @@ public class GUICoreMediator {
      * @return matrice di dati
      */
     public static Object[][] requestDataReport() {
-        int size = offLineGameVO.getPlayerIndexList().size();
+        int size = gameVO.getPlayerIndexList().size();
         Object[][] data = new Object[size][4];
         for (int i = 0; i < size; i++) {
             Player tempPlayer = currentGame.getPlayerList().getPlayerAL().get(i);
-            data[i][0] = offLineGameVO.getPlayerNameMap().get(i);
+            data[i][0] = gameVO.getPlayerNameMap().get(i);
             //punteggio
-            data[i][1] = offLineGameVO.getPlayerScoreMap().get(i).substring(10);
+            data[i][1] = gameVO.getPlayerScoreMap().get(i).substring(10);
             //vincita
             data[i][2] = numberFormat.format(tempPlayer.getLastWinLoseAmount());
             //credito
