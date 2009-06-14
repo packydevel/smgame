@@ -93,6 +93,7 @@ public class GUICoreMediator {
         currentGame.setGameSetting(GameSetting.getInstance());
         currentGame.setPlayerList(playerList);
         currentGame.generateGameEngine();
+        System.out.println("Il numero dei giocatori passati al server è: " + currentGame.getPlayerList().getPlayerAL().size());
         currentGame.getGameEngine().start();
     }
 
