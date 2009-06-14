@@ -16,6 +16,6 @@ public class SMGameServer {
         Runtime runtime = Runtime.getRuntime();
         Process process = runtime.exec("rmiregistry");
         Thread.sleep(5000);
-        new RMIServer();
+        RMIServer.getInstance();
     }
 }

@@ -25,9 +25,11 @@ import org.smgame.util.NoGamesException;
  */
 public class RMIServer implements IGameMediator {
 
+    private static RMIServer server;
+
 // Must implement constructor
 // to throw RemoteException:
-    public RMIServer() throws RemoteException {
+    private RMIServer() {
 
         try {
             String name = "//localhost/ServerMediator";
@@ -40,6 +42,14 @@ public class RMIServer implements IGameMediator {
             e.printStackTrace();
             System.exit(0);
         }
+    }
+
+    public static RMIServer getInstance() {
+        if (server == null) {
+            server = new RMIServer();
+        }
+
+        return server;
     }
 
     public void addMenuItem(List<String> menuItemList) {
