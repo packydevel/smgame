@@ -38,34 +38,7 @@ public class GameEngine implements Serializable {
     /**costruttore privato
      * 
      */
-    private GameEngine() { }
-
-    /**Restituisce l'istanza della classe
-     *
-     * @param gameSetting settaggi del gioco
-     * @param deck mazzo
-     * @param playerList lista giocatori
-     * @return istanza gioco
-     */
-    public static GameEngine getInstance() {
-        if (gameEngine == null) {
-            gameEngine = new GameEngine();
-        }
-        return gameEngine;
-    }
-
-    /**Azzera/resetta l'istanza di gameEngine
-     *
-     */
-    public void resetInstance() {
-        gameSetting.resetInstance();
-        deck.resetInstance();
-        playerList.resetInstance();
-        bankPlayer = null;
-        currentPlayer = null;
-        playerHasFirstKingSM = null;
-        currentManche = 1;
-    }
+    public GameEngine() { }
 
     /**inizia la partita
      *

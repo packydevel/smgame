@@ -338,15 +338,17 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
                     playerTypeList.add(new Boolean(cpuflagJCKB[j].isSelected()));
                 }
 
-                ClientMediator.getInstance().createOffLineGame(gameName, null, playerNameList, playerTypeList);
-
+                if (online) {
+                    ClientMediator.getInstance().createOnLineGame(gameName, null, playerNameList, playerTypeList);
+                } else {
+                    ClientMediator.getInstance().createOffLineGame(gameName, null, playerNameList, playerTypeList);
+                }
 
                 fireNewGameEvent(new NewGameEvent(this));
             }
             dispose();
         }
     }
-    
     protected EventListenerList eventListenerList = new javax.swing.event.EventListenerList();
 
     // This methods allows classes to register for MyEvents

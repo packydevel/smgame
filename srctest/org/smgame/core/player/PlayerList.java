@@ -18,27 +18,11 @@ public class PlayerList implements Serializable {
     private static PlayerList playerList = null;
     private LinkedList<Player> playerAL = new LinkedList<Player>();
 
-    //costruttore privato
-    private PlayerList() {
+    public PlayerList() {
     }
 
     public List<Player> getPlayerAL() {
         return playerAL;
-    }
-
-    /**Restituisce l'istanza della lista corrente dei giocatori
-     *
-     * @return lista giocatori
-     */
-    public static PlayerList getInstance() {
-        if (playerList == null) {
-            playerList = new PlayerList();
-        }
-        return playerList;
-    }
-
-    public void resetInstance() {
-        playerAL.clear();
     }
 
     /**Esiste giocatore debole (?)

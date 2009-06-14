@@ -21,10 +21,10 @@ public class Game implements Serializable {
     private GameEngine gameEngine;
     private Deck deck;
     private PlayerList playerList;
-    private Date creationDate, lastSaveDate;
+    private Date creationDate,  lastSaveDate;
 
     //Costruttore privato
-    private Game() {
+    public Game() {
     }
 
     /**imposta la data di creazione
@@ -40,15 +40,15 @@ public class Game implements Serializable {
      * @param deck
      */
     public void setDeck(Deck deck) {
-        this.deck = Deck.getInstance();
+        this.deck = deck;
     }
 
     /**Genera/inizializza il motore di gioco
      *
      */
     public void generateGameEngine() {
-        deck=Deck.getInstance();
-        gameEngine = GameEngine.getInstance();
+        deck = new Deck();
+        gameEngine = new GameEngine();
         gameEngine.setDeck(deck);
         gameEngine.setGameSetting(gameSetting);
         gameEngine.setPlayerList(playerList);
@@ -135,26 +135,6 @@ public class Game implements Serializable {
      */
     public PlayerList getPlayerList() {
         return playerList;
-    }
-
-    /**restituisce l'istanza della partita
-     *
-     * @return
-     */
-    public static Game getInstance() {
-        if (game == null) {
-            game = new Game();
-        }
-        return game;
-    }
-
-    /**azzera/resetta l'istanza della partita
-     *
-     */
-    public void resetInstance() {
-        deck.resetInstance();
-        gameSetting.resetInstance();
-        gameEngine.resetInstance();
     }
 
     /**restituisce il motore di gioco

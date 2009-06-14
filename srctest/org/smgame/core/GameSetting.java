@@ -28,30 +28,10 @@ public class GameSetting implements Serializable {
     private String kingSMPayRule;
 
     //Costruttore privato
-    private GameSetting() {
+    public GameSetting() {
         manches = 10;
         credit = MIN_CREDIT;
         //jolly = Deck.getInstance().getSelectedCard(Point.Re, Suit.Danari);
-    }
-
-    /**Restituisce l'istanza dei settaggi di gioco
-     *
-     * @return
-     */
-    public static GameSetting getInstance() {
-        if (gameSetting == null) {
-            gameSetting = new GameSetting();
-        }
-        return gameSetting;
-    }
-
-    /**Azzera/resetta l'istanza dei settaggi
-     *
-     */
-    public void resetInstance() {
-        manches = 10;
-        credit = MIN_CREDIT;
-        jolly = Deck.getInstance().getSelectedCard(Point.Re, Suit.Danari);
         kingSMPayRule = "double";
     }
 
