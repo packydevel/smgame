@@ -65,8 +65,7 @@ public class GUICoreMediator {
      * @param playerNameList
      * @param playerTypeList
      */
-    public static void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList,
-            List<Boolean> playerTypeList) {
+    public static void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) {
 
         PlayerList playerList = new PlayerList();
 
