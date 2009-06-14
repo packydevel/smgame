@@ -39,7 +39,6 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
 
     private ArrayList<Integer> playerList;
     private HashMap<Integer, JPanel> playerNameMapJP;
-    //private HashMap<Integer, JLabel> playerCreditMapJL; //lista label credito giocatori;
     private HashMap<Integer, JPanel> playerCardsMapJP; //Lista pannelli giocatore-carte
     private HashMap<Integer, JLabel> playerStakeMapJL; //lista label puntate giocatori
     private HashMap<Integer, JLabel> playerScoreMapJL; //lista label punteggio giocatori
@@ -144,8 +143,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
         panelGBC.weightx = 0;
         panelGBC.anchor = GridBagConstraints.NORTHWEST;
 
-        labelGBC =
-                new GridBagConstraints();
+        labelGBC = new GridBagConstraints();
         labelGBC.insets = new Insets(1, 1, 1, 1);
         labelGBC.weighty = 0;
         labelGBC.weightx = 0;
@@ -395,14 +393,16 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
                 setPlayerColor(i, Color.BLUE);
             }
 
-            if (offLineGameVO.getPlayerRoleMap().get(i) == Boolean.TRUE) {
+            if (offLineGameVO.getPlayerRoleMap().get(i) == true) {
                 bank = i;
                 selectBank(i);
+                System.out.println("Ti riconosco come mazziere:" +i);
             } else {
                 deselectBank(i);
+                System.out.println("Non ti riconosco come mazziere:" +i);
             }
 
-            if (offLineGameVO.getPlayerPlayingMap().get(i) == Boolean.TRUE) {
+            if (offLineGameVO.getPlayerPlayingMap().get(i) == true) {
                 showActionPanelContent(i);
                 currentIndex = i;
             } else {
