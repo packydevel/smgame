@@ -28,7 +28,7 @@ import org.smgame.client.ClientMediator;
  * @author luca
  * @author pasquale
  */
-public class NewOffLineGameJIF extends JInternalFrame implements IGameJIF {
+public class NewGameJIF extends JInternalFrame implements IGameJIF {
 
     JPanel playerJP, preferenceJP;
     GridBagConstraints labelGBC, textFieldGBC, comboBoxGBC, checkBoxGBC, buttonGBC;
@@ -50,7 +50,7 @@ public class NewOffLineGameJIF extends JInternalFrame implements IGameJIF {
     /**Costruttore
      *
      */
-    public NewOffLineGameJIF(boolean online) {
+    public NewGameJIF(boolean online) {
         super("Nuova Partita", false, true, false, false);
 
         this.online = online;
