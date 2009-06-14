@@ -189,7 +189,7 @@ public class GameEngine implements Serializable {
         Player player;
         int indexList;
         if (currentManche == 1) {
-            bankPlayer = selectFirstRandomBankPlayer();
+            player = selectFirstRandomBankPlayer();
         } else {
             player = playerHasFirstKingSM;
             if (player == null) {
@@ -207,10 +207,9 @@ public class GameEngine implements Serializable {
 
             bankPlayer.setRole(PlayerRole.Normal);
             player.setRole(PlayerRole.Bank);
-            bankPlayer = player;
             playerHasFirstKingSM = null;
         }
-        return bankPlayer;
+        return player;
     }
 
     /**Valutazione tra i punteggi realizzati al 7 1/2 seondo le regole di WikiPedia
@@ -350,7 +349,7 @@ public class GameEngine implements Serializable {
         }
 
         currentManche++;
-        selectBankPlayer();
+        bankPlayer = selectBankPlayer();
         deck.shuffle();
         distributeFirstCard();
         currentPlayer = nextPlayer(bankPlayer);
