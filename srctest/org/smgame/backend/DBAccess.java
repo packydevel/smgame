@@ -68,6 +68,17 @@ public class DBAccess {
         conn.close();
     }
 
+    /**Verifica lo stato della connessione
+     *
+     * @return true se attiva, false se null
+     */
+    public static boolean verifyConnection(){
+        boolean verify = false;
+        if (conn!=null)
+            verify=true;
+        return verify;
+    }
+
     /**legge il file contenente le informazioni sul database e setta le variabili per la connessione
      *
      * @throws java.io.IOException
