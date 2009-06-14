@@ -23,8 +23,7 @@ public interface IGameMediator extends Remote {
 
     public void addMenuItem(List<String> menuItemList) throws RemoteException;
 
-    public void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList,
-            List<Boolean> playerTypeList) throws RemoteException;
+    public void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) throws RemoteException;
 
     public void askCloseGame() throws RemoteException;
 
