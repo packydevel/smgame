@@ -178,10 +178,14 @@ public class ClientMediator {
     }
 
     public Object[][] requestDataReport() {
-        try {
-            return stub.requestDataReport();
-        } catch (Exception e) {
-            return null;
+        if (gameMode == GameMode.OFFLINE) {
+            return GUICoreMediator.requestDataReport();
+        } else {
+            try {
+                return stub.requestDataReport();
+            } catch (Exception e) {
+                return null;
+            }
         }
     }
 }
