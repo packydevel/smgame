@@ -1,16 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.server;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import java.rmi.RMISecurityManager;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+
+import java.sql.SQLException;
 import java.util.List;
+
+import org.smgame.backend.DBAccess;
 import org.smgame.core.GUICoreMediator;
 import org.smgame.core.GameSetting;
 import org.smgame.frontend.LoadGameVO;
@@ -18,16 +19,15 @@ import org.smgame.frontend.MenuVO;
 import org.smgame.frontend.GameVO;
 import org.smgame.util.NoGamesException;
 
-/**
+/**Server RMI
  *
- * @author packyuser
+ * @author Pc City
  */
 public class RMIServer implements IGameMediator {
 
     private static RMIServer server;
 
-// Must implement constructor
-// to throw RemoteException:
+    // Must implement constructor to throw RemoteException:
     private RMIServer() {
         String name;
 
@@ -40,6 +40,12 @@ public class RMIServer implements IGameMediator {
             System.out.println("Ready to do time");
         } catch (Exception e) {
             e.printStackTrace();
+            if (DBAccess.verifyConnection())
+                try {
+                    DBAccess.closeConnection();
+                } catch (SQLException sqle) {
+                    sqle.printStackTrace();
+                }
             System.exit(0);
         }
     }
@@ -108,4 +114,3 @@ public class RMIServer implements IGameMediator {
         return GUICoreMediator.requestDataReport();
     }
 }
-
