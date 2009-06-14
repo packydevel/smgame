@@ -1,10 +1,11 @@
 package org.smgame.frontend;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 
-public class OffLineGameVO {
+public class OffLineGameVO implements Serializable {
 
     private ArrayList<Integer> playerList = new ArrayList<Integer>();
     private HashMap<Integer, String> playerNameMap = new HashMap<Integer, String>();
