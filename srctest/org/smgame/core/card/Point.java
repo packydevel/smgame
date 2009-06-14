@@ -1,9 +1,9 @@
 package org.smgame.core.card;
 
-/**Enumerativo TipoCarta
+/**Enumerativo descrizione carta
  *
- * @author pasquale
- * @author luca
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public enum Point {
     Asso, Due, Tre, Quattro, Cinque,

@@ -1,23 +1,33 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.core.card;
 
 import javax.swing.ImageIcon;
 
-/**
+/**Classe jollycard, Gestisce il valore della carta jolly detta anche matta
  *
- * @author packyuser
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class JollyCard extends Card {
 
     private static final double[] VALUES = {0.5, 1, 2, 3, 4, 5, 6, 7, 8};
-    
+
+    /**Costruttore
+     *
+     * @param point punto
+     * @param suit seme
+     * @param value valore
+     * @param image immagine
+     * @param icon icona
+     */
     public JollyCard(Point point, Suit suit, double value, ImageIcon image, ImageIcon icon) {
         super(point, suit, value, image, icon);
     }
 
+    /**Calcola e restituisce il massimo valore della carta jolly
+     *
+     * @param score punteggio
+     * @return valore jolly
+     */
     public static double getBestValue(Double score) {
         Double value=VALUES[0], max = score;
 

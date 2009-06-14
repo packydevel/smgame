@@ -7,8 +7,8 @@ import javax.swing.ImageIcon;
 /**Classe Carta
  * rappresenta la singola carta del mazzo
  * 
- * @author pasquale
- * @author luca
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class Card implements Serializable {
     //variabili
@@ -24,7 +24,7 @@ public class Card implements Serializable {
 
     /**Costruttore con tre parametri
      * 
-     * @param point punto
+     * @param point descrizione del punto
      * @param suit seme 
      * @param value valore
      */
@@ -52,28 +52,41 @@ public class Card implements Serializable {
         return this.suit;
     }
 
+    /**Restituisce l'icona come imageicon
+     * 
+     * @return icona
+     */
     public ImageIcon getIcon() {
         return icon;
     }
 
+    /**Restituisce il dorso della carta sotto forma di imageicon
+     *
+     * @return dorso
+     */
     public ImageIcon getBackImage(){
         return backImage;
     }
 
+    /**restituisce l'immagine della carta
+     *
+     * @return carta frontale
+     */
     public ImageIcon getFrontImage() {
         return image;
     }
 
     /**Restituisce il valore della carta
      * 
-     * @return valore es
+     * @return valore
      */
     public double getValue() {
         return this.value;
     }
 
-    /**Restituisce 
-     * 
+    /**Stampa la carta
+     * descrizione, seme, valore
+     * @return
      */
     @Override
     public String toString() {
