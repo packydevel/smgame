@@ -10,7 +10,7 @@ import java.util.EventListener;
  *
  * @author packyuser
  */
-public interface NewGameListener extends EventListener {
+public interface NewOffLineGameListener extends EventListener {
 
     public void newOffLineGameCreating(NewOffLineGameEvent e);
 }
