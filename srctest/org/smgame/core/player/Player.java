@@ -39,7 +39,7 @@ public abstract class Player implements Serializable {
 
     /**Restituisce il nome giocatore
      *
-     * @return
+     * @return nome
      */
     public String getName() {
         return name;
@@ -87,7 +87,7 @@ public abstract class Player implements Serializable {
 
     /**Restituisce il punteggio
      *
-     * @return
+     * @return punteggio
      */
     public double getScore() {
         double bestValue;

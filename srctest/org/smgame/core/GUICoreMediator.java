@@ -36,7 +36,8 @@ import org.smgame.util.ScoreOverflowException;
 /**Classe GUICoreMediator
  * mediatore tra la gui e il core
  *
- * @author 
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class GUICoreMediator {
 
