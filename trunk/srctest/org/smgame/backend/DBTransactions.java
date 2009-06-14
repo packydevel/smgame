@@ -86,6 +86,7 @@ public class DBTransactions {
      * @param player giocatore
      * @param score punteggio
      * @param win vincita
+     * @param cardal arraylist di carte
      */
     public DBTransactions(long id_game, int manche, String player, double score, 
                             double win, ArrayList<Card> cardal) {
@@ -191,7 +192,12 @@ public class DBTransactions {
         resetArraylistTansactions();
     }
 
-
+    /**Scrive su db le carte presenti nell'arraylist delle transazioni
+     *
+     * @param conn connessione db
+     * @throws java.sql.SQLException
+     * @throws java.lang.Exception
+     */
     private void executeArraylistCardTransaction(Connection conn) throws SQLException, Exception{
         String sql = "INSERT INTO " + tableRelation + " VALUES (?,(SELECT " + col1Card +
                     " FROM " + tableCard + " WHERE " + col2Card + "=? AND " + col3Card + "=?));";
@@ -248,7 +254,7 @@ public class DBTransactions {
         return dbtransactionsAL;
     }
 
-    /**Cerca il massimo id nel db transazioni
+    /**Cerca l'ultimo id appena inserito della transazione
      *
      */
     private long getLastInsertId(Connection conn) throws ClassNotFoundException, SQLException, IOException{
