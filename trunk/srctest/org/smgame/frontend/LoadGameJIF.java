@@ -122,13 +122,13 @@ public class LoadGameJIF extends JInternalFrame implements IGameJIF {
     protected EventListenerList eventListenerList = new javax.swing.event.EventListenerList();
 
     // This methods allows classes to register for MyEvents
-    public void addMyEventListener(NewGameListener listener) {
-        listenerList.add(NewGameListener.class, listener);
+    public void addMyEventListener(NewOffLineGameListener listener) {
+        listenerList.add(NewOffLineGameListener.class, listener);
     }
 
     // This methods allows classes to unregister for MyEvents
-    public void removeMyEventListener(NewGameListener listener) {
-        listenerList.remove(NewGameListener.class, listener);
+    public void removeMyEventListener(NewOffLineGameListener listener) {
+        listenerList.remove(NewOffLineGameListener.class, listener);
     }
 
     // This private class is used to fire MyEvents
@@ -137,8 +137,8 @@ public class LoadGameJIF extends JInternalFrame implements IGameJIF {
         for (int i = 0; i <
                 listeners.length; i +=
                         2) {
-            if (listeners[i] == NewGameListener.class) {
-                ((NewGameListener) listeners[i + 1]).newOffLineGameCreating(e);
+            if (listeners[i] == NewOffLineGameListener.class) {
+                ((NewOffLineGameListener) listeners[i + 1]).newOffLineGameCreating(e);
             }
         }
     }
