@@ -10,22 +10,28 @@ import java.util.Map;
 
 /**Classe lista giocatori
  *
- * @author luca
- * @author pasquale
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class PlayerList implements Serializable {
 
     private static PlayerList playerList = null;
     private LinkedList<Player> playerAL = new LinkedList<Player>();
 
-    public PlayerList() {
-    }
+    /**Costruttore vuoto
+     *
+     */
+    public PlayerList() { }
 
+    /**REstituisce la lista di giocatori
+     *
+     * @return lista
+     */
     public List<Player> getPlayerAL() {
         return playerAL;
     }
 
-    /**Esiste giocatore debole (?)
+    /**Esiste giocatore debole
      *
      * @param totalValue valore totale
      * @param minMargin margine minimo
@@ -46,6 +52,10 @@ public class PlayerList implements Serializable {
         return false;
     }
 
+    /**Verifica se esiste almeno un player in bancarotta
+     *
+     * @return true = player bancarotta
+     */
     public boolean existsBankruptPlayer() {
         for (Player p : playerAL) {
             if (p.getCredit() == 0 && p.getRole() == PlayerRole.Normal) {
@@ -55,6 +65,11 @@ public class PlayerList implements Serializable {
         return false;
     }
 
+    /**Restituisce il primo giocatore ad aver fatto SMreale per il cambio di mazziere
+     *
+     * @param player vecchio mazziere
+     * @return nuovo mazziere
+     */
     public Player firstKingSM(Player player) {
         ArrayList<Player> tempList = new ArrayList(playerAL);
         int playerIndex = playerAL.indexOf(player);
@@ -69,6 +84,10 @@ public class PlayerList implements Serializable {
         return null;
     }
 
+    /**restituisce gli stati dei giocatori
+     *
+     * @return hashmap giocatore stato
+     */
     Map<Player, PlayerStatus> getPlayerStatusMap() {
         HashMap<Player, PlayerStatus> map = new HashMap<Player, PlayerStatus>();
 
@@ -79,6 +98,10 @@ public class PlayerList implements Serializable {
         return map;
     }
 
+    /**Restituisce il punteggio visibile di ciascun giocatore
+     *
+     * @return hashmap giocatore punteggio
+     */
     Map<Player, Double> getPlayerVisibleScoreMap() {
         HashMap<Player, Double> map = new HashMap<Player, Double>();
 
