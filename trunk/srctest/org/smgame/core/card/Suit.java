@@ -2,8 +2,8 @@ package org.smgame.core.card;
 
 /**Enumerativo Seme
  *
- * @author pasquale
- * @author luca
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 
 public enum Suit {

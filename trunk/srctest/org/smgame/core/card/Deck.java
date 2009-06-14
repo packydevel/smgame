@@ -12,8 +12,8 @@ import org.smgame.util.Common;
 /**Classe Mazzo
  * contiene le 40carte da gioco
  * 
- * @author pasquale
- * @author luca
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class Deck implements Serializable {
 
@@ -33,7 +33,9 @@ public class Deck implements Serializable {
     private Card nextCard; //prossima carta
     private boolean emptyDeck;
 
-    //costruttore privato
+    /**Costruttore
+     *
+     */
     public Deck() {
         String img = "";
         int i;
@@ -72,6 +74,9 @@ public class Deck implements Serializable {
         onGameCardsIterator = onGameCardList.iterator();
     } //end costruttore
 
+    /**Resetta l'istanza del mazzo
+     * 
+     */
     public void resetInstance() {
         onGameCardList.clear();
         offGameCardList.clear();
@@ -80,7 +85,7 @@ public class Deck implements Serializable {
         emptyDeck = false;
     }
 
-    /**
+    /**Mischia il mazzo
      * 
      */
     public void shuffle() {
@@ -113,6 +118,10 @@ public class Deck implements Serializable {
         return nextCard;
     }//end getNextCard
 
+    /**Aggiunge la lista di carte alla lista di carte fuori gioco
+     *
+     * @param cardList lista di carte
+     */
     public void addOffGameCards(List<Card> cardList) {
         offGameCardList.addAll(cardList);
     }
@@ -126,6 +135,12 @@ public class Deck implements Serializable {
         }
     }//end print
 
+    /**Restituisce la carta selezionata
+     *
+     * @param point punto
+     * @param suit seme
+     * @return carta selezionata
+     */
     public Card getSelectedCard(Point point, Suit suit) {
         for (Card c : CARDS) {
             if (c.getPoint() == point && c.getSuit() == suit) {
@@ -135,11 +150,20 @@ public class Deck implements Serializable {
         return null;
     }
 
+    /**Restituisce lo stato del mazzo vuoto
+     *
+     * @return booleano di risposta
+     */
     public boolean isEmptyDeck() {
         return emptyDeck;
     }
 
+    /**Imposta lo stato del mazzo vuoto
+     *
+     * @param isEmptyDeck booleano
+     */
     public void setEmptyDeck(boolean isEmptyDeck) {
         this.emptyDeck = isEmptyDeck;
     }
+
 } //end class
