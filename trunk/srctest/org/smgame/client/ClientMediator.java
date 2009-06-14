@@ -1,15 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.client;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import java.rmi.RMISecurityManager;
 import java.rmi.registry.LocateRegistry;
+
 import java.rmi.registry.Registry;
+
 import java.util.List;
+
 import org.smgame.core.GUICoreMediator;
 import org.smgame.core.GameMode;
 import org.smgame.core.GameSetting;
@@ -19,9 +19,11 @@ import org.smgame.frontend.GameVO;
 import org.smgame.server.IGameMediator;
 import org.smgame.util.NoGamesException;
 
-/**
+/** Classe client mediator
+ * è il mediatore tra server e gui
  *
- * @author packyuser
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class ClientMediator {
 
@@ -29,13 +31,20 @@ public class ClientMediator {
     private GameMode gameMode;
     private IGameMediator stub;
 
+    /**Costruttore
+     *
+     * @throws java.lang.Exception
+     */
     private ClientMediator() throws Exception {
         System.setSecurityManager(new RMISecurityManager());
         Registry registry = LocateRegistry.getRegistry("localhost");
-
         stub = (IGameMediator) registry.lookup("//localhost/ServerMediator");
     }
 
+    /**Restituisce l'istanza della classe, se nulla la inizializza prima
+     *
+     * @return clientmediator
+     */
     public static ClientMediator getInstance() {
         if (clientMediator == null) {
             try {
@@ -44,10 +53,13 @@ public class ClientMediator {
                 e.printStackTrace();
             }
         }
-
         return clientMediator;
     }
 
+    /**Aggiunge il menu
+     *
+     * @param menuItemList lista di voci per menù
+     */
     public void addMenuItem(List<String> menuItemList) {
         if (gameMode == GameMode.OFFLINE) {
             GUICoreMediator.addMenuItem(menuItemList);
@@ -59,6 +71,14 @@ public class ClientMediator {
         }
     }
 
+    /**Crea il gioco differenziandosi in base alla modalità online/offline
+     *
+     * @param gameMode tipo partita
+     * @param gameName nome partita
+     * @param gameSetting settaggi partita
+     * @param playerNameList lista nomi giocatori
+     * @param playerTypeList lista tipo giocatori
+     */
     private void createGame(GameMode gameMode, String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) {
         this.gameMode = gameMode;
         if (gameMode == GameMode.OFFLINE) {
@@ -72,14 +92,31 @@ public class ClientMediator {
         }
     }
 
+    /**Crea il gioco offline
+     *
+     * @param gameName nome partita
+     * @param gameSetting settaggi partita
+     * @param playerNameList lista nomi giocatori
+     * @param playerTypeList lista tipo giocatori
+     */
     public void createOffLineGame(String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) {
         createGame(GameMode.OFFLINE, gameName, gameSetting, playerNameList, playerTypeList);
     }
 
+    /**Crea il gioco online
+     *
+     * @param gameName nome partita
+     * @param gameSetting settaggi partita
+     * @param playerNameList lista nomi giocatori
+     * @param playerTypeList lista tipo giocatori
+     */
     public void createOnLineGame(String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) {
         createGame(GameMode.ONLINE, gameName, gameSetting, playerNameList, playerTypeList);
     }
 
+    /**Chiede la chiusura della partita
+     *
+     */
     public void askCloseGame() {
         try {
             stub.askCloseGame();
@@ -88,6 +125,9 @@ public class ClientMediator {
 
     }
 
+    /**Chiude la partita
+     *
+     */
     public void closeGame() {
         try {
             stub.closeGame();
@@ -95,6 +135,9 @@ public class ClientMediator {
         }
     }
 
+    /**Salva la partita
+     *
+     */
     public void saveGame() {
         try {
             stub.saveGame();
@@ -102,6 +145,13 @@ public class ClientMediator {
         }
     }
 
+    /**Carica la partita
+     *
+     * @param gameName nome partita
+     * @throws java.io.FileNotFoundException
+     * @throws java.io.IOException
+     * @throws java.lang.ClassNotFoundException
+     */
     public void loadGame(String gameName) throws FileNotFoundException, IOException, ClassNotFoundException {
         try {
             stub.loadGame(gameName);
@@ -109,6 +159,12 @@ public class ClientMediator {
         }
     }
 
+    /**Carica l'elenco delle partite
+     *
+     * @throws java.io.FileNotFoundException
+     * @throws java.io.IOException
+     * @throws java.lang.ClassNotFoundException
+     */
     public void loadGames() throws FileNotFoundException, IOException, ClassNotFoundException {
         try {
             stub.loadGames();
@@ -116,6 +172,11 @@ public class ClientMediator {
         }
     }
 
+    /**Richiede il caricamento del gameVO
+     *
+     * @return istanza di gameVO
+     * @throws org.smgame.util.NoGamesException
+     */
     public LoadGameVO requestLoadGameVO() throws NoGamesException {
         try {
             return stub.requestLoadGameVO();
@@ -125,8 +186,11 @@ public class ClientMediator {
 
     }
 
+    /**Restituisce il titolo della partita
+     *
+     * @return titolo partita
+     */
     public String getGameTitle() {
-
         try {
             return stub.getGameTitle();
         } catch (Exception e) {
@@ -134,6 +198,11 @@ public class ClientMediator {
         }
     }
 
+    /**Richiede carta
+     *
+     * @param playerIndex indice del giocatore
+     * @param bet eventuale puntata
+     */
     public void requestCard(int playerIndex, double bet) {
         if (gameMode == GameMode.OFFLINE) {
             GUICoreMediator.requestCard(playerIndex, bet);
@@ -145,6 +214,11 @@ public class ClientMediator {
         }
     }
 
+    /**Dichiarazione di star bene
+     *
+     * @param playerIndex indice giocatore
+     * @param bet eventuale puntata
+     */
     public void declareGoodScore(int playerIndex, double bet) {
         if (gameMode == GameMode.OFFLINE) {
             GUICoreMediator.declareGoodScore(playerIndex, bet);
@@ -156,6 +230,10 @@ public class ClientMediator {
         }
     }
 
+    /**richiede e Restituisce gli oggetti del menù
+     *
+     * @return oggetti menù
+     */
     public MenuVO requestMenuVO() {
         try {
             return stub.requestMenuVO();
@@ -164,6 +242,10 @@ public class ClientMediator {
         }
     }
 
+    /**richiede e restituisce gli oggetti del gioco
+     *
+     * @return oggetti gioco
+     */
     public GameVO requestGameVO() {
         if (gameMode == GameMode.OFFLINE) {
             return GUICoreMediator.requestGameVO();
@@ -177,6 +259,10 @@ public class ClientMediator {
         }
     }
 
+    /**Richiede e restituisce i dati per il report della scoreboard
+     *
+     * @return matrice dati
+     */
     public Object[][] requestDataReport() {
         if (gameMode == GameMode.OFFLINE) {
             return GUICoreMediator.requestDataReport();
@@ -188,4 +274,5 @@ public class ClientMediator {
             }
         }
     }
+
 }
