@@ -20,8 +20,8 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
     private MenuJMB menuJMB;
     private ToolBarJTB toolBarJTB;
     private ToolBarJTB statusBarJTB;
-    private NewOffLineGameJIF newOnLineGameJIF;
-    private NewOffLineGameJIF newGameJIF;
+    private NewGameJIF newOnLineGameJIF;
+    private NewGameJIF newGameJIF;
     private LoadGameJIF loadGameJIF;
     private OffLineGameJIF gameJIF;
     private OnLineGameJIF gameonlineJIF;
@@ -96,7 +96,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
             internalFrameHeight = 500;
             xbound = (desktopWidth - internalFrameWidth) / 2;
             ybound = (desktopHeight - internalFrameHeight) / 2;
-            newOnLineGameJIF = new NewOffLineGameJIF(true);
+            newOnLineGameJIF = new NewGameJIF(true);
             newOnLineGameJIF.setPreferredSize(new Dimension(internalFrameWidth, internalFrameHeight));
             newOnLineGameJIF.setBounds(xbound, ybound, internalFrameWidth, internalFrameHeight);
             newOnLineGameJIF.setVisible(true);
@@ -109,7 +109,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
             internalFrameHeight = 500;
             xbound = (desktopWidth - internalFrameWidth) / 2;
             ybound = (desktopHeight - internalFrameHeight) / 2;
-            newGameJIF = new NewOffLineGameJIF(false);
+            newGameJIF = new NewGameJIF(false);
             newGameJIF.setPreferredSize(new Dimension(internalFrameWidth, internalFrameHeight));
             newGameJIF.setBounds(xbound, ybound, internalFrameWidth, internalFrameHeight);
             newGameJIF.setVisible(true);
@@ -203,7 +203,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
      * @param e
      */
     public void internalFrameClosed(InternalFrameEvent e) {
-        if (e.getInternalFrame() instanceof NewOffLineGameJIF) {
+        if (e.getInternalFrame() instanceof NewGameJIF) {
         } else if (e.getInternalFrame() instanceof LoadGameJIF) {
             refreshMenuItem();
         } else if (e.getInternalFrame() instanceof OffLineGameJIF) {
