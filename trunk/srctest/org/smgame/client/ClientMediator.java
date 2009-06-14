@@ -31,7 +31,7 @@ public class ClientMediator {
     private GameMode gameMode;
     private IGameMediator stub;
 
-    /**Costruttore
+    /**Costruttore privato
      *
      * @throws java.lang.Exception
      */
