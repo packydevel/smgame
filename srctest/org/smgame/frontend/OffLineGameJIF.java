@@ -3,19 +3,15 @@ package org.smgame.frontend;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -24,7 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.InputVerifier;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -37,7 +32,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import org.smgame.core.GUICoreMediator;
+import org.smgame.client.ClientMediator;
 import org.smgame.util.Logging;
 
 public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
@@ -131,7 +126,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
     }
 
     private void initComponents() {
-        offLineGameVO = GUICoreMediator.requestOffLineGameVO();
+        offLineGameVO = ClientMediator.getInstance().requestOffLineGameVO();
         playerList = offLineGameVO.getPlayerIndexList();
 
         size = playerList.size();
@@ -278,7 +273,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
     }
 
     private void initBoard() {
-        offLineGameVO = GUICoreMediator.requestOffLineGameVO();
+        offLineGameVO = ClientMediator.getInstance().requestOffLineGameVO();
         refreshComponent();
     }
 
@@ -349,10 +344,10 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             }
         }
 
-        GUICoreMediator.requestCard(i, bet);
+        ClientMediator.getInstance().requestCard(i, bet);
         resetBetJTF(i);
         offLineGameVO =
-                GUICoreMediator.requestOffLineGameVO();
+                ClientMediator.getInstance().requestOffLineGameVO();
         refreshComponent();
 
     } //end request card
@@ -368,17 +363,17 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
             }
         }
 
-        GUICoreMediator.declareGoodScore(i, bet);
+        ClientMediator.getInstance().declareGoodScore(i, bet);
         resetBetJTF(i);
         offLineGameVO =
-                GUICoreMediator.requestOffLineGameVO();
+                ClientMediator.getInstance().requestOffLineGameVO();
         refreshComponent();
     }
 
     private void refreshComponent() {
         int bank = -1;
-        setTitle(GUICoreMediator.getGameTitle() + offLineGameVO.getCurrentManche());
-        Object[][] dataReport = GUICoreMediator.requestDataReport();
+        setTitle(ClientMediator.getInstance().getGameTitle() + offLineGameVO.getCurrentManche());
+        Object[][] dataReport = ClientMediator.getInstance().requestDataReport();
 
         for (int i = 0; i < offLineGameVO.getPlayerIndexList().size(); i++) {
             ((JLabel) playerNameMapJP.get(i).getComponent(0)).setText(offLineGameVO.getPlayerCreditMap().get(i));

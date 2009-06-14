@@ -62,10 +62,10 @@ public class ClientMediator {
     }
 
     private void createGame(GameMode gameMode, String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) {
+        this.gameMode = gameMode;
         if (gameMode == GameMode.OFFLINE) {
             GUICoreMediator.createGame(gameName, gameSetting, playerNameList, playerTypeList);
         } else {
-            this.gameMode = gameMode;
             try {
                 stub.createGame(gameName, gameSetting, playerNameList, playerTypeList);
             } catch (Exception e) {
@@ -137,16 +137,24 @@ public class ClientMediator {
     }
 
     public void requestCard(int playerIndex, double bet) {
-        try {
-            stub.requestCard(playerIndex, bet);
-        } catch (Exception e) {
+        if (gameMode == GameMode.OFFLINE) {
+            GUICoreMediator.requestCard(playerIndex, bet);
+        } else {
+            try {
+                stub.requestCard(playerIndex, bet);
+            } catch (Exception e) {
+            }
         }
     }
 
     public void declareGoodScore(int playerIndex, double bet) {
-        try {
-            stub.declareGoodScore(playerIndex, bet);
-        } catch (Exception e) {
+        if (gameMode == GameMode.OFFLINE) {
+            GUICoreMediator.declareGoodScore(playerIndex, bet);
+        } else {
+            try {
+                stub.declareGoodScore(playerIndex, bet);
+            } catch (Exception e) {
+            }
         }
     }
 
@@ -159,10 +167,15 @@ public class ClientMediator {
     }
 
     public OffLineGameVO requestOffLineGameVO() {
-        try {
-            return stub.requestOffLineGameVO();
-        } catch (Exception e) {
-            return null;
+        if (gameMode == GameMode.OFFLINE) {
+            return GUICoreMediator.requestOffLineGameVO();
+        } else {
+            try {
+                return stub.requestOffLineGameVO();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
         }
     }
 
