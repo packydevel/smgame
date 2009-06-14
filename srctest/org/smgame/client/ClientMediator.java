@@ -166,7 +166,7 @@ public class ClientMediator {
 
     public GameVO requestGameVO() {
         if (gameMode == GameMode.OFFLINE) {
-            return GUICoreMediator.requestOffLineGameVO();
+            return GUICoreMediator.requestGameVO();
         } else {
             try {
                 return stub.requestGameVO();
