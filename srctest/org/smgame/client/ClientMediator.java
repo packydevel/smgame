@@ -35,7 +35,6 @@ public class ClientMediator {
         Registry registry = LocateRegistry.getRegistry("localhost");
 
         stub = (IGameMediator) registry.lookup("//localhost/ServerMediator");
-
     }
 
     public static ClientMediator getInstance() {

@@ -3,7 +3,6 @@ package org.smgame.core;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import org.smgame.core.GameEngine;
 import org.smgame.core.card.Deck;
 import org.smgame.core.player.PlayerList;
 
