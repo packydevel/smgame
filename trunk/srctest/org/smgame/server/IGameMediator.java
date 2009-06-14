@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.server;
 
 import java.io.FileNotFoundException;
@@ -15,7 +11,7 @@ import org.smgame.frontend.MenuVO;
 import org.smgame.frontend.GameVO;
 import org.smgame.util.NoGamesException;
 
-/**
+/**Interfaccia game mediator
  *
  * @author packyuser
  */
