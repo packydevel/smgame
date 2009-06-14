@@ -76,7 +76,7 @@ public class GUICoreMediator {
                 playerList.getPlayerAL().add(new HumanPlayer(playerNameList.get(i)));
             }
             playerList.getPlayerAL().get(i).setCredit(1000);
-            playerList.getPlayerAL().get(i).setPlayerList(playerList);
+            //playerList.getPlayerAL().get(i).setPlayerList(playerList);
         }
 
         currentGame = new Game();
