@@ -25,7 +25,7 @@ import org.smgame.frontend.LoadGameVO;
 import org.smgame.frontend.MainVO;
 import org.smgame.frontend.MenuVO;
 import org.smgame.frontend.MessageType;
-import org.smgame.frontend.OffLineGameVO;
+import org.smgame.frontend.GameVO;
 import org.smgame.frontend.OnLineGameVO;
 import org.smgame.util.BetOverflowException;
 import org.smgame.util.Common;
@@ -44,7 +44,7 @@ public class GUICoreMediator {
     private static HashMap<Long, Game> gameMap = new HashMap<Long, Game>();
     private static MainVO mainVO = new MainVO();
     private static MenuVO menuVO = new MenuVO();
-    private static OffLineGameVO offLineGameVO = new OffLineGameVO();
+    private static GameVO offLineGameVO = new GameVO();
     private static OnLineGameVO onLineGameVO = new OnLineGameVO();
     private static LoadGameVO loadGameVO = new LoadGameVO();
     private static Game currentGame = null;
@@ -340,11 +340,11 @@ public class GUICoreMediator {
         return menuVO;
     }
 
-    /**Richiede l'oggetto OffLineGameVO
+    /**Richiede l'oggetto GameVO
      *
      * @return
      */
-    public static OffLineGameVO requestOffLineGameVO() {
+    public static GameVO requestOffLineGameVO() {
 
         ArrayList<ImageIcon> playerCardsImageList = new ArrayList<ImageIcon>();
 

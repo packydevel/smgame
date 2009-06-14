@@ -114,7 +114,7 @@ public class LoadGameJIF extends JInternalFrame implements IGameJIF {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                fireNewOffLineGameEvent(new NewOffLineGameEvent(this));
+                fireNewGameEvent(new NewGameEvent(this));
                 dispose();
             }
         }
@@ -132,13 +132,13 @@ public class LoadGameJIF extends JInternalFrame implements IGameJIF {
     }
 
     // This private class is used to fire MyEvents
-    void fireNewOffLineGameEvent(NewOffLineGameEvent e) {
+    void fireNewGameEvent(NewGameEvent e) {
         Object[] listeners = listenerList.getListenerList();
         for (int i = 0; i <
                 listeners.length; i +=
                         2) {
             if (listeners[i] == NewGameListener.class) {
-                ((NewGameListener) listeners[i + 1]).newOffLineGameCreating(e);
+                ((NewGameListener) listeners[i + 1]).newGameCreating(e);
             }
         }
     }

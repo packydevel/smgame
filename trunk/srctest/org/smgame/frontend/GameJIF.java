@@ -35,7 +35,7 @@ import javax.swing.border.TitledBorder;
 import org.smgame.client.ClientMediator;
 import org.smgame.util.Logging;
 
-public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
+public class GameJIF extends JInternalFrame implements IGameJIF {
 
     private ArrayList<Integer> playerList;
     private HashMap<Integer, JPanel> playerNameMapJP;
@@ -45,7 +45,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
     private HashMap<Integer, JLabel> playerStatusMapJL;
     private HashMap<Integer, JPanel> playerActionMapJP; //Lista pannelli giocatore-carte
     private List<JLabel> playerCardsListJL;
-    private OffLineGameVO offLineGameVO;
+    private GameVO offLineGameVO;
     private GridBagConstraints panelGBC,  labelGBC,  textFieldGBC,  buttonGBC;
     private int size,  currentIndex;
     private BetInputVerifier betInputVerifier = new BetInputVerifier();
@@ -115,7 +115,7 @@ public class OffLineGameJIF extends JInternalFrame implements IGameJIF {
     /**Costruttore
      *
      */
-    public OffLineGameJIF() {
+    public GameJIF() {
         super(null, false, true, false, false);
 
         setLayout(new GridBagLayout());

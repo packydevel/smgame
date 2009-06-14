@@ -12,7 +12,7 @@ import java.util.List;
 import org.smgame.core.GameSetting;
 import org.smgame.frontend.LoadGameVO;
 import org.smgame.frontend.MenuVO;
-import org.smgame.frontend.OffLineGameVO;
+import org.smgame.frontend.GameVO;
 import org.smgame.frontend.OnLineGameVO;
 import org.smgame.util.NoGamesException;
 
@@ -49,7 +49,7 @@ public interface IGameMediator extends Remote {
 
     public MenuVO requestMenuVO() throws RemoteException;
 
-    public OffLineGameVO requestOffLineGameVO() throws RemoteException;
+    public GameVO requestOffLineGameVO() throws RemoteException;
 
     public OnLineGameVO requestOnLineGameVO() throws RemoteException;
 

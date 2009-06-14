@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.ImageIcon;
 
-public class OffLineGameVO implements Serializable {
+public class GameVO implements Serializable {
 
     private ArrayList<Integer> playerList = new ArrayList<Integer>();
     private HashMap<Integer, String> playerNameMap = new HashMap<Integer, String>();
