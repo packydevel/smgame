@@ -1,15 +1,14 @@
 package org.smgame.core.player;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import org.smgame.core.card.Point;
 import org.smgame.core.card.Suit;
 
 /**Classe giocatore CPU
  *
- * @author luca
- * @author pasquale
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class CPUPlayer extends Player implements Serializable {
 

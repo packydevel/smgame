@@ -1,7 +1,9 @@
 package org.smgame.core.player;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
+
 import org.smgame.core.card.Card;
 import org.smgame.core.card.JollyCard;
 import org.smgame.core.card.Point;
@@ -9,8 +11,8 @@ import org.smgame.core.card.Suit;
 
 /**Classe astratta Giocatore
  * 
- * @author luca
- * @author pasquale
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public abstract class Player implements Serializable {
     
@@ -59,10 +61,18 @@ public abstract class Player implements Serializable {
         this.credit = credit;
     }
 
+    /**Restituisce  la lista delle puntate
+     *
+     * @return lista puntate
+     */
     public ArrayList<Double> getBetList() {
         return betList;
     }
 
+    /**Restituisce la lista delle carte
+     *
+     * @return lista di card
+     */
     public ArrayList<Card> getCardList() {
         return cardList;
     }
@@ -100,7 +110,10 @@ public abstract class Player implements Serializable {
         return score;
     }
 
-    //restituisce il punteggio visibile
+    /**restituisce il punteggio visibile
+     *
+     * @return punteggio
+     */
     double getVisibleScore() {
         Card firstCard = cardList.get(0);
         double score = 0.00;
@@ -133,7 +146,7 @@ public abstract class Player implements Serializable {
 
     /**verifica se c'è sette e mezzo
      *
-     * @return
+     * @return true = sette e mezzo
      */
     public boolean hasSM() {
         if (getScore() == 7.5) {
@@ -144,7 +157,7 @@ public abstract class Player implements Serializable {
 
     /**verifica se c'è sette e mezzo reale
      *
-     * @return
+     * @return true = sm reale
      */
     public boolean hasKingSM() {
         if (hasSM() && cardList.size() == 2) {
@@ -155,7 +168,7 @@ public abstract class Player implements Serializable {
 
     /**Verifica se c'è sette e mezzo reale con matta
      *
-     * @return
+     * @return true = sm reale matta
      */
     public boolean hasJollyKingSM() {
         if (hasKingSM() &&
@@ -169,7 +182,7 @@ public abstract class Player implements Serializable {
     /**Restituisce il ruolo corrente
      * se mazziere o giocatore
      *
-     * @return
+     * @return ruolo
      */
     public PlayerRole getRole() {
         return role;
@@ -177,7 +190,7 @@ public abstract class Player implements Serializable {
 
     /**imposta il ruolo corrente
      *
-     * @param role
+     * @param role ruolo
      */
     public void setRole(PlayerRole role) {
         this.role = role;
@@ -185,7 +198,7 @@ public abstract class Player implements Serializable {
 
     /**imposta la lista dei giocatori
      *
-     * @param playerList
+     * @param playerList lista
      */
     public void setPlayerList(PlayerList playerList) {
         this.playerList = playerList;
@@ -193,7 +206,7 @@ public abstract class Player implements Serializable {
 
     /**Restituisce la puntata
      * 
-     * @return
+     * @return puntata
      */
     public double getStake() {
         double stake = 0;
@@ -207,7 +220,7 @@ public abstract class Player implements Serializable {
 
     /**restituisce lo stato
      *
-     * @return
+     * @return stato
      */
     public PlayerStatus getStatus() {
         return status;
@@ -215,7 +228,7 @@ public abstract class Player implements Serializable {
 
     /**imposta lo stato
      *
-     * @param status
+     * @param status stato
      */
     public void setStatus(PlayerStatus status) {
         this.status = status;
@@ -223,7 +236,7 @@ public abstract class Player implements Serializable {
 
     /**Restituisce l'ammontare dell'ultima vincita/perdita
      *
-     * @return
+     * @return vincita/perdita
      */
     public double getLastWinLoseAmount() {
         return lastWinLoseAmount;
