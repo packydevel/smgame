@@ -390,12 +390,12 @@ public class GUICoreMediator {
                     playerCardsImageList.set(j, ImageEdit.grayScaleImage(playerCardsImageList.get(j)));
                 }
             }
-
-            if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer())) {
-                offLineGameVO.getPlayerFirstCardDiscoveredMap().put(i, Boolean.TRUE);
-            } else {
-                offLineGameVO.getPlayerFirstCardDiscoveredMap().put(i, Boolean.FALSE);
-            }
+//
+//            if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer())) {
+//                offLineGameVO.getPlayerFirstCardDiscoveredMap().put(i, Boolean.TRUE);
+//            } else {
+//                offLineGameVO.getPlayerFirstCardDiscoveredMap().put(i, Boolean.FALSE);
+//            }
 
             offLineGameVO.getPlayerStakeMap().put(i, "Puntata: " +
                     numberFormat.format(tempPlayer.getStake()));
@@ -414,22 +414,22 @@ public class GUICoreMediator {
             }
 
             if (tempPlayer.equals(currentGame.getGameEngine().getBankPlayer())) {
-                offLineGameVO.getPlayerRoleMap().put(i, Boolean.TRUE);
+                offLineGameVO.getPlayerRoleMap().put(i, true);
             } else {
-                offLineGameVO.getPlayerRoleMap().put(i, Boolean.FALSE);
+                offLineGameVO.getPlayerRoleMap().put(i, false);
             }
 
             if (tempPlayer.getBetList().size() > 0 || tempPlayer.getRole() == PlayerRole.Bank) {
-                offLineGameVO.getPlayerRequestBetMap().put(i, Boolean.FALSE);
+                offLineGameVO.getPlayerRequestBetMap().put(i, false);
             } else {
-                offLineGameVO.getPlayerRequestBetMap().put(i, Boolean.TRUE);
+                offLineGameVO.getPlayerRequestBetMap().put(i, true);
             }
 
             if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) &&
                     !currentGame.getGameEngine().isEndManche() && !currentGame.getGameEngine().isEndGame()) {
-                offLineGameVO.getPlayerPlayingMap().put(i, Boolean.TRUE);
+                offLineGameVO.getPlayerPlayingMap().put(i, true);
             } else {
-                offLineGameVO.getPlayerPlayingMap().put(i, Boolean.FALSE);
+                offLineGameVO.getPlayerPlayingMap().put(i, false);
             }
         } //end for
 
