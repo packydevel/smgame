@@ -8,8 +8,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 
 import org.smgame.backend.DBAccess;
-import org.smgame.frontend.MessageType;
-import org.smgame.frontend.ServerVO;
+import org.smgame.client.frontend.MessageType;
+import org.smgame.server.frontend.ServerVO;
 
 /**Server RMI
  *

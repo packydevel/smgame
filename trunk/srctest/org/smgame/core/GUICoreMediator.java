@@ -21,11 +21,11 @@ import javax.swing.ImageIcon;
 
 import org.smgame.backend.DBTransactions;
 import org.smgame.core.player.*;
-import org.smgame.frontend.LoadGameVO;
-import org.smgame.frontend.MainVO;
-import org.smgame.frontend.MenuVO;
-import org.smgame.frontend.MessageType;
-import org.smgame.frontend.GameVO;
+import org.smgame.client.frontend.LoadGameVO;
+import org.smgame.client.frontend.MainVO;
+import org.smgame.client.frontend.MenuVO;
+import org.smgame.client.frontend.MessageType;
+import org.smgame.client.frontend.GameVO;
 import org.smgame.util.BetOverflowException;
 import org.smgame.util.Common;
 import org.smgame.util.ImageEdit;

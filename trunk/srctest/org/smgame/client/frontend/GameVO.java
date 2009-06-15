@@ -1,4 +1,4 @@
-package org.smgame.frontend;
+package org.smgame.client.frontend;
 
 import java.io.Serializable;
 import java.util.ArrayList;
