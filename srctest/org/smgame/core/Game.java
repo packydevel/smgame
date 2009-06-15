@@ -1,15 +1,17 @@
 package org.smgame.core;
 
 import java.io.Serializable;
+
 import java.util.Date;
 import java.util.GregorianCalendar;
+
 import org.smgame.core.card.Deck;
 import org.smgame.core.player.PlayerList;
 
 /**Classe gioco
  *
- * @author luca
- * @author pasquale
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class Game implements Serializable {
 
@@ -23,13 +25,14 @@ public class Game implements Serializable {
     private PlayerList playerList;
     private Date creationDate,  lastSaveDate;
 
-    //Costruttore privato
-    public Game() {
-    }
+    /**Costruttore vuoto
+     *
+     */
+    public Game() { }
 
     /**imposta la data di creazione
      *
-     * @param creationDate
+     * @param creationDate data creazione
      */
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
@@ -37,7 +40,7 @@ public class Game implements Serializable {
 
     /**imposta il mazzo
      *
-     * @param deck
+     * @param deck mazzo
      */
     public void setDeck(Deck deck) {
         this.deck = deck;
@@ -61,29 +64,41 @@ public class Game implements Serializable {
         this.gameID = new GregorianCalendar().getTimeInMillis();
     }
 
+    /**Restituisce l'id della partita
+     *
+     * @return id
+     */
     public long getGameID() {
         return gameID;
     }
 
     /**imposta il nome della partita
      *
-     * @param gameName
+     * @param gameName nome
      */
     public void setGameName(String gameName) {
         this.gameName = gameName;
     }
 
+    /**Restituisce il tipo di partita
+     *
+     * @return tipo partita
+     */
     public GameMode getGameMode() {
         return gameMode;
     }
 
+    /**Imposta il tipo di partita
+     *
+     * @param gameMode tipo partita
+     */
     public void setGameMode(GameMode gameMode) {
         this.gameMode = gameMode;
     }
 
     /**imposta i settaggi della partita
      *
-     * @param gameSetting
+     * @param gameSetting settaggi
      */
     public void setGameSetting(GameSetting gameSetting) {
         this.gameSetting = gameSetting;
@@ -91,7 +106,7 @@ public class Game implements Serializable {
 
     /**imposta l'ultima data salvata
      *
-     * @param lastSaveDate
+     * @param lastSaveDate data
      */
     public void setLastSaveDate(Date lastSaveDate) {
         this.lastSaveDate = lastSaveDate;
@@ -99,7 +114,7 @@ public class Game implements Serializable {
 
     /**imposta la lista dei player
      *
-     * @param playerList
+     * @param playerList lista giocatori
      */
     public void setPlayerList(PlayerList playerList) {
         this.playerList = playerList;
@@ -107,7 +122,7 @@ public class Game implements Serializable {
 
     /**Restituisce il nome della partita
      *
-     * @return
+     * @return nome
      */
     public String getGameName() {
         return gameName;
@@ -115,7 +130,7 @@ public class Game implements Serializable {
 
     /**Restituisce la data di creazione
      *
-     * @return
+     * @return data
      */
     public Date getCreationDate() {
         return creationDate;
@@ -123,7 +138,7 @@ public class Game implements Serializable {
 
     /**Restituisce la data dell'ultimo salvataggio
      *
-     * @return
+     * @return data
      */
     public Date getLastSaveDate() {
         return lastSaveDate;
@@ -131,7 +146,7 @@ public class Game implements Serializable {
 
     /**restituisce la lista dei player
      *
-     * @return
+     * @return lista giocatori
      */
     public PlayerList getPlayerList() {
         return playerList;
@@ -139,20 +154,19 @@ public class Game implements Serializable {
 
     /**restituisce il motore di gioco
      *
-     * @return
+     * @return motore
      */
     public GameEngine getGameEngine() {
         return gameEngine;
     }
-
+/*
     public void printTest() {
         System.out.println("Sequenza iniziale di Carte");
         deck.print();
-
         System.out.println("");
-
         System.out.println("Sequenza di Carte dopo mescolamento:");
         deck.shuffle();
         deck.print();
     }
+*/
 }

@@ -19,8 +19,8 @@ import org.smgame.util.ScoreOverflowException;
 
 /**Classe GameEngine, motore di gioco
  *
- * @author luca
- * @author pasquale
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class GameEngine implements Serializable {
 
@@ -35,7 +35,7 @@ public class GameEngine implements Serializable {
     private Player currentPlayer;
     private Player playerHasFirstKingSM;
 
-    /**costruttore privato
+    /**costruttore vuoto
      * 
      */
     public GameEngine() { }
@@ -57,7 +57,7 @@ public class GameEngine implements Serializable {
         this.deck = deck;
     }
 
-    /**imposta i settaggi di gioco
+    /**imposta i settaggi di gioco della partita corrente
      *
      * @param gameSetting settaggi
      */
@@ -136,7 +136,7 @@ public class GameEngine implements Serializable {
 
     /**Restituisce il mazziere
      *
-     * @return
+     * @return mazziere
      */
     public Player getBankPlayer() {
         return bankPlayer;
@@ -144,7 +144,7 @@ public class GameEngine implements Serializable {
 
     /**seleziona il primo mazziere della partita
      *
-     * @return giocatore mazziere
+     * @return mazziere
      */
     private Player selectFirstRandomBankPlayer() {
         List<Player> tempList = new ArrayList<Player>(playerList.getPlayerAL());
@@ -296,7 +296,7 @@ public class GameEngine implements Serializable {
 
     /**restituisce il giocatore corrente
      *
-     * @return
+     * @return player
      */
     public Player getCurrentPlayer() {
         return currentPlayer;
@@ -332,6 +332,10 @@ public class GameEngine implements Serializable {
         }
     }
 
+    /**Restituisce manche corrente
+     *
+     * @return numero manche
+     */
     public int getCurrentManche() {
         return currentManche;
     }
@@ -350,7 +354,7 @@ public class GameEngine implements Serializable {
 
     /**controlla se è terminata la manche
      *
-     * @return
+     * @return true = terminata
      */
     public boolean isEndManche() {
         if (currentPlayer.equals(bankPlayer) && currentPlayer.getStatus() != null) {
@@ -361,7 +365,7 @@ public class GameEngine implements Serializable {
 
     /**Controlla se è terminata la partita
      *
-     * @return
+     * @return true = terminata
      */
     public boolean isEndGame() {
         if ((gameSetting.getManches() == currentManche && isEndManche()) ||

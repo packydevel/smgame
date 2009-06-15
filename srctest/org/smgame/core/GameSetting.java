@@ -2,14 +2,11 @@ package org.smgame.core;
 
 import java.io.Serializable;
 import org.smgame.core.card.Card;
-import org.smgame.core.card.Deck;
-import org.smgame.core.card.Point;
-import org.smgame.core.card.Suit;
 
 /**Classe settaggi gioco
  *
- * @author luca
- * @author pasquale
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class GameSetting implements Serializable {
 
@@ -27,7 +24,9 @@ public class GameSetting implements Serializable {
     private int jollyValue;
     private String kingSMPayRule;
 
-    //Costruttore privato
+    /**Costruttore
+     *
+     */
     public GameSetting() {
         manches = 10;
         credit = MIN_CREDIT;
@@ -49,7 +48,7 @@ public class GameSetting implements Serializable {
 
     /**restituisce il numero di manches
      *
-     * @return
+     * @return numero
      */
     public int getManches() {
         return manches;
@@ -57,7 +56,7 @@ public class GameSetting implements Serializable {
 
     /**imposta il numero di manches
      *
-     * @param manches
+     * @param manches numero
      */
     public void setManches(int manches) {
         if (manches < MIN_PLAYERS || manches > MAX_PLAYERS) {
@@ -69,7 +68,7 @@ public class GameSetting implements Serializable {
 
     /**imposta il credito
      *
-     * @param credit
+     * @param credit credito
      */
     public void setCredit(double credit) {
         if (credit < MIN_CREDIT || manches > MAX_CREDIT) {
