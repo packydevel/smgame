@@ -1,19 +1,16 @@
 package org.smgame.server.frontend;
 
 import java.awt.BorderLayout;
-import org.smgame.client.frontend.MessageType;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-
-
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -27,6 +24,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import org.smgame.core.GUICoreMediator;
+import org.smgame.client.frontend.MessageType;
 import org.smgame.server.RMIServer;
 
 /**internal frame new game
@@ -73,21 +71,18 @@ public class ServerJF extends JFrame implements WindowListener {
                 "Monitor delle attività del Server");
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
-        configJP = new JPanel();
-        tabbedPane.addTab("Configurazione", null, configJP,
-                "Configurazione del Server");
-        tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
-
-        statusJP.setLayout(new GridBagLayout());
-        monitorJP.setLayout(new GridBagLayout());
-        configJP.setLayout(new GridBagLayout());
-
-
         panelGBC = new GridBagConstraints();
         panelGBC.weightx = 0;
         panelGBC.weighty = 0;
         panelGBC.insets = new Insets(2, 2, 2, 2);
         panelGBC.anchor = GridBagConstraints.NORTHWEST;
+        initConfigJP(panelGBC);
+        tabbedPane.addTab("Configurazione", null, configJP,
+                "Configurazione del Server");
+        tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
+
+        statusJP.setLayout(new GridBagLayout());
+        monitorJP.setLayout(new GridBagLayout());                
 
         labelGBC = new GridBagConstraints();
         labelGBC.weightx = 0;
@@ -117,27 +112,7 @@ public class ServerJF extends JFrame implements WindowListener {
         buttonGBC.weightx = 0;
         buttonGBC.weighty = 0;
         buttonGBC.insets = new Insets(2, 2, 2, 2);
-        buttonGBC.anchor = GridBagConstraints.CENTER;
-
-
-        fileJP = new JPanel();
-        fileJP.setPreferredSize(new Dimension(450, 100));
-        fileJP.setLayout(new BorderLayout());
-        fileJP.setBorder(BorderFactory.createTitledBorder("Path del File delle Partite"));
-        panelGBC.gridx = 0;
-        panelGBC.gridy = 0;
-        configJP.add(fileJP, panelGBC);
-
-        databaseJP = new JPanel();
-        databaseJP.setPreferredSize(new Dimension(450, 100));
-        databaseJP.setLayout(new BorderLayout());
-        databaseJP.setBorder(BorderFactory.createTitledBorder("Parametri di Connessione al Database"));
-        panelGBC.gridx = 0;
-        panelGBC.gridy = 1;
-        configJP.add(databaseJP, panelGBC);
-
-        pathJL = new JLabel("Path");
-        fileJP.add(BorderLayout.NORTH, pathJL);
+        buttonGBC.anchor = GridBagConstraints.CENTER;                        
 
 //
 //        gameNameJL = new JLabel("Nome Partita:");
@@ -217,23 +192,8 @@ public class ServerJF extends JFrame implements WindowListener {
                 serverAction(evt);
             }
         });
-        statusJP.add(stopJB, buttonGBC);
+        statusJP.add(stopJB, buttonGBC);        
 
-        pathJB = new JButton("Scegli il Path");
-        //pathJB.setMinimumSize(new Dimension(70, 20));
-        //pathJB.setMaximumSize(new Dimension(70, 20));
-        //pathJB.setPreferredSize(new Dimension(70, 20));
-        pathJB.setSize(new Dimension(70, 20));
-        pathJB.setEnabled(true);
-        pathJB.setVisible(true);
-        pathJB.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent evt) {
-                serverAction(evt);
-            }
-        });
-        fileJP.add(BorderLayout.SOUTH, pathJB);
-//
 //        textFieldGBC.fill = GridBagConstraints.NONE;
 //
 //        mancheNumberJL = new JLabel("Numero Manches:");
@@ -287,6 +247,47 @@ public class ServerJF extends JFrame implements WindowListener {
 
     public String getEventSource() {
         return eventSource;
+    }
+
+    private void initConfigJP(GridBagConstraints panelGBC){
+        configJP = new JPanel();
+        configJP.setLayout(new GridBagLayout());
+
+        fileJP = new JPanel();
+        fileJP.setPreferredSize(new Dimension(450, 100));
+        fileJP.setLayout(new BorderLayout());
+        fileJP.setBorder(BorderFactory.createTitledBorder("Path del File delle Partite"));
+
+        pathJL = new JLabel("Path");
+        fileJP.add(pathJL, BorderLayout.NORTH);
+
+        pathJB = new JButton("Scegli il Path");
+        pathJB.setSize(new Dimension(70, 20));
+        pathJB.setPreferredSize(new Dimension(70, 20));
+        pathJB.setMinimumSize(new Dimension(70, 20));
+        pathJB.setMaximumSize(new Dimension(70, 20));                
+        pathJB.setEnabled(true);
+        pathJB.setVisible(true);
+
+        pathJB.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                serverAction(evt);
+            }
+        });
+        fileJP.add(pathJB, BorderLayout.SOUTH);
+
+        databaseJP = new JPanel();
+        databaseJP.setPreferredSize(new Dimension(450, 100));
+        databaseJP.setLayout(new BorderLayout());
+        databaseJP.setBorder(BorderFactory.createTitledBorder("Parametri di Connessione al Database"));
+
+        panelGBC.gridx = 0;
+        panelGBC.gridy = 0;
+        configJP.add(fileJP, panelGBC);
+
+        //panelGBC.gridx = 0;
+        panelGBC.gridy = 1;
+        configJP.add(databaseJP, panelGBC);
     }
 
     private void serverAction(ActionEvent e) {
