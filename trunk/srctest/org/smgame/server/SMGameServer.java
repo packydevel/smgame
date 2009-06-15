@@ -5,6 +5,7 @@
 package org.smgame.server;
 
 import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
+import java.rmi.RMISecurityManager;
 import javax.swing.UIManager;
 import org.smgame.server.frontend.ServerJF;
 import org.smgame.util.Logging;
@@ -16,6 +17,8 @@ import org.smgame.util.Logging;
 public class SMGameServer {
 
     public static void main(String[] args) throws Exception {
+        System.setSecurityManager(new RMISecurityManager());
+        
         try {
             UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
         } catch (Exception e) {

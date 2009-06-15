@@ -1,7 +1,9 @@
 package org.smgame.server.frontend;
 
+import java.awt.BorderLayout;
 import org.smgame.client.frontend.MessageType;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -12,9 +14,11 @@ import java.awt.event.KeyEvent;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
+import org.smgame.core.GUICoreMediator;
 import org.smgame.server.RMIServer;
 
 /**internal frame new game
@@ -35,9 +40,9 @@ public class ServerJF extends JFrame implements WindowListener {
     ServerVO serverVO;
     JPanel statusJP, monitorJP, configJP, fileJP, databaseJP;
     GridBagConstraints panelGBC, labelGBC, textFieldGBC, comboBoxGBC, checkBoxGBC, buttonGBC;
-    JLabel playersNumberJL, cpuflagJL, mancheNumberJL, jollyCardJL, kingSMPayRuleJL;
+    JLabel pathJL, playersNumberJL, cpuflagJL, mancheNumberJL, jollyCardJL, kingSMPayRuleJL;
     JComboBox playersNumberJCB;
-    JButton startJB, stopJB;
+    JButton startJB, stopJB, pathJB;
     JButton okJB;
     JCheckBox allcpuflagJCKB;
     JCheckBox cpuflagJCKB[];
@@ -116,12 +121,23 @@ public class ServerJF extends JFrame implements WindowListener {
 
 
         fileJP = new JPanel();
+        fileJP.setPreferredSize(new Dimension(450, 100));
+        fileJP.setLayout(new BorderLayout());
+        fileJP.setBorder(BorderFactory.createTitledBorder("Path del File delle Partite"));
+        panelGBC.gridx = 0;
+        panelGBC.gridy = 0;
         configJP.add(fileJP, panelGBC);
 
         databaseJP = new JPanel();
+        databaseJP.setPreferredSize(new Dimension(450, 100));
+        databaseJP.setLayout(new BorderLayout());
+        databaseJP.setBorder(BorderFactory.createTitledBorder("Parametri di Connessione al Database"));
+        panelGBC.gridx = 0;
+        panelGBC.gridy = 1;
         configJP.add(databaseJP, panelGBC);
 
-
+        pathJL = new JLabel("Path");
+        fileJP.add(BorderLayout.NORTH, pathJL);
 
 //
 //        gameNameJL = new JLabel("Nome Partita:");
@@ -202,6 +218,21 @@ public class ServerJF extends JFrame implements WindowListener {
             }
         });
         statusJP.add(stopJB, buttonGBC);
+
+        pathJB = new JButton("Scegli il Path");
+        //pathJB.setMinimumSize(new Dimension(70, 20));
+        //pathJB.setMaximumSize(new Dimension(70, 20));
+        //pathJB.setPreferredSize(new Dimension(70, 20));
+        pathJB.setSize(new Dimension(70, 20));
+        pathJB.setEnabled(true);
+        pathJB.setVisible(true);
+        pathJB.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent evt) {
+                serverAction(evt);
+            }
+        });
+        fileJP.add(BorderLayout.SOUTH, pathJB);
 //
 //        textFieldGBC.fill = GridBagConstraints.NONE;
 //
@@ -260,6 +291,8 @@ public class ServerJF extends JFrame implements WindowListener {
 
     private void serverAction(ActionEvent e) {
 
+        JFileChooser fileJFC;
+
         if (((JButton) e.getSource()).equals(startJB)) {
             RMIServer.getInstance().start();
             serverVO = RMIServer.getInstance().requestServerVO();
@@ -273,6 +306,22 @@ public class ServerJF extends JFrame implements WindowListener {
             RMIServer.getInstance().stop();
             startJB.setEnabled(true);
             stopJB.setEnabled(false);
+        } else if (((JButton) e.getSource()).equals(pathJB)) {
+            fileJFC = new JFileChooser();
+            fileJFC.setDialogTitle("Seleziona una Directory");
+            fileJFC.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fileJFC.setFileHidingEnabled(true);
+            fileJFC.setMultiSelectionEnabled(false);
+
+            if (fileJFC.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+                GUICoreMediator.setSaveDirectory(fileJFC.getSelectedFile());
+                serverVO = GUICoreMediator.requestServerVO();
+                if (serverVO.messageType == MessageType.ERROR) {
+                    JOptionPane.showMessageDialog(this, serverVO.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    pathJL.setText(fileJFC.getSelectedFile().getPath());
+                }
+            }
         }
 //        int i;
 //        int y = 3;

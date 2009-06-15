@@ -44,6 +44,7 @@ public class RMIServer {
     }
 
     public void start() {
+        serverVO.clear();
 
         String bindName;
         IGameMediator stub;
@@ -53,7 +54,6 @@ public class RMIServer {
             Thread.sleep(5000);
 
             bindName = "//localhost/ServerMediator";
-            System.setSecurityManager(new RMISecurityManager());
             rmiregistry = LocateRegistry.getRegistry();
             stub = (IGameMediator) UnicastRemoteObject.exportObject(new Stub(), 0);//, 2005);
             rmiregistry.rebind(bindName, stub);
