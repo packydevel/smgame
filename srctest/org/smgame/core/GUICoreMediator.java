@@ -1,5 +1,6 @@
 package org.smgame.core;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -26,6 +27,7 @@ import org.smgame.client.frontend.MainVO;
 import org.smgame.client.frontend.MenuVO;
 import org.smgame.client.frontend.MessageType;
 import org.smgame.client.frontend.GameVO;
+import org.smgame.server.frontend.ServerVO;
 import org.smgame.util.BetOverflowException;
 import org.smgame.util.Common;
 import org.smgame.util.ImageEdit;
@@ -42,12 +44,13 @@ import org.smgame.util.ScoreOverflowException;
 public class GUICoreMediator {
 
     private static HashMap<Long, Game> gameMap = new HashMap<Long, Game>();
+    private static ServerVO serverVO = new ServerVO();
     private static MainVO mainVO = new MainVO();
     private static MenuVO menuVO = new MenuVO();
     private static GameVO gameVO = new GameVO();
     private static LoadGameVO loadGameVO = new LoadGameVO();
     private static Game currentGame = null;
-    private static final String FILENAME = Common.getWorkspace() + "games.dat";
+    private static String FILENAME = Common.getWorkspace() + "games.dat";
     private static final NumberFormat numberFormat = new DecimalFormat("#0.00");
     private static final DateFormat dateFormat = DateFormat.getInstance();
     private static final ImageIcon backImage = new ImageIcon(Common.getResourceCards("napoletane") + "dorso.jpg");
@@ -81,7 +84,7 @@ public class GUICoreMediator {
                 playerList.getPlayerAL().add(new HumanPlayer(playerNameList.get(i)));
             }
             playerList.getPlayerAL().get(i).setCredit(1000);
-            //playerList.getPlayerAL().get(i).setPlayerList(playerList);
+        //playerList.getPlayerAL().get(i).setPlayerList(playerList);
         }
 
         currentGame = new Game();
@@ -110,6 +113,23 @@ public class GUICoreMediator {
     public static void closeGame() {
         currentGame = null;
         gameVO.clear();
+    }
+
+    public static void setSaveDirectory(File file) {
+        String tempFileName = file.getPath() + File.separator + "games.dat";
+        File tempFile = new File(tempFileName);
+
+        serverVO.clear();
+
+        try {
+            tempFile.createNewFile();
+            tempFile.delete();
+            FILENAME = tempFileName;
+        } catch (Exception e) {
+
+            serverVO.setMessage("Impossibile Creare o Leggere il File delle Partite nella Directory Selezionata");
+            serverVO.setMessageType(MessageType.ERROR);
+        }
     }
 
     /**Salva partita
@@ -188,6 +208,10 @@ public class GUICoreMediator {
         gameMap = (HashMap<Long, Game>) ois.readObject();
         ois.close();
         fis.close();
+    }
+
+    public static ServerVO requestServerVO() {
+        return serverVO;
     }
 
     /**Richiede e restituisce l'oggetto mainVO corrente
@@ -416,7 +440,6 @@ public class GUICoreMediator {
         return gameVO;
     }
 
-
     /**setta la posizione del prossimo giocatore
      *
      */
@@ -447,7 +470,7 @@ public class GUICoreMediator {
     /**Aggiunge la transazione all'arraylist di transazioni
      *
      */
-    private static void addTransactionAL() {        
+    private static void addTransactionAL() {
         long game_id = currentGame.getGameID();
         for (Player p : currentGame.getPlayerList().getPlayerAL()) {
             DBTransactions dbt = new DBTransactions(game_id, currentGame.getGameEngine().getCurrentManche(),
