@@ -18,12 +18,17 @@ public class SMGameServer {
 
     public static void main(String[] args) throws Exception {
         System.setSecurityManager(new RMISecurityManager());
-        
-        try {
-            UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
-        } catch (Exception e) {
-            Logging.logExceptionSevere(e);
-        }
-        new ServerJF();
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
+                } catch (Exception e) {
+                    Logging.logExceptionSevere(e);
+                }
+                new ServerJF();
+            }
+        });
     }
 }

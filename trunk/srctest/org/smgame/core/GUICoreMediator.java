@@ -51,6 +51,7 @@ public class GUICoreMediator {
     private static LoadGameVO loadGameVO = new LoadGameVO();
     private static Game currentGame = null;
     private static String FILENAME = Common.getWorkspace() + "games.dat";
+    private static String FILEDIR = Common.getWorkspace();
     private static final NumberFormat numberFormat = new DecimalFormat("#0.00");
     private static final DateFormat dateFormat = DateFormat.getInstance();
     private static final ImageIcon backImage = new ImageIcon(Common.getResourceCards("napoletane") + "dorso.jpg");
@@ -115,7 +116,12 @@ public class GUICoreMediator {
         gameVO.clear();
     }
 
+    public static String getSaveDirectory() {
+        return FILEDIR;
+    }
+
     public static void setSaveDirectory(File file) {
+        String tempFileDir = file.getPath() + File.separator;
         String tempFileName = file.getPath() + File.separator + "games.dat";
         File tempFile = new File(tempFileName);
 
@@ -124,9 +130,9 @@ public class GUICoreMediator {
         try {
             tempFile.createNewFile();
             tempFile.delete();
+            FILEDIR = tempFileDir;
             FILENAME = tempFileName;
         } catch (Exception e) {
-
             serverVO.setMessage("Impossibile Creare o Leggere il File delle Partite nella Directory Selezionata");
             serverVO.setMessageType(MessageType.ERROR);
         }
