@@ -55,7 +55,7 @@ public class DBAccess {
      * @return connessione
      */
     public static Connection getConnection() throws ClassNotFoundException, SQLException, IOException {
-        if (conn == null) {
+        if ((conn == null) || (!conn.isValid(0))) {
             DBAccess dba = new DBAccess();
         }
         return conn;
