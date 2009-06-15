@@ -12,8 +12,8 @@ import org.smgame.client.frontend.MessageType;
  */
 public class ServerVO {
 
-    MessageType messageType;
-    String message;
+    private MessageType messageType;
+    private String message;
 
     public String getMessage() {
         return message;

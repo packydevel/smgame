@@ -278,7 +278,7 @@ public class ServerJF extends JFrame implements WindowListener {
             if (fileJFC.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
                 GUICoreMediator.setSaveDirectory(fileJFC.getSelectedFile());
                 serverVO = GUICoreMediator.requestServerVO();
-                if (serverVO.messageType == MessageType.ERROR) {
+                if (serverVO.getMessageType() == MessageType.ERROR) {
                     JOptionPane.showMessageDialog(this, serverVO.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
                 } else {
                     pathJL.setText(fileJFC.getSelectedFile().getPath());
@@ -287,8 +287,10 @@ public class ServerJF extends JFrame implements WindowListener {
         } else if (((JButton) e.getSource()).equals(testJB)) {
             GUICoreMediator.testDBConnection();
             serverVO = GUICoreMediator.requestServerVO();
-            if (serverVO.messageType == MessageType.ERROR) {
+            if (serverVO.getMessageType() == MessageType.ERROR) {
                 JOptionPane.showMessageDialog(this, serverVO.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, serverVO.getMessage(), "Info", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }
