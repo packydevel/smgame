@@ -1,6 +1,5 @@
 package org.smgame.server;
 
-import java.rmi.RMISecurityManager;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -23,6 +22,7 @@ public class RMIServer {
     private Process rmiregistryProcess;
     private Registry rmiregistry;
     private Runtime runtime;
+    private String bindName;
 
     // Must implement constructor to throw RemoteException:
     private RMIServer() {
@@ -33,6 +33,8 @@ public class RMIServer {
         } else if (System.getProperty("os.name").toLowerCase().equals("windows xp")) {
             rmiRegistryCommand = "javaw rmiregistry";
         }
+
+        bindName = "//localhost/ServerMediator";
     }
 
     public static RMIServer getInstance() {
@@ -44,16 +46,13 @@ public class RMIServer {
     }
 
     public void start() {
-        serverVO.clear();
-
-        String bindName;
         IGameMediator stub;
+        serverVO.clear();
 
         try {
             rmiregistryProcess = runtime.exec(rmiRegistryCommand);
             Thread.sleep(5000);
 
-            bindName = "//localhost/ServerMediator";
             rmiregistry = LocateRegistry.getRegistry();
             stub = (IGameMediator) UnicastRemoteObject.exportObject(new Stub(), 0);//, 2005);
             rmiregistry.rebind(bindName, stub);
@@ -75,9 +74,10 @@ public class RMIServer {
     public void stop() {
         if (rmiregistryProcess != null) {
             try {
-                rmiregistry.unbind(rmiRegistryCommand);
+                rmiregistry.unbind(bindName);
                 rmiregistryProcess.destroy();
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
