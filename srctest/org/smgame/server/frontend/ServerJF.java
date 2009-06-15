@@ -261,12 +261,12 @@ public class ServerJF extends JFrame implements WindowListener {
         pathJL = new JLabel("Path");
         fileJP.add(pathJL, BorderLayout.NORTH);
 
+        JPanel tempJP = new JPanel(new BorderLayout());
         pathJB = new JButton("Scegli il Path");
         pathJB.setSize(new Dimension(70, 20));
         pathJB.setPreferredSize(new Dimension(70, 20));
         pathJB.setMinimumSize(new Dimension(70, 20));
-        pathJB.setMaximumSize(new Dimension(70, 20));                
-        pathJB.setEnabled(true);
+        pathJB.setMaximumSize(new Dimension(70, 20));                        
         pathJB.setVisible(true);
 
         pathJB.addActionListener(new ActionListener() {
@@ -274,7 +274,8 @@ public class ServerJF extends JFrame implements WindowListener {
                 serverAction(evt);
             }
         });
-        fileJP.add(pathJB, BorderLayout.SOUTH);
+        tempJP.add(pathJB, BorderLayout.WEST);
+        fileJP.add(tempJP, BorderLayout.SOUTH);
 
         databaseJP = new JPanel();
         databaseJP.setPreferredSize(new Dimension(450, 100));
