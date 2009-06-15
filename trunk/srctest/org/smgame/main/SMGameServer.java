@@ -4,7 +4,10 @@
  */
 package org.smgame.main;
 
-import org.smgame.server.RMIServer;
+import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
+import javax.swing.UIManager;
+import org.smgame.frontend.ServerJF;
+import org.smgame.util.Logging;
 
 /**
  *
@@ -13,9 +16,11 @@ import org.smgame.server.RMIServer;
 public class SMGameServer {
 
     public static void main(String[] args) throws Exception {
-        Runtime runtime = Runtime.getRuntime();
-        Process process = runtime.exec("rmiregistry");
-        Thread.sleep(5000);
-        RMIServer.getInstance();
+        try {
+            UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
+        } catch (Exception e) {
+            Logging.logExceptionSevere(e);
+        }
+        new ServerJF();
     }
 }

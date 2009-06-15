@@ -1,52 +1,37 @@
 package org.smgame.server;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import java.rmi.RMISecurityManager;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 import java.sql.SQLException;
-import java.util.List;
 
 import org.smgame.backend.DBAccess;
-import org.smgame.core.GUICoreMediator;
-import org.smgame.core.GameSetting;
-import org.smgame.frontend.LoadGameVO;
-import org.smgame.frontend.MenuVO;
-import org.smgame.frontend.GameVO;
-import org.smgame.util.NoGamesException;
+import org.smgame.frontend.MessageType;
+import org.smgame.frontend.ServerVO;
 
 /**Server RMI
  *
  * @author Pc City
  */
-public class RMIServer implements IGameMediator {
+public class RMIServer {
 
     private static RMIServer server;
+    private static ServerVO serverVO = new ServerVO();
+    private String rmiRegistryCommand = "";
+    private Process rmiregistryProcess;
+    private Registry rmiregistry;
+    private Runtime runtime;
 
     // Must implement constructor to throw RemoteException:
     private RMIServer() {
-        String name;
+        runtime = Runtime.getRuntime();
 
-        try {
-            name = "//localhost/ServerMediator";
-            System.setSecurityManager(new RMISecurityManager());
-            Registry registry = LocateRegistry.getRegistry();
-            IGameMediator stub = (IGameMediator) UnicastRemoteObject.exportObject(this, 0);//, 2005);
-            registry.rebind(name, stub);
-            System.out.println("Ready to do time");
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (DBAccess.verifyConnection())
-                try {
-                    DBAccess.closeConnection();
-                } catch (SQLException sqle) {
-                    sqle.printStackTrace();
-                }
-            System.exit(0);
+        if (System.getProperty("os.name").toLowerCase().equals("linux")) {
+            rmiRegistryCommand = "rmiregistry";
+        } else if (System.getProperty("os.name").toLowerCase().equals("windows xp")) {
+            rmiRegistryCommand = "javaw rmiregistry";
         }
     }
 
@@ -58,59 +43,46 @@ public class RMIServer implements IGameMediator {
         return server;
     }
 
-    public void addMenuItem(List<String> menuItemList) {
-        GUICoreMediator.addMenuItem(menuItemList);
+    public void start() {
+
+        String bindName;
+        IGameMediator stub;
+
+        try {
+            rmiregistryProcess = runtime.exec(rmiRegistryCommand);
+            Thread.sleep(5000);
+
+            bindName = "//localhost/ServerMediator";
+            System.setSecurityManager(new RMISecurityManager());
+            rmiregistry = LocateRegistry.getRegistry();
+            stub = (IGameMediator) UnicastRemoteObject.exportObject(new Stub(), 0);//, 2005);
+            rmiregistry.rebind(bindName, stub);
+            System.out.println("Ready to do time");
+
+            if (DBAccess.verifyConnection()) {
+                try {
+                    DBAccess.closeConnection();
+                } catch (SQLException sqle) {
+                    sqle.printStackTrace();
+                }
+            }
+        } catch (Exception e) {
+            serverVO.setMessage("Impossibile avviare il server");
+            serverVO.setMessageType(MessageType.ERROR);
+        }
     }
 
-    public void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) {
-        GUICoreMediator.createGame(gameName, gameSetting, playerNameList, playerTypeList);
+    public void stop() {
+        if (rmiregistryProcess != null) {
+            try {
+                rmiregistry.unbind(rmiRegistryCommand);
+                rmiregistryProcess.destroy();
+            } catch (Exception e) {
+            }
+        }
     }
 
-    public void askCloseGame() {
-        GUICoreMediator.askCloseGame();
-    }
-
-    public void closeGame() {
-        GUICoreMediator.closeGame();
-    }
-
-    public void saveGame() {
-        GUICoreMediator.saveGame();
-    }
-
-    public void loadGame(String gameName) throws FileNotFoundException, IOException, ClassNotFoundException {
-        GUICoreMediator.loadGame(gameName);
-    }
-
-    public void loadGames() throws FileNotFoundException, IOException, ClassNotFoundException {
-        GUICoreMediator.loadGames();
-    }
-
-    public LoadGameVO requestLoadGameVO() throws NoGamesException {
-        return GUICoreMediator.requestLoadGameVO();
-    }
-
-    public String getGameTitle() {
-        return GUICoreMediator.getGameTitle();
-    }
-
-    public void requestCard(int playerIndex, double bet) {
-        GUICoreMediator.requestCard(playerIndex, bet);
-    }
-
-    public void declareGoodScore(int playerIndex, double bet) {
-        GUICoreMediator.declareGoodScore(playerIndex, bet);
-    }
-
-    public MenuVO requestMenuVO() {
-        return GUICoreMediator.requestMenuVO();
-    }
-
-    public GameVO requestGameVO() {
-        return GUICoreMediator.requestGameVO();
-    }
-
-    public Object[][] requestDataReport() {
-        return GUICoreMediator.requestDataReport();
+    public ServerVO requestServerVO() {
+        return serverVO;
     }
 }
