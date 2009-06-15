@@ -18,7 +18,7 @@ public class SMGameServer {
 
     public static void main(String[] args) throws Exception {
         System.setSecurityManager(new RMISecurityManager());
-
+        Logging.createLog("server");
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
