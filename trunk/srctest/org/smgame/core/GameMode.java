@@ -1,13 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.core;
 
-/**
+/**Enumerativo modalità di gioco
  *
- * @author packyuser
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
-public enum GameMode {
-    ONLINE, OFFLINE
-}//end enum
+public enum GameMode {ONLINE, OFFLINE}//end enum

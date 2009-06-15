@@ -53,6 +53,10 @@ public class GUICoreMediator {
     private static final ImageIcon backImage = new ImageIcon(Common.getResourceCards("napoletane") + "dorso.jpg");
     private static DBTransactions trans = new DBTransactions();
 
+    /**Aggiunge al menù gli item
+     * 
+     * @param menuItemList lista di item/voci da aggiungere
+     */
     public static void addMenuItem(List<String> menuItemList) {
         for (String s : menuItemList) {
             menuVO.getItemEnabledMap().put(s, false);
@@ -61,10 +65,10 @@ public class GUICoreMediator {
 
     /**Crea partita offline
      *
-     * @param gameName
-     * @param gameSetting
-     * @param playerNameList
-     * @param playerTypeList
+     * @param gameName nome partita
+     * @param gameSetting settaggi partita
+     * @param playerNameList lista giocatori
+     * @param playerTypeList lista tipo di giocatore
      */
     public static void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) {
 
@@ -92,12 +96,15 @@ public class GUICoreMediator {
         currentGame.getGameEngine().start();
     }
 
+    /**Chiede la chiusura del gioco
+     *
+     */
     public static void askCloseGame() {
         mainVO.setMessageType(MessageType.WARNING);
         mainVO.setMessage("Sei sicuro di voler chiudere la Partita? I passaggi di gioco non salvati saranno persi!");
     }
 
-    /**Chiudi partita
+    /**Chiude la partita
      *
      */
     public static void closeGame() {
@@ -152,6 +159,8 @@ public class GUICoreMediator {
 
     /**Carica partita
      *
+     * @param gameName nome partita da caricare
+     *
      * @throws java.io.FileNotFoundException
      * @throws java.io.IOException
      * @throws java.lang.ClassNotFoundException
@@ -166,7 +175,7 @@ public class GUICoreMediator {
         }
     }
 
-    /**Carica partite
+    /**Carica la map delle partite
      *
      * @throws java.io.FileNotFoundException
      * @throws java.io.IOException
@@ -181,6 +190,10 @@ public class GUICoreMediator {
         fis.close();
     }
 
+    /**Richiede e restituisce l'oggetto mainVO corrente
+     * 
+     * @return oggetto mainVO
+     */
     public static MainVO requestMainVO() {
         return mainVO;
     }
@@ -188,7 +201,7 @@ public class GUICoreMediator {
     /**Restituisce un oggetto contenente l'elenco dei nomi delle partite, il tipo, la data di creazione, la data di ultimo salvataggio
      * secondo il pattern Value Objected
      *
-     * @return
+     * @return oggetto loadgameVO
      * @throws org.smgame.util.NoGamesException
      */
     public static LoadGameVO requestLoadGameVO() throws NoGamesException {
@@ -207,9 +220,9 @@ public class GUICoreMediator {
         }
     }
 
-    /**Restituisce il nome della partita
+    /**Restituisce il titolo della partita
      *
-     * @return
+     * @return titolo
      */
     public static String getGameTitle() {
         return currentGame.getGameName() + " - Manche n° ";
@@ -217,8 +230,8 @@ public class GUICoreMediator {
 
     /**Richiesta della carta da parte del giocatore, con eventuale puntata
      *
-     * @param playerIndex
-     * @param bet
+     * @param playerIndex indice giocatore
+     * @param bet puntata
      */
     public static void requestCard(int playerIndex, double bet) {
         Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
@@ -245,8 +258,8 @@ public class GUICoreMediator {
 
     /**Dichiarazione del giocatore di stare bene con eventuale puntata
      *
-     * @param playerIndex
-     * @param bet
+     * @param playerIndex indice giocatore
+     * @param bet puntata
      */
     public static void declareGoodScore(int playerIndex, double bet) {
         Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
@@ -261,6 +274,10 @@ public class GUICoreMediator {
         }
     }
 
+    /**richiede e Restituisce l'oggetto menuVO (pattern value objected)
+     *
+     * @return  oggetto menuVO
+     */
     public static MenuVO requestMenuVO() {
 
         menuVO.getItemEnabledMap().clear();
@@ -291,9 +308,9 @@ public class GUICoreMediator {
         return menuVO;
     }
 
-    /**Richiede l'oggetto GameVO
+    /**Richiede e restituisce l'oggetto GameVO
      *
-     * @return
+     * @return oggetto gameVO
      */
     public static GameVO requestGameVO() {
 
@@ -400,7 +417,9 @@ public class GUICoreMediator {
     }
 
 
-    //Restituisce la posizione del prossimo giocatore
+    /**setta la posizione del prossimo giocatore
+     *
+     */
     private static void selectNextPlayer() {
         currentGame.getGameEngine().nextPlayer(currentGame.getGameEngine().getCurrentPlayer());
     }
@@ -425,8 +444,10 @@ public class GUICoreMediator {
         return data;
     }
 
-    private static void addTransactionAL() {
-        System.out.println("Scrittura sul db");
+    /**Aggiunge la transazione all'arraylist di transazioni
+     *
+     */
+    private static void addTransactionAL() {        
         long game_id = currentGame.getGameID();
         for (Player p : currentGame.getPlayerList().getPlayerAL()) {
             DBTransactions dbt = new DBTransactions(game_id, currentGame.getGameEngine().getCurrentManche(),
