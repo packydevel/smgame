@@ -492,13 +492,14 @@ public class GUICoreMediator {
     /**Testa la connessione al db
      *
      */
-    public static void testConnectionDB(){
+    public static void testDBConnection() {
+        serverVO.clear();
+
         try {
             Connection con = DBAccess.getConnection();
-        } catch (ClassNotFoundException ex) {
-        } catch (SQLException ex) {
-        } catch (IOException ex) {
+        } catch (Exception e) {
+            serverVO.setMessage("Impossibile Connettersi al DataBase");
+            serverVO.setMessageType(MessageType.ERROR);
         }
     }
-
 } //end  class
