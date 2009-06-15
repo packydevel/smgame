@@ -496,7 +496,7 @@ public class GUICoreMediator {
         serverVO.clear();
 
         try {
-            Connection con = DBAccess.getConnection();
+            DBAccess.getConnection();
         } catch (Exception e) {
             serverVO.setMessage("Impossibile Connettersi al DataBase");
             serverVO.setMessageType(MessageType.ERROR);
