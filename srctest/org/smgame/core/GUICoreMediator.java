@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -18,8 +19,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
+import org.smgame.backend.DBAccess;
 import org.smgame.backend.DBTransactions;
 import org.smgame.core.player.*;
 import org.smgame.client.frontend.LoadGameVO;
@@ -484,4 +488,17 @@ public class GUICoreMediator {
             trans.addToArraylistTransactions(dbt);
         }
     }
+
+    /**Testa la connessione al db
+     *
+     */
+    public static void testConnectionDB(){
+        try {
+            Connection con = DBAccess.getConnection();
+        } catch (ClassNotFoundException ex) {
+        } catch (SQLException ex) {
+        } catch (IOException ex) {
+        }
+    }
+
 } //end  class
