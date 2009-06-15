@@ -66,6 +66,7 @@ public class DBAccess {
      */
     public static void closeConnection() throws SQLException {
         conn.close();
+        conn = null;
     }
 
     /**Verifica lo stato della connessione
