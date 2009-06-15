@@ -32,15 +32,23 @@ public class Logging {
     }
 
     public static void logExceptionSevere(Exception e){
-        logger.severe(e.getMessage());
+        e.printStackTrace();
+        logger.severe(e.toString());
+        
     }
 
     public static void logExceptionWarning(BetOverflowException boe){
-        logger.warning(boe.getMessage());
+        StackTraceElement[] sTrace = boe.getStackTrace();
+        String message = sTrace[0].getClassName() + " - " +
+            sTrace[0].getMethodName() + "\n" + boe.getMessage();
+        logger.severe(message);
     }
 
     public static void logExceptionWarning(ScoreOverflowException soe){
-        logger.warning(soe.getMessage());
+        StackTraceElement[] sTrace = soe.getStackTrace();
+        String message = sTrace[0].getClassName() + " - " +
+            sTrace[0].getMethodName() + "\n" + soe.getMessage();
+        logger.severe(message);
     }
 
     public static void logInfo(String msg){

@@ -1,34 +1,51 @@
 package org.smgame.client;
 
 import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
+
 import javax.swing.JApplet;
 import javax.swing.UIManager;
+
 import org.smgame.core.GUICoreMediator;
 import org.smgame.client.frontend.MainJF;
 import org.smgame.util.Common;
 import org.smgame.util.Logging;
 
-/**
+/**Classe SetteMezzo client
  *
- * @author packyuser
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class SMGameClient extends JApplet {
 
-    public void init (){
+    /**
+     *
+     *
+     */
+    public void start (){
+        //System.setSecurityManager(new SecurityManager());
         Logging.createLog(Common.getCurrentDateTime());
+
         try {
-            UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
+            //UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
         } catch (Exception e) {
             Logging.logExceptionSevere(e);
         }
         MainJF frame = new MainJF();
         try {
-            GUICoreMediator.loadGames();
+            //GUICoreMediator.loadGames();
         } catch (Exception e) {
             Logging.logExceptionSevere(e);
         }
     }
 
+    public void destroy(){
+        System.exit(0);
+    }
+
+    /**
+     *
+     * @param args argomenti
+     */
     public static void main(String[] args) {
         Logging.createLog(Common.getCurrentDateTime());
         java.awt.EventQueue.invokeLater(new Runnable() {

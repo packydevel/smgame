@@ -10,19 +10,24 @@ import java.util.GregorianCalendar;
 public class Common {
     
     final static String separ = File.separator;
-    final static String curDir = System.getProperty("user.dir");
+    final static String curDir = "c:"+separ+"smgamelog";
     final static String dirResource = "src" + separ + "org" + separ + "smgame" + separ + "resource" + separ;
     final static String dirResourceCard = dirResource + "cardimage" + separ;
-
+    //final static String tempDir = System.getProperty("java.io.tmpdir");
 
     /**Restituisce il percorso di lavoro corrente comprensivo di primo separatore
      *
      * @return percorso lavoro
      */
     public static String getWorkspace(){
+        //return curDir + separ;
         return curDir + separ;
     }
-
+/*
+    public static String getTempDir(){
+        return tempDir + separ;
+    }
+*/
     /**Restituisce il percorso delle resource
      *
      * @return percorso resource
@@ -45,7 +50,8 @@ public class Common {
      * @return workspace log
      */
     public static String getWorkspaceLog(){
-        String log = getWorkspace() + "log";
+        //String log = getTempDir() + "smgamelog";
+        String log = curDir;
         File f = new File(log);
         if (!f.exists())
             f.mkdir();

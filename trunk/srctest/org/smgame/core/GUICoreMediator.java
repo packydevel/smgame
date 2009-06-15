@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -19,8 +18,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 import org.smgame.backend.DBAccess;
@@ -377,7 +374,10 @@ public class GUICoreMediator {
             playerCardsImageList = gameVO.getPlayerCardsImageMap().get(i);
             for (int j = 0; j < tempPlayer.getCardList().size(); j++) {
                 if (j == 0) {
-                    if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) || tempPlayer.getStatus() == PlayerStatus.ScoreOverflow || tempPlayer.hasSM() || (currentGame.getGameEngine().isEndManche() && currentGame.getGameEngine().getBankPlayer().getStatus() == PlayerStatus.GoodScore)) {
+                    if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer())
+                            || tempPlayer.getStatus() == PlayerStatus.ScoreOverflow
+                            || tempPlayer.hasSM()
+                            || (currentGame.getGameEngine().isEndManche() && currentGame.getGameEngine().getBankPlayer().getStatus() == PlayerStatus.GoodScore)) {
                         playerCardsImageList.add(ImageEdit.scaledImage(tempPlayer.getCardList().get(j).getFrontImage()));
                     } else {
                         playerCardsImageList.add(ImageEdit.scaledImage(backImage));
