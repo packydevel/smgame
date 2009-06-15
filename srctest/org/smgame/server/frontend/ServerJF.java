@@ -1,5 +1,6 @@
-package org.smgame.frontend;
+package org.smgame.server.frontend;
 
+import org.smgame.client.frontend.MessageType;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -32,8 +33,8 @@ import org.smgame.server.RMIServer;
 public class ServerJF extends JFrame implements WindowListener {
 
     ServerVO serverVO;
-    JPanel statusJP, monitorJP, configJP;
-    GridBagConstraints labelGBC, textFieldGBC, comboBoxGBC, checkBoxGBC, buttonGBC;
+    JPanel statusJP, monitorJP, configJP, fileJP, databaseJP;
+    GridBagConstraints panelGBC, labelGBC, textFieldGBC, comboBoxGBC, checkBoxGBC, buttonGBC;
     JLabel playersNumberJL, cpuflagJL, mancheNumberJL, jollyCardJL, kingSMPayRuleJL;
     JComboBox playersNumberJCB;
     JButton startJB, stopJB;
@@ -76,6 +77,13 @@ public class ServerJF extends JFrame implements WindowListener {
         monitorJP.setLayout(new GridBagLayout());
         configJP.setLayout(new GridBagLayout());
 
+
+        panelGBC = new GridBagConstraints();
+        panelGBC.weightx = 0;
+        panelGBC.weighty = 0;
+        panelGBC.insets = new Insets(2, 2, 2, 2);
+        panelGBC.anchor = GridBagConstraints.NORTHWEST;
+
         labelGBC = new GridBagConstraints();
         labelGBC.weightx = 0;
         labelGBC.weighty = 0;
@@ -105,6 +113,14 @@ public class ServerJF extends JFrame implements WindowListener {
         buttonGBC.weighty = 0;
         buttonGBC.insets = new Insets(2, 2, 2, 2);
         buttonGBC.anchor = GridBagConstraints.CENTER;
+
+
+        fileJP = new JPanel();
+        configJP.add(fileJP, panelGBC);
+
+        databaseJP = new JPanel();
+        configJP.add(databaseJP, panelGBC);
+
 
 
 //
@@ -403,8 +419,12 @@ public class ServerJF extends JFrame implements WindowListener {
     }
 
     public void windowClosing(WindowEvent e) {
-        RMIServer.getInstance().stop();
-        dispose();
+        int i;
+        i = JOptionPane.showConfirmDialog(this, "Chiudendo il server non sarà più possibile eseguire partite OnLine. Sei Sicuro?", "Info", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (i == 0) {
+            RMIServer.getInstance().stop();
+            dispose();
+        }
     }
 
     public void windowDeactivated(WindowEvent e) {

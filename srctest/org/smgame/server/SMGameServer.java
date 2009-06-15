@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.smgame.main;
+package org.smgame.server;
 
 import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 import javax.swing.UIManager;
-import org.smgame.frontend.ServerJF;
+import org.smgame.server.frontend.ServerJF;
 import org.smgame.util.Logging;
 
 /**

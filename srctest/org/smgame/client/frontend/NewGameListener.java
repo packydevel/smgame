@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.smgame.frontend;
+package org.smgame.client.frontend;
 
 import java.util.EventListener;
 

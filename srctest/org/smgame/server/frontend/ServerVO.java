@@ -3,13 +3,15 @@
  * and open the template in the editor.
  */
 
-package org.smgame.frontend;
+package org.smgame.server.frontend;
+
+import org.smgame.client.frontend.MessageType;
 
 /**
  *
  * @author packyuser
  */
-public class MainVO {
+public class ServerVO {
     MessageType messageType;
     String message;
 

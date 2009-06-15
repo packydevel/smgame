@@ -6,9 +6,9 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 import org.smgame.core.GameSetting;
-import org.smgame.frontend.LoadGameVO;
-import org.smgame.frontend.MenuVO;
-import org.smgame.frontend.GameVO;
+import org.smgame.client.frontend.LoadGameVO;
+import org.smgame.client.frontend.MenuVO;
+import org.smgame.client.frontend.GameVO;
 import org.smgame.util.NoGamesException;
 
 /**Interfaccia game mediator

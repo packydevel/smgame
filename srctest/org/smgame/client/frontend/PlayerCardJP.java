@@ -1,4 +1,4 @@
-package org.smgame.frontend;
+package org.smgame.client.frontend;
 
 import java.awt.Color;
 import java.awt.Dimension;
