@@ -170,7 +170,7 @@ public class ServerJF extends JFrame implements WindowListener {
         buttonGBC.gridx = 0;
         buttonGBC.gridy = 4;
         buttonGBC.gridwidth = 4;
-        buttonGBC.weighty=1;
+        buttonGBC.weighty = 1;
         buttonGBC.anchor = GridBagConstraints.SOUTH;
         testJB.addActionListener(new ActionListener() {
 
@@ -285,6 +285,12 @@ public class ServerJF extends JFrame implements WindowListener {
                 } else {
                     pathJL.setText(fileJFC.getSelectedFile().getPath());
                 }
+            }
+        } else if (((JButton) e.getSource()).equals(testJB)) {
+            GUICoreMediator.testDBConnection();
+            serverVO = GUICoreMediator.requestServerVO();
+            if (serverVO.messageType == MessageType.ERROR) {
+                JOptionPane.showMessageDialog(this, serverVO.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
