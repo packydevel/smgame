@@ -55,7 +55,7 @@ public abstract class Player implements Serializable {
 
     /**imposta il credito corrente
      *
-     * @param credit
+     * @param credit credito
      */
     public void setCredit(double credit) {
         this.credit = credit;
@@ -79,7 +79,7 @@ public abstract class Player implements Serializable {
 
     /**imposta la puntata
      *
-     * @param bet
+     * @param bet puntata
      */
     public void setBet(double bet) {
         this.bet = bet;
@@ -244,7 +244,7 @@ public abstract class Player implements Serializable {
 
     /**Imposta l'ammontare dell'ultima vincita/perdita
      *
-     * @param lastWinLoseAmount
+     * @param lastWinLoseAmount ultimo ammontare
      */
     public void setLastWinLoseAmount(double lastWinLoseAmount) {
         this.lastWinLoseAmount = lastWinLoseAmount;
