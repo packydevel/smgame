@@ -21,7 +21,7 @@ public class RMIClient {
     private RMIClient() throws Exception {
         System.setSecurityManager(new RMISecurityManager());
         Registry registry = LocateRegistry.getRegistry("localhost");
-        stub = (IGameMediator) registry.lookup("//localhost/ServerMediator");
+        stub = (IGameMediator) registry.lookup("rmi://localhost/ServerMediator");
     }
 
     public static IGameMediator getStub() throws Exception {
