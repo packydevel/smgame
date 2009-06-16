@@ -28,6 +28,7 @@ import org.smgame.client.frontend.MainVO;
 import org.smgame.client.frontend.MenuVO;
 import org.smgame.client.frontend.MessageType;
 import org.smgame.client.frontend.GameVO;
+import org.smgame.core.card.Card;
 import org.smgame.server.frontend.ServerVO;
 import org.smgame.util.BetOverflowException;
 import org.smgame.util.Common;
@@ -55,7 +56,6 @@ public class GUICoreMediator {
     private static String FILEDIR = Common.getWorkspace();
     private static final NumberFormat numberFormat = new DecimalFormat("#0.00");
     private static final DateFormat dateFormat = DateFormat.getInstance();
-    private static final ImageIcon backImage = new ImageIcon(Common.getResourceCards("napoletane") + "dorso.jpg");
     private static DBTransactions trans = new DBTransactions();
 
     /**Aggiunge al menù gli item
@@ -380,7 +380,7 @@ public class GUICoreMediator {
                             || (currentGame.getGameEngine().isEndManche() && currentGame.getGameEngine().getBankPlayer().getStatus() == PlayerStatus.GoodScore)) {
                         playerCardsImageList.add(ImageEdit.scaledImage(tempPlayer.getCardList().get(j).getFrontImage()));
                     } else {
-                        playerCardsImageList.add(ImageEdit.scaledImage(backImage));
+                        playerCardsImageList.add(ImageEdit.scaledImage(Card.getBackImage()));
                     }
                 } else {
                     playerCardsImageList.add(ImageEdit.scaledImage(tempPlayer.getCardList().get(j).getFrontImage()));
