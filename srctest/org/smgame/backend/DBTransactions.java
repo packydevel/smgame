@@ -142,7 +142,7 @@ public class DBTransactions {
      *
      * @param id numero transazione
      */
-    public void setIDT(long id) {
+    public void setIdTransaction(long id) {
         this.idT = id;
     }
 
@@ -150,7 +150,7 @@ public class DBTransactions {
      *
      * @return id transazione
      */
-    public long getIdT() {
+    public long getIdTransaction() {
         return idT;
     }
 
@@ -174,7 +174,7 @@ public class DBTransactions {
         Common.setParameter(prpstmt, 5, getWin(), Types.DOUBLE);
         Logging.logInfo(prpstmt.toString());
         prpstmt.execute();
-        setIDT(getLastInsertId(conn));
+        setIdTransaction(getLastInsertId(conn));
         executeArraylistCardTransaction(conn);
     }
     
@@ -203,7 +203,7 @@ public class DBTransactions {
                     " FROM " + tableCard + " WHERE " + col2Card + "=? AND " + col3Card + "=?));";
         for (int i=0; i<cardAL.size(); i++){
             PreparedStatement prpstmt = conn.prepareStatement(sql);
-            Common.setParameter(prpstmt, 1, getIdT(), Types.BIGINT);
+            Common.setParameter(prpstmt, 1, getIdTransaction(), Types.BIGINT);
             Common.setParameter(prpstmt, 2, cardAL.get(i).getSuit().toString(), Types.VARCHAR);
             Common.setParameter(prpstmt, 3, cardAL.get(i).getPoint().toString(), Types.VARCHAR);
             Logging.logInfo(prpstmt.toString());
