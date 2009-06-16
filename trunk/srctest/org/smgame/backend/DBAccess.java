@@ -16,6 +16,7 @@ import org.smgame.util.Logging;
  */
 public class DBAccess {
     //driver mysql
+
     final private String DRIVER_CLASS_NAME_MYSQL = "org.gjt.mm.mysql.Driver";
     //database management system usato
     //private String DBMS;
@@ -32,7 +33,7 @@ public class DBAccess {
     //password per l'user
     private String PASSWORD;
     //oggetto connessione
-    private static Connection conn=null;
+    private static Connection conn = null;
 
     /**Costruttore privato
      *
@@ -45,9 +46,9 @@ public class DBAccess {
         //carico il driver JDBC MYSQL
         Class.forName(DRIVER_CLASS_NAME_MYSQL);
         //creo l'url JDBC per la connessione
-        String url = URI + SERVER + ":" + PORT + "/" + DATABASE;        
+        String url = URI + SERVER + ":" + PORT + "/" + DATABASE;
         conn = DriverManager.getConnection(url, USER, PASSWORD);
-        Logging.logInfo("Connessione effettuata con: "+url);
+        Logging.logInfo("Connessione effettuata con: " + url);
     }
 
     /**inizializza e restituisce l'oggetto connessione
@@ -73,11 +74,14 @@ public class DBAccess {
      *
      * @return true se attiva, false se null
      */
-    public static boolean verifyConnection(){
-        boolean verify = false;
-        if (conn!=null)
-            verify=true;
-        return verify;
+    public static boolean testConnection() throws Exception {
+        Connection tempConn = getConnection();
+
+        if (tempConn.isValid(0)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**legge il file contenente le informazioni sul database e setta le variabili per la connessione
@@ -87,7 +91,7 @@ public class DBAccess {
     private void readProperties() throws IOException {
         Properties properties = new Properties();
         //directory di lavoro
-        String file = Common.getResource() + "database.properties";
+        String file = getClass().getResource("/org/smgame/resource/database.properties").getPath();
         //caricamento del file properties
         properties.load(new FileInputStream(file));
         Logging.logInfo("Caricamento database.properties effettuato");

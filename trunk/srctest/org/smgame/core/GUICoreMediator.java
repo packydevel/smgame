@@ -374,10 +374,7 @@ public class GUICoreMediator {
             playerCardsImageList = gameVO.getPlayerCardsImageMap().get(i);
             for (int j = 0; j < tempPlayer.getCardList().size(); j++) {
                 if (j == 0) {
-                    if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer())
-                            || tempPlayer.getStatus() == PlayerStatus.ScoreOverflow
-                            || tempPlayer.hasSM()
-                            || (currentGame.getGameEngine().isEndManche() && currentGame.getGameEngine().getBankPlayer().getStatus() == PlayerStatus.GoodScore)) {
+                    if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) || tempPlayer.getStatus() == PlayerStatus.ScoreOverflow || tempPlayer.hasSM() || (currentGame.getGameEngine().isEndManche() && currentGame.getGameEngine().getBankPlayer().getStatus() == PlayerStatus.GoodScore)) {
                         playerCardsImageList.add(ImageEdit.scaledImage(tempPlayer.getCardList().get(j).getFrontImage()));
                     } else {
                         playerCardsImageList.add(ImageEdit.scaledImage(Card.getBackImage()));
@@ -495,10 +492,13 @@ public class GUICoreMediator {
     public static void testDBConnection() {
         serverVO.clear();
         try {
-            DBAccess.getConnection();
-            serverVO.setMessage("Connessione al DataBase riuscita");
-            serverVO.setMessageType(MessageType.INFO);
-            DBAccess.closeConnection();
+            if (DBAccess.testConnection()) {
+                serverVO.setMessage("Connessione al DataBase riuscita");
+                serverVO.setMessageType(MessageType.INFO);
+            } else {
+                serverVO.setMessage("Impossibile Connettersi al DataBase");
+                serverVO.setMessageType(MessageType.ERROR);
+            }
         } catch (Exception e) {
             serverVO.setMessage("Impossibile Connettersi al DataBase");
             serverVO.setMessageType(MessageType.ERROR);
