@@ -4,6 +4,8 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+import java.text.DateFormat;
+import java.util.Date;
 import org.smgame.client.frontend.MessageType;
 import org.smgame.server.frontend.ServerVO;
 import org.smgame.util.Logging;
@@ -23,6 +25,7 @@ public class RMIServer {
     private Registry rmiregistry;
     private Runtime runtime;
     private String bindName;
+    private static final DateFormat dateFormat = DateFormat.getInstance();
 
     // Must implement constructor to throw RemoteException:
     private RMIServer() {
@@ -59,10 +62,13 @@ public class RMIServer {
             istub = (IGameMediator) UnicastRemoteObject.exportObject(stub, 0);
             rmiregistry.rebind(bindName, stub);
 
-            Logging.logInfo("RMIServer Start su localhost");
+            serverVO.setMessage(dateFormat.format(new Date()) + "- RMI Server Avviato su localhost");
+            serverVO.setMessageType(MessageType.INFO);
+            Logging.logInfo(dateFormat.format(new Date()) + "- RMI Server Avviato su localhost");
         } catch (Exception e) {
             serverVO.setMessage("Impossibile avviare il server");
             serverVO.setMessageType(MessageType.ERROR);
+            Logging.logExceptionSevere(e);
         }
     }
 
@@ -73,7 +79,9 @@ public class RMIServer {
                 rmiregistryProcess.destroy();
                 stub = null;
                 rmiregistryProcess = null;
-                Logging.logInfo("RMIServer Stop su localhost");
+                serverVO.setMessage(dateFormat.format(new Date()) + "- RMIServer Interrotto su localhost");
+                serverVO.setMessageType(MessageType.INFO);
+                Logging.logInfo("RMIServer Interrotto su localhost");
             } catch (Exception e) {
                 e.printStackTrace();
             }
