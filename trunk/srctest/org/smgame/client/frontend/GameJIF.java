@@ -117,7 +117,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
      */
     public GameJIF() {
         super(null, false, true, false, false);
-
+        setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
         setLayout(new GridBagLayout());
         initComponents();
         initBoard();

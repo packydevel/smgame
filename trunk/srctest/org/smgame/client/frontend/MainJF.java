@@ -12,7 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
-import org.smgame.core.GUICoreMediator;
+import org.smgame.client.ClientMediator;
 
 public class MainJF extends JFrame implements InternalFrameListener, NewGameListener {
 
@@ -57,20 +57,20 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
 
         setJMenuBar(menuJMB);
 
-        GUICoreMediator.addMenuItem(menuItemNameList);
+        ClientMediator.getInstance().addMenuItem(menuItemNameList);
 
         refreshMenuItem();
     }
 
     private void refreshMenuItem() {
-        menuVO = GUICoreMediator.requestMenuVO();
+        menuVO = ClientMediator.getInstance().requestMenuVO();
 
         for (JMenuItem jmi : menuJMB.getMenuItemListJMI()) {
             jmi.setEnabled(menuVO.getItemEnabledMap().get(jmi.getName()));
         }
     }
 
-    private int analyzeMainVO(MainVO mainVO) {
+    private int analyzeVO(MainVO mainVO) {
         if (mainVO.getMessageType() == MessageType.INFO) {
             JOptionPane.showInternalMessageDialog(desktop, mainVO.getMessage(), "Info", JOptionPane.INFORMATION_MESSAGE);
         } else if (mainVO.getMessageType() == MessageType.WARNING) {
@@ -85,6 +85,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
 
     private void jMenu1ActionPerformed(ActionEvent evt) {
         if ((JMenuItem) evt.getSource() == menuJMB.getNewOnLineGameJMI()) {
+            clearDesktop();
             internalFrameWidth = 400;
             internalFrameHeight = 500;
             xbound = (desktopWidth - internalFrameWidth) / 2;
@@ -98,6 +99,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
             desktop.add(newOnLineGameJIF);
             refreshMenuItem();
         } else if ((JMenuItem) evt.getSource() == menuJMB.getNewOffLineGameJMI()) {
+            clearDesktop();
             internalFrameWidth = 400;
             internalFrameHeight = 500;
             xbound = (desktopWidth - internalFrameWidth) / 2;
@@ -111,6 +113,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
             desktop.add(newGameJIF);
             refreshMenuItem();
         } else if ((JMenuItem) evt.getSource() == menuJMB.getLoadGameJMI()) {
+            clearDesktop();
             internalFrameWidth = 600;
             internalFrameHeight = 250;
             xbound = (desktopWidth - internalFrameWidth) / 2;
@@ -124,19 +127,19 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
             desktop.add(loadGameJIF);
             refreshMenuItem();
         } else if ((JMenuItem) evt.getSource() == menuJMB.getSaveGameJMI()) {
-            GUICoreMediator.saveGame();
-            analyzeMainVO(GUICoreMediator.requestMainVO());
+            ClientMediator.getInstance().saveGame();
+            analyzeVO(ClientMediator.getInstance().requestMainVO());
         } else if ((JMenuItem) evt.getSource() == menuJMB.getCloseGameJMI()) {
             executeCloseGame();
         } else if ((JMenuItem) evt.getSource() == menuJMB.getExitGameJMI()) {
             if (JOptionPane.showInternalConfirmDialog(desktop,
                     "Sei sicuro di voler uscire? Le partite non salvate saranno perse!", "Info",
-                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
                 this.dispose();
             }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getScoreBoardJMI()) {
             JOptionPane.showMessageDialog(this, new ScoreBoardJP("manche finita",
-                    GUICoreMediator.requestDataReport(), -1), "Score Board", JOptionPane.INFORMATION_MESSAGE);
+                    ClientMediator.getInstance().requestDataReport(), -1), "Score Board", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -161,14 +164,18 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
     }
 
     private void executeCloseGame() {
-        GUICoreMediator.askCloseGame();
+        ClientMediator.getInstance().askCloseGame();
 
-        if (analyzeMainVO(GUICoreMediator.requestMainVO()) == 0) {
-            GUICoreMediator.closeGame();
-            for (JInternalFrame jiframe : desktop.getAllFrames()) {
-                jiframe.dispose();
-                refreshMenuItem();
-            }
+        if (analyzeVO(ClientMediator.getInstance().requestMainVO()) == 0) {
+            ClientMediator.getInstance().closeGame();
+            refreshMenuItem();
+            clearDesktop();
+        }
+    }
+
+    private void clearDesktop() {
+        for (JInternalFrame jiframe : desktop.getAllFrames()) {
+            jiframe.dispose();
         }
     }
 
@@ -177,18 +184,18 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
      * @param e
      */
     public void internalFrameClosed(InternalFrameEvent e) {
-        if (e.getInternalFrame() instanceof NewGameJIF) {
-        } else if (e.getInternalFrame() instanceof LoadGameJIF) {
-            refreshMenuItem();
-        } else if (e.getInternalFrame() instanceof GameJIF) {
-            executeCloseGame();
-        }
     }
 
     public void internalFrameDeactivated(InternalFrameEvent e) {
     }
 
     public void internalFrameClosing(InternalFrameEvent e) {
+        if (e.getInternalFrame() instanceof NewGameJIF) {
+        } else if (e.getInternalFrame() instanceof LoadGameJIF) {
+            refreshMenuItem();
+        } else if (e.getInternalFrame() instanceof GameJIF) {
+            executeCloseGame();
+        }
     }
 
     public void internalFrameOpened(InternalFrameEvent e) {

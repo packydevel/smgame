@@ -48,7 +48,6 @@ public class Logging {
     public static void logExceptionSevere(Exception e){
         e.printStackTrace();
         logger.severe(e.toString());
-        
     }
 
     /**Scrive nel log il tipo di avviso
