@@ -117,10 +117,18 @@ public class GUICoreMediator {
         gameVO.clear();
     }
 
+    /**Restituisce la directory di salvataggio
+     *
+     * @return directory
+     */
     public static String getSaveDirectory() {
         return FILEDIR;
     }
 
+    /**Imposta la nuova directory per salvare
+     *
+     * @param file directory
+     */
     public static void setSaveDirectory(File file) {
         String tempFileDir = file.getPath() + File.separator;
         String tempFileName = file.getPath() + File.separator + "games.dat";
@@ -217,6 +225,10 @@ public class GUICoreMediator {
         fis.close();
     }
 
+    /**Richiede e restituisce l'oggetto serverVO
+     *
+     * @return serverVO
+     */
     public static ServerVO requestServerVO() {
         return serverVO;
     }
