@@ -19,7 +19,6 @@ public class Common {
      * @return percorso lavoro
      */
     public static String getWorkspace(){
-        //return curDir + separ;
         return curDir + separ;
     }
 
@@ -36,7 +35,6 @@ public class Common {
      * @return percorso carte
      */
     public static String getResourceCards(String typecard){
-        /*TODO: aggiustare il path x le carte in merito alla scelta delle carte*/
         return dirResourceCard  + typecard + separ;
     }
 
@@ -45,7 +43,6 @@ public class Common {
      * @return workspace log
      */
     public static String getWorkspaceLog(){
-        //String log = getTempDir() + "smgamelog";
         String log = curDir;
         File f = new File(log);
         if (!f.exists())
@@ -61,7 +58,6 @@ public class Common {
         GregorianCalendar cal = new GregorianCalendar();
         String data = cal.get(Calendar.YEAR) + (cal.get(Calendar.MONTH)+1) + cal.get(Calendar.DATE) + "_" +
                 cal.get(Calendar.HOUR_OF_DAY) + cal.get(Calendar.MINUTE) + cal.get(Calendar.SECOND);
-        System.out.println(data);
         return data;
     }
 
