@@ -348,8 +348,8 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
                             newGameVO.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
                 } else {
                     fireNewGameEvent(new NewGameEvent(this));
+                    dispose();
                 }
-
 
             } else {
                 dispose();
