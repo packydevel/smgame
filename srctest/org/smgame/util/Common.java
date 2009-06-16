@@ -22,11 +22,7 @@ public class Common {
         //return curDir + separ;
         return curDir + separ;
     }
-/*
-    public static String getTempDir(){
-        return tempDir + separ;
-    }
-*/
+
     /**Restituisce il percorso delle resource
      *
      * @return percorso resource

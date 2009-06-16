@@ -1,12 +1,11 @@
 package org.smgame.backend;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import org.smgame.util.Common;
 import org.smgame.util.Logging;
 
 /** Classe DbAccess/accesso database
@@ -88,7 +87,7 @@ public class DBAccess {
     private void readProperties() throws IOException {
         Properties properties = new Properties();
 
-        properties.load(getClass().getResourceAsStream("/org/smgame/resource/database.properties"));
+        properties.load(getClass().getResourceAsStream(Common.getResource()+"database.properties"));
         
         Logging.logInfo("Caricamento database.properties effettuato");
         //DBMS = properties.getProperty("DBMS");
