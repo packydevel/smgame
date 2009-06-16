@@ -17,4 +17,8 @@ public class MenuVO {
     public HashMap<String, Boolean> getItemEnabledMap() {
         return itemEnabledMap;
     }
+
+    public void clear() {
+        itemEnabledMap.clear();
+    }
 }

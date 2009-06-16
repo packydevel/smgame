@@ -52,8 +52,8 @@ public class GUICoreMediator {
     private static GameVO gameVO = new GameVO();
     private static LoadGameVO loadGameVO = new LoadGameVO();
     private static Game currentGame = null;
-    private static String FILENAME = Common.getWorkspace() + "games.dat";
-    private static String FILEDIR = Common.getWorkspace();
+    private static String fileName = Common.getWorkspace() + "games.dat";
+    private static String fileDir = Common.getWorkspace();
     private static final NumberFormat numberFormat = new DecimalFormat("#0.00");
     private static final DateFormat dateFormat = DateFormat.getInstance();
     private static DBTransactions trans = new DBTransactions();
@@ -105,6 +105,7 @@ public class GUICoreMediator {
      *
      */
     public static void askCloseGame() {
+        mainVO.clear();
         mainVO.setMessageType(MessageType.WARNING);
         mainVO.setMessage("Sei sicuro di voler chiudere la Partita? I passaggi di gioco non salvati saranno persi!");
     }
@@ -122,7 +123,7 @@ public class GUICoreMediator {
      * @return directory
      */
     public static String getSaveDirectory() {
-        return FILEDIR;
+        return fileDir;
     }
 
     /**Imposta la nuova directory per salvare
@@ -139,8 +140,8 @@ public class GUICoreMediator {
         try {
             tempFile.createNewFile();
             tempFile.delete();
-            FILEDIR = tempFileDir;
-            FILENAME = tempFileName;
+            fileDir = tempFileDir;
+            fileName = tempFileName;
         } catch (Exception e) {
             serverVO.setMessage("Impossibile Creare o Leggere il File delle Partite nella Directory Selezionata");
             serverVO.setMessageType(MessageType.ERROR);
@@ -177,7 +178,7 @@ public class GUICoreMediator {
      */
     private static void saveGames() {
         try {
-            FileOutputStream fos = new FileOutputStream(FILENAME);
+            FileOutputStream fos = new FileOutputStream(fileName);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(gameMap);
             oos.flush();
@@ -218,7 +219,7 @@ public class GUICoreMediator {
      */
     public static void loadGames()
             throws FileNotFoundException, IOException, ClassNotFoundException {
-        FileInputStream fis = new FileInputStream(FILENAME);
+        FileInputStream fis = new FileInputStream(fileName);
         ObjectInputStream ois = new ObjectInputStream(fis);
         gameMap = (HashMap<Long, Game>) ois.readObject();
         ois.close();
@@ -323,7 +324,7 @@ public class GUICoreMediator {
      */
     public static MenuVO requestMenuVO() {
 
-        menuVO.getItemEnabledMap().clear();
+        menuVO.clear();
 
         if (currentGame == null) {
             menuVO.getItemEnabledMap().put("newOnLineGameJMI", true);

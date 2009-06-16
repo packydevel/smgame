@@ -93,7 +93,7 @@ public class ClientMediator {
         newGameVO.clear();
 
         this.gameMode = gameMode;
-        
+
         if (gameMode == GameMode.OFFLINE) {
             GUICoreMediator.createGame(gameName, gameSetting, playerNameList, playerTypeList);
         } else {
@@ -132,20 +132,27 @@ public class ClientMediator {
      *
      */
     public void askCloseGame() {
+        if (gameMode == GameMode.OFFLINE) {
+            GUICoreMediator.askCloseGame();
+        } else {
+        }
         try {
             stub.askCloseGame();
         } catch (Exception e) {
         }
-
     }
 
     /**Chiude la partita
      *
      */
     public void closeGame() {
-        try {
-            stub.closeGame();
-        } catch (Exception e) {
+        if (gameMode == GameMode.OFFLINE) {
+            GUICoreMediator.closeGame();
+        } else {
+            try {
+                stub.closeGame();
+            } catch (Exception e) {
+            }
         }
     }
 
@@ -279,7 +286,7 @@ public class ClientMediator {
      * @return oggetti menù
      */
     public MenuVO requestMenuVO() {
-        if (gameMode == GameMode.OFFLINE) {
+        if (gameMode == null || gameMode == GameMode.OFFLINE) {
             return GUICoreMediator.requestMenuVO();
         } else {
             try {
