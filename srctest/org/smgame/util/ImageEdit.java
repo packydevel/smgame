@@ -6,9 +6,10 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 
-/**
+/**Classe editing immagini
  *
- * @author packyuser
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class ImageEdit {
 
@@ -17,7 +18,7 @@ public class ImageEdit {
 
     /**Ridimensiona e trasforma in scala di grigi l'immagine usando un oggetto graphics tramite la bufferedimage
      *
-     * @param image immagine originale
+     * @param colorImage immagine originale
      * @return immagine riscalata in scala di grigi
      */
     public static ImageIcon grayScaleImage(ImageIcon colorImage) {        

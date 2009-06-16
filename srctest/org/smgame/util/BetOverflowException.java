@@ -1,16 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.smgame.util;
 
-/**
+/**Classe eccezione puntata fuori range credito massimo
  *
- * @author packyuser
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class BetOverflowException extends Exception {
 
+    /**Costruttore
+     *
+     * @param message messaggio di eccezione
+     */
     public BetOverflowException(String message) {
         super(message);
     }

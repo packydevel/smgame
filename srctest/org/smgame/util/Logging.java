@@ -6,11 +6,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+/**Classe gioco
+ *
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
+ */
 public class Logging {
 
     private static Logger logger;
     private static FileHandler filehandler;
 
+    /**Crea un file di logging col nome passato per parametro
+     *
+     * @param name nome logging
+     * @return true = successo
+     */
     public static boolean createLog(String name) {
         logger = Logger.getLogger(name);
         String dir = Common.getWorkspaceLog() + name + ".log";
@@ -31,12 +41,20 @@ public class Logging {
         return true;
     }
 
+    /**Scrive nel log il tipo di errore grave
+     *
+     * @param e eccezione Exception
+     */
     public static void logExceptionSevere(Exception e){
         e.printStackTrace();
         logger.severe(e.toString());
         
     }
 
+    /**Scrive nel log il tipo di avviso
+     *
+     * @param boe eccezione BetOverflowException
+     */
     public static void logExceptionWarning(BetOverflowException boe){
         StackTraceElement[] sTrace = boe.getStackTrace();
         String message = sTrace[0].getClassName() + " - " +
@@ -44,6 +62,10 @@ public class Logging {
         logger.severe(message);
     }
 
+    /**Scrive nel log il tipo di avviso
+     *
+     * @param soe eccezione ScoreOverflowException
+     */
     public static void logExceptionWarning(ScoreOverflowException soe){
         StackTraceElement[] sTrace = soe.getStackTrace();
         String message = sTrace[0].getClassName() + " - " +
@@ -51,6 +73,10 @@ public class Logging {
         logger.severe(message);
     }
 
+    /**Scrive nel log un messaggio contenente informazione
+     *
+     * @param msg messaggio
+     */
     public static void logInfo(String msg){
         logger.info(msg);
     }

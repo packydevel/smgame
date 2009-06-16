@@ -1,15 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.smgame.util;
 
 import org.smgame.core.card.Card;
 
-/**
+/**Classe gioco
  *
- * @author packyuser
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class ScoreOverflowException extends Exception {
 
