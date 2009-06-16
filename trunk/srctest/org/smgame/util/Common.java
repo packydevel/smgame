@@ -11,7 +11,7 @@ public class Common {
     
     final static String separ = File.separator;
     final static String curDir = "c:"+separ+"smgamelog";
-    final static String dirResource = "org" + separ + "smgame" + separ + "resource" + separ;
+    final static String dirResource = "/org" + separ + "smgame" + separ + "resource" + separ;
     final static String dirResourceCard = dirResource + "cardimage" + separ;
 
     /**Restituisce il percorso di lavoro corrente comprensivo di primo separatore

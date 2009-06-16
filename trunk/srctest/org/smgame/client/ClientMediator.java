@@ -2,9 +2,6 @@ package org.smgame.client;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.rmi.RMISecurityManager;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.List;
 
 import org.smgame.core.GUICoreMediator;
@@ -32,10 +29,7 @@ public class ClientMediator {
      *
      * @throws java.lang.Exception
      */
-    private ClientMediator() throws Exception {
-        System.setSecurityManager(new RMISecurityManager());
-        Registry registry = LocateRegistry.getRegistry("localhost");
-        stub = (IGameMediator) registry.lookup("//localhost/ServerMediator");
+    private ClientMediator() {
     }
 
     /**Restituisce l'istanza della classe, se nulla la inizializza prima
@@ -44,11 +38,8 @@ public class ClientMediator {
      */
     public static ClientMediator getInstance() {
         if (clientMediator == null) {
-            try {
-                clientMediator = new ClientMediator();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
+            clientMediator = new ClientMediator();
         }
         return clientMediator;
     }
@@ -86,6 +77,7 @@ public class ClientMediator {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
         }
     }
 
@@ -193,6 +185,7 @@ public class ClientMediator {
         } catch (Exception e) {
             return null;
         }
+
     }
 
     /**Richiede carta
@@ -237,6 +230,7 @@ public class ClientMediator {
         } catch (Exception e) {
             return null;
         }
+
     }
 
     /**richiede e restituisce gli oggetti del gioco
@@ -253,6 +247,7 @@ public class ClientMediator {
                 e.printStackTrace();
                 return null;
             }
+
         }
     }
 
@@ -271,5 +266,4 @@ public class ClientMediator {
             }
         }
     }
-
 }
