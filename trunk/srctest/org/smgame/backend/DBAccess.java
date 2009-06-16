@@ -76,11 +76,8 @@ public class DBAccess {
      */
     public static boolean testConnection() throws Exception {
         Connection tempConn = getConnection();
-
-        if (tempConn.isValid(0)) {
-            return true;
-        }
-
+        if (tempConn.isValid(0))
+            return true;       
         return false;
     }
 
@@ -91,7 +88,7 @@ public class DBAccess {
     private void readProperties() throws IOException {
         Properties properties = new Properties();
         //directory di lavoro
-        String file = getClass().getResource("/org/smgame/resource/database.properties").getPath();
+        String file = getClass().getResource((Common.getResource() + "database.properties")).getPath();
         //caricamento del file properties
         properties.load(new FileInputStream(file));
         Logging.logInfo("Caricamento database.properties effettuato");

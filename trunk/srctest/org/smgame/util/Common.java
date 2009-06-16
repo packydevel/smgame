@@ -11,9 +11,8 @@ public class Common {
     
     final static String separ = File.separator;
     final static String curDir = "c:"+separ+"smgamelog";
-    final static String dirResource = "src" + separ + "org" + separ + "smgame" + separ + "resource" + separ;
+    final static String dirResource = "org" + separ + "smgame" + separ + "resource" + separ;
     final static String dirResourceCard = dirResource + "cardimage" + separ;
-    //final static String tempDir = System.getProperty("java.io.tmpdir");
 
     /**Restituisce il percorso di lavoro corrente comprensivo di primo separatore
      *
@@ -33,7 +32,7 @@ public class Common {
      * @return percorso resource
      */
     public static String getResource(){
-        return getWorkspace() + dirResource;
+        return dirResource;
     }
 
     /**Restituisce il percorso delle carte correnti
@@ -42,7 +41,7 @@ public class Common {
      */
     public static String getResourceCards(String typecard){
         /*TODO: aggiustare il path x le carte in merito alla scelta delle carte*/
-        return getWorkspace() + dirResourceCard  + typecard + separ;
+        return dirResourceCard  + typecard + separ;
     }
 
     /**Restituisce la cartella dei log
