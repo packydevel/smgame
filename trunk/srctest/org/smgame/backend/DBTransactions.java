@@ -1,17 +1,14 @@
 package org.smgame.backend;
 
 import java.io.IOException;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-
 import java.util.ArrayList;
 
 import org.smgame.core.card.Card;
-
 import org.smgame.util.Common;
 import org.smgame.util.Logging;
 
@@ -46,6 +43,7 @@ public class DBTransactions {
     private double score; //punteggio
     private double win; //vincita
     private ArrayList<Card> cardAL;
+    private ArrayList<String> idTransactionsAL;
 
     private ArrayList<DBTransactions> transactionsAL;
 
@@ -265,5 +263,16 @@ public class DBTransactions {
         if (rs.next())
             last_id = rs.getLong(1);        
         return last_id;
+    }
+
+    public void selectDistinctIdTransactions() throws ClassNotFoundException, SQLException, IOException{
+        String sql = "SELECT DISTINCT(" + colTrans2 + ") FROM "+ tableTrans;
+        Connection conn = DBAccess.getConnection();
+        PreparedStatement prpstmt = conn.prepareStatement(sql);
+        ResultSet rs = prpstmt.executeQuery();
+        idTransactionsAL = new ArrayList<String>();
+        while (rs.next()) {
+            idTransactionsAL.add(rs.getString(1));
+        }
     }
 } //end class
