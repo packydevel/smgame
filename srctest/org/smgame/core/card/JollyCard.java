@@ -16,8 +16,7 @@ public class JollyCard extends Card {
      * @param point punto
      * @param suit seme
      * @param value valore
-     * @param image immagine
-     * @param icon icona
+     * @param frontImage immagine
      */
     public JollyCard(Point point, Suit suit, double value, ImageIcon frontImage) {
         super(point, suit, value, frontImage);

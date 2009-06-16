@@ -25,6 +25,7 @@ public class Card implements Serializable {
      * @param point descrizione del punto
      * @param suit seme 
      * @param value valore
+     * @param frontImage immagine della carta
      */
     public Card(Point point, Suit suit, double value, ImageIcon frontImage) {
         this.point = point;
