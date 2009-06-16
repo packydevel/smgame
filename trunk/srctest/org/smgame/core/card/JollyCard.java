@@ -19,8 +19,8 @@ public class JollyCard extends Card {
      * @param image immagine
      * @param icon icona
      */
-    public JollyCard(Point point, Suit suit, double value, ImageIcon image, ImageIcon icon) {
-        super(point, suit, value, image, icon);
+    public JollyCard(Point point, Suit suit, double value, ImageIcon frontImage) {
+        super(point, suit, value, frontImage);
     }
 
     /**Calcola e restituisce il massimo valore della carta jolly

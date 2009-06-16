@@ -38,8 +38,10 @@ public class Deck implements Serializable {
      */
     public Deck() {
         String img = "";
+        ImageIcon frontImage;
         int i;
         Card c;
+
         for (Suit suit : Suit.values()) {
             i = 0;
             for (Point point : Point.values()) {
@@ -58,11 +60,11 @@ public class Deck implements Serializable {
                 }
                 img += i + 1 + ".jpg";
 
-                ImageIcon icon = new ImageIcon(Common.getResourceCards("napoletane") + img);
+                frontImage = new ImageIcon(Card.class.getResource("/org/smgame/resource/cardimage/napoletane/" + img));
                 if (point == Point.Re && suit == Suit.Danari) {
-                    c = new JollyCard(point, suit, ALL_VALUE[i], icon, icon);
+                    c = new JollyCard(point, suit, ALL_VALUE[i], frontImage);
                 } else {
-                    c = new Card(point, suit, ALL_VALUE[i], icon, icon);
+                    c = new Card(point, suit, ALL_VALUE[i], frontImage);
                 }
                 CARDS.add(c);
 
@@ -165,5 +167,4 @@ public class Deck implements Serializable {
     public void setEmptyDeck(boolean isEmptyDeck) {
         this.emptyDeck = isEmptyDeck;
     }
-
 } //end class

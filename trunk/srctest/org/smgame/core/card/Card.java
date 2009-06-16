@@ -1,6 +1,5 @@
 package org.smgame.core.card;
 
-import java.awt.Toolkit;
 import java.io.Serializable;
 import javax.swing.ImageIcon;
 
@@ -15,11 +14,8 @@ public class Card implements Serializable {
 
     private Point point; //punto
     private Suit suit; //seme
-    private ImageIcon image;
-    private ImageIcon icon;
-//    private transient final ImageIcon backImage=new ImageIcon(Common.getResourceCards("napoletane") + "dorso.jpg");
-    private transient final ImageIcon backImage=new ImageIcon(Toolkit.getDefaultToolkit().createImage("org/smgame/resource/cardimage/napoletane/dorso.jpg"));
-//        private transient final ImageIcon backImage=new ImageIcon(Card.class.getResource("org/smgame/resource/cardimage/napoletane/dorso.jpg"));
+    private ImageIcon frontImage;
+    private static final ImageIcon backImage = new ImageIcon(Card.class.getResource("/org/smgame/resource/cardimage/napoletane/dorso.jpg"));
     private double value; //valore
 
     /**Costruttore con tre parametri
@@ -28,12 +24,11 @@ public class Card implements Serializable {
      * @param suit seme 
      * @param value valore
      */
-    public Card(Point point, Suit suit, double value, ImageIcon image, ImageIcon icon) {
+    public Card(Point point, Suit suit, double value, ImageIcon frontImage) {
         this.point = point;
         this.suit = suit;
         this.value = value;
-        this.image = image;
-        this.icon = icon;
+        this.frontImage = frontImage;
     }
 
     /**Restituisce il punto
@@ -52,19 +47,11 @@ public class Card implements Serializable {
         return this.suit;
     }
 
-    /**Restituisce l'icona come imageicon
-     * 
-     * @return icona
-     */
-    public ImageIcon getIcon() {
-        return icon;
-    }
-
     /**Restituisce il dorso della carta sotto forma di imageicon
      *
      * @return dorso
      */
-    public ImageIcon getBackImage(){
+    public static ImageIcon getBackImage() {
         return backImage;
     }
 
@@ -73,7 +60,7 @@ public class Card implements Serializable {
      * @return carta frontale
      */
     public ImageIcon getFrontImage() {
-        return image;
+        return frontImage;
     }
 
     /**Restituisce il valore della carta
