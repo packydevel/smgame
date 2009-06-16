@@ -10,6 +10,9 @@ import org.smgame.core.GameSetting;
 import org.smgame.client.frontend.LoadGameVO;
 import org.smgame.client.frontend.MenuVO;
 import org.smgame.client.frontend.GameVO;
+import org.smgame.client.frontend.MainVO;
+import org.smgame.client.frontend.MessageType;
+import org.smgame.client.frontend.NewGameVO;
 import org.smgame.server.IGameMediator;
 import org.smgame.util.NoGamesException;
 
@@ -24,12 +27,18 @@ public class ClientMediator {
     private static ClientMediator clientMediator;
     private GameMode gameMode;
     private IGameMediator stub;
+    private MainVO mainVO = new MainVO();
+    private NewGameVO newGameVO = new NewGameVO();
 
     /**Costruttore privato
      *
      * @throws java.lang.Exception
      */
     private ClientMediator() {
+        try {
+            stub = RMIClient.getStub();
+        } catch (Exception e) {
+        }
     }
 
     /**Restituisce l'istanza della classe, se nulla la inizializza prima
@@ -38,10 +47,23 @@ public class ClientMediator {
      */
     public static ClientMediator getInstance() {
         if (clientMediator == null) {
-
             clientMediator = new ClientMediator();
         }
+
         return clientMediator;
+    }
+
+    public void connect() {
+        mainVO.clear();
+
+        try {
+            stub = RMIClient.getStub();
+            mainVO.setMessageType(MessageType.INFO);
+            mainVO.setMessage("Connessione al Server RMI riuscita!");
+        } catch (Exception e) {
+            mainVO.setMessageType(MessageType.ERROR);
+            mainVO.setMessage("Impossibile connettersi al server RMI!");
+        }
     }
 
     /**Aggiunge il menu
@@ -68,16 +90,19 @@ public class ClientMediator {
      * @param playerTypeList lista tipo giocatori
      */
     private void createGame(GameMode gameMode, String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) {
+        newGameVO.clear();
+
         this.gameMode = gameMode;
+        
         if (gameMode == GameMode.OFFLINE) {
             GUICoreMediator.createGame(gameName, gameSetting, playerNameList, playerTypeList);
         } else {
             try {
                 stub.createGame(gameName, gameSetting, playerNameList, playerTypeList);
             } catch (Exception e) {
-                e.printStackTrace();
+                newGameVO.setMessageType(MessageType.ERROR);
+                newGameVO.setMessage("Impossibile Giocare una Partita OnLine!");
             }
-
         }
     }
 
@@ -220,17 +245,53 @@ public class ClientMediator {
         }
     }
 
+    /**Richiede e restituisce i dati per il report della scoreboard
+     *
+     * @return matrice dati
+     */
+    public Object[][] requestDataReport() {
+        if (gameMode == GameMode.OFFLINE) {
+            return GUICoreMediator.requestDataReport();
+        } else {
+            try {
+                return stub.requestDataReport();
+            } catch (Exception e) {
+                return null;
+            }
+        }
+    }
+
+    public MainVO requestMainVO() {
+        if (gameMode == GameMode.OFFLINE) {
+            return GUICoreMediator.requestMainVO();
+        } else {
+            try {
+                return stub.requestMainVO();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+    }
+
     /**richiede e Restituisce gli oggetti del menù
      *
      * @return oggetti menù
      */
     public MenuVO requestMenuVO() {
-        try {
-            return stub.requestMenuVO();
-        } catch (Exception e) {
-            return null;
+        if (gameMode == GameMode.OFFLINE) {
+            return GUICoreMediator.requestMenuVO();
+        } else {
+            try {
+                return stub.requestMenuVO();
+            } catch (Exception e) {
+                return null;
+            }
         }
+    }
 
+    public NewGameVO requestNewGameVO() {
+        return newGameVO;
     }
 
     /**richiede e restituisce gli oggetti del gioco
@@ -245,23 +306,6 @@ public class ClientMediator {
                 return stub.requestGameVO();
             } catch (Exception e) {
                 e.printStackTrace();
-                return null;
-            }
-
-        }
-    }
-
-    /**Richiede e restituisce i dati per il report della scoreboard
-     *
-     * @return matrice dati
-     */
-    public Object[][] requestDataReport() {
-        if (gameMode == GameMode.OFFLINE) {
-            return GUICoreMediator.requestDataReport();
-        } else {
-            try {
-                return stub.requestDataReport();
-            } catch (Exception e) {
                 return null;
             }
         }

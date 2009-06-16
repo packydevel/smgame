@@ -9,6 +9,7 @@ import org.smgame.core.GameSetting;
 import org.smgame.client.frontend.LoadGameVO;
 import org.smgame.client.frontend.MenuVO;
 import org.smgame.client.frontend.GameVO;
+import org.smgame.client.frontend.MainVO;
 import org.smgame.util.NoGamesException;
 
 /**Interfaccia game mediator
@@ -31,17 +32,19 @@ public interface IGameMediator extends Remote {
 
     public void loadGames() throws FileNotFoundException, IOException, ClassNotFoundException, RemoteException;
 
+    public MainVO requestMainVO() throws RemoteException;
+
+    public MenuVO requestMenuVO() throws RemoteException;
+
     public LoadGameVO requestLoadGameVO() throws NoGamesException, RemoteException;
+
+    public GameVO requestGameVO() throws RemoteException;
 
     public String getGameTitle() throws RemoteException;
 
     public void requestCard(int playerIndex, double bet) throws RemoteException;
 
     public void declareGoodScore(int playerIndex, double bet) throws RemoteException;
-
-    public MenuVO requestMenuVO() throws RemoteException;
-
-    public GameVO requestGameVO() throws RemoteException;
 
     public Object[][] requestDataReport() throws RemoteException;
 }
