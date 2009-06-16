@@ -7,6 +7,11 @@ import java.sql.Types;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/**Classe metodi comuni
+ *
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
+ */
 public class Common {
     
     final static String separ = File.separator;
@@ -32,6 +37,7 @@ public class Common {
 
     /**Restituisce il percorso delle carte correnti
      *
+     * @param typecard tipo mazzo usato
      * @return percorso carte
      */
     public static String getResourceCards(String typecard){

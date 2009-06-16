@@ -1,16 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.smgame.util;
 
-/**
+/**Classe eccezione non ci sono partite
  *
- * @author packyuser
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class NoGamesException extends Exception {
 
+    /**Costruttore
+     *
+     * @param message messaggio d'eccezione
+     */
     public NoGamesException(String message) {
         super(message);
     }
