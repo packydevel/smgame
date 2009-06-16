@@ -2,12 +2,9 @@ package org.smgame.client;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import java.rmi.RMISecurityManager;
 import java.rmi.registry.LocateRegistry;
-
 import java.rmi.registry.Registry;
-
 import java.util.List;
 
 import org.smgame.core.GUICoreMediator;
