@@ -17,18 +17,11 @@ import org.smgame.util.Common;
  */
 public class Deck implements Serializable {
 
-    private static Deck currentDeck = null; //mazzo corrente
-
-    //costanti
-    private final int TOTAL_CARDS = 40; //carte totali
-    private final int TOTAL_CARDS_PER_SUIT = 10; //carte totali per seme
     private final double[] ALL_VALUE = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 0.5, 0.5, 0.5};//tutti i valori
     private final ArrayList<Card> CARDS = new ArrayList<Card>();
-
-    //variabili
+    
     private ArrayList<Card> onGameCardList = new ArrayList<Card>();
-    private ArrayList<Card> offGameCardList = new ArrayList<Card>();
-    private int totalRemainingCards = TOTAL_CARDS; //carte rimanenti
+    private ArrayList<Card> offGameCardList = new ArrayList<Card>();   
     private transient Iterator<Card> onGameCardsIterator;
     private Card nextCard; //prossima carta
     private boolean emptyDeck;
@@ -60,7 +53,8 @@ public class Deck implements Serializable {
                 }
                 img += i + 1 + ".jpg";
 
-                frontImage = new ImageIcon(Card.class.getResource("/org/smgame/resource/cardimage/napoletane/" + img));
+                frontImage = new ImageIcon(Card.class.getResource(
+                        Common.getResourceCards("napoletane") + img));
                 if (point == Point.Re && suit == Suit.Danari) {
                     c = new JollyCard(point, suit, ALL_VALUE[i], frontImage);
                 } else {

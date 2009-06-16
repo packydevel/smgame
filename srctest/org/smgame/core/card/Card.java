@@ -2,6 +2,7 @@ package org.smgame.core.card;
 
 import java.io.Serializable;
 import javax.swing.ImageIcon;
+import org.smgame.util.Common;
 
 /**Classe Carta
  * rappresenta la singola carta del mazzo
@@ -15,7 +16,8 @@ public class Card implements Serializable {
     private Point point; //punto
     private Suit suit; //seme
     private ImageIcon frontImage;
-    private static final ImageIcon backImage = new ImageIcon(Card.class.getResource("/org/smgame/resource/cardimage/napoletane/dorso.jpg"));
+    private static final ImageIcon backImage = new ImageIcon(
+            Card.class.getResource(Common.getResourceCards("napoletane")+"dorso.jpg"));
     private double value; //valore
 
     /**Costruttore con tre parametri
