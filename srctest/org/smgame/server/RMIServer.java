@@ -76,6 +76,7 @@ public class RMIServer {
             try {
                 rmiregistry.unbind(bindName);
                 rmiregistryProcess.destroy();
+                System.exit(0);
             } catch (Exception e) {
                 e.printStackTrace();
             }
