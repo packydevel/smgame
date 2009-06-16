@@ -4,11 +4,9 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-import java.sql.SQLException;
-
-import org.smgame.backend.DBAccess;
 import org.smgame.client.frontend.MessageType;
 import org.smgame.server.frontend.ServerVO;
+import org.smgame.util.Logging;
 
 /**Server RMI
  *
@@ -17,6 +15,8 @@ import org.smgame.server.frontend.ServerVO;
 public class RMIServer {
 
     private static RMIServer server;
+    private IGameMediator istub;
+    private Stub stub;
     private static ServerVO serverVO = new ServerVO();
     private String rmiRegistryCommand = "";
     private Process rmiregistryProcess;
@@ -34,7 +34,7 @@ public class RMIServer {
             rmiRegistryCommand = "javaw rmiregistry";
         }
 
-        bindName = "//localhost/ServerMediator";
+        bindName = "rmi://localhost/ServerMediator";
     }
 
     public static RMIServer getInstance() {
@@ -46,25 +46,20 @@ public class RMIServer {
     }
 
     public void start() {
-        IGameMediator stub;
         serverVO.clear();
 
         try {
             rmiregistryProcess = runtime.exec(rmiRegistryCommand);
-            Thread.sleep(5000);
+            Thread.sleep(1000);
 
             rmiregistry = LocateRegistry.getRegistry();
-            stub = (IGameMediator) UnicastRemoteObject.exportObject(new Stub(), 0);//, 2005);
-            rmiregistry.rebind(bindName, stub);
-            System.out.println("Ready to do time");
 
-            if (DBAccess.testConnection()) {
-                try {
-                    DBAccess.closeConnection();
-                } catch (SQLException sqle) {
-                    sqle.printStackTrace();
-                }
-            }
+            stub = new Stub();
+
+            istub = (IGameMediator) UnicastRemoteObject.exportObject(stub, 0);
+            rmiregistry.rebind(bindName, stub);
+
+            Logging.logInfo("RMIServer Start su localhost");
         } catch (Exception e) {
             serverVO.setMessage("Impossibile avviare il server");
             serverVO.setMessageType(MessageType.ERROR);
@@ -74,9 +69,11 @@ public class RMIServer {
     public void stop() {
         if (rmiregistryProcess != null) {
             try {
-                rmiregistry.unbind(bindName);
+                UnicastRemoteObject.unexportObject(stub, true);
                 rmiregistryProcess.destroy();
-                System.exit(0);
+                stub = null;
+                rmiregistryProcess = null;
+                Logging.logInfo("RMIServer Stop su localhost");
             } catch (Exception e) {
                 e.printStackTrace();
             }

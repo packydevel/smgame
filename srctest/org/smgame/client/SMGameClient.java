@@ -15,20 +15,22 @@ import org.smgame.util.Logging;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
-public class SMGameClient extends JApplet{
+public class SMGameClient extends JApplet {
 
     @Override
-    public void init() {}
+    public void init() {
+    }
 
     @Override
-    public void stop() {}
+    public void stop() {
+    }
 
     /**
      *
      *
      */
     @Override
-    public void start (){
+    public void start() {
         //System.setSecurityManager(new SecurityManager());
         Logging.createLog(Common.getCurrentDateTime());
 
@@ -46,7 +48,7 @@ public class SMGameClient extends JApplet{
     }
 
     @Override
-    public void destroy(){
+    public void destroy() {
         System.exit(0);
     }
 
@@ -73,5 +75,7 @@ public class SMGameClient extends JApplet{
         } catch (Exception e) {
             Logging.logExceptionSevere(e);
         }
+
+        System.out.println(SMGameClient.class.getResource("/"));
     }
 }
