@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -38,7 +39,8 @@ public class GameEngine implements Serializable {
     /**costruttore vuoto
      * 
      */
-    public GameEngine() { }
+    public GameEngine() {
+    }
 
     /**inizia la partita
      *
@@ -78,7 +80,12 @@ public class GameEngine implements Serializable {
      */
     public void distributeFirstCard() {
         Card card;
-        for (Player p : playerList.getPlayerAL()) {
+        Iterator<Player> playerListIterator;
+        Player p;
+
+        playerListIterator = playerList.getPlayerListIterator();
+        while (playerListIterator.hasNext()) {
+            p = playerListIterator.next();
             card = deck.getNextCard();
             p.getCardList().add(card);
         }
@@ -147,9 +154,7 @@ public class GameEngine implements Serializable {
      * @return mazziere
      */
     private Player selectFirstRandomBankPlayer() {
-        List<Player> tempList = new ArrayList<Player>(playerList.getPlayerAL());
-        Collections.shuffle(tempList, new Random(System.currentTimeMillis()));
-        bankPlayer = tempList.get(0);
+        bankPlayer = playerList.selectRandomPlayer();
         bankPlayer.setRole(PlayerRole.Bank);
         return bankPlayer;
     }
@@ -167,9 +172,9 @@ public class GameEngine implements Serializable {
             player = playerHasFirstKingSM;
             if (player == null) {
                 if (deck.isEmptyDeck()) {
-                    indexList = playerList.getPlayerAL().indexOf(bankPlayer);
-                    indexList = ++indexList % playerList.getPlayerAL().size();
-                    player = playerList.getPlayerAL().get(indexList);
+                    indexList = playerList.indexOfPlayer(bankPlayer);
+                    indexList = ++indexList % playerList.size();
+                    player = playerList.getPlayer(indexList);
                     deck.setEmptyDeck(false);
                 } else {
                     player = bankPlayer;
@@ -207,13 +212,19 @@ public class GameEngine implements Serializable {
         return compare;
     }
 
-     /**Determina quanto vince o perde un giocatore contro il banco secondo le regole di Wikipedia
-      *
-      */
+    /**Determina quanto vince o perde un giocatore contro il banco secondo le regole di Wikipedia
+     *
+     */
     private void applyPaymentRule() {
         Double amount, bankAmountGoodScorePlayer = 0.00, bankAmountOverflowPlayer = 0.00;
+        Card card;
+        Iterator<Player> playerListIterator;
+        Player p;
 
-        for (Player p : playerList.getPlayerAL()) {
+        playerListIterator = playerList.getPlayerListIterator();
+        while (playerListIterator.hasNext()) {
+            p = playerListIterator.next();
+
             if (p.getStatus() == PlayerStatus.GoodScore && !p.equals(bankPlayer)) {
                 if (compareScore(p)) {
                     if (p.hasKingSM()) {
@@ -259,9 +270,9 @@ public class GameEngine implements Serializable {
         int indexList;
         currentPlayer = player;
         do {
-            indexList = playerList.getPlayerAL().indexOf(currentPlayer);
-            indexList = ++indexList % playerList.getPlayerAL().size();
-            currentPlayer = playerList.getPlayerAL().get(indexList);
+            indexList = playerList.indexOfPlayer(currentPlayer);
+            indexList = ++indexList % playerList.size();
+            currentPlayer = playerList.getPlayer(indexList);
             if (currentPlayer instanceof CPUPlayer) {
                 playCPU((CPUPlayer) currentPlayer);
             }
@@ -315,7 +326,13 @@ public class GameEngine implements Serializable {
      *
      */
     public void startManche() {
-        for (Player p : playerList.getPlayerAL()) {
+        Card card;
+        Iterator<Player> playerListIterator;
+        Player p;
+
+        playerListIterator = playerList.getPlayerListIterator();
+        while (playerListIterator.hasNext()) {
+            p = playerListIterator.next();
             p.getCardList().clear();
             p.getBetList().clear();
             p.setStatus(null);
@@ -326,10 +343,6 @@ public class GameEngine implements Serializable {
         deck.shuffle();
         distributeFirstCard();
         currentPlayer = nextPlayer(bankPlayer);
-
-        for (Player p : playerList.getPlayerAL()) {
-            System.out.println(p.getName() + " - " + p.getRole());
-        }
     }
 
     /**Restituisce manche corrente
@@ -343,9 +356,16 @@ public class GameEngine implements Serializable {
     /**chiudi la manche
      */
     public void closeManche() {
+        Card card;
+        Iterator<Player> playerListIterator;
+        Player p;
+
         applyPaymentRule();
         playerHasFirstKingSM = playerList.firstKingSM(bankPlayer);
-        for (Player p : playerList.getPlayerAL()) {
+
+        playerListIterator = playerList.getPlayerListIterator();
+        while (playerListIterator.hasNext()) {
+            p = playerListIterator.next();
             if (p.getStatus() == PlayerStatus.GoodScore) {
                 deck.addOffGameCards(p.getCardList());
             }
@@ -374,5 +394,4 @@ public class GameEngine implements Serializable {
         }
         return false;
     }
-
 }//end class

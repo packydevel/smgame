@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**Classe lista giocatori
  *
@@ -15,20 +17,38 @@ import java.util.Map;
  */
 public class PlayerList implements Serializable {
 
-    private static PlayerList playerList = null;
     private LinkedList<Player> playerAL = new LinkedList<Player>();
 
     /**Costruttore vuoto
      *
      */
-    public PlayerList() { }
+    public PlayerList() {
+    }
 
-    /**REstituisce la lista di giocatori
-     *
-     * @return lista
-     */
-    public List<Player> getPlayerAL() {
-        return playerAL;
+    public Iterator<Player> getPlayerListIterator() {
+        return playerAL.iterator();
+    }
+
+    public void addPlayer(Player player) {
+        playerAL.add(player);
+    }
+
+    public Player getPlayer(int order) {
+        return playerAL.get(order);
+    }
+
+    public int indexOfPlayer(Player player) {
+        return playerAL.indexOf(player);
+    }
+
+    public int size() {
+        return playerAL.size();
+    }
+
+    public Player selectRandomPlayer() {
+        List<Player> tempList = new ArrayList<Player>(playerAL);
+        Collections.shuffle(tempList, new Random(System.currentTimeMillis()));
+        return tempList.get(0);
     }
 
     /**Esiste giocatore debole
