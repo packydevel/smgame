@@ -58,7 +58,7 @@ public class RMIServer {
             rmiregistry.rebind(bindName, stub);
             System.out.println("Ready to do time");
 
-            if (DBAccess.verifyConnection()) {
+            if (DBAccess.testConnection()) {
                 try {
                     DBAccess.closeConnection();
                 } catch (SQLException sqle) {
