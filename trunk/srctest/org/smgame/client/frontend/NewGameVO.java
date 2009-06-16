@@ -8,7 +8,7 @@ package org.smgame.client.frontend;
  *
  * @author packyuser
  */
-public class MainVO {
+public class NewGameVO {
 
     private MessageType messageType;
     private String message;

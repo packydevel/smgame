@@ -11,6 +11,7 @@ import org.smgame.core.GUICoreMediator;
 import org.smgame.core.GameSetting;
 import org.smgame.client.frontend.GameVO;
 import org.smgame.client.frontend.LoadGameVO;
+import org.smgame.client.frontend.MainVO;
 import org.smgame.client.frontend.MenuVO;
 import org.smgame.util.NoGamesException;
 
@@ -46,6 +47,10 @@ public class Stub implements IGameMediator {
 
     public void loadGames() throws FileNotFoundException, IOException, ClassNotFoundException {
         GUICoreMediator.loadGames();
+    }
+
+    public MainVO requestMainVO() {
+        return GUICoreMediator.requestMainVO();
     }
 
     public LoadGameVO requestLoadGameVO() throws NoGamesException {

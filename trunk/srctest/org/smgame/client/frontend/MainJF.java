@@ -18,8 +18,6 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
 
     private static JDesktopPane desktop;
     private MenuJMB menuJMB;
-    private ToolBarJTB toolBarJTB;
-    private ToolBarJTB statusBarJTB;
     private NewGameJIF newOnLineGameJIF;
     private NewGameJIF newGameJIF;
     private LoadGameJIF loadGameJIF;
@@ -38,12 +36,8 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         setSize(1024, 768);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        toolBarJTB = new ToolBarJTB();
-        statusBarJTB = new ToolBarJTB();
         desktop = new JDesktopPane();
         desktop.setDesktopManager(new GameDM());
-        //getContentPane().add(BorderLayout.NORTH, toolBarJTB.getTb());
-        //getContentPane().add(BorderLayout.SOUTH, statusBarJTB.getTb());
         getContentPane().add(BorderLayout.CENTER, desktop);
         setVisible(true);
         desktopWidth = desktop.getWidth();
@@ -80,10 +74,10 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         if (mainVO.getMessageType() == MessageType.INFO) {
             JOptionPane.showInternalMessageDialog(desktop, mainVO.getMessage(), "Info", JOptionPane.INFORMATION_MESSAGE);
         } else if (mainVO.getMessageType() == MessageType.WARNING) {
-            return JOptionPane.showInternalConfirmDialog(desktop, mainVO.getMessage(), "Info", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            return JOptionPane.showInternalConfirmDialog(desktop, mainVO.getMessage(), "Attenzione", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         } else if (mainVO.getMessageType() == MessageType.ERROR) {
             JOptionPane.showInternalMessageDialog(desktop,
-                    mainVO.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
+                    mainVO.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
         }
 
         return -1;

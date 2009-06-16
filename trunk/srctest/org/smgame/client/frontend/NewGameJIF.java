@@ -16,6 +16,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -31,22 +32,22 @@ import org.smgame.client.ClientMediator;
  */
 public class NewGameJIF extends JInternalFrame implements IGameJIF {
 
-    JPanel playerJP, preferenceJP;
-    GridBagConstraints labelGBC, textFieldGBC, comboBoxGBC, checkBoxGBC, buttonGBC;
-    JLabel playersNumberJL, cpuflagJL, mancheNumberJL, jollyCardJL, kingSMPayRuleJL;
-    JComboBox playersNumberJCB;
-    JButton cancelJB;
-    JButton okJB;
-    JCheckBox allcpuflagJCKB;
-    JCheckBox cpuflagJCKB[];
-    JLabel gameNameJL;
-    JLabel playerJL[];
-    JTextField gameNameJTF, mancheNumberJTF, jollyCardJTF, kingSMPayRuleJTF;
-    JTextField playerJTF[];
-    String eventSource;
-    int previousPlayersNumber = 0;
-    int currentPlayersNumber;
-    boolean online;
+    private JPanel playerJP,  preferenceJP;
+    private GridBagConstraints labelGBC,  textFieldGBC,  comboBoxGBC,  checkBoxGBC,  buttonGBC;
+    private JLabel playersNumberJL,  cpuflagJL,  mancheNumberJL,  jollyCardJL,  kingSMPayRuleJL;
+    private JComboBox playersNumberJCB;
+    private JButton cancelJB;
+    private JButton okJB;
+    private JCheckBox allcpuflagJCKB;
+    private JCheckBox cpuflagJCKB[];
+    private JLabel gameNameJL;
+    private JLabel playerJL[];
+    private JTextField gameNameJTF,  mancheNumberJTF,  jollyCardJTF,  kingSMPayRuleJTF;
+    private JTextField playerJTF[];
+    private NewGameVO newGameVO = new NewGameVO();
+    private int previousPlayersNumber = 0;
+    private int currentPlayersNumber;
+    private boolean online;
 
     /**Costruttore
      *
@@ -228,10 +229,6 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
         add(tabbedPane);
     }
 
-    public String getEventSource() {
-        return eventSource;
-    }
-
     private void newGameActionPerformed(ActionEvent evt) {
         int i;
         int y = 3;
@@ -344,9 +341,19 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
                     ClientMediator.getInstance().createOffLineGame(gameName, null, playerNameList, playerTypeList);
                 }
 
-                fireNewGameEvent(new NewGameEvent(this));
+                newGameVO = ClientMediator.getInstance().requestNewGameVO();
+
+                if (newGameVO.getMessageType() == MessageType.ERROR) {
+                    JOptionPane.showInternalMessageDialog(this,
+                            newGameVO.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    fireNewGameEvent(new NewGameEvent(this));
+                }
+
+
+            } else {
+                dispose();
             }
-            dispose();
         }
     }
     protected EventListenerList eventListenerList = new javax.swing.event.EventListenerList();
