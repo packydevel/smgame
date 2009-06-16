@@ -272,7 +272,7 @@ public class ClientMediator {
     }
 
     public MainVO requestMainVO() {
-        if (gameMode == GameMode.OFFLINE) {
+        if (gameMode == null || gameMode == GameMode.OFFLINE) {
             return GUICoreMediator.requestMainVO();
         } else {
             try {

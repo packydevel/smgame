@@ -76,10 +76,9 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         } else if (mainVO.getMessageType() == MessageType.WARNING) {
             return JOptionPane.showInternalConfirmDialog(desktop, mainVO.getMessage(), "Attenzione", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         } else if (mainVO.getMessageType() == MessageType.ERROR) {
-            JOptionPane.showInternalMessageDialog(desktop,
-                    mainVO.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showInternalMessageDialog(desktop, mainVO.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
         }
-
+        System.out.println(mainVO.getMessageType().toString());
         return -1;
     }
 
@@ -140,6 +139,9 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         } else if ((JMenuItem) evt.getSource() == menuJMB.getScoreBoardJMI()) {
             JOptionPane.showMessageDialog(this, new ScoreBoardJP("manche finita",
                     ClientMediator.getInstance().requestDataReport(), -1), "Score Board", JOptionPane.INFORMATION_MESSAGE);
+        } else if ((JMenuItem) evt.getSource() == menuJMB.getTestConnectionJMI()) {
+            ClientMediator.getInstance().connect();
+            analyzeVO(ClientMediator.getInstance().requestMainVO());
         }
     }
 

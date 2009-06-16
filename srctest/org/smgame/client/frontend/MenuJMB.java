@@ -15,7 +15,7 @@ public class MenuJMB extends JMenuBar {
     private JMenu gameJM;
     private JMenu newGameJM;
     private JMenu scoreBoardJM;
-    private JMenu settingsJM;
+    private JMenu toolJM;
     private JMenu helpJM;
     private JMenuItem newOnLineGameJMI;
     private JMenuItem newOffLineGameJMI;
@@ -26,9 +26,9 @@ public class MenuJMB extends JMenuBar {
     private JMenuItem scoreBoardJMI;
     private JMenuItem gameSettingsJMI;
     private JMenuItem globalSettingsJMI;
+    private JMenuItem testConnectionJMI;
     private JMenuItem helpContentsJMI;
     private JMenuItem aboutJMI;
-    private JMenuBar mainJMB;
     private ArrayList<JMenuItem> menuItemListJMI = new ArrayList<JMenuItem>();
 
     /**
@@ -56,13 +56,11 @@ public class MenuJMB extends JMenuBar {
         saveGameJMI.setText("Salva ...");
         saveGameJMI.setName("saveGameJMI");
         menuItemListJMI.add(saveGameJMI);
-        //saveGameJMI.setEnabled(false);
 
         closeGameJMI = new JMenuItem("CloseGameJMI");
         closeGameJMI.setText("Chiudi");
         closeGameJMI.setName("closeGameJMI");
         menuItemListJMI.add(closeGameJMI);
-        //closeGameJMI.setEnabled(false);
 
         exitGameJMI = new JMenuItem("ExitGameJMI");
         exitGameJMI.setText("Esci");
@@ -102,10 +100,16 @@ public class MenuJMB extends JMenuBar {
         globalSettingsJMI.setName("globalSettingsJMI");
         menuItemListJMI.add(globalSettingsJMI);
 
-        settingsJM = new JMenu("SettingsJM");
-        settingsJM.setText("Preferenze");
-        settingsJM.add(gameSettingsJMI);
-        settingsJM.add(globalSettingsJMI);
+        testConnectionJMI = new JMenuItem("TestConnectionJMI");
+        testConnectionJMI.setText("Verifica Connessione al Server");
+        testConnectionJMI.setName("testConnectionJMI");
+        menuItemListJMI.add(testConnectionJMI);
+
+        toolJM = new JMenu("ToolJM");
+        toolJM.setText("Strumenti");
+        toolJM.add(gameSettingsJMI);
+        toolJM.add(globalSettingsJMI);
+        toolJM.add(testConnectionJMI);
 
         helpContentsJMI = new JMenuItem("HelpContentsJMI");
         helpContentsJMI.setText("Sommario");
@@ -124,7 +128,7 @@ public class MenuJMB extends JMenuBar {
 
         add(gameJM);
         add(scoreBoardJM);
-        add(settingsJM);
+        add(toolJM);
         add(helpJM);
     }
 
@@ -134,14 +138,6 @@ public class MenuJMB extends JMenuBar {
 
     public JMenuItem getExitGameJMI() {
         return exitGameJMI;
-    }
-
-    public JMenu getGameJM() {
-        return gameJM;
-    }
-
-    public JMenuBar getJMenuBar1() {
-        return mainJMB;
     }
 
     public JMenuItem getLoadGameJMI() {
@@ -156,16 +152,16 @@ public class MenuJMB extends JMenuBar {
         return newOffLineGameJMI;
     }
 
-    public JMenu getScoreBoardJM() {
-        return scoreBoardJM;
-    }
-
     public JMenuItem getSaveGameJMI() {
         return saveGameJMI;
     }
 
     public JMenuItem getScoreBoardJMI() {
         return scoreBoardJMI;
+    }
+
+    public JMenuItem getTestConnectionJMI() {
+        return testConnectionJMI;
     }
 
     public List<JMenuItem> getMenuItemListJMI() {
