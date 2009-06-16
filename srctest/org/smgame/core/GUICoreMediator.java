@@ -16,6 +16,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -81,12 +82,12 @@ public class GUICoreMediator {
 
         for (int i = 0; i < playerNameList.size(); i++) {
             if (playerTypeList.get(i).booleanValue()) {
-                playerList.getPlayerAL().add(new CPUPlayer(playerNameList.get(i)));
+                playerList.addPlayer(new CPUPlayer(playerNameList.get(i)));
             } else {
-                playerList.getPlayerAL().add(new HumanPlayer(playerNameList.get(i)));
+                playerList.addPlayer(new HumanPlayer(playerNameList.get(i)));
             }
-            playerList.getPlayerAL().get(i).setCredit(1000);
-        //playerList.getPlayerAL().get(i).setPlayerList(playerList);
+            playerList.getPlayer(i).setCredit(1000);
+            playerList.getPlayer(i).setPlayerList(playerList);
         }
 
         currentGame = new Game();
@@ -97,7 +98,7 @@ public class GUICoreMediator {
         currentGame.setGameSetting(new GameSetting());
         currentGame.setPlayerList(playerList);
         currentGame.generateGameEngine();
-        System.out.println("Il numero dei giocatori passati al server è: " + currentGame.getPlayerList().getPlayerAL().size());
+        System.out.println("Il numero dei giocatori passati al server è: " + currentGame.getPlayerList().size());
         currentGame.getGameEngine().start();
     }
 
@@ -278,7 +279,7 @@ public class GUICoreMediator {
      * @param bet puntata
      */
     public static void requestCard(int playerIndex, double bet) {
-        Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
+        Player player = currentGame.getPlayerList().getPlayer(playerIndex);
 
         try {
             currentGame.getGameEngine().requestCard(player, bet);
@@ -306,7 +307,7 @@ public class GUICoreMediator {
      * @param bet puntata
      */
     public static void declareGoodScore(int playerIndex, double bet) {
-        Player player = currentGame.getPlayerList().getPlayerAL().get(playerIndex);
+        Player player = currentGame.getPlayerList().getPlayer(playerIndex);
         try {
             currentGame.getGameEngine().declareGoodScore(player, bet);
             if (!currentGame.getGameEngine().isEndManche()) {
@@ -367,8 +368,8 @@ public class GUICoreMediator {
 
         gameVO.clear();
 
-        for (int i = 0; i < currentGame.getPlayerList().getPlayerAL().size(); i++) {
-            Player tempPlayer = currentGame.getPlayerList().getPlayerAL().get(i);
+        for (int i = 0; i < currentGame.getPlayerList().size(); i++) {
+            Player tempPlayer = currentGame.getPlayerList().getPlayer(i);
 
             gameVO.getPlayerIndexList().add(i);
 
@@ -475,7 +476,7 @@ public class GUICoreMediator {
         int size = gameVO.getPlayerIndexList().size();
         Object[][] data = new Object[size][4];
         for (int i = 0; i < size; i++) {
-            Player tempPlayer = currentGame.getPlayerList().getPlayerAL().get(i);
+            Player tempPlayer = currentGame.getPlayerList().getPlayer(i);
             data[i][0] = gameVO.getPlayerNameMap().get(i);
             //punteggio
             data[i][1] = gameVO.getPlayerScoreMap().get(i).substring(10);
@@ -492,7 +493,12 @@ public class GUICoreMediator {
      */
     private static void addTransactionAL() {
         long game_id = currentGame.getGameID();
-        for (Player p : currentGame.getPlayerList().getPlayerAL()) {
+        Iterator<Player> playerListIterator;
+        Player p;
+
+        playerListIterator = currentGame.getPlayerList().getPlayerListIterator();
+        while (playerListIterator.hasNext()) {
+            p = playerListIterator.next();
             DBTransactions dbt = new DBTransactions(game_id, currentGame.getGameEngine().getCurrentManche(),
                     p.getName(), p.getScore(), p.getLastWinLoseAmount(), p.getCardList());
             trans.addToArraylistTransactions(dbt);

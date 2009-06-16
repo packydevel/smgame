@@ -212,12 +212,15 @@ public class ClientMediator {
      * @return titolo partita
      */
     public String getGameTitle() {
-        try {
-            return stub.getGameTitle();
-        } catch (Exception e) {
-            return null;
+        if (gameMode == GameMode.OFFLINE) {
+            return GUICoreMediator.getGameTitle();
+        } else {
+            try {
+                return stub.getGameTitle();
+            } catch (Exception e) {
+                return null;
+            }
         }
-
     }
 
     /**Richiede carta

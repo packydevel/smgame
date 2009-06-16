@@ -2,6 +2,7 @@ package org.smgame.core.player;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Iterator;
 import org.smgame.core.card.Point;
 import org.smgame.core.card.Suit;
 
@@ -38,6 +39,8 @@ public class CPUPlayer extends Player implements Serializable {
     public boolean isGoodScore() {
         double threshold = 0.00, hypotethicScore, i;
         int allHypotheticValues, allGoodValues;
+        Iterator<Player> playerListIterator;
+        Player p;
         //HashMap<Player, PlayerStatus> playerStatusMap = (HashMap<Player, PlayerStatus>) playerList.getPlayerStatusMap();
         //HashMap<Player, Double> playerVisibleScoreMap = (HashMap<Player, Double>) playerList.getPlayerVisibleScoreMap();
 
@@ -52,7 +55,10 @@ public class CPUPlayer extends Player implements Serializable {
                 }
             }
         } else {
-            for (Player p :playerList.getPlayerAL()) {
+            playerListIterator = playerList.getPlayerListIterator();
+            while (playerListIterator.hasNext()) {
+                p = playerListIterator.next();
+
                 if (!p.equals(this)) {
                     if (p.getStatus() == PlayerStatus.ScoreOverflow) {
                         threshold += p.getStake();
