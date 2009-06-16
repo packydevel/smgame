@@ -1,6 +1,7 @@
 package org.smgame.server.frontend;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -19,9 +20,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import javax.swing.ScrollPaneLayout;
 import org.smgame.core.GUICoreMediator;
 import org.smgame.client.frontend.MessageType;
 import org.smgame.server.RMIServer;
@@ -35,11 +39,13 @@ import org.smgame.server.RMIServer;
 public class ServerJF extends JFrame implements WindowListener {
 
     ServerVO serverVO;
-    JPanel statusJP, monitorJP, configJP, pathJP, fileJP, databaseJP;
+    JPanel statusJP, configJP, pathJP, fileJP, databaseJP;
+    JScrollPane monitorJSP;
     GridBagConstraints panelGBC, labelGBC, textFieldGBC, buttonGBC;
     JLabel pathJL, playersNumberJL, cpuflagJL, hostnameJL, portJL, dbnameJL, usernameJL, passwordJL;
     JButton startJB, stopJB, pathJB, testJB;
     JTextField hostnameJTF, portJTF, dbnameJTF, usernameJTF, passwordJTF;
+    JTextArea monitorJTA;
 
     /**Costruttore
      *
@@ -61,9 +67,17 @@ public class ServerJF extends JFrame implements WindowListener {
                 "Configurazione del Server");
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
-        monitorJP = new JPanel();
-        monitorJP.setLayout(new GridBagLayout());
-        tabbedPane.addTab("Monitor", null, monitorJP,
+        monitorJTA = new JTextArea();
+        monitorJTA.setLineWrap(true);
+        monitorJTA.setWrapStyleWord(true);
+        monitorJTA.setEditable(false);
+        monitorJTA.setBackground(Color.BLACK);
+        monitorJTA.setForeground(Color.GREEN);
+
+        monitorJSP = new JScrollPane(monitorJTA);
+        monitorJSP.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        monitorJSP.setLayout(new ScrollPaneLayout());
+        tabbedPane.addTab("Monitor", null, monitorJSP,
                 "Monitor delle attività del Server");
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
@@ -264,10 +278,13 @@ public class ServerJF extends JFrame implements WindowListener {
                 startJB.setEnabled(false);
                 stopJB.setEnabled(true);
             }
+            monitorJTA.append(serverVO.getMessageType().toString() + " - " + serverVO.getMessage() + "\n");
         } else if (((JButton) e.getSource()).equals(stopJB)) {
             RMIServer.getInstance().stop();
+            serverVO = RMIServer.getInstance().requestServerVO();
             startJB.setEnabled(true);
             stopJB.setEnabled(false);
+            monitorJTA.append(serverVO.getMessageType().toString() + " - " + serverVO.getMessage() + "\n");
         } else if (((JButton) e.getSource()).equals(pathJB)) {
             fileJFC = new JFileChooser();
             fileJFC.setDialogTitle("Seleziona una Directory");
@@ -292,6 +309,7 @@ public class ServerJF extends JFrame implements WindowListener {
             } else {
                 JOptionPane.showMessageDialog(this, serverVO.getMessage(), "Info", JOptionPane.INFORMATION_MESSAGE);
             }
+            monitorJTA.append(serverVO.getMessageType().toString() + " - " + serverVO.getMessage() + "\n");
         }
     }
 
