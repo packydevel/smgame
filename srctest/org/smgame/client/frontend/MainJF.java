@@ -140,8 +140,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
             JOptionPane.showMessageDialog(this, new ScoreBoardJP("manche finita",
                     ClientMediator.getInstance().requestDataReport(), -1), "Score Board", JOptionPane.INFORMATION_MESSAGE);
         } else if ((JMenuItem) evt.getSource() == menuJMB.getTestConnectionJMI()) {
-            ClientMediator.getInstance().connect();
-            analyzeVO(ClientMediator.getInstance().requestMainVO());
+            analyzeVO(ClientMediator.getInstance().connect());
         }
     }
 

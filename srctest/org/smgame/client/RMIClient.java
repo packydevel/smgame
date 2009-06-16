@@ -16,7 +16,7 @@ import org.smgame.server.IGameMediator;
  */
 public class RMIClient {
 
-    private static IGameMediator stub=null;
+    private static IGameMediator stub = null;
 
     private RMIClient() throws Exception {
         System.setSecurityManager(new RMISecurityManager());
@@ -25,8 +25,15 @@ public class RMIClient {
     }
 
     public static IGameMediator getStub() throws Exception {
-        if (stub==null) {
+        if (stub == null) {
             new RMIClient();
+        } else {
+            try {
+                stub.test();
+            } catch (Exception e) {
+                stub = null;
+                throw new Exception();
+            }
         }
 
         return stub;

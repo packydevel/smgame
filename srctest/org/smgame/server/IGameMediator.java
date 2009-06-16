@@ -18,6 +18,8 @@ import org.smgame.util.NoGamesException;
  */
 public interface IGameMediator extends Remote {
 
+    public void test() throws RemoteException;
+
     public void addMenuItem(List<String> menuItemList) throws RemoteException;
 
     public void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) throws RemoteException;

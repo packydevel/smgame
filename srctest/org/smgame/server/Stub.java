@@ -21,6 +21,9 @@ import org.smgame.util.NoGamesException;
  */
 public class Stub implements IGameMediator {
 
+    public void test() {
+    }
+
     public void addMenuItem(List<String> menuItemList) {
         GUICoreMediator.addMenuItem(menuItemList);
     }

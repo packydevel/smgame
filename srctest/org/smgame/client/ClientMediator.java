@@ -53,7 +53,7 @@ public class ClientMediator {
         return clientMediator;
     }
 
-    public void connect() {
+    public MainVO connect() {
         mainVO.clear();
 
         try {
@@ -63,7 +63,10 @@ public class ClientMediator {
         } catch (Exception e) {
             mainVO.setMessageType(MessageType.ERROR);
             mainVO.setMessage("Impossibile connettersi al server RMI!");
+            return mainVO;
         }
+
+        return mainVO;
     }
 
     /**Aggiunge il menu
@@ -273,6 +276,7 @@ public class ClientMediator {
 
     public MainVO requestMainVO() {
         if (gameMode == null || gameMode == GameMode.OFFLINE) {
+            System.out.println(GUICoreMediator.requestMainVO().getMessageType());
             return GUICoreMediator.requestMainVO();
         } else {
             try {
