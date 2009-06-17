@@ -28,6 +28,7 @@ public class MenuJMB extends JMenuBar {
     private JMenuItem globalSettingsJMI;
     private JMenuItem testConnectionJMI;
     private JMenuItem helpContentsJMI;
+    private JMenuItem javadocJMI;
     private JMenuItem aboutJMI;
     private ArrayList<JMenuItem> menuItemListJMI = new ArrayList<JMenuItem>();
 
@@ -111,6 +112,11 @@ public class MenuJMB extends JMenuBar {
         toolJM.add(globalSettingsJMI);
         toolJM.add(testConnectionJMI);
 
+        javadocJMI = new JMenuItem("JavaDocJMI");
+        javadocJMI.setText("SMGame JavaDoc");
+        javadocJMI.setName("javadocJMI");
+        menuItemListJMI.add(javadocJMI);
+
         helpContentsJMI = new JMenuItem("HelpContentsJMI");
         helpContentsJMI.setText("Sommario");
         helpContentsJMI.setName("helpContentsJMI");
@@ -124,6 +130,7 @@ public class MenuJMB extends JMenuBar {
         helpJM = new javax.swing.JMenu("HelpJM");
         helpJM.setText("Help");
         helpJM.add(helpContentsJMI);
+        helpJM.add(javadocJMI);
         helpJM.add(aboutJMI);
 
         add(gameJM);
@@ -162,6 +169,10 @@ public class MenuJMB extends JMenuBar {
 
     public JMenuItem getTestConnectionJMI() {
         return testConnectionJMI;
+    }
+
+    public JMenuItem getJavadocJMI() {
+        return javadocJMI;
     }
 
     public List<JMenuItem> getMenuItemListJMI() {
