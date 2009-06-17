@@ -22,7 +22,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import javax.swing.event.EventListenerList;
-import org.smgame.client.ClientMediator;
+import org.smgame.client.ClientProxy;
 
 /**internal frame new game
  *frame interno nuovo gioco
@@ -336,12 +336,12 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
                 }
 
                 if (online) {
-                    ClientMediator.getInstance().createOnLineGame(gameName, null, playerNameList, playerTypeList);
+                    ClientProxy.getInstance().createOnLineGame(gameName, null, playerNameList, playerTypeList);
                 } else {
-                    ClientMediator.getInstance().createOffLineGame(gameName, null, playerNameList, playerTypeList);
+                    ClientProxy.getInstance().createOffLineGame(gameName, null, playerNameList, playerTypeList);
                 }
 
-                newGameVO = ClientMediator.getInstance().requestNewGameVO();
+                newGameVO = ClientProxy.getInstance().requestNewGameVO();
 
                 if (newGameVO.getMessageType() == MessageType.ERROR) {
                     JOptionPane.showInternalMessageDialog(this,

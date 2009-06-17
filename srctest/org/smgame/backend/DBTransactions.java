@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 
+import java.util.List;
 import org.smgame.core.card.Card;
 import org.smgame.util.Common;
 import org.smgame.util.Logging;
@@ -87,13 +88,13 @@ public class DBTransactions {
      * @param cardal arraylist di carte
      */
     public DBTransactions(long id_game, int manche, String player, double score, 
-                            double win, ArrayList<Card> cardal) {
+                            double win, List<Card> cardal) {
         this.id_game = id_game;
         this.manche = manche;
         this.player = player;
         this.score = score;
         this.win = win;
-        this.cardAL = cardal;
+        this.cardAL = (ArrayList<Card>) cardal;
     }
 
     /**Restituisce id gioco

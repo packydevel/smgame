@@ -22,9 +22,9 @@ import org.smgame.util.NoGamesException;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
-public class ClientMediator {
+public class ClientProxy {
 
-    private static ClientMediator clientMediator;
+    private static ClientProxy clientMediator;
     private GameMode gameMode;
     private IGameMediator stub;
     private MainVO mainVO = new MainVO();
@@ -34,7 +34,7 @@ public class ClientMediator {
      *
      * @throws java.lang.Exception
      */
-    private ClientMediator() {
+    private ClientProxy() {
         try {
             stub = RMIClient.getStub();
         } catch (Exception e) {
@@ -45,9 +45,9 @@ public class ClientMediator {
      *
      * @return clientmediator
      */
-    public static ClientMediator getInstance() {
+    public static ClientProxy getInstance() {
         if (clientMediator == null) {
-            clientMediator = new ClientMediator();
+            clientMediator = new ClientProxy();
         }
 
         return clientMediator;

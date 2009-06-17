@@ -3,11 +3,9 @@ package org.smgame.core.player;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 /**Classe lista giocatori
@@ -23,10 +21,6 @@ public class PlayerList implements Serializable {
      *
      */
     public PlayerList() {
-    }
-
-    public Iterator<Player> getPlayerListIterator() {
-        return playerAL.iterator();
     }
 
     public void addPlayer(Player player) {
@@ -45,31 +39,14 @@ public class PlayerList implements Serializable {
         return playerAL.size();
     }
 
+    public Iterator<Player> getPlayerListIterator() {
+        return playerAL.iterator();
+    }
+
     public Player selectRandomPlayer() {
         List<Player> tempList = new ArrayList<Player>(playerAL);
         Collections.shuffle(tempList, new Random(System.currentTimeMillis()));
         return tempList.get(0);
-    }
-
-    /**Esiste giocatore debole
-     *
-     * @param totalValue valore totale
-     * @param minMargin margine minimo
-     * @return booleano sul controllo del giocatore
-     */
-    public boolean existsWeakPlayer(double totalValue, double minMargin) {
-        for (Player p : (Player[]) playerAL.toArray()) {
-            if (p instanceof CPUPlayer) {
-                p = (CPUPlayer) p;
-            } else {
-                p = (HumanPlayer) p;
-            }
-
-            if (p.getScore() <= (totalValue + minMargin)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**Verifica se esiste almeno un player in bancarotta
@@ -103,32 +80,32 @@ public class PlayerList implements Serializable {
         }
         return null;
     }
-
-    /**restituisce gli stati dei giocatori
-     *
-     * @return hashmap giocatore stato
-     */
-    Map<Player, PlayerStatus> getPlayerStatusMap() {
-        HashMap<Player, PlayerStatus> map = new HashMap<Player, PlayerStatus>();
-
-        for (Player p : playerAL) {
-            map.put(p, p.getStatus());
-        }
-
-        return map;
-    }
-
-    /**Restituisce il punteggio visibile di ciascun giocatore
-     *
-     * @return hashmap giocatore punteggio
-     */
-    Map<Player, Double> getPlayerVisibleScoreMap() {
-        HashMap<Player, Double> map = new HashMap<Player, Double>();
-
-        for (Player p : playerAL) {
-            map.put(p, p.getVisibleScore());
-        }
-
-        return map;
-    }
+//
+//    /**restituisce gli stati dei giocatori
+//     *
+//     * @return hashmap giocatore stato
+//     */
+//    Map<Player, PlayerStatus> getPlayerStatusMap() {
+//        HashMap<Player, PlayerStatus> map = new HashMap<Player, PlayerStatus>();
+//
+//        for (Player p : playerAL) {
+//            map.put(p, p.getStatus());
+//        }
+//
+//        return map;
+//    }
+//
+//    /**Restituisce il punteggio visibile di ciascun giocatore
+//     *
+//     * @return hashmap giocatore punteggio
+//     */
+//    Map<Player, Double> getPlayerVisibleScoreMap() {
+//        HashMap<Player, Double> map = new HashMap<Player, Double>();
+//
+//        for (Player p : playerAL) {
+//            map.put(p, p.getVisibleScore());
+//        }
+//
+//        return map;
+//    }
 }

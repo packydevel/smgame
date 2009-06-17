@@ -16,8 +16,7 @@ public class Card implements Serializable {
     private Point point; //punto
     private Suit suit; //seme
     private ImageIcon frontImage;
-    private static final ImageIcon backImage = new ImageIcon(
-            Card.class.getResource(Common.getResourceCards("napoletane")+"dorso.jpg"));
+    private static final ImageIcon backImage = new ImageIcon(Card.class.getResource(Common.getResourceCards("napoletane") + "dorso.jpg"));
     private double value; //valore
 
     /**Costruttore con tre parametri

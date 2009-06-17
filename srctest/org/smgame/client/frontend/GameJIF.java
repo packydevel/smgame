@@ -32,7 +32,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import org.smgame.client.ClientMediator;
+import org.smgame.client.ClientProxy;
 import org.smgame.util.Logging;
 
 public class GameJIF extends JInternalFrame implements IGameJIF {
@@ -125,7 +125,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     }
 
     private void initComponents() {
-        gameVO = ClientMediator.getInstance().requestGameVO();
+        gameVO = ClientProxy.getInstance().requestGameVO();
         playerList = gameVO.getPlayerIndexList();
 
         size = playerList.size();
@@ -270,7 +270,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     }
 
     private void initBoard() {
-        gameVO = ClientMediator.getInstance().requestGameVO();
+        gameVO = ClientProxy.getInstance().requestGameVO();
         refreshComponent();
     }
 
@@ -341,10 +341,10 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             }
         }
 
-        ClientMediator.getInstance().requestCard(i, bet);
+        ClientProxy.getInstance().requestCard(i, bet);
         resetBetJTF(i);
         gameVO =
-                ClientMediator.getInstance().requestGameVO();
+                ClientProxy.getInstance().requestGameVO();
         refreshComponent();
 
     } //end request card
@@ -360,16 +360,16 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             }
         }
 
-        ClientMediator.getInstance().declareGoodScore(i, bet);
+        ClientProxy.getInstance().declareGoodScore(i, bet);
         resetBetJTF(i);
-        gameVO = ClientMediator.getInstance().requestGameVO();
+        gameVO = ClientProxy.getInstance().requestGameVO();
         refreshComponent();
     }
 
     private void refreshComponent() {
         int bank = -1;
-        setTitle(ClientMediator.getInstance().getGameTitle() + gameVO.getCurrentManche());
-        Object[][] dataReport = ClientMediator.getInstance().requestDataReport();
+        setTitle(ClientProxy.getInstance().getGameTitle() + gameVO.getCurrentManche());
+        Object[][] dataReport = ClientProxy.getInstance().requestDataReport();
 
         for (int i = 0; i < gameVO.getPlayerIndexList().size(); i++) {
             ((JLabel) playerNameMapJP.get(i).getComponent(0)).setText(gameVO.getPlayerCreditMap().get(i));
