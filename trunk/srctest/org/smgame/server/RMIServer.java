@@ -33,10 +33,9 @@ public class RMIServer {
 
         if (System.getProperty("os.name").toLowerCase().equals("linux")) {
             rmiRegistryCommand = "rmiregistry";
-        } else if (System.getProperty("os.name").toLowerCase().equals("windows xp")) {
-            rmiRegistryCommand = "javaw rmiregistry";
+        } else if (System.getProperty("os.name").toLowerCase().equals("windows xp")) {            
+            rmiRegistryCommand = "rmiregistry.exe";
         }
-
         bindName = "rmi://localhost/ServerMediator";
     }
 
