@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 import org.smgame.backend.DBAccess;
@@ -523,5 +525,29 @@ public class GUICoreMediator {
             serverVO.setMessage("Impossibile Connettersi al DataBase");
             serverVO.setMessageType(MessageType.ERROR);
         }
+    }
+
+    /**Richiede e restituisce lo storico della partita
+     *
+     * @param counter
+     * @return matrice storica
+     */
+    public static Object[][] requestStoryGames(int counter){
+        DBTransactions dbt = new DBTransactions();
+        Object [][] storyData = null;
+        try {
+            if (counter==0)
+                dbt.selectDistinctIdTransactions();
+            storyData = dbt.getStoryGame(counter);
+        } catch (ClassNotFoundException ex) {
+            Logging.logExceptionSevere(ex);
+        } catch (SQLException ex) {
+            Logging.logExceptionSevere(ex);
+        } catch (IOException ex) {
+            Logging.logExceptionSevere(ex);
+        } catch (Exception ex) {
+            Logging.logExceptionSevere(ex);
+        }
+        return storyData;
     }
 } //end  class
