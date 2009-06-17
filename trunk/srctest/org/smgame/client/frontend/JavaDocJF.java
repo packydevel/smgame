@@ -41,6 +41,7 @@ public class JavaDocJF extends JFrame implements HyperlinkListener {
         URL helpURL = null;
 
         setSize(new Dimension(1024, 768));
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 
         JEditorPane editorPane = new JEditorPane();
@@ -48,14 +49,14 @@ public class JavaDocJF extends JFrame implements HyperlinkListener {
         editorPane.addHyperlinkListener(this);
         //URL helpURL = testHTML.class.getResource("/dist/javadoc/index.html");
         try {
-            helpURL = new URL(System.getProperty("user.dir") + "/javadoc/index.html");
+            helpURL = new URL(System.getProperty("user.dir") + "/javindex.html");
         } catch (Exception e) {
         }
 
-        System.out.println(getClass().getClassLoader().getResource("/javadoc/index.html"));
+        System.out.println(getClass().getClassLoader().getResource("index.html"));
 
         try {
-            editorPane.setPage(getClass().getClassLoader().getResource("../../../../javadoc/index.html"));
+            editorPane.setPage(getClass().getClassLoader().getResource("index.html"));
         } catch (IOException e) {
             e.printStackTrace();
         }
