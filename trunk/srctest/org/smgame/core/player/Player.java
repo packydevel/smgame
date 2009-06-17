@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import java.util.ArrayList;
 
+import java.util.List;
 import org.smgame.core.card.Card;
 import org.smgame.core.card.JollyCard;
 import org.smgame.core.card.Point;
@@ -18,15 +19,14 @@ public abstract class Player implements Serializable {
     
     protected String name; //nome giocatore
     protected double credit; //credito
-    protected double bet; //puntata
-    protected double lastWinLoseAmount;
+    protected double lastWinLoseAmount; //ammontare della vincita/perdita relativa all'ultima giocata
     //protected boolean hasJollyCard = false;
-    protected ArrayList<Card> cardList = new ArrayList<Card>(); //
-    protected ArrayList<Double> betList = new ArrayList<Double>(12);
+    protected ArrayList<Card> cardList = new ArrayList<Card>(); //lista delle carte possedute in una specifica manche
+    protected ArrayList<Double> betList = new ArrayList<Double>(); //lista delle puntate in una specifica manche
     protected double MIN_MARGIN = 0.5;
-    protected PlayerRole role; //ruolo giocatore
-    protected PlayerStatus status; //status del giocatore dopo la sua giocata
-    protected PlayerList playerList;
+    protected PlayerRole role; //ruolo del giocatore in una specifica manche
+    protected PlayerStatus status; //status del giocatore dopo la sua giocata in una specifica manche
+    protected PlayerList playerList; //lista dei giocatori cui questo giocatore appartiene
 
     /**Costruttore
      *
@@ -65,7 +65,7 @@ public abstract class Player implements Serializable {
      *
      * @return lista puntate
      */
-    public ArrayList<Double> getBetList() {
+    public List<Double> getBetList() {
         return betList;
     }
 
@@ -73,16 +73,8 @@ public abstract class Player implements Serializable {
      *
      * @return lista di card
      */
-    public ArrayList<Card> getCardList() {
+    public List<Card> getCardList() {
         return cardList;
-    }
-
-    /**imposta la puntata
-     *
-     * @param bet puntata
-     */
-    public void setBet(double bet) {
-        this.bet = bet;
     }
 
     /**Restituisce il punteggio

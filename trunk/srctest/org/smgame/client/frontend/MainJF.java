@@ -12,7 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
-import org.smgame.client.ClientMediator;
+import org.smgame.client.ClientProxy;
 
 public class MainJF extends JFrame implements InternalFrameListener, NewGameListener {
 
@@ -57,13 +57,13 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
 
         setJMenuBar(menuJMB);
 
-        ClientMediator.getInstance().addMenuItem(menuItemNameList);
+        ClientProxy.getInstance().addMenuItem(menuItemNameList);
 
         refreshMenuItem();
     }
 
     private void refreshMenuItem() {
-        menuVO = ClientMediator.getInstance().requestMenuVO();
+        menuVO = ClientProxy.getInstance().requestMenuVO();
 
         for (JMenuItem jmi : menuJMB.getMenuItemListJMI()) {
             jmi.setEnabled(menuVO.getItemEnabledMap().get(jmi.getName()));
@@ -126,8 +126,8 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
             desktop.add(loadGameJIF);
             refreshMenuItem();
         } else if ((JMenuItem) evt.getSource() == menuJMB.getSaveGameJMI()) {
-            ClientMediator.getInstance().saveGame();
-            analyzeVO(ClientMediator.getInstance().requestMainVO());
+            ClientProxy.getInstance().saveGame();
+            analyzeVO(ClientProxy.getInstance().requestMainVO());
         } else if ((JMenuItem) evt.getSource() == menuJMB.getCloseGameJMI()) {
             executeCloseGame();
         } else if ((JMenuItem) evt.getSource() == menuJMB.getExitGameJMI()) {
@@ -138,9 +138,9 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
             }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getScoreBoardJMI()) {
             JOptionPane.showMessageDialog(this, new ScoreBoardJP("manche finita",
-                    ClientMediator.getInstance().requestDataReport(), -1), "Score Board", JOptionPane.INFORMATION_MESSAGE);
+                    ClientProxy.getInstance().requestDataReport(), -1), "Score Board", JOptionPane.INFORMATION_MESSAGE);
         } else if ((JMenuItem) evt.getSource() == menuJMB.getTestConnectionJMI()) {
-            analyzeVO(ClientMediator.getInstance().connect());
+            analyzeVO(ClientProxy.getInstance().connect());
         }
     }
 
@@ -165,10 +165,10 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
     }
 
     private void executeCloseGame() {
-        ClientMediator.getInstance().askCloseGame();
+        ClientProxy.getInstance().askCloseGame();
 
-        if (analyzeVO(ClientMediator.getInstance().requestMainVO()) == 0) {
-            ClientMediator.getInstance().closeGame();
+        if (analyzeVO(ClientProxy.getInstance().requestMainVO()) == 0) {
+            ClientProxy.getInstance().closeGame();
             refreshMenuItem();
             clearDesktop();
         }
