@@ -202,7 +202,7 @@ public class ClientProxy {
      * @throws java.io.IOException
      * @throws java.lang.ClassNotFoundException
      */
-    public void loadGames() throws FileNotFoundException, IOException, ClassNotFoundException {
+    public void loadGames(GameMode gameMode) throws FileNotFoundException, IOException, ClassNotFoundException {
         if (gameMode == GameMode.OFFLINE) {
             GUICoreMediator.loadGames();
         } else {
