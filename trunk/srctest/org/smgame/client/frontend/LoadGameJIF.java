@@ -112,7 +112,6 @@ public class LoadGameJIF extends JInternalFrame implements IGameJIF {
                 try {
                     GUICoreMediator.loadGame((String) gameJT.getValueAt(gameJT.getSelectedRow(), 0));
                 } catch (Exception e) {
-                    e.printStackTrace();
                 }
                 fireNewGameEvent(new NewGameEvent(this));
                 dispose();

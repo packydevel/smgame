@@ -82,7 +82,6 @@ public class RMIServer {
                 serverVO.setMessageType(MessageType.INFO);
                 Logging.logInfo("RMIServer Interrotto su localhost");
             } catch (Exception e) {
-                e.printStackTrace();
             }
         }
     }
