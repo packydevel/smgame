@@ -49,4 +49,6 @@ public interface IGameMediator extends Remote {
     public void declareGoodScore(int playerIndex, double bet) throws RemoteException;
 
     public Object[][] requestDataReport() throws RemoteException;
+
+    public Object[][] requestStoryGames(int count) throws RemoteException;
 }
