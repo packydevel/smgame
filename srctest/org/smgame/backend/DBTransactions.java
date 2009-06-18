@@ -7,10 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
-
 import java.util.List;
+
 import org.smgame.core.card.Card;
-import org.smgame.util.Common;
 import org.smgame.util.Logging;
 
 /** Classe DBTransactions/gestisce le transazioni col database
@@ -166,11 +165,11 @@ public class DBTransactions {
         String sql = "INSERT INTO " + tableTrans + "(" + colTrans2 + "," + colTrans3 + "," +
                     colTrans4 + "," + colTrans5 + "," + colTrans6 + ") VALUES (?,?,?,?,?)";
         PreparedStatement prpstmt = conn.prepareStatement(sql);
-        Common.setParameter(prpstmt, 1, getId_game(), Types.BIGINT);
-        Common.setParameter(prpstmt, 2, getManche(), Types.INTEGER);
-        Common.setParameter(prpstmt, 3, getPlayer(), Types.VARCHAR);
-        Common.setParameter(prpstmt, 4, getScore(), Types.DOUBLE);
-        Common.setParameter(prpstmt, 5, getWin(), Types.DOUBLE);
+        setParameter(prpstmt, 1, getId_game(), Types.BIGINT);
+        setParameter(prpstmt, 2, getManche(), Types.INTEGER);
+        setParameter(prpstmt, 3, getPlayer(), Types.VARCHAR);
+        setParameter(prpstmt, 4, getScore(), Types.DOUBLE);
+        setParameter(prpstmt, 5, getWin(), Types.DOUBLE);
         Logging.logInfo(prpstmt.toString());
         prpstmt.execute();
         setIdTransaction(getLastInsertId(conn));
@@ -202,9 +201,9 @@ public class DBTransactions {
                     " FROM " + tableCard + " WHERE " + col2Card + "=? AND " + col3Card + "=?));";
         for (int i=0; i<cardAL.size(); i++){
             PreparedStatement prpstmt = conn.prepareStatement(sql);
-            Common.setParameter(prpstmt, 1, getIdTransaction(), Types.BIGINT);
-            Common.setParameter(prpstmt, 2, cardAL.get(i).getSuit().toString(), Types.VARCHAR);
-            Common.setParameter(prpstmt, 3, cardAL.get(i).getPoint().toString(), Types.VARCHAR);
+            setParameter(prpstmt, 1, getIdTransaction(), Types.BIGINT);
+            setParameter(prpstmt, 2, cardAL.get(i).getSuit().toString(), Types.VARCHAR);
+            setParameter(prpstmt, 3, cardAL.get(i).getPoint().toString(), Types.VARCHAR);
             Logging.logInfo(prpstmt.toString());
             prpstmt.execute();
         }
@@ -242,7 +241,7 @@ public class DBTransactions {
         Connection conn = DBAccess.getConnection();
         String sql = "SELECT * FROM " + tableTrans + " WHERE " + colTrans2 + "= ?;";
         PreparedStatement prpstmt = conn.prepareStatement(sql);
-        Common.setParameter(prpstmt, 1, getId_game(), Types.BIGINT);
+        setParameter(prpstmt, 1, getId_game(), Types.BIGINT);
         Logging.logInfo(prpstmt.toString());
         ResultSet rs = prpstmt.executeQuery();
         while (rs.next()) {
@@ -303,7 +302,7 @@ public class DBTransactions {
                 ", " + colTrans6 + " FROM " + tableTrans + " WHERE " + colTrans2 + "= ?;";
         PreparedStatement prpstmt1 = conn.prepareStatement(sql1);
         long id = idTransactionsAL.get(counter).longValue();
-        Common.setParameter(prpstmt1, 1, id, Types.BIGINT);
+        setParameter(prpstmt1, 1, id, Types.BIGINT);
         Logging.logInfo(prpstmt1.toString());
         ResultSet rs1 = prpstmt1.executeQuery();
         rs1.next();
@@ -312,7 +311,7 @@ public class DBTransactions {
             matrix = new Object[rows][4];
             int r = 0;
             PreparedStatement prpstmt2 = conn.prepareStatement(sql2);
-            Common.setParameter(prpstmt2, 1, id, Types.BIGINT);
+            setParameter(prpstmt2, 1, id, Types.BIGINT);
             Logging.logInfo(prpstmt2.toString());
             ResultSet rs2 = prpstmt2.executeQuery();
             while (rs2.next()){
@@ -325,4 +324,32 @@ public class DBTransactions {
         }
         return matrix;
     }
+
+    /**imposta i tipi di valore da usare per la preparedStatement
+     *
+     * @param stmt preparedstatement
+     * @param index indice
+     * @param value valore
+     * @param type tipo
+     * @throws java.sql.SQLException
+     * @throws java.lang.Exception
+     */
+    private void setParameter(PreparedStatement stmt, int index,
+            Object value, int type) throws SQLException, Exception {
+        if (value == null) {
+            stmt.setNull(index, type);
+        } else {
+            if (type == Types.VARCHAR) {
+                stmt.setString(index, (String) value);
+            } else if (type == Types.INTEGER) {
+                stmt.setInt(index, ((Integer) value).intValue());
+            } else if (type == Types.BIGINT) {
+                stmt.setLong(index, ((Long) value).longValue());
+            } else if (type == Types.DOUBLE) {
+                stmt.setDouble(index, ((Double) value).doubleValue());
+            } else {
+                throw new Exception("Tipo di dato non gestito");
+            }
+        } //end
+    } //end setParameter
 } //end class
