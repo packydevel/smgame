@@ -149,6 +149,8 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
      * @param e
      */
     public void newGameCreating(NewGameEvent e) {
+        clearDesktop();
+
         internalFrameWidth = 960;
         internalFrameHeight = 700;
         xbound = (desktopWidth - internalFrameWidth) / 2;

@@ -137,6 +137,8 @@ public class MenuJMB extends JMenuBar {
         add(scoreBoardJM);
         add(toolJM);
         add(helpJM);
+        for (JMenuItem jmi: menuItemListJMI){
+        System.out.println(jmi.getName());}
     }
 
     public JMenuItem getCloseGameJMI() {
