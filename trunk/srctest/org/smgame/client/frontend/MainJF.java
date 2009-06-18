@@ -42,8 +42,6 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         setVisible(true);
         desktopWidth = desktop.getWidth();
         desktopHeight = desktop.getHeight();
-        System.out.println(desktopWidth);
-        System.out.println(desktopHeight);
 
         menuJMB = new MenuJMB();
         for (JMenuItem jmi : menuJMB.getMenuItemListJMI()) {
@@ -78,7 +76,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         } else if (mainVO.getMessageType() == MessageType.ERROR) {
             JOptionPane.showInternalMessageDialog(desktop, mainVO.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
         }
-        System.out.println(mainVO.getMessageType().toString());
+
         return -1;
     }
 
@@ -142,7 +140,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         } else if ((JMenuItem) evt.getSource() == menuJMB.getTestConnectionJMI()) {
             analyzeVO(ClientProxy.getInstance().connect());
         } else if ((JMenuItem) evt.getSource() == menuJMB.getJavadocJMI()) {
-            new JavaDocJF();
+            new HelpJF();
         }
     }
 
@@ -155,7 +153,6 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         internalFrameHeight = 700;
         xbound = (desktopWidth - internalFrameWidth) / 2;
         ybound = (desktopHeight - internalFrameHeight) / 2;
-        System.out.println(ybound);
         gameJIF = new GameJIF();
         gameJIF.setPreferredSize(new Dimension(internalFrameWidth, internalFrameHeight));
         gameJIF.setBounds(xbound, ybound, internalFrameWidth, internalFrameHeight);

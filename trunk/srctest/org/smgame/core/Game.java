@@ -159,14 +159,4 @@ public class Game implements Serializable {
     public GameEngine getGameEngine() {
         return gameEngine;
     }
-/*
-    public void printTest() {
-        System.out.println("Sequenza iniziale di Carte");
-        deck.print();
-        System.out.println("");
-        System.out.println("Sequenza di Carte dopo mescolamento:");
-        deck.shuffle();
-        deck.print();
-    }
-*/
 }

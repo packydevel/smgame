@@ -100,7 +100,6 @@ public class GUICoreMediator {
         currentGame.setGameSetting(new GameSetting());
         currentGame.setPlayerList(playerList);
         currentGame.generateGameEngine();
-        System.out.println("Il numero dei giocatori passati al server è: " + currentGame.getPlayerList().size());
         currentGame.getGameEngine().start();
     }
 
@@ -451,7 +450,6 @@ public class GUICoreMediator {
         } //end for
 
         if (currentGame.getGameEngine().isEndManche()) {
-            System.out.println("Ho settato ora la fine della manche!!!");
             currentGame.getGameEngine().closeManche();
             gameVO.setEndManche(true);
             addTransactionAL();
