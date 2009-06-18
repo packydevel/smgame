@@ -28,7 +28,8 @@ public class MenuJMB extends JMenuBar {
     private JMenuItem gameSettingsJMI;
     private JMenuItem globalSettingsJMI;
     private JMenuItem testConnectionJMI;
-    private JMenuItem helpContentsJMI;
+    private JMenuItem userGuideJMI;
+    private JMenuItem refGuideJMI;
     private JMenuItem javadocJMI;
     private JMenuItem aboutJMI;
     private ArrayList<JMenuItem> menuItemListJMI = new ArrayList<JMenuItem>();
@@ -119,15 +120,22 @@ public class MenuJMB extends JMenuBar {
         toolJM.add(globalSettingsJMI);
         toolJM.add(testConnectionJMI);
 
+        userGuideJMI = new JMenuItem("UserGuideJMI");
+        userGuideJMI.setText("Manuale d'uso");
+        userGuideJMI.setName("userGuideJMI");
+        menuItemListJMI.add(userGuideJMI);
+
+        refGuideJMI = new JMenuItem();
+        refGuideJMI.setText("Manuale d'uso");
+        refGuideJMI.setName("refGuideJMI");
+        menuItemListJMI.add(refGuideJMI);
+
         javadocJMI = new JMenuItem("JavaDocJMI");
         javadocJMI.setText("SMGame JavaDoc");
         javadocJMI.setName("javadocJMI");
         menuItemListJMI.add(javadocJMI);
 
-        helpContentsJMI = new JMenuItem("HelpContentsJMI");
-        helpContentsJMI.setText("Sommario");
-        helpContentsJMI.setName("helpContentsJMI");
-        menuItemListJMI.add(helpContentsJMI);
+
 
         aboutJMI = new JMenuItem("AboutJMI");
         aboutJMI.setText("About ...");
@@ -136,7 +144,7 @@ public class MenuJMB extends JMenuBar {
 
         helpJM = new javax.swing.JMenu("HelpJM");
         helpJM.setText("Help");
-        helpJM.add(helpContentsJMI);
+        helpJM.add(userGuideJMI);
         helpJM.add(javadocJMI);
         helpJM.add(aboutJMI);
 
@@ -182,8 +190,16 @@ public class MenuJMB extends JMenuBar {
         return testConnectionJMI;
     }
 
+    public JMenuItem getUserGuideJMI() {
+        return userGuideJMI;
+    }
+
     public JMenuItem getJavadocJMI() {
         return javadocJMI;
+    }
+
+    public JMenuItem getRefGuideJMI() {
+        return refGuideJMI;
     }
 
     public List<JMenuItem> getMenuItemListJMI() {
