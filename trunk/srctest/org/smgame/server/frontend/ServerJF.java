@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
@@ -41,11 +42,12 @@ public class ServerJF extends JFrame implements WindowListener {
     ServerVO serverVO;
     JPanel statusJP, configJP, pathJP, fileJP, databaseJP;
     JScrollPane monitorJSP;
-    GridBagConstraints panelGBC, labelGBC, textFieldGBC, buttonGBC;
-    JLabel pathJL, playersNumberJL, cpuflagJL, hostnameJL, portJL, dbnameJL, usernameJL, passwordJL;
+    GridBagConstraints panelGBC, labelGBC, textFieldGBC, buttonGBC, progressBarGBC;
+    JLabel pathJL, hostnameJL, portJL, dbnameJL, usernameJL, passwordJL;
     JButton startJB, stopJB, pathJB, testJB;
     JTextField hostnameJTF, portJTF, dbnameJTF, usernameJTF, passwordJTF;
     JTextArea monitorJTA;
+    JProgressBar progressBarJPG;
 
     /**Costruttore
      *
@@ -109,7 +111,13 @@ public class ServerJF extends JFrame implements WindowListener {
         buttonGBC.weightx = 0;
         buttonGBC.weighty = 0;
         buttonGBC.insets = new Insets(2, 2, 2, 2);
-        buttonGBC.anchor = GridBagConstraints.CENTER;
+        buttonGBC.anchor = GridBagConstraints.SOUTH;
+
+        progressBarGBC = new GridBagConstraints();
+        progressBarGBC.weightx = 0;
+        progressBarGBC.weighty = 0;
+        progressBarGBC.insets = new Insets(2, 2, 2, 2);
+        progressBarGBC.anchor = GridBagConstraints.SOUTH;
 
         fileJP = new JPanel();
         fileJP.setPreferredSize(new Dimension(470, 100));
@@ -131,7 +139,6 @@ public class ServerJF extends JFrame implements WindowListener {
         pathJP.setPreferredSize(new Dimension(70, 30));
         fileJP.add(BorderLayout.SOUTH, pathJP);
 
-
         pathJL = new JLabel("Path: " + GUICoreMediator.getSaveDirectory());
         fileJP.add(BorderLayout.NORTH, pathJL);
 
@@ -141,6 +148,9 @@ public class ServerJF extends JFrame implements WindowListener {
         startJB.setVisible(true);
         buttonGBC.gridx = 0;
         buttonGBC.gridy = 0;
+        buttonGBC.weightx = 0.5;
+        buttonGBC.weighty = 0.5;
+        buttonGBC.anchor = GridBagConstraints.SOUTHEAST;
         startJB.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
@@ -155,6 +165,9 @@ public class ServerJF extends JFrame implements WindowListener {
         stopJB.setVisible(true);
         buttonGBC.gridx = 1;
         buttonGBC.gridy = 0;
+        buttonGBC.weightx = 0.5;
+        buttonGBC.weighty = 0.5;
+        buttonGBC.anchor = GridBagConstraints.SOUTHWEST;
         stopJB.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
@@ -162,6 +175,14 @@ public class ServerJF extends JFrame implements WindowListener {
             }
         });
         statusJP.add(stopJB, buttonGBC);
+
+        progressBarJPG = new JProgressBar(0, 100);
+        progressBarJPG.setPreferredSize(new Dimension(470, 20));
+        progressBarGBC.gridx = 0;
+        progressBarGBC.gridy = 3;
+        progressBarGBC.gridwidth = 2;
+        progressBarGBC.weighty = 0.5;
+        statusJP.add(progressBarJPG, progressBarGBC);
 
         pathJB = new JButton("Scegli il Path");
         pathJB.setSize(new Dimension(70, 20));
@@ -270,6 +291,8 @@ public class ServerJF extends JFrame implements WindowListener {
         JFileChooser fileJFC;
 
         if (((JButton) e.getSource()).equals(startJB)) {
+            progressBarJPG.setIndeterminate(true);
+
             RMIServer.getInstance().start();
             serverVO = RMIServer.getInstance().requestServerVO();
             if (serverVO.getMessageType() == MessageType.ERROR) {
@@ -279,6 +302,7 @@ public class ServerJF extends JFrame implements WindowListener {
                 stopJB.setEnabled(true);
             }
             monitorJTA.append(serverVO.getMessageType().toString() + " - " + serverVO.getMessage() + "\n");
+            progressBarJPG.setIndeterminate(false);
         } else if (((JButton) e.getSource()).equals(stopJB)) {
             RMIServer.getInstance().stop();
             serverVO = RMIServer.getInstance().requestServerVO();
