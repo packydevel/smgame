@@ -7,6 +7,7 @@ package org.smgame.server;
 import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 import java.rmi.RMISecurityManager;
 import javax.swing.UIManager;
+import org.smgame.core.GUICoreMediator;
 import org.smgame.server.frontend.ServerJF;
 import org.smgame.util.Logging;
 
@@ -30,5 +31,7 @@ public class SMGameServer {
                 new ServerJF();
             }
         });
+
+        GUICoreMediator.loadGames();
     }
 }
