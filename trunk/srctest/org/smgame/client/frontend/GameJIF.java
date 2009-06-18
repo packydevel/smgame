@@ -343,8 +343,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
         ClientProxy.getInstance().requestCard(i, bet);
         resetBetJTF(i);
-        gameVO =
-                ClientProxy.getInstance().requestGameVO();
+        gameVO = ClientProxy.getInstance().requestGameVO();
         refreshComponent();
 
     } //end request card
@@ -360,7 +359,6 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             }
         }
 
-        ClientProxy.getInstance().declareGoodScore(i, bet);
         resetBetJTF(i);
         gameVO = ClientProxy.getInstance().requestGameVO();
         refreshComponent();

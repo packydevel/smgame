@@ -31,6 +31,7 @@ public class RMIClient {
             try {
                 stub.test();
             } catch (Exception e) {
+                e.printStackTrace();
                 stub = null;
                 throw new Exception();
             }
