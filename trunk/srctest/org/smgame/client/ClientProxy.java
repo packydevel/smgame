@@ -14,13 +14,14 @@ import org.smgame.client.frontend.MainVO;
 import org.smgame.client.frontend.MessageType;
 import org.smgame.client.frontend.NewGameVO;
 import org.smgame.server.IGameMediator;
+import org.smgame.util.Logging;
 import org.smgame.util.NoGamesException;
 
 /** Classe client mediator
  * è il mediatore tra server e gui
  *
  * @author Traetta  Pasquale 450428
- * @author Mignogna Luca     467644
+x * @author Mignogna Luca     467644
  */
 public class ClientProxy {
 
@@ -104,6 +105,7 @@ public class ClientProxy {
                 stub = RMIClient.getStub();
                 stub.createGame(gameName, gameSetting, playerNameList, playerTypeList);
             } catch (Exception e) {
+                Logging.logExceptionSevere(e);
                 newGameVO.setMessageType(MessageType.ERROR);
                 newGameVO.setMessage("Impossibile Giocare una Partita OnLine!");
             }
