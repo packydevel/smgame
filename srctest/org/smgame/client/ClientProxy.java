@@ -24,7 +24,7 @@ import org.smgame.util.NoGamesException;
  */
 public class ClientProxy {
 
-    private static ClientProxy clientMediator;
+    private static ClientProxy clientProxy;
     private GameMode gameMode;
     private IGameMediator stub;
     private MainVO mainVO = new MainVO();
@@ -46,11 +46,11 @@ public class ClientProxy {
      * @return clientmediator
      */
     public static ClientProxy getInstance() {
-        if (clientMediator == null) {
-            clientMediator = new ClientProxy();
+        if (clientProxy == null) {
+            clientProxy = new ClientProxy();
         }
 
-        return clientMediator;
+        return clientProxy;
     }
 
     public MainVO connect() {
@@ -101,8 +101,10 @@ public class ClientProxy {
             GUICoreMediator.createGame(gameName, gameSetting, playerNameList, playerTypeList);
         } else {
             try {
+                stub = RMIClient.getStub();
                 stub.createGame(gameName, gameSetting, playerNameList, playerTypeList);
             } catch (Exception e) {
+                e.printStackTrace();
                 newGameVO.setMessageType(MessageType.ERROR);
                 newGameVO.setMessage("Impossibile Giocare una Partita OnLine!");
             }
@@ -163,9 +165,13 @@ public class ClientProxy {
      *
      */
     public void saveGame() {
-        try {
-            stub.saveGame();
-        } catch (Exception e) {
+        if (gameMode == GameMode.OFFLINE) {
+            GUICoreMediator.saveGame();
+        } else {
+            try {
+                stub.saveGame();
+            } catch (Exception e) {
+            }
         }
     }
 
@@ -177,9 +183,13 @@ public class ClientProxy {
      * @throws java.lang.ClassNotFoundException
      */
     public void loadGame(String gameName) throws FileNotFoundException, IOException, ClassNotFoundException {
-        try {
-            stub.loadGame(gameName);
-        } catch (Exception e) {
+        if (gameMode == GameMode.OFFLINE) {
+            GUICoreMediator.loadGame(gameName);
+        } else {
+            try {
+                stub.loadGame(gameName);
+            } catch (Exception e) {
+            }
         }
     }
 
@@ -190,9 +200,13 @@ public class ClientProxy {
      * @throws java.lang.ClassNotFoundException
      */
     public void loadGames() throws FileNotFoundException, IOException, ClassNotFoundException {
-        try {
-            stub.loadGames();
-        } catch (Exception e) {
+        if (gameMode == GameMode.OFFLINE) {
+            GUICoreMediator.loadGames();
+        } else {
+            try {
+                stub.loadGames();
+            } catch (Exception e) {
+            }
         }
     }
 
@@ -202,12 +216,15 @@ public class ClientProxy {
      * @throws org.smgame.util.NoGamesException
      */
     public LoadGameVO requestLoadGameVO() throws NoGamesException {
-        try {
-            return stub.requestLoadGameVO();
-        } catch (Exception e) {
-            return null;
+        if (gameMode == GameMode.OFFLINE) {
+            return GUICoreMediator.requestLoadGameVO();
+        } else {
+            try {
+                return stub.requestLoadGameVO();
+            } catch (Exception e) {
+                return null;
+            }
         }
-
     }
 
     /**Restituisce il titolo della partita
