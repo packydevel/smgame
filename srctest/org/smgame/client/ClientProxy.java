@@ -27,7 +27,6 @@ public class ClientProxy {
     private static ClientProxy clientProxy;
     private GameMode gameMode;
     private IGameMediator stub;
-    private ClientVO clientVO = new ClientVO();
     private MainVO mainVO = new MainVO();
     private NewGameVO newGameVO = new NewGameVO();
 
@@ -142,6 +141,7 @@ public class ClientProxy {
         } else {
         }
         try {
+            stub = RMIClient.getStub();
             stub.askCloseGame();
         } catch (Exception e) {
         }
@@ -155,6 +155,7 @@ public class ClientProxy {
             GUICoreMediator.closeGame();
         } else {
             try {
+                stub = RMIClient.getStub();
                 stub.closeGame();
             } catch (Exception e) {
             }
@@ -169,6 +170,7 @@ public class ClientProxy {
             GUICoreMediator.saveGame();
         } else {
             try {
+                stub = RMIClient.getStub();
                 stub.saveGame();
             } catch (Exception e) {
             }
@@ -187,6 +189,7 @@ public class ClientProxy {
             GUICoreMediator.loadGame(gameName);
         } else {
             try {
+                stub = RMIClient.getStub();
                 stub.loadGame(gameName);
             } catch (Exception e) {
             }
@@ -204,6 +207,7 @@ public class ClientProxy {
             GUICoreMediator.loadGames();
         } else {
             try {
+                stub = RMIClient.getStub();
                 stub.loadGames();
             } catch (Exception e) {
             }
@@ -220,6 +224,7 @@ public class ClientProxy {
             return GUICoreMediator.requestLoadGameVO();
         } else {
             try {
+                stub = RMIClient.getStub();
                 return stub.requestLoadGameVO();
             } catch (Exception e) {
                 return null;
@@ -236,6 +241,7 @@ public class ClientProxy {
             return GUICoreMediator.getGameTitle();
         } else {
             try {
+                stub = RMIClient.getStub();
                 return stub.getGameTitle();
             } catch (Exception e) {
                 return null;
@@ -253,6 +259,7 @@ public class ClientProxy {
             GUICoreMediator.requestCard(playerIndex, bet);
         } else {
             try {
+                stub = RMIClient.getStub();
                 stub.requestCard(playerIndex, bet);
             } catch (Exception e) {
             }
@@ -269,6 +276,7 @@ public class ClientProxy {
             GUICoreMediator.declareGoodScore(playerIndex, bet);
         } else {
             try {
+                stub = RMIClient.getStub();
                 stub.declareGoodScore(playerIndex, bet);
             } catch (Exception e) {
             }
@@ -284,6 +292,7 @@ public class ClientProxy {
             return GUICoreMediator.requestDataReport();
         } else {
             try {
+                stub = RMIClient.getStub();
                 return stub.requestDataReport();
             } catch (Exception e) {
                 return null;
@@ -292,7 +301,7 @@ public class ClientProxy {
     }
 
     public MainVO requestMainVO() {
-        if (gameMode == null || gameMode == GameMode.OFFLINE) {
+        if (gameMode == GameMode.OFFLINE) {
             return GUICoreMediator.requestMainVO();
         } else {
             try {
@@ -338,6 +347,7 @@ public class ClientProxy {
             return GUICoreMediator.requestGameVO();
         } else {
             try {
+                stub = RMIClient.getStub();
                 return stub.requestGameVO();
             } catch (Exception e) {
                 e.printStackTrace();
