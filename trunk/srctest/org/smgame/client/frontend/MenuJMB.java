@@ -14,7 +14,7 @@ public class MenuJMB extends JMenuBar {
 
     private JMenu gameJM;
     private JMenu newGameJM;
-    private JMenu scoreBoardJM;
+    private JMenu gameBoardJM;
     private JMenu toolJM;
     private JMenu helpJM;
     private JMenuItem newOnLineGameJMI;
@@ -24,6 +24,7 @@ public class MenuJMB extends JMenuBar {
     private JMenuItem closeGameJMI;
     private JMenuItem exitGameJMI;
     private JMenuItem scoreBoardJMI;
+    private JMenuItem storyBoardJMI;
     private JMenuItem gameSettingsJMI;
     private JMenuItem globalSettingsJMI;
     private JMenuItem testConnectionJMI;
@@ -83,13 +84,19 @@ public class MenuJMB extends JMenuBar {
         gameJM.add(exitGameJMI);
 
         scoreBoardJMI = new JMenuItem("ScoreBoardJMI");
-        scoreBoardJMI.setText("ScoreBoard");
+        scoreBoardJMI.setText("Partita Attuale");
         scoreBoardJMI.setName("scoreBoardJMI");
         menuItemListJMI.add(scoreBoardJMI);
 
-        scoreBoardJM = new JMenu("ScoreBoardJM");
-        scoreBoardJM.setText("Punteggio");
-        scoreBoardJM.add(scoreBoardJMI);
+        storyBoardJMI = new JMenuItem("storyBoardJMI");
+        storyBoardJMI.setText("Storico Partite");
+        storyBoardJMI.setName("storyBoardJMI");
+        menuItemListJMI.add(storyBoardJMI);
+
+        gameBoardJM = new JMenu("GameBoardJM");
+        gameBoardJM.setText("Partite");
+        gameBoardJM.add(scoreBoardJMI);
+        gameBoardJM.add(storyBoardJMI);
 
         gameSettingsJMI = new JMenuItem("GameSettingsJMI");
         gameSettingsJMI.setText("Preferenze di gioco");
@@ -134,11 +141,9 @@ public class MenuJMB extends JMenuBar {
         helpJM.add(aboutJMI);
 
         add(gameJM);
-        add(scoreBoardJM);
+        add(gameBoardJM);
         add(toolJM);
         add(helpJM);
-        for (JMenuItem jmi: menuItemListJMI){
-        System.out.println(jmi.getName());}
     }
 
     public JMenuItem getCloseGameJMI() {
@@ -167,6 +172,10 @@ public class MenuJMB extends JMenuBar {
 
     public JMenuItem getScoreBoardJMI() {
         return scoreBoardJMI;
+    }
+
+    public JMenuItem getStoryBoardJMI() {
+        return storyBoardJMI;
     }
 
     public JMenuItem getTestConnectionJMI() {
