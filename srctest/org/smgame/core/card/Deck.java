@@ -20,9 +20,8 @@ public class Deck implements Serializable {
 
     private final double[] ALL_VALUE = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 0.5, 0.5, 0.5};//tutti i valori
     private final ArrayList<Card> CARDS = new ArrayList<Card>();
-    
     private ArrayList<Card> onGameCardList = new ArrayList<Card>();
-    private ArrayList<Card> offGameCardList = new ArrayList<Card>();   
+    private ArrayList<Card> offGameCardList = new ArrayList<Card>();
     private transient Iterator<Card> onGameCardsIterator;
     private Card nextCard; //prossima carta
     private boolean emptyDeck;

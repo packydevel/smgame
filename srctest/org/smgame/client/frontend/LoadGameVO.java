@@ -5,6 +5,7 @@
 
 package org.smgame.client.frontend;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,7 +13,7 @@ import java.util.HashMap;
  *
  * @author packyuser
  */
-public class LoadGameVO {
+public class LoadGameVO implements Serializable {
     private ArrayList<String> gameNameList = new ArrayList<String>();
     private HashMap<String, String> gameNameGameModeMap = new HashMap<String, String>();
     private HashMap<String, String> gameNameCreationDateMap = new HashMap<String, String>();

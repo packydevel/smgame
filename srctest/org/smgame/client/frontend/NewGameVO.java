@@ -4,11 +4,13 @@
  */
 package org.smgame.client.frontend;
 
+import java.io.Serializable;
+
 /**
  *
  * @author packyuser
  */
-public class NewGameVO {
+public class NewGameVO implements Serializable {
 
     private MessageType messageType;
     private String message;
