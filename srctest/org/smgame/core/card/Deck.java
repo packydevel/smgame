@@ -55,8 +55,7 @@ public class Deck implements Serializable {
                 img += i + 1 + ".jpg";
 
                 String resource = Common.getResourceCards("napoletane") + img;
-                URL url = Card.class.getResource(resource);
-                frontImage = new ImageIcon(url);
+                frontImage = new ImageIcon(Common.convertStringToURL(resource));
                 if (point == Point.Re && suit == Suit.Danari) {
                     c = new JollyCard(point, suit, ALL_VALUE[i], frontImage);
                 } else {
