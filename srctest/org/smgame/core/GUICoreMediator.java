@@ -350,8 +350,9 @@ public class GUICoreMediator {
         menuVO.getItemEnabledMap().put("gameSettingsJMI", true);
         menuVO.getItemEnabledMap().put("globalSettingsJMI", true);
         menuVO.getItemEnabledMap().put("testConnectionJMI", true);
-        menuVO.getItemEnabledMap().put("helpContentsJMI", true);
+        menuVO.getItemEnabledMap().put("userGuideJMI", true);
         menuVO.getItemEnabledMap().put("javadocJMI", true);
+        menuVO.getItemEnabledMap().put("refGuideJMI", true);
         menuVO.getItemEnabledMap().put("aboutJMI", true);
 
         return menuVO;
