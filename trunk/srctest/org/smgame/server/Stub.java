@@ -84,4 +84,8 @@ public class Stub implements IGameMediator {
     public Object[][] requestDataReport() {
         return GUICoreMediator.requestDataReport();
     }
+
+    public Object[][] requestStoryGames(int count){
+        return GUICoreMediator.requestStoryGames(count);
+    }
 }
