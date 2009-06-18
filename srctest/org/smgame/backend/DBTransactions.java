@@ -299,7 +299,8 @@ public class DBTransactions {
         Connection conn = DBAccess.getConnection();
         String sql1 = "SELECT count(*) FROM " + tableTrans + " WHERE " + colTrans2 + "= ?;";
         String sql2 = "SELECT " + colTrans3 + ", " + colTrans4 + ", " + colTrans5 +
-                ", " + colTrans6 + " FROM " + tableTrans + " WHERE " + colTrans2 + "= ?;";
+                ", " + colTrans6 + " FROM " + tableTrans + " WHERE " + colTrans2 + "= ? " +
+                "ORDER BY " + colTrans3 + " ASC, " + colTrans6 + " DESC;";
         PreparedStatement prpstmt1 = conn.prepareStatement(sql1);
         long id = idTransactionsAL.get(counter).longValue();
         setParameter(prpstmt1, 1, id, Types.BIGINT);
@@ -323,6 +324,14 @@ public class DBTransactions {
             }
         }
         return matrix;
+    }
+
+    /**Restituisce il numero delle partite salvate su db
+     *
+     * @return numero partite
+     */
+    public static int sizeStoryGames(){
+        return idTransactionsAL.size();
     }
 
     /**imposta i tipi di valore da usare per la preparedStatement
