@@ -108,8 +108,6 @@ public class Deck implements Serializable {
 
         nextCard = (Card) onGameCardsIterator.next();
         onGameCardsIterator.remove();
-        System.out.println("Il numero di carte rimaste è: " + onGameCardList.size());
-
         return nextCard;
     }//end getNextCard
 

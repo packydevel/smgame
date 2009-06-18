@@ -75,7 +75,5 @@ public class SMGameClient extends JApplet {
         } catch (Exception e) {
             Logging.logExceptionSevere(e);
         }
-
-        System.out.println(SMGameClient.class.getResource("/"));
     }
 }

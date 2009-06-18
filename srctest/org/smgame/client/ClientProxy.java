@@ -276,7 +276,6 @@ public class ClientProxy {
 
     public MainVO requestMainVO() {
         if (gameMode == null || gameMode == GameMode.OFFLINE) {
-            System.out.println(GUICoreMediator.requestMainVO().getMessageType());
             return GUICoreMediator.requestMainVO();
         } else {
             try {
