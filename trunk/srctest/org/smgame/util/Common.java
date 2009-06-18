@@ -74,15 +74,10 @@ public class Common {
      * @param path percorso
      * @return url
      */
-    public static URL convertStringToURL(String path){
-        URL url=null;
+    public static URL convertStringToURL(String path){        
         if (separ.equalsIgnoreCase("\\")){
             path.replace('\\', '/');
-        }
-        try {
-            url = new URL(path);
-        } catch (MalformedURLException ex) {
-        }
-        return url;
+        }        
+        return Common.class.getResource(path);
     }
 }//end class
