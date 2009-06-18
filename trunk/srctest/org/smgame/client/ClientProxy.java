@@ -302,6 +302,25 @@ public class ClientProxy {
         }
     }
 
+    /**richiede i dati per la storia partite
+     *
+     * @param n contatore per l'id partita da caricare
+     * @return matrice dati
+     */
+    public Object[][] requestStoryGames(int n) {
+        if (gameMode == GameMode.OFFLINE) {
+            return GUICoreMediator.requestStoryGames(n);
+        } else {
+            try {
+                stub = RMIClient.getStub();
+                return stub.requestStoryGames(n);
+            } catch (Exception e) {
+                return null;
+            }
+        }
+    }
+
+
     public MainVO requestMainVO() {
         if (gameMode == GameMode.OFFLINE) {
             return GUICoreMediator.requestMainVO();
