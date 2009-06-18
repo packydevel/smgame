@@ -6,6 +6,7 @@ package org.smgame.server;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.List;
 import org.smgame.core.GUICoreMediator;
 import org.smgame.core.GameSetting;
@@ -21,7 +22,7 @@ import org.smgame.util.NoGamesException;
  */
 public class Stub implements IGameMediator {
 
-    public void test() {
+    public void test() throws RemoteException {
     }
 
     public void addMenuItem(List<String> menuItemList) {
