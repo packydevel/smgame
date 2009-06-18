@@ -30,8 +30,8 @@ public class StoryBoardJP extends JPanel{
         storyboardJT.setFocusable(false);
         storyboardJT.getTableHeader().setReorderingAllowed(false);
 
-        setWitdhColumn(0, 140);
-        setWitdhColumn(1, 70);
+        setWitdhColumn(0, 70);
+        setWitdhColumn(1, 140);
         setWitdhColumn(2, 85);
         setWitdhColumn(3, 100);
 
