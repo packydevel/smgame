@@ -281,9 +281,9 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
 
                 cpuflagJCKB[j] = new JCheckBox();
                 if (online) {
-                    cpuflagJCKB[j].setSelected(true);
-                    cpuflagJCKB[j].setEnabled(false);
                     if (j != 0) {
+                        cpuflagJCKB[j].setSelected(true);
+                        cpuflagJCKB[j].setEnabled(false);
                         playerJTF[j].setText("CPU Player " + j);
                     }
                 }
@@ -348,7 +348,6 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
                             newGameVO.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
                 } else {
                     fireNewGameEvent(new NewGameEvent(this));
-                    dispose();
                 }
 
             } else {

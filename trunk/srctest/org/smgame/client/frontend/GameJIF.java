@@ -130,6 +130,8 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
         size = playerList.size();
         System.out.println(gameVO.getPlayerNameMap());
+        System.out.println(gameVO.getPlayerTypeMap());
+
         playerNameMapJP = new HashMap<Integer, JPanel>(size);
         playerCardsMapJP = new HashMap<Integer, JPanel>(size);
         playerActionMapJP = new HashMap<Integer, JPanel>(size);
@@ -270,7 +272,6 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     }
 
     private void initBoard() {
-        gameVO = ClientProxy.getInstance().requestGameVO();
         refreshComponent();
     }
 
@@ -343,7 +344,6 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
         ClientProxy.getInstance().requestCard(i, bet);
         resetBetJTF(i);
-        gameVO = ClientProxy.getInstance().requestGameVO();
         refreshComponent();
 
     } //end request card
@@ -359,13 +359,16 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             }
         }
 
+        ClientProxy.getInstance().declareGoodScore(i, bet);
         resetBetJTF(i);
-        gameVO = ClientProxy.getInstance().requestGameVO();
         refreshComponent();
     }
 
     private void refreshComponent() {
         int bank = -1;
+
+        gameVO = ClientProxy.getInstance().requestGameVO();
+
         setTitle(ClientProxy.getInstance().getGameTitle() + gameVO.getCurrentManche());
         Object[][] dataReport = ClientProxy.getInstance().requestDataReport();
 
