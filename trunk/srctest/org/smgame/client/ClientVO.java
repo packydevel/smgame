@@ -2,15 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.smgame.client.frontend;
+package org.smgame.client;
 
-import java.io.Serializable;
+import org.smgame.client.frontend.MessageType;
 
 /**
  *
  * @author packyuser
  */
-public class MainVO implements Serializable {
+public class ClientVO {
 
     private MessageType messageType;
     private String message;

@@ -27,6 +27,7 @@ public class ClientProxy {
     private static ClientProxy clientProxy;
     private GameMode gameMode;
     private IGameMediator stub;
+    private ClientVO clientVO = new ClientVO();
     private MainVO mainVO = new MainVO();
     private NewGameVO newGameVO = new NewGameVO();
 
@@ -104,7 +105,6 @@ public class ClientProxy {
                 stub = RMIClient.getStub();
                 stub.createGame(gameName, gameSetting, playerNameList, playerTypeList);
             } catch (Exception e) {
-                e.printStackTrace();
                 newGameVO.setMessageType(MessageType.ERROR);
                 newGameVO.setMessage("Impossibile Giocare una Partita OnLine!");
             }
@@ -296,6 +296,7 @@ public class ClientProxy {
             return GUICoreMediator.requestMainVO();
         } else {
             try {
+                stub = RMIClient.getStub();
                 return stub.requestMainVO();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -313,8 +314,12 @@ public class ClientProxy {
             return GUICoreMediator.requestMenuVO();
         } else {
             try {
+                stub = RMIClient.getStub();
                 return stub.requestMenuVO();
             } catch (Exception e) {
+                mainVO.clear();
+                mainVO.setMessageType(MessageType.ERROR);
+                mainVO.setMessage("Impossibile connettersi al server RMI!");
                 return null;
             }
         }

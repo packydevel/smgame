@@ -63,8 +63,12 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
     private void refreshMenuItem() {
         menuVO = ClientProxy.getInstance().requestMenuVO();
 
-        for (JMenuItem jmi : menuJMB.getMenuItemListJMI()) {
-            jmi.setEnabled(menuVO.getItemEnabledMap().get(jmi.getName()));
+        if (menuVO == null) {
+            analyzeVO(ClientProxy.getInstance().requestMainVO());
+        } else {
+            for (JMenuItem jmi : menuJMB.getMenuItemListJMI()) {
+                jmi.setEnabled(menuVO.getItemEnabledMap().get(jmi.getName()));
+            }
         }
     }
 
