@@ -80,6 +80,22 @@ public class PlayerList implements Serializable {
         }
         return null;
     }
+
+    public List<Player> maxPlayerScoreList() {
+        int count;
+        ArrayList<Player> playerSubList = new ArrayList();
+        ArrayList<Player> tempList = new ArrayList(playerAL);
+
+        Collections.sort(tempList, new PlayerCreditComparator());
+
+        count = Collections.frequency(tempList, tempList.get(0));
+
+        for (int i = 0; i < count; i++) {
+            playerSubList.add(tempList.get(i));
+        }
+
+        return playerSubList;
+    }
 //
 //    /**restituisce gli stati dei giocatori
 //     *
