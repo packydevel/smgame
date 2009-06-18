@@ -71,7 +71,7 @@ public class SMGameClient extends JApplet {
         }); //end invokelater
 
         try {
-            GUICoreMediator.loadGames();
+            ClientProxy.getInstance().loadGames();
         } catch (Exception e) {
             Logging.logExceptionSevere(e);
         }
