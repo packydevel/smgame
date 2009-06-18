@@ -5,8 +5,8 @@ import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 import javax.swing.JApplet;
 import javax.swing.UIManager;
 
-import org.smgame.core.GUICoreMediator;
 import org.smgame.client.frontend.MainJF;
+import org.smgame.core.GameMode;
 import org.smgame.util.Common;
 import org.smgame.util.Logging;
 
@@ -71,9 +71,8 @@ public class SMGameClient extends JApplet {
         }); //end invokelater
 
         try {
-            ClientProxy.getInstance().loadGames();
+            ClientProxy.getInstance().loadGames(GameMode.OFFLINE);
         } catch (Exception e) {
-            Logging.logExceptionSevere(e);
         }
     }
 }
