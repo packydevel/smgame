@@ -19,8 +19,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 import org.smgame.backend.DBAccess;
@@ -219,13 +217,15 @@ public class GUICoreMediator {
      * @throws java.io.IOException
      * @throws java.lang.ClassNotFoundException
      */
-    public static void loadGames()
-            throws FileNotFoundException, IOException, ClassNotFoundException {
-        FileInputStream fis = new FileInputStream(fileName);
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        gameMap = (HashMap<Long, Game>) ois.readObject();
-        ois.close();
-        fis.close();
+    public static void loadGames() {
+        try {
+            FileInputStream fis = new FileInputStream(fileName);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            gameMap = (HashMap<Long, Game>) ois.readObject();
+            ois.close();
+            fis.close();
+        } catch (Exception e) {
+        }
     }
 
     /**Richiede e restituisce l'oggetto serverVO
@@ -531,12 +531,13 @@ public class GUICoreMediator {
      * @param counter
      * @return matrice storica
      */
-    public static Object[][] requestStoryGames(int counter){
+    public static Object[][] requestStoryGames(int counter) {
         DBTransactions dbt = new DBTransactions();
-        Object [][] storyData = null;
+        Object[][] storyData = null;
         try {
-            if (counter==0)
+            if (counter == 0) {
                 dbt.selectDistinctIdTransactions();
+            }
             storyData = dbt.getStoryGame(counter);
         } catch (ClassNotFoundException ex) {
             Logging.logExceptionSevere(ex);
