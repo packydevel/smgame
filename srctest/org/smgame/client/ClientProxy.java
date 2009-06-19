@@ -2,6 +2,7 @@ package org.smgame.client;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.smgame.core.GUICoreMediator;
@@ -304,21 +305,22 @@ public class ClientProxy {
 
     /**richiede i dati per la storia partite
      *
-     * @param n contatore per l'id partita da caricare
-     * @return matrice dati
+     * @return map dati
      */
-    public Object[][] requestStoryGames(int n) {
+    public LinkedHashMap<Long, Object[][]> requestStoryGames() {
         if (gameMode == GameMode.OFFLINE) {
-            return GUICoreMediator.requestStoryGames(n);
+            return GUICoreMediator.requestStoryGames();
         } else {
             try {
                 stub = RMIClient.getStub();
-                return stub.requestStoryGames(n);
+                return stub.requestStoryGames();
             } catch (Exception e) {
                 return null;
             }
         }
     }
+
+
 
 
     public MainVO requestMainVO() {

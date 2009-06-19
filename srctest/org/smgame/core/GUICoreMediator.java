@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -530,17 +531,13 @@ public class GUICoreMediator {
 
     /**Richiede e restituisce lo storico della partita
      *
-     * @param counter
-     * @return matrice storica
+     * @return map storico partite
      */
-    public static Object[][] requestStoryGames(int counter) {
+    public static LinkedHashMap<Long, Object[][]> requestStoryGames() {
         DBTransactions dbt = new DBTransactions();
-        Object[][] storyData = null;
-        try {
-            if (counter == 0) {
-                dbt.selectDistinctIdTransactions();
-            }
-            storyData = dbt.getStoryGame(counter);
+        LinkedHashMap<Long, Object[][]> map = null;
+        try {            
+            map = dbt.getStoryGame();
         } catch (ClassNotFoundException ex) {
             Logging.logExceptionSevere(GUICoreMediator.class, ex);
         } catch (SQLException ex) {
@@ -550,6 +547,6 @@ public class GUICoreMediator {
         } catch (Exception ex) {
             Logging.logExceptionSevere(GUICoreMediator.class, ex);
         }
-        return storyData;
+        return map;
     }
 } //end  class

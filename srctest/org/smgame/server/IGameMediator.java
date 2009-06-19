@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.LinkedHashMap;
 import java.util.List;
 import org.smgame.core.GameSetting;
 import org.smgame.client.frontend.LoadGameVO;
@@ -50,5 +51,5 @@ public interface IGameMediator extends Remote {
 
     public Object[][] requestDataReport() throws RemoteException;
 
-    public Object[][] requestStoryGames(int count) throws RemoteException;
+    public LinkedHashMap<Long, Object[][]> requestStoryGames() throws RemoteException;
 }
