@@ -4,11 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+
 import org.smgame.backend.DBTransactions;
 
 /**Pannello storico partite
@@ -122,6 +121,13 @@ public class StoryBoardJP extends JPanel{
         col.setMaxWidth(width);
     }
 
+    /**esegue l'azione di caricamento del successivo storico
+     *
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
+     * @throws java.io.IOException
+     * @throws java.lang.Exception
+     */
     private void nextGames() throws ClassNotFoundException, SQLException, IOException, Exception{
         int size = DBTransactions.sizeStoryGames();
         if (size > (counter + 1)){
@@ -135,6 +141,13 @@ public class StoryBoardJP extends JPanel{
         }
     }
 
+    /**Esegue l'azione di caricamento del precedente storico
+     *
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
+     * @throws java.io.IOException
+     * @throws java.lang.Exception
+     */
     private void previousGames() throws ClassNotFoundException, SQLException, IOException, Exception{
         int size = DBTransactions.sizeStoryGames();
         if (counter > 0){
@@ -147,6 +160,10 @@ public class StoryBoardJP extends JPanel{
             previousJB.setEnabled(false);
     }
 
+    /**imposta il modello della tabella
+     *
+     * @param dtm modello
+     */
     private void setTableModel(DefaultTableModel dtm){
         storyboardJT.setModel(dtm);
         setWitdhColumn(0, 55);
