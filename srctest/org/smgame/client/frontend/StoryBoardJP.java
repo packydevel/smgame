@@ -6,8 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 
+import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,9 +27,14 @@ public class StoryBoardJP extends JPanel{
 
     private JTable storyboardJT;
     JButton nextJB, previousJB;
+    JLabel gameJL;
     private int counter, max_size;
     LinkedHashMap<Long, Object[][]> dataLHM;
 
+    /**Costruttore
+     *
+     * @param map linkedhashmap
+     */
     public StoryBoardJP(LinkedHashMap<Long, Object[][]> map) {
         setPreferredSize(new Dimension(400, 250));
         setLayout(new BorderLayout());
@@ -37,11 +44,10 @@ public class StoryBoardJP extends JPanel{
         storyboardJT.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         storyboardJT.setFocusable(false);
         storyboardJT.getTableHeader().setReorderingAllowed(false);
-        //TODO
-        //setTableModel(tableModel());
-        
-        
-
+        Object key = searchKey();
+        setTableModel(tableModel(dataLHM.get(key)));
+        setTextGameJL("id partita: "+key.toString());
+                
         add(new JScrollPane(storyboardJT), BorderLayout.CENTER);        
         counter = 0;
         max_size = dataLHM.size();
@@ -65,6 +71,9 @@ public class StoryBoardJP extends JPanel{
             }
         });
 
+        if (max_size<=1)
+            nextJB.setEnabled(false);
+
         previousJB = new JButton("Precedente");
         previousJB.setEnabled(false);
         previousJB.addActionListener(new ActionListener() {
@@ -84,11 +93,11 @@ public class StoryBoardJP extends JPanel{
             }
         });
 
-        JLabel gameIdJL = new JLabel();
+        gameJL = new JLabel();
 
         JPanel northJP = new JPanel(new BorderLayout());
         northJP.add(previousJB, BorderLayout.WEST);
-        northJP.add(gameIdJL, BorderLayout.CENTER);
+        northJP.add(gameJL, BorderLayout.CENTER);
         northJP.add(nextJB, BorderLayout.EAST);
 
         this.add(northJP,BorderLayout.NORTH);
@@ -133,8 +142,10 @@ public class StoryBoardJP extends JPanel{
      */
     private void nextGames() throws ClassNotFoundException, SQLException, IOException, Exception{        
         if (max_size > (counter + 1)){
-            //TODO
-            //setTableModel(tableModel(dbt.getStoryGame(++counter)));
+            ++counter;
+            Object key = searchKey();
+            setTableModel(tableModel(dataLHM.get(key)));
+            setTextGameJL("id partita: "+key.toString());
         }
         if (counter == 1)
             previousJB.setEnabled(true);
@@ -152,8 +163,10 @@ public class StoryBoardJP extends JPanel{
      */
     private void previousGames() throws ClassNotFoundException, SQLException, IOException, Exception{
         if (counter > 0){
-            //TODO
-            //setTableModel(tableModel(dbt.getStoryGame(--counter)));
+            --counter;
+            Object key = searchKey();
+            setTableModel(tableModel(dataLHM.get(key)));
+            setTextGameJL("id partita: "+key.toString());
         }
         if (max_size > (counter + 1))
             nextJB.setEnabled(true);
@@ -171,5 +184,25 @@ public class StoryBoardJP extends JPanel{
         setWitdhColumn(1, 150);
         setWitdhColumn(2, 80);
         setWitdhColumn(3, 95);
+    }
+
+    /**imposta il testo della label
+     *
+     * @param text testo
+     */
+    private void setTextGameJL(String text){
+        gameJL.setText(text);
+    }
+
+    /**Cerca la chiave per l'elemento counter
+     *
+     * @return chiave
+     */
+    private Object searchKey(){
+        Set set = dataLHM.keySet();
+        Iterator iter = set.iterator();
+        for (int i=0; i<counter; i++)
+            iter.next();
+        return iter.next();
     }
 }
