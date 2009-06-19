@@ -26,7 +26,7 @@ public class SMGameServer {
                 try {
                     UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
                 } catch (Exception e) {
-                    Logging.logExceptionSevere(e);
+                    Logging.logExceptionSevere(this.getClass(), e);
                 }
                 new ServerJF();
             }

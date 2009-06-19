@@ -187,7 +187,7 @@ public class GUICoreMediator {
             mainVO.setMessageType(MessageType.INFO);
             mainVO.setMessage("La Partita è stata salvata correttamente!");
         } catch (Exception e) {
-            Logging.logExceptionSevere(e);
+            Logging.logExceptionSevere(GUICoreMediator.class, e);
             mainVO.setMessageType(MessageType.ERROR);
             mainVO.setMessage("Non è stato possibile salvare la partita");
         }
@@ -297,7 +297,7 @@ public class GUICoreMediator {
             gameVO.setExceptionMessage(soe.getMessage());
             Logging.logExceptionWarning(soe);
         } catch (Exception e) {
-            Logging.logExceptionSevere(e);
+            Logging.logExceptionSevere(GUICoreMediator.class, e);
         }
 
     }
@@ -542,13 +542,13 @@ public class GUICoreMediator {
             }
             storyData = dbt.getStoryGame(counter);
         } catch (ClassNotFoundException ex) {
-            Logging.logExceptionSevere(ex);
+            Logging.logExceptionSevere(GUICoreMediator.class, ex);
         } catch (SQLException ex) {
-            Logging.logExceptionSevere(ex);
+            Logging.logExceptionSevere(GUICoreMediator.class, ex);
         } catch (IOException ex) {
-            Logging.logExceptionSevere(ex);
+            Logging.logExceptionSevere(GUICoreMediator.class, ex);
         } catch (Exception ex) {
-            Logging.logExceptionSevere(ex);
+            Logging.logExceptionSevere(GUICoreMediator.class, ex);
         }
         return storyData;
     }

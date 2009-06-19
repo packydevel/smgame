@@ -45,9 +45,9 @@ public class Logging {
      *
      * @param e eccezione Exception
      */
-    public static void logExceptionSevere(Exception e){
+    public static void logExceptionSevere(Class c, Exception e){
         e.printStackTrace();
-        logger.severe(e.toString());
+        logger.severe(c.getName() + " - " + e.toString());
     }
 
     /**Scrive nel log il tipo di avviso
