@@ -105,7 +105,7 @@ public class ClientProxy {
                 stub = RMIClient.getStub();
                 stub.createGame(gameName, gameSetting, playerNameList, playerTypeList);
             } catch (Exception e) {
-                Logging.logExceptionSevere(e);
+                Logging.logExceptionSevere(this.getClass(), e);
                 newGameVO.setMessageType(MessageType.ERROR);
                 newGameVO.setMessage("Impossibile Giocare una Partita OnLine!");
             }

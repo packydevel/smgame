@@ -12,7 +12,7 @@ import org.smgame.util.Logging;
 
 /**Server RMI
  *
- * @author Pc City
+ * 
  */
 public class RMIServer {
 
@@ -67,7 +67,7 @@ public class RMIServer {
         } catch (Exception e) {
             serverVO.setMessage("Impossibile avviare il server");
             serverVO.setMessageType(MessageType.ERROR);
-            Logging.logExceptionSevere(e);
+            Logging.logExceptionSevere(this.getClass(), e);
         }
     }
 

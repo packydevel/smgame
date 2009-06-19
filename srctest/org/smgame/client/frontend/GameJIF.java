@@ -338,7 +338,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             try {
                 bet = betValueFormatter.parse(getBet(i)).doubleValue();
             } catch (Exception e) {
-                Logging.logExceptionSevere(e);
+                Logging.logExceptionSevere(this.getClass(), e);
             }
         }
 
@@ -355,7 +355,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             try {
                 bet = betValueFormatter.parse(getBet(i)).doubleValue();
             } catch (Exception e) {
-                Logging.logExceptionSevere(e);
+                Logging.logExceptionSevere(this.getClass(), e);
             }
         }
 

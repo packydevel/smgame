@@ -37,13 +37,13 @@ public class SMGameClient extends JApplet {
         try {
             UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
         } catch (Exception e) {
-            Logging.logExceptionSevere(e);
+            Logging.logExceptionSevere(this.getClass(), e);
         }
         MainJF frame = new MainJF();
         try {
             //GUICoreMediator.loadGames();
         } catch (Exception e) {
-            Logging.logExceptionSevere(e);
+            Logging.logExceptionSevere(this.getClass(), e);
         }
     }
 
@@ -64,7 +64,7 @@ public class SMGameClient extends JApplet {
                 try {
                     UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
                 } catch (Exception e) {
-                    Logging.logExceptionSevere(e);
+                    Logging.logExceptionSevere(this.getClass(), e);
                 }
                 MainJF frame = new MainJF();
             } //end run
