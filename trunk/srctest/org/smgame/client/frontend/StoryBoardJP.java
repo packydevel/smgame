@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,8 +15,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
-
-import org.smgame.backend.DBTransactions;
 
 /**Pannello storico partite
  *
@@ -26,23 +25,26 @@ public class StoryBoardJP extends JPanel{
 
     private JTable storyboardJT;
     JButton nextJB, previousJB;
-    private int counter;
+    private int counter, max_size;
+    LinkedHashMap<Long, Object[][]> dataLHM;
 
-    public StoryBoardJP(Object[][] data) {
+    public StoryBoardJP(LinkedHashMap<Long, Object[][]> map) {
         setPreferredSize(new Dimension(400, 250));
         setLayout(new BorderLayout());
+        dataLHM = map;
 
         storyboardJT = new JTable();        
         storyboardJT.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         storyboardJT.setFocusable(false);
         storyboardJT.getTableHeader().setReorderingAllowed(false);
-        setTableModel(tableModel(data));
+        //TODO
+        //setTableModel(tableModel());
         
         
 
-        add(new JScrollPane(storyboardJT), BorderLayout.CENTER);
-        setVisible(true);
+        add(new JScrollPane(storyboardJT), BorderLayout.CENTER);        
         counter = 0;
+        max_size = dataLHM.size();
 
 
         nextJB = new JButton("Successiva");
@@ -90,6 +92,7 @@ public class StoryBoardJP extends JPanel{
         northJP.add(nextJB, BorderLayout.EAST);
 
         this.add(northJP,BorderLayout.NORTH);
+        setVisible(true);
     }
 
     /**Restituisce il modello per la tabella
@@ -128,15 +131,14 @@ public class StoryBoardJP extends JPanel{
      * @throws java.io.IOException
      * @throws java.lang.Exception
      */
-    private void nextGames() throws ClassNotFoundException, SQLException, IOException, Exception{
-        int size = DBTransactions.sizeStoryGames();
-        if (size > (counter + 1)){
-            DBTransactions dbt = new DBTransactions();
-            setTableModel(tableModel(dbt.getStoryGame(++counter)));
+    private void nextGames() throws ClassNotFoundException, SQLException, IOException, Exception{        
+        if (max_size > (counter + 1)){
+            //TODO
+            //setTableModel(tableModel(dbt.getStoryGame(++counter)));
         }
         if (counter == 1)
             previousJB.setEnabled(true);
-        if (size == (counter + 1)){
+        if (max_size == (counter + 1)){
             nextJB.setEnabled(false);
         }
     }
@@ -149,12 +151,11 @@ public class StoryBoardJP extends JPanel{
      * @throws java.lang.Exception
      */
     private void previousGames() throws ClassNotFoundException, SQLException, IOException, Exception{
-        int size = DBTransactions.sizeStoryGames();
         if (counter > 0){
-            DBTransactions dbt = new DBTransactions();
-            setTableModel(tableModel(dbt.getStoryGame(--counter)));
+            //TODO
+            //setTableModel(tableModel(dbt.getStoryGame(--counter)));
         }
-        if (size > (counter + 1))
+        if (max_size > (counter + 1))
             nextJB.setEnabled(true);
         if (counter == 0)
             previousJB.setEnabled(false);

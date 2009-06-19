@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.smgame.core.card.Card;
@@ -43,7 +44,6 @@ public class DBTransactions {
     private double score; //punteggio
     private double win; //vincita
     private ArrayList<Card> cardAL;
-    private static ArrayList<Long> idTransactionsAL;
 
     private ArrayList<DBTransactions> transactionsAL;
 
@@ -265,74 +265,59 @@ public class DBTransactions {
         return last_id;
     }
 
-    /**Imposta l'arraylist degli id distinti
+    /**Restituisce un map (long, matrice oggetti) ordinato per inserimento
      *
-     * @throws java.lang.ClassNotFoundException
-     * @throws java.sql.SQLException
-     * @throws java.io.IOException
-     */
-    public void selectDistinctIdTransactions() throws ClassNotFoundException, SQLException, IOException{
-        String sql = "SELECT DISTINCT(" + colTrans2 + ") FROM "+ tableTrans;
-        Connection conn = DBAccess.getConnection();
-        PreparedStatement prpstmt = conn.prepareStatement(sql);
-        ResultSet rs = prpstmt.executeQuery();
-        idTransactionsAL = new ArrayList<Long>();
-        while (rs.next()) {
-            idTransactionsAL.add(rs.getLong(1));
-        }
-    }
-
-    /**REstituisce la matrice di oggetti contenenti i dati di una partita
-     *
-     * @param counter indice della partita
-     * @return matrice
+     * @return oggetto maps
      * 
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
      * @throws java.io.IOException
      * @throws java.lang.Exception
      */
-    public Object[][] getStoryGame(int counter) throws
+    public LinkedHashMap<Long, Object[][]> getStoryGame() throws
             ClassNotFoundException, SQLException, IOException, Exception {
 
-        Object[][] matrix = null;
-        Connection conn = DBAccess.getConnection();
-        String sql1 = "SELECT count(*) FROM " + tableTrans + " WHERE " + colTrans2 + "= ?;";
-        String sql2 = "SELECT " + colTrans3 + ", " + colTrans4 + ", " + colTrans5 +
+        LinkedHashMap<Long, Object[][]> map = new LinkedHashMap<Long, Object[][]>();
+
+        String sqlDistinct = "SELECT DISTINCT(" + colTrans2 + ") FROM "+ tableTrans;
+        String sqlCount = "SELECT count(*) FROM " + tableTrans + " WHERE " + colTrans2 + "= ?;";
+        String sqlSelect = "SELECT " + colTrans3 + ", " + colTrans4 + ", " + colTrans5 +
                 ", " + colTrans6 + " FROM " + tableTrans + " WHERE " + colTrans2 + "= ? " +
                 "ORDER BY " + colTrans3 + " ASC, " + colTrans6 + " DESC;";
-        PreparedStatement prpstmt1 = conn.prepareStatement(sql1);
-        long id = idTransactionsAL.get(counter).longValue();
-        setParameter(prpstmt1, 1, id, Types.BIGINT);
-        Logging.logInfo(prpstmt1.toString());
-        ResultSet rs1 = prpstmt1.executeQuery();
-        rs1.next();
-        int rows = rs1.getInt(1);
-        if (rows > 0) {
-            matrix = new Object[rows][4];
-            int r = 0;
-            PreparedStatement prpstmt2 = conn.prepareStatement(sql2);
-            setParameter(prpstmt2, 1, id, Types.BIGINT);
-            Logging.logInfo(prpstmt2.toString());
-            ResultSet rs2 = prpstmt2.executeQuery();
-            while (rs2.next()){
-                matrix[r][0] = rs2.getInt(1);
-                matrix[r][1] = rs2.getString(2);
-                matrix[r][2] = rs2.getDouble(3);
-                matrix[r][3] = rs2.getDouble(4);
-                r++;
-            }
-        }
-        return matrix;
-    }
 
-    /**Restituisce il numero delle partite salvate su db
-     *
-     * @return numero partite
-     */
-    public static int sizeStoryGames(){
-        return idTransactionsAL.size();
-    }
+        Connection conn = DBAccess.getConnection();
+        PreparedStatement prpstmtDistinct = conn.prepareStatement(sqlDistinct);
+        Logging.logInfo(prpstmtDistinct.toString());
+        ResultSet rsDistinct = prpstmtDistinct.executeQuery();
+
+        while (rsDistinct.next()) {
+            Object[][] matrix = null;
+            long id = rsDistinct.getLong(1);
+            PreparedStatement prpstmtCount = conn.prepareStatement(sqlCount);
+            setParameter(prpstmtCount, 1, id, Types.BIGINT);
+            Logging.logInfo(prpstmtCount.toString());
+            ResultSet rsCount = prpstmtCount.executeQuery();
+            rsCount.next();
+            int rows = rsCount.getInt(1);
+            if (rows > 0) {
+                matrix = new Object[rows][4];
+                int r = 0;
+                PreparedStatement prpstmtSelect = conn.prepareStatement(sqlSelect);
+                setParameter(prpstmtSelect, 1, id, Types.BIGINT);
+                Logging.logInfo(prpstmtSelect.toString());
+                ResultSet rsSelect = prpstmtSelect.executeQuery();
+                while (rsSelect.next()){
+                    matrix[r][0] = rsSelect.getInt(1);
+                    matrix[r][1] = rsSelect.getString(2);
+                    matrix[r][2] = rsSelect.getDouble(3);
+                    matrix[r][3] = rsSelect.getDouble(4);
+                    r++;
+                }
+            } //end if
+            map.put(new Long(id), matrix);
+        }//end while rsDistinct
+        return map;
+    }    
 
     /**imposta i tipi di valore da usare per la preparedStatement
      *

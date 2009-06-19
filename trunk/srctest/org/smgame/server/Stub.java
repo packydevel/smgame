@@ -1,13 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.server;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.LinkedHashMap;
 import java.util.List;
+
 import org.smgame.core.GUICoreMediator;
 import org.smgame.core.GameSetting;
 import org.smgame.client.frontend.GameVO;
@@ -85,7 +83,7 @@ public class Stub implements IGameMediator {
         return GUICoreMediator.requestDataReport();
     }
 
-    public Object[][] requestStoryGames(int count){
-        return GUICoreMediator.requestStoryGames(count);
+    public LinkedHashMap<Long, Object[][]> requestStoryGames(){
+        return GUICoreMediator.requestStoryGames();
     }
 }

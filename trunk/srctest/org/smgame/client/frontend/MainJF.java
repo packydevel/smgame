@@ -144,7 +144,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
                     JOptionPane.INFORMATION_MESSAGE);
         } else if ((JMenuItem) evt.getSource() == menuJMB.getStoryBoardJMI()) {
             JOptionPane.showMessageDialog(this,
-                    new StoryBoardJP(ClientProxy.getInstance().requestStoryGames(0)));
+                    new StoryBoardJP(ClientProxy.getInstance().requestStoryGames()));
         } else if ((JMenuItem) evt.getSource() == menuJMB.getTestConnectionJMI()) {
             analyzeVO(ClientProxy.getInstance().connect());
         } else if ((JMenuItem) evt.getSource() == menuJMB.getJavadocJMI()) {
