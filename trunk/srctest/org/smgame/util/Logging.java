@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-/**Classe gioco
+/**Classe che gestisce la creazione e scrittura degli eventi in file di log
  *
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
