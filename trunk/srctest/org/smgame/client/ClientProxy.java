@@ -170,7 +170,7 @@ public class ClientProxy {
      */
     public void saveGame() {
         if (gameMode == GameMode.OFFLINE) {
-            GUICoreMediator.saveGame();
+            GUICoreMediator.saveGameOffline();
         } else {
             try {
                 stub = RMIClient.getStub();
