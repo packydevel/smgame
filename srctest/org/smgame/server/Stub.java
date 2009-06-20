@@ -40,7 +40,7 @@ public class Stub implements IGameMediator {
     }
 
     public void saveGame() {
-        GUICoreMediator.saveGame();
+        GUICoreMediator.saveGameOnline();
     }
 
     public void loadGame(String gameName) throws FileNotFoundException, IOException, ClassNotFoundException {

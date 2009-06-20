@@ -149,12 +149,18 @@ public class GUICoreMediator {
         }
     }
 
-    /**Salva partita
+    /**Salva partita offline
      *
      * @throws java.io.FileNotFoundException
      * @throws java.io.IOException
      */
-    public static void saveGame() {
+    public static void saveGameOffline() {
+        currentGame.setLastSaveDate(new Date());
+        gameMap.put(currentGame.getGameID(), currentGame);
+        saveGames();
+    }
+
+    public static void saveGameOnline(){
         try {
             trans.executeArraylistTransactions();
         } catch (ClassNotFoundException ex) {
