@@ -55,7 +55,7 @@ public class PlayerList implements Serializable {
      */
     public boolean existsBankruptPlayer() {
         for (Player p : playerAL) {
-            if (p.getCredit() == 0 && p.getRole() == PlayerRole.Normal) {
+            if (p.getCredit() <= 0.00) {
                 return true;
             }
         }
