@@ -59,7 +59,7 @@ public class RMIServer {
             stub = new Stub();
 
             istub = (IGameMediator) UnicastRemoteObject.exportObject(stub, 0);
-            rmiregistry.rebind(bindName, stub);
+            rmiregistry.rebind(bindName, istub);
 
             serverVO.setMessage(dateFormat.format(new Date()) + "- RMI Server Avviato su localhost");
             serverVO.setMessageType(MessageType.INFO);
