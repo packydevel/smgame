@@ -532,6 +532,7 @@ public class GUICoreMediator {
                 serverVO.setMessageType(MessageType.ERROR);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             serverVO.setMessage("Impossibile Connettersi al DataBase");
             serverVO.setMessageType(MessageType.ERROR);
         }

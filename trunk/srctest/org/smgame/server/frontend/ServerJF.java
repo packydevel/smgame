@@ -9,7 +9,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -25,14 +24,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
 import javax.swing.ScrollPaneLayout;
+
 import org.smgame.core.GUICoreMediator;
 import org.smgame.client.frontend.MessageType;
 import org.smgame.server.RMIServer;
 
-/**internal frame new game
- *frame interno nuovo gioco
+/**frame interno server
  *
  * @author luca
  * @author pasquale
@@ -69,16 +67,7 @@ public class ServerJF extends JFrame implements WindowListener {
                 "Configurazione del Server");
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
-        monitorJTA = new JTextArea();
-        monitorJTA.setLineWrap(true);
-        monitorJTA.setWrapStyleWord(true);
-        monitorJTA.setEditable(false);
-        monitorJTA.setBackground(Color.BLACK);
-        monitorJTA.setForeground(Color.GREEN);
-
-        monitorJSP = new JScrollPane(monitorJTA);
-        monitorJSP.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        monitorJSP.setLayout(new ScrollPaneLayout());
+        initMonitorJSP();
         tabbedPane.addTab("Monitor", null, monitorJSP,
                 "Monitor delle attività del Server");
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
@@ -286,8 +275,23 @@ public class ServerJF extends JFrame implements WindowListener {
         addWindowListener(this);
     }
 
-    private void serverAction(ActionEvent e) {
+    /**inizializza il pannello monitor
+     *
+     */
+    private void initMonitorJSP(){
+        monitorJTA = new JTextArea();
+        monitorJTA.setLineWrap(true);
+        monitorJTA.setWrapStyleWord(true);
+        monitorJTA.setEditable(false);
+        monitorJTA.setBackground(Color.BLACK);
+        monitorJTA.setForeground(Color.GREEN);
 
+        monitorJSP = new JScrollPane(monitorJTA);
+        monitorJSP.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        monitorJSP.setLayout(new ScrollPaneLayout());
+    }
+
+    private void serverAction(ActionEvent e) {
         JFileChooser fileJFC;
 
         if (((JButton) e.getSource()).equals(startJB)) {
