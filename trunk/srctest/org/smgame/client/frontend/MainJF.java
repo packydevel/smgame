@@ -138,10 +138,6 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
                     JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
                 this.dispose();
             }
-        } else if ((JMenuItem) evt.getSource() == menuJMB.getScoreBoardJMI()) {
-            JOptionPane.showMessageDialog(this, new ScoreBoardJP("manche finita",
-                    ClientProxy.getInstance().requestDataReport(), -1), "Score Board",
-                    JOptionPane.INFORMATION_MESSAGE);
         } else if ((JMenuItem) evt.getSource() == menuJMB.getStoryBoardJMI()) {
             JOptionPane.showMessageDialog(this,
                     new StoryBoardJP(ClientProxy.getInstance().requestStoryGames()));
