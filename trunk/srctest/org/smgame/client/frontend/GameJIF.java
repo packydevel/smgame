@@ -363,13 +363,12 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     }
 
     private void refreshComponent() {
-        int bank = -1;
         LinkedHashMap<Integer,Color> playerColorLHM = new LinkedHashMap<Integer, Color>();
 
         gameVO = ClientProxy.getInstance().requestGameVO();
 
-        if (gameVO.getExceptionMessage() != null) {
-            JOptionPane.showInternalMessageDialog(this, gameVO.getExceptionMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+            if (gameVO.getExceptionMessage() != null) {
+                JOptionPane.showInternalMessageDialog(this, gameVO.getExceptionMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
         } else {
             setTitle(ClientProxy.getInstance().getGameTitle() + gameVO.getCurrentManche());
             Object[][] dataReport = ClientProxy.getInstance().requestDataReport();
@@ -398,7 +397,6 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                 }
 
                 if (gameVO.getPlayerRoleMap().get(i) == true) {
-                    bank = i;
                     selectBank(i);
                     playerColorLHM.remove(i);
                     playerColorLHM.put(Integer.valueOf(i), Color.ORANGE);
