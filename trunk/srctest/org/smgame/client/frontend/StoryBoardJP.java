@@ -6,11 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.ListIterator;
 
-import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,9 +26,9 @@ public class StoryBoardJP extends JPanel{
     private JTable storyboardJT;
     JButton nextJB, previousJB;
     JLabel gameJL;
-    //private int counter, max_size;
+    private int counter, max_size;
     private LinkedHashMap<Long, Object[][]> dataLHM;
-    private ListIterator<Long> iter;
+    private Long[] keyset;
 
     /**Costruttore
      *
@@ -40,25 +37,20 @@ public class StoryBoardJP extends JPanel{
     public StoryBoardJP(LinkedHashMap<Long, Object[][]> map) {
         setPreferredSize(new Dimension(400, 250));
         setLayout(new BorderLayout());
-        dataLHM = map;        
-        Iterator temp_iter = dataLHM.keySet().iterator();
-        for (int i=0; i<dataLHM.size(); i++)
-            iter.add((Long)temp_iter.next());
+        dataLHM = map;
+        keyset = (Long[]) dataLHM.keySet().toArray();
 
         storyboardJT = new JTable();        
         storyboardJT.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         storyboardJT.setFocusable(false);
         storyboardJT.getTableHeader().setReorderingAllowed(false);
+        counter = 0;
+        setTableModel(tableModel(dataLHM.get(keyset[counter])));
+        setTextGameJL("id partita: "+keyset[counter]);
+        add(new JScrollPane(storyboardJT), BorderLayout.CENTER);        
         
-        if (iter.hasNext()) {
-            Object key = iter.next();
-            setTableModel(tableModel(dataLHM.get(key)));
-            setTextGameJL("id partita: "+key.toString());
-        }
-        if (!iter.hasNext())
-            nextJB.setEnabled(false);
-                
-        add(new JScrollPane(storyboardJT), BorderLayout.CENTER);                
+        max_size = dataLHM.size();
+
 
         nextJB = new JButton("Successiva");
         nextJB.addActionListener(new ActionListener() {
@@ -76,7 +68,10 @@ public class StoryBoardJP extends JPanel{
 
                 }
             }
-        });        
+        });
+
+        if (max_size<=1)
+            nextJB.setEnabled(false);
 
         previousJB = new JButton("Precedente");
         previousJB.setEnabled(false);
@@ -145,29 +140,16 @@ public class StoryBoardJP extends JPanel{
      * @throws java.lang.Exception
      */
     private void nextGames() throws ClassNotFoundException, SQLException, IOException, Exception{        
-        /*if (max_size > (counter + 1)){
-            ++counter;
-            Object key = null;
-            if (iter.hasNext())
-                key = iter.next();
-
-            setTableModel(tableModel(dataLHM.get(key)));
-            setTextGameJL("id partita: "+key.toString());
+        if (max_size > (counter + 1)){
+            ++counter;            
+            setTableModel(tableModel(dataLHM.get(keyset[counter])));
+            setTextGameJL("id partita: "+keyset[counter]);
         }
         if (counter == 1)
             previousJB.setEnabled(true);
         if (max_size == (counter + 1)){
             nextJB.setEnabled(false);
-        }*/
-        if (iter.hasNext()){
-            Object key = iter.next();
-            setTableModel(tableModel(dataLHM.get(key)));
-            setTextGameJL("id partita: "+key.toString());
         }
-        if (iter.hasPrevious())
-            previousJB.setEnabled(true);
-        if (!iter.hasNext())
-            nextJB.setEnabled(false);
     }
 
     /**Esegue l'azione di caricamento del precedente storico
@@ -178,27 +160,14 @@ public class StoryBoardJP extends JPanel{
      * @throws java.lang.Exception
      */
     private void previousGames() throws ClassNotFoundException, SQLException, IOException, Exception{
-        /*if (counter > 0){
-            --counter;
-            Object key = null;
-            if (iter.hasPrevious())
-                key = iter.previous();
-            setTableModel(tableModel(dataLHM.get(key)));
-            setTextGameJL("id partita: "+key.toString());
+        if (counter > 0){
+            --counter;            
+            setTableModel(tableModel(dataLHM.get(keyset[counter])));
+            setTextGameJL("id partita: "+keyset[counter]);
         }
         if (max_size > (counter + 1))
             nextJB.setEnabled(true);
         if (counter == 0)
-            previousJB.setEnabled(false);
-         */
-        if (iter.hasPrevious()){
-            Object key = iter.previous();
-            setTableModel(tableModel(dataLHM.get(key)));
-            setTextGameJL("id partita: "+key.toString());
-        }
-        if (iter.hasNext())
-            nextJB.setEnabled(true);
-        if (!iter.hasPrevious())
             previousJB.setEnabled(false);
     }
 
