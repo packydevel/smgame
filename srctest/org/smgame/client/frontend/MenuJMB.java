@@ -23,7 +23,6 @@ public class MenuJMB extends JMenuBar {
     private JMenuItem saveGameJMI;
     private JMenuItem closeGameJMI;
     private JMenuItem exitGameJMI;
-    private JMenuItem scoreBoardJMI;
     private JMenuItem storyBoardJMI;
     private JMenuItem gameSettingsJMI;
     private JMenuItem globalSettingsJMI;
@@ -84,11 +83,6 @@ public class MenuJMB extends JMenuBar {
         gameJM.add(closeGameJMI);
         gameJM.add(exitGameJMI);
 
-        scoreBoardJMI = new JMenuItem("ScoreBoardJMI");
-        scoreBoardJMI.setText("Partita Attuale");
-        scoreBoardJMI.setName("scoreBoardJMI");
-        menuItemListJMI.add(scoreBoardJMI);
-
         storyBoardJMI = new JMenuItem("storyBoardJMI");
         storyBoardJMI.setText("Storico Partite");
         storyBoardJMI.setName("storyBoardJMI");
@@ -96,7 +90,6 @@ public class MenuJMB extends JMenuBar {
 
         gameBoardJM = new JMenu("GameBoardJM");
         gameBoardJM.setText("Partite");
-        gameBoardJM.add(scoreBoardJMI);
         gameBoardJM.add(storyBoardJMI);
 
         gameSettingsJMI = new JMenuItem("GameSettingsJMI");
@@ -176,10 +169,6 @@ public class MenuJMB extends JMenuBar {
 
     public JMenuItem getSaveGameJMI() {
         return saveGameJMI;
-    }
-
-    public JMenuItem getScoreBoardJMI() {
-        return scoreBoardJMI;
     }
 
     public JMenuItem getStoryBoardJMI() {
