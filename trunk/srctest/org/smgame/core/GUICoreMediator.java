@@ -375,7 +375,7 @@ public class GUICoreMediator {
 
         ArrayList<ImageIcon> playerCardsImageList = new ArrayList<ImageIcon>();
 
-        if (gameVO.getExceptionMessage() == null) {
+        if (gameVO.getExceptionMessage() == null || currentGame.getGameEngine().isEndManche()) {
 
             if (gameVO.isEndManche()) {
                 currentGame.getGameEngine().startManche();
