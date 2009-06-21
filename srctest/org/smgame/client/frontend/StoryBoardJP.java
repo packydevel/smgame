@@ -27,9 +27,9 @@ public class StoryBoardJP extends JPanel{
     private JTable storyboardJT;
     JButton nextJB, previousJB;
     JLabel gameJL;
-    private int counter, max_size;
+    //private int counter, max_size;
     private LinkedHashMap<Long, Object[][]> dataLHM;
-    private ListIterator iter;
+    private ListIterator<Long> iter;
 
     /**Costruttore
      *
@@ -39,7 +39,7 @@ public class StoryBoardJP extends JPanel{
         setPreferredSize(new Dimension(400, 250));
         setLayout(new BorderLayout());
         dataLHM = map;
-        iter = (ListIterator) dataLHM.keySet().iterator();
+        iter = (ListIterator<Long>) dataLHM.keySet().iterator();
 
         storyboardJT = new JTable();        
         storyboardJT.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
