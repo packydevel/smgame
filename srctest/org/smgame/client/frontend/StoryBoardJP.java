@@ -28,7 +28,7 @@ public class StoryBoardJP extends JPanel{
     JLabel gameJL;
     private int counter, max_size;
     private LinkedHashMap<Long, Object[][]> dataLHM;
-    private Long[] keyset;
+    private Object[] keyset;
 
     /**Costruttore
      *
@@ -38,7 +38,7 @@ public class StoryBoardJP extends JPanel{
         setPreferredSize(new Dimension(400, 250));
         setLayout(new BorderLayout());
         dataLHM = map;
-        keyset = (Long[]) dataLHM.keySet().toArray();
+        keyset = (Object[]) dataLHM.keySet().toArray();
 
         storyboardJT = new JTable();        
         storyboardJT.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
