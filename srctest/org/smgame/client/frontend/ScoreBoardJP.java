@@ -53,11 +53,9 @@ public class ScoreBoardJP extends JPanel {
     public ScoreBoardJP(String status, Object[][] data, int posBankPlayer) {
         setPreferredSize(new Dimension(400, 250));
         setLayout(new BorderLayout());
-        typeEndJL =
-                new JLabel(status);
+        typeEndJL = new JLabel(status);
 
-        scoreboardJT =
-                new JTable();
+        scoreboardJT = new JTable();
         scoreboardJT.setModel(tableModel(data));
         scoreboardJT.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         scoreboardJT.setFocusable(false);
