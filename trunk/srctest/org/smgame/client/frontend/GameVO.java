@@ -198,5 +198,6 @@ public class GameVO implements Serializable {
         getPlayerRoleMap().clear();
         getPlayerPlayingMap().clear();
         getPlayerRequestBetMap().clear();
+        exceptionMessage = null;
     }
 }//end class

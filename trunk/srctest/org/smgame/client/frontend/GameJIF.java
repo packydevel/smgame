@@ -369,66 +369,70 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
         gameVO = ClientProxy.getInstance().requestGameVO();
 
-        setTitle(ClientProxy.getInstance().getGameTitle() + gameVO.getCurrentManche());
-        Object[][] dataReport = ClientProxy.getInstance().requestDataReport();
+        if (gameVO.getExceptionMessage() != null) {
+            JOptionPane.showInternalMessageDialog(this, gameVO.getExceptionMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+        } else {
 
-        for (int i = 0; i < gameVO.getPlayerIndexList().size(); i++) {
-            ((JLabel) playerNameMapJP.get(i).getComponent(0)).setText(gameVO.getPlayerCreditMap().get(i));
+            setTitle(ClientProxy.getInstance().getGameTitle() + gameVO.getCurrentManche());
+            Object[][] dataReport = ClientProxy.getInstance().requestDataReport();
 
-            for (int j = 0; j < 14; j++) {
-                ((JLabel) playerCardsMapJP.get(i).getComponent(j)).setIcon(null);
+            for (int i = 0; i < gameVO.getPlayerIndexList().size(); i++) {
+                ((JLabel) playerNameMapJP.get(i).getComponent(0)).setText(gameVO.getPlayerCreditMap().get(i));
+
+                for (int j = 0; j < 14; j++) {
+                    ((JLabel) playerCardsMapJP.get(i).getComponent(j)).setIcon(null);
+                }
+
+                for (int j = 0; j < gameVO.getPlayerCardsImageMap().get(i).size(); j++) {
+                    ((JLabel) playerCardsMapJP.get(i).getComponent(j)).setIcon(gameVO.getPlayerCardsImageMap().get(i).get(j));
+                }
+
+                playerStakeMapJL.get(i).setText(gameVO.getPlayerStakeMap().get(i));
+                playerScoreMapJL.get(i).setText(gameVO.getPlayerScoreMap().get(i));
+                playerStatusMapJL.get(i).setText(gameVO.getPlayerStatusMap().get(i));
+
+                if (gameVO.getPlayerTypeMap().get(i) == false) {
+                    setPlayerColor(i, Color.RED);
+                } else {
+                    setPlayerColor(i, Color.BLUE);
+                }
+
+                if (gameVO.getPlayerRoleMap().get(i) == true) {
+                    bank = i;
+                    selectBank(i);
+                    System.out.println("Ti riconosco come mazziere:" + i);
+                } else {
+                    deselectBank(i);
+                    System.out.println("Non ti riconosco come mazziere:" + i);
+                }
+
+                if (gameVO.getPlayerPlayingMap().get(i) == true) {
+                    showActionPanelContent(i);
+                    currentIndex = i;
+                } else {
+                    hideActionPanelContent(i);
+                }
+
+                getBetJTF(i).setEnabled(gameVO.getPlayerRequestBetMap().get(i));
+                getRequestCardJB(i).setEnabled(!gameVO.getPlayerRequestBetMap().get(i));
+                getDeclareGoodScoreJB(i).setEnabled(!gameVO.getPlayerRequestBetMap().get(i));
+            } //end for
+
+            if (gameVO.isEndManche()) {
+                gameVO.getPlayerRoleMap();
+
+                JOptionPane.showInternalMessageDialog(this,
+                        new ScoreBoardJP("Terminata Manche n° " + gameVO.getCurrentManche(), dataReport, bank), "Score Board",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                if (gameVO.isEndGame()) {
+                    JOptionPane.showInternalMessageDialog(this, "Questa partita è terminata!!!", "Info", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
+
+                } else {
+                    initBoard();
+                }
             }
-
-            for (int j = 0; j < gameVO.getPlayerCardsImageMap().get(i).size(); j++) {
-                ((JLabel) playerCardsMapJP.get(i).getComponent(j)).setIcon(gameVO.getPlayerCardsImageMap().get(i).get(j));
-            }
-
-            playerStakeMapJL.get(i).setText(gameVO.getPlayerStakeMap().get(i));
-            playerScoreMapJL.get(i).setText(gameVO.getPlayerScoreMap().get(i));
-            playerStatusMapJL.get(i).setText(gameVO.getPlayerStatusMap().get(i));
-
-            if (gameVO.getPlayerTypeMap().get(i) == false) {
-                setPlayerColor(i, Color.RED);
-            } else {
-                setPlayerColor(i, Color.BLUE);
-            }
-
-            if (gameVO.getPlayerRoleMap().get(i) == true) {
-                bank = i;
-                selectBank(i);
-                System.out.println("Ti riconosco come mazziere:" + i);
-            } else {
-                deselectBank(i);
-                System.out.println("Non ti riconosco come mazziere:" + i);
-            }
-
-            if (gameVO.getPlayerPlayingMap().get(i) == true) {
-                showActionPanelContent(i);
-                currentIndex = i;
-            } else {
-                hideActionPanelContent(i);
-            }
-
-            getBetJTF(i).setEnabled(gameVO.getPlayerRequestBetMap().get(i));
-            getRequestCardJB(i).setEnabled(!gameVO.getPlayerRequestBetMap().get(i));
-            getDeclareGoodScoreJB(i).setEnabled(!gameVO.getPlayerRequestBetMap().get(i));
-        } //end for
-
-        if (gameVO.isEndManche()) {
-            gameVO.getPlayerRoleMap();
-
-            JOptionPane.showMessageDialog(this,
-                    new ScoreBoardJP("Terminata Manche n° " + gameVO.getCurrentManche(), dataReport, bank), "Score Board",
-                    JOptionPane.INFORMATION_MESSAGE);
-
-            if (gameVO.isEndGame()) {
-                JOptionPane.showMessageDialog(this, "Questa partita è terminata!!!");
-                dispose();
-
-            } else {
-                initBoard();
-            }
-
         }
     }
 }//end gameJIF

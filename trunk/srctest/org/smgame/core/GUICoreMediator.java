@@ -160,7 +160,7 @@ public class GUICoreMediator {
         saveGames();
     }
 
-    public static void saveGameOnline(){
+    public static void saveGameOnline() {
         try {
             trans.executeArraylistTransactions();
         } catch (ClassNotFoundException ex) {
@@ -291,10 +291,11 @@ public class GUICoreMediator {
 
         try {
             currentGame.getGameEngine().requestCard(player, bet);
+            gameVO.setExceptionMessage(null);
         } catch (BetOverflowException boe) {
-            if (!currentGame.getGameEngine().isEndManche()) {
-                selectNextPlayer();
-            }
+//            if (!currentGame.getGameEngine().isEndManche()) {
+//                selectNextPlayer();
+//            }
             gameVO.setExceptionMessage(boe.getMessage());
             Logging.logExceptionWarning(boe);
         } catch (ScoreOverflowException soe) {
@@ -321,6 +322,7 @@ public class GUICoreMediator {
             if (!currentGame.getGameEngine().isEndManche()) {
                 selectNextPlayer();
             }
+            gameVO.setExceptionMessage(null);
         } catch (BetOverflowException boe) {
             gameVO.setExceptionMessage(boe.getMessage());
             Logging.logExceptionWarning(boe);
@@ -373,48 +375,50 @@ public class GUICoreMediator {
 
         ArrayList<ImageIcon> playerCardsImageList = new ArrayList<ImageIcon>();
 
-        if (gameVO.isEndManche()) {
-            currentGame.getGameEngine().startManche();
-            gameVO.setEndManche(false);
-        }
+        if (gameVO.getExceptionMessage() == null) {
 
-        gameVO.clear();
-
-        for (int i = 0; i < currentGame.getPlayerList().size(); i++) {
-            Player tempPlayer = currentGame.getPlayerList().getPlayer(i);
-
-            gameVO.getPlayerIndexList().add(i);
-
-            gameVO.getPlayerNameMap().put(i, tempPlayer.getName());
-
-            if (tempPlayer instanceof CPUPlayer) {
-                gameVO.getPlayerTypeMap().put(i, true);
-            } else {
-                gameVO.getPlayerTypeMap().put(i, false);
+            if (gameVO.isEndManche()) {
+                currentGame.getGameEngine().startManche();
+                gameVO.setEndManche(false);
             }
 
-            gameVO.getPlayerCreditMap().put(i, "Credito: " +
-                    numberFormat.format(tempPlayer.getCredit()));
+            gameVO.clear();
 
-            gameVO.getPlayerCardsImageMap().put(i, new ArrayList<ImageIcon>());
-            playerCardsImageList = gameVO.getPlayerCardsImageMap().get(i);
-            for (int j = 0; j < tempPlayer.getCardList().size(); j++) {
-                if (j == 0) {
-                    if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) || tempPlayer.getStatus() == PlayerStatus.ScoreOverflow || tempPlayer.hasSM() || (currentGame.getGameEngine().isEndManche() && currentGame.getGameEngine().getBankPlayer().getStatus() == PlayerStatus.GoodScore)) {
-                        playerCardsImageList.add(ImageEdit.scaledImage(tempPlayer.getCardList().get(j).getFrontImage()));
-                    } else {
-                        playerCardsImageList.add(ImageEdit.scaledImage(Card.getBackImage()));
-                    }
+            for (int i = 0; i < currentGame.getPlayerList().size(); i++) {
+                Player tempPlayer = currentGame.getPlayerList().getPlayer(i);
+
+                gameVO.getPlayerIndexList().add(i);
+
+                gameVO.getPlayerNameMap().put(i, tempPlayer.getName());
+
+                if (tempPlayer instanceof CPUPlayer) {
+                    gameVO.getPlayerTypeMap().put(i, true);
                 } else {
-                    playerCardsImageList.add(ImageEdit.scaledImage(tempPlayer.getCardList().get(j).getFrontImage()));
+                    gameVO.getPlayerTypeMap().put(i, false);
                 }
-            }
 
-            if (tempPlayer.getStatus() == PlayerStatus.ScoreOverflow) {
+                gameVO.getPlayerCreditMap().put(i, "Credito: " +
+                        numberFormat.format(tempPlayer.getCredit()));
+
+                gameVO.getPlayerCardsImageMap().put(i, new ArrayList<ImageIcon>());
+                playerCardsImageList = gameVO.getPlayerCardsImageMap().get(i);
                 for (int j = 0; j < tempPlayer.getCardList().size(); j++) {
-                    playerCardsImageList.set(j, ImageEdit.grayScaleImage(playerCardsImageList.get(j)));
+                    if (j == 0) {
+                        if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) || tempPlayer.getStatus() == PlayerStatus.ScoreOverflow || tempPlayer.hasSM() || (currentGame.getGameEngine().isEndManche() && currentGame.getGameEngine().getBankPlayer().getStatus() == PlayerStatus.GoodScore)) {
+                            playerCardsImageList.add(ImageEdit.scaledImage(tempPlayer.getCardList().get(j).getFrontImage()));
+                        } else {
+                            playerCardsImageList.add(ImageEdit.scaledImage(Card.getBackImage()));
+                        }
+                    } else {
+                        playerCardsImageList.add(ImageEdit.scaledImage(tempPlayer.getCardList().get(j).getFrontImage()));
+                    }
                 }
-            }
+
+                if (tempPlayer.getStatus() == PlayerStatus.ScoreOverflow) {
+                    for (int j = 0; j < tempPlayer.getCardList().size(); j++) {
+                        playerCardsImageList.set(j, ImageEdit.grayScaleImage(playerCardsImageList.get(j)));
+                    }
+                }
 //
 //            if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer())) {
 //                offLineGameVO.getPlayerFirstCardDiscoveredMap().put(i, Boolean.TRUE);
@@ -422,53 +426,53 @@ public class GUICoreMediator {
 //                offLineGameVO.getPlayerFirstCardDiscoveredMap().put(i, Boolean.FALSE);
 //            }
 
-            gameVO.getPlayerStakeMap().put(i, "Puntata: " +
-                    numberFormat.format(tempPlayer.getStake()));
+                gameVO.getPlayerStakeMap().put(i, "Puntata: " +
+                        numberFormat.format(tempPlayer.getStake()));
 
-            if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) || tempPlayer.getStatus() == PlayerStatus.ScoreOverflow || tempPlayer.hasSM() || (currentGame.getGameEngine().isEndManche() && currentGame.getGameEngine().getBankPlayer().getStatus() == PlayerStatus.GoodScore)) {
-                gameVO.getPlayerScoreMap().put(i, "Punteggio: " +
-                        numberFormat.format(tempPlayer.getScore()));
-            } else {
-                gameVO.getPlayerScoreMap().put(i, "Punteggio: ");
+                if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) || tempPlayer.getStatus() == PlayerStatus.ScoreOverflow || tempPlayer.hasSM() || (currentGame.getGameEngine().isEndManche() && currentGame.getGameEngine().getBankPlayer().getStatus() == PlayerStatus.GoodScore)) {
+                    gameVO.getPlayerScoreMap().put(i, "Punteggio: " +
+                            numberFormat.format(tempPlayer.getScore()));
+                } else {
+                    gameVO.getPlayerScoreMap().put(i, "Punteggio: ");
+                }
+
+                if (tempPlayer.getStatus() != null) {
+                    gameVO.getPlayerStatusMap().put(i, tempPlayer.getStatus().toString());
+                } else {
+                    gameVO.getPlayerStatusMap().put(i, null);
+                }
+
+                if (tempPlayer.equals(currentGame.getGameEngine().getBankPlayer())) {
+                    gameVO.getPlayerRoleMap().put(i, true);
+                } else {
+                    gameVO.getPlayerRoleMap().put(i, false);
+                }
+
+                if (tempPlayer.getBetList().size() > 0 || tempPlayer.getRole() == PlayerRole.Bank) {
+                    gameVO.getPlayerRequestBetMap().put(i, false);
+                } else {
+                    gameVO.getPlayerRequestBetMap().put(i, true);
+                }
+
+                if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) &&
+                        !currentGame.getGameEngine().isEndManche() && !currentGame.getGameEngine().isEndGame()) {
+                    gameVO.getPlayerPlayingMap().put(i, true);
+                } else {
+                    gameVO.getPlayerPlayingMap().put(i, false);
+                }
+            } //end for
+
+            if (currentGame.getGameEngine().isEndManche()) {
+                currentGame.getGameEngine().closeManche();
+                gameVO.setEndManche(true);
+                addTransactionAL();
             }
 
-            if (tempPlayer.getStatus() != null) {
-                gameVO.getPlayerStatusMap().put(i, tempPlayer.getStatus().toString());
-            } else {
-                gameVO.getPlayerStatusMap().put(i, null);
-            }
+            gameVO.setCurrentManche(currentGame.getGameEngine().getCurrentManche());
 
-            if (tempPlayer.equals(currentGame.getGameEngine().getBankPlayer())) {
-                gameVO.getPlayerRoleMap().put(i, true);
-            } else {
-                gameVO.getPlayerRoleMap().put(i, false);
-            }
+            gameVO.setEndGame(currentGame.getGameEngine().isEndGame());
 
-            if (tempPlayer.getBetList().size() > 0 || tempPlayer.getRole() == PlayerRole.Bank) {
-                gameVO.getPlayerRequestBetMap().put(i, false);
-            } else {
-                gameVO.getPlayerRequestBetMap().put(i, true);
-            }
-
-            if (tempPlayer.equals(currentGame.getGameEngine().getCurrentPlayer()) &&
-                    !currentGame.getGameEngine().isEndManche() && !currentGame.getGameEngine().isEndGame()) {
-                gameVO.getPlayerPlayingMap().put(i, true);
-            } else {
-                gameVO.getPlayerPlayingMap().put(i, false);
-            }
-        } //end for
-
-        if (currentGame.getGameEngine().isEndManche()) {
-            currentGame.getGameEngine().closeManche();
-            gameVO.setEndManche(true);
-            addTransactionAL();
         }
-
-        gameVO.setCurrentManche(currentGame.getGameEngine().getCurrentManche());
-
-        gameVO.setEndGame(currentGame.getGameEngine().isEndGame());
-
-
         return gameVO;
     }
 
@@ -542,7 +546,7 @@ public class GUICoreMediator {
     public static LinkedHashMap<Long, Object[][]> requestStoryGames() {
         DBTransactions dbt = new DBTransactions();
         LinkedHashMap<Long, Object[][]> map = null;
-        try {            
+        try {
             map = dbt.getStoryGame();
         } catch (ClassNotFoundException ex) {
             Logging.logExceptionSevere(GUICoreMediator.class, ex);
