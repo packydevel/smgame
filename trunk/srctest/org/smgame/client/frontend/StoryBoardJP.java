@@ -40,10 +40,10 @@ public class StoryBoardJP extends JPanel{
     public StoryBoardJP(LinkedHashMap<Long, Object[][]> map) {
         setPreferredSize(new Dimension(400, 250));
         setLayout(new BorderLayout());
-        dataLHM = map;
-        Set set = dataLHM.keySet();
-        Iterator temp_iter = set.iterator();
-        iter = (ListIterator<Long>) temp_iter;
+        dataLHM = map;        
+        Iterator temp_iter = dataLHM.keySet().iterator();
+        for (int i=0; i<dataLHM.size(); i++)
+            iter.add((Long)temp_iter.next());
 
         storyboardJT = new JTable();        
         storyboardJT.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
