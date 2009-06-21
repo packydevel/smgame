@@ -1,10 +1,9 @@
 package org.smgame.core.player;
 
 import java.io.Serializable;
-
 import java.util.ArrayList;
-
 import java.util.List;
+
 import org.smgame.core.card.Card;
 import org.smgame.core.card.JollyCard;
 import org.smgame.core.card.Point;
