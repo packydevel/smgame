@@ -9,14 +9,15 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -61,17 +62,16 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             betValueFormatter.setMinimumFractionDigits(2);
         }
 
+        @Override
         public boolean shouldYieldFocus(JComponent input) {
             return verify(input);
         }
 
         //This method checks input, but should cause no side effects.
-        public boolean verify(JComponent input) {
-            String betText;
+        public boolean verify(JComponent input) {            
             JTextField betJTF = ((JTextField) input);
             JButton requestCardJB = new JButton(), declareGoodScoreJB = new JButton();
-
-            betText = betJTF.getText();
+            String betText = betJTF.getText();
 
             for (JPanel p : playerActionMapJP.values()) {
                 if (p.getComponent(0).equals(betJTF)) {
@@ -86,13 +86,11 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                     declareGoodScoreJB.setEnabled(true);
                     betJTF.setText(betValueFormatter.format(betValueFormatter.parse(betText).doubleValue()));
                 }
-
             } catch (ParseException pe) {
                 requestCardJB.setEnabled(false);
                 declareGoodScoreJB.setEnabled(false);
                 return false;
             }
-
             return true;
         }
 
@@ -120,7 +118,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
         setLayout(new GridBagLayout());
         initComponents();
-        initBoard();
+        refreshComponent();//initBoard();
         pack();
     }
 
@@ -270,11 +268,11 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         pane.setVisible(true);
         return pane;
     }
-
+/*
     private void initBoard() {
         refreshComponent();
     }
-
+*/
     private void showActionPanelContent(int playerIndex) {
         for (int i = 0; i < playerActionMapJP.get(playerIndex).getComponentCount(); i++) {
             playerActionMapJP.get(playerIndex).getComponent(i).setVisible(true);
@@ -366,13 +364,13 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
     private void refreshComponent() {
         int bank = -1;
+        LinkedHashMap<Integer,Color> playerColorLHM = new LinkedHashMap<Integer, Color>();
 
         gameVO = ClientProxy.getInstance().requestGameVO();
 
         if (gameVO.getExceptionMessage() != null) {
             JOptionPane.showInternalMessageDialog(this, gameVO.getExceptionMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
         } else {
-
             setTitle(ClientProxy.getInstance().getGameTitle() + gameVO.getCurrentManche());
             Object[][] dataReport = ClientProxy.getInstance().requestDataReport();
 
@@ -393,13 +391,17 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
                 if (gameVO.getPlayerTypeMap().get(i) == false) {
                     setPlayerColor(i, Color.RED);
+                    playerColorLHM.put(Integer.valueOf(i), Color.RED);
                 } else {
                     setPlayerColor(i, Color.BLUE);
+                    playerColorLHM.put(Integer.valueOf(i), Color.BLUE);
                 }
 
                 if (gameVO.getPlayerRoleMap().get(i) == true) {
                     bank = i;
                     selectBank(i);
+                    playerColorLHM.remove(i);
+                    playerColorLHM.put(Integer.valueOf(i), Color.ORANGE);
                     System.out.println("Ti riconosco come mazziere:" + i);
                 } else {
                     deselectBank(i);
@@ -420,17 +422,14 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
             if (gameVO.isEndManche()) {
                 gameVO.getPlayerRoleMap();
-
                 JOptionPane.showInternalMessageDialog(this,
-                        new ScoreBoardJP("Terminata Manche n° " + gameVO.getCurrentManche(), dataReport, bank), "Score Board",
-                        JOptionPane.INFORMATION_MESSAGE);
-
+                        new ScoreBoardJP("Terminata Manche n° " + gameVO.getCurrentManche(), dataReport, playerColorLHM),
+                        "Score Board", JOptionPane.INFORMATION_MESSAGE);
                 if (gameVO.isEndGame()) {
                     JOptionPane.showInternalMessageDialog(this, "Questa partita è terminata!!!", "Info", JOptionPane.INFORMATION_MESSAGE);
                     dispose();
-
                 } else {
-                    initBoard();
+                    refreshComponent();//initBoard();
                 }
             }
         }

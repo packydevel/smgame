@@ -32,7 +32,7 @@ public class GameVO implements Serializable {
         return playerNameMap;
     }
 
-    /**Restituisce la mappa del tipo di giocatori
+    /**Restituisce la mappa del tipo di giocatori (umano/cpu)
      *
      * @return
      */
