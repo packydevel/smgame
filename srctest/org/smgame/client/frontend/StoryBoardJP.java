@@ -6,9 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.ListIterator;
 
+import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,7 +41,9 @@ public class StoryBoardJP extends JPanel{
         setPreferredSize(new Dimension(400, 250));
         setLayout(new BorderLayout());
         dataLHM = map;
-        iter = (ListIterator<Long>) dataLHM.keySet().iterator();
+        Set set = dataLHM.keySet();
+        Iterator temp_iter = set.iterator();
+        iter = (ListIterator<Long>) temp_iter;
 
         storyboardJT = new JTable();        
         storyboardJT.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
