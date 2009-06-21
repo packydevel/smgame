@@ -38,7 +38,7 @@ public class StoryBoardJP extends JPanel{
         setPreferredSize(new Dimension(400, 250));
         setLayout(new BorderLayout());
         dataLHM = map;
-        keyset = (Object[]) dataLHM.keySet().toArray();
+        keyset = dataLHM.keySet().toArray();
 
         storyboardJT = new JTable();        
         storyboardJT.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -46,7 +46,7 @@ public class StoryBoardJP extends JPanel{
         storyboardJT.getTableHeader().setReorderingAllowed(false);
         counter = 0;
         setTableModel(tableModel(dataLHM.get(keyset[counter])));
-        setTextGameJL("id partita: "+keyset[counter]);
+        
         add(new JScrollPane(storyboardJT), BorderLayout.CENTER);        
         
         max_size = dataLHM.size();
@@ -93,6 +93,7 @@ public class StoryBoardJP extends JPanel{
         });
 
         gameJL = new JLabel();
+        gameJL.setText("id partita: " + keyset[counter].toString());
 
         JPanel northJP = new JPanel(new BorderLayout());
         northJP.add(previousJB, BorderLayout.WEST);
@@ -143,7 +144,7 @@ public class StoryBoardJP extends JPanel{
         if (max_size > (counter + 1)){
             ++counter;            
             setTableModel(tableModel(dataLHM.get(keyset[counter])));
-            setTextGameJL("id partita: "+keyset[counter]);
+            gameJL.setText("id partita: "+keyset[counter].toString());
         }
         if (counter == 1)
             previousJB.setEnabled(true);
@@ -163,7 +164,7 @@ public class StoryBoardJP extends JPanel{
         if (counter > 0){
             --counter;            
             setTableModel(tableModel(dataLHM.get(keyset[counter])));
-            setTextGameJL("id partita: "+keyset[counter]);
+            gameJL.setText("id partita: "+keyset[counter].toString());
         }
         if (max_size > (counter + 1))
             nextJB.setEnabled(true);
@@ -181,13 +182,5 @@ public class StoryBoardJP extends JPanel{
         setWitdhColumn(1, 150);
         setWitdhColumn(2, 80);
         setWitdhColumn(3, 95);
-    }
-
-    /**imposta il testo della label
-     *
-     * @param text testo
-     */
-    private void setTextGameJL(String text){
-        gameJL.setText(text);
     }
 }
