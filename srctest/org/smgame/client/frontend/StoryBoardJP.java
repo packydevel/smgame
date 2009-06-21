@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.LinkedHashMap;
 
 import javax.swing.JButton;
@@ -26,7 +24,7 @@ public class StoryBoardJP extends JPanel{
     private JTable storyboardJT;
     JButton nextJB, previousJB;
     JLabel gameJL;
-    private int counter, max_size;
+    private int counter;
     private LinkedHashMap<Long, Object[][]> dataLHM;
     private Object[] keyset;
 
@@ -47,30 +45,17 @@ public class StoryBoardJP extends JPanel{
         counter = 0;
         setTableModel(tableModel(dataLHM.get(keyset[counter])));
         
-        add(new JScrollPane(storyboardJT), BorderLayout.CENTER);        
-        
-        max_size = dataLHM.size();
-
+        add(new JScrollPane(storyboardJT), BorderLayout.CENTER);                
 
         nextJB = new JButton("Successiva");
         nextJB.addActionListener(new ActionListener() {
 
-            public void actionPerformed(ActionEvent evt) {
-                try {
-                    nextGames();
-                } catch (ClassNotFoundException ex) {
-
-                } catch (SQLException ex) {
-
-                } catch (IOException ex) {
-
-                } catch (Exception ex) {
-
-                }
+            public void actionPerformed(ActionEvent evt) {                
+                nextGames();
             }
         });
 
-        if (max_size<=1)
+        if (dataLHM.size()<=1)
             nextJB.setEnabled(false);
 
         previousJB = new JButton("Precedente");
@@ -78,17 +63,7 @@ public class StoryBoardJP extends JPanel{
         previousJB.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
-                try {
-                    previousGames();
-                } catch (ClassNotFoundException ex) {
-
-                } catch (SQLException ex) {
-
-                } catch (IOException ex) {
-
-                } catch (Exception ex) {
-                    
-                }
+                previousGames();
             }
         });
 
@@ -135,38 +110,30 @@ public class StoryBoardJP extends JPanel{
 
     /**esegue l'azione di caricamento del successivo storico
      *
-     * @throws java.lang.ClassNotFoundException
-     * @throws java.sql.SQLException
-     * @throws java.io.IOException
-     * @throws java.lang.Exception
      */
-    private void nextGames() throws ClassNotFoundException, SQLException, IOException, Exception{        
-        if (max_size > (counter + 1)){
+    private void nextGames() {        
+        if (dataLHM.size() > (counter + 1)){
             ++counter;            
             setTableModel(tableModel(dataLHM.get(keyset[counter])));
             gameJL.setText("id partita: "+keyset[counter].toString());
         }
         if (counter == 1)
             previousJB.setEnabled(true);
-        if (max_size == (counter + 1)){
+        if (dataLHM.size() == (counter + 1)){
             nextJB.setEnabled(false);
         }
     }
 
     /**Esegue l'azione di caricamento del precedente storico
      *
-     * @throws java.lang.ClassNotFoundException
-     * @throws java.sql.SQLException
-     * @throws java.io.IOException
-     * @throws java.lang.Exception
      */
-    private void previousGames() throws ClassNotFoundException, SQLException, IOException, Exception{
+    private void previousGames() {
         if (counter > 0){
             --counter;            
             setTableModel(tableModel(dataLHM.get(keyset[counter])));
             gameJL.setText("id partita: "+keyset[counter].toString());
         }
-        if (max_size > (counter + 1))
+        if (dataLHM.size() > (counter + 1))
             nextJB.setEnabled(true);
         if (counter == 0)
             previousJB.setEnabled(false);
