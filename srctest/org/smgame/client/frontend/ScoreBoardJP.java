@@ -2,9 +2,9 @@ package org.smgame.client.frontend;
 
 import java.awt.Dimension;
 import java.awt.BorderLayout;
-
 import java.awt.Color;
 import java.awt.Component;
+import java.util.LinkedHashMap;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,37 +20,30 @@ import javax.swing.table.TableColumn;
  */
 public class ScoreBoardJP extends JPanel {
 
-    private JLabel typeEndJL;
-    private JTable scoreboardJT;
-
     private class JLabelRenderer extends JLabel implements TableCellRenderer {
+        LinkedHashMap<Integer,Color> colorLHM;
 
-        int posBankPlayer;
-
-        public JLabelRenderer(int posBankPlayer) {
-            this.posBankPlayer = posBankPlayer;
+        public JLabelRenderer(LinkedHashMap<Integer,Color> playerColorLHM) {
+            colorLHM = playerColorLHM;
         }
 
         public Component getTableCellRendererComponent(JTable table, Object value,
-                boolean isSelected, boolean hasFocus, int row, int column) {
-            if (row == posBankPlayer) {
-                setForeground(Color.ORANGE);
-            } else {
-                setForeground(Color.RED);
-            }
-
+                boolean isSelected, boolean hasFocus, int row, int column) {            
+            setForeground(colorLHM.get(row));            
             setText(value.toString());
-
             return this;
         }
-    }
+    } //end class JLabelRenderer
+
+    private JLabel typeEndJL;
+    private JTable scoreboardJT;    
 
     /**Costruttore
      *
      * @param status stato della partita
      * @param data matrice dei dati
      */
-    public ScoreBoardJP(String status, Object[][] data, int posBankPlayer) {
+    public ScoreBoardJP(String status, Object[][] data, LinkedHashMap<Integer,Color> playerColorLHM) {
         setPreferredSize(new Dimension(400, 250));
         setLayout(new BorderLayout());
         typeEndJL = new JLabel(status);
@@ -59,8 +52,11 @@ public class ScoreBoardJP extends JPanel {
         scoreboardJT.setModel(tableModel(data));
         scoreboardJT.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         scoreboardJT.setFocusable(false);
+        scoreboardJT.setCellSelectionEnabled(false);
+
         scoreboardJT.getTableHeader().setReorderingAllowed(false);
-        scoreboardJT.getColumn("Giocatore").setCellRenderer(new JLabelRenderer(posBankPlayer));
+            scoreboardJT.getColumn("Giocatore").setCellRenderer(new JLabelRenderer(playerColorLHM));
+        scoreboardJT.repaint();
 
         setWitdhColumn(0, 140);
         setWitdhColumn(1, 70);
@@ -70,6 +66,7 @@ public class ScoreBoardJP extends JPanel {
         add(typeEndJL, BorderLayout.NORTH);
         add(new JScrollPane(scoreboardJT), BorderLayout.CENTER);
         setVisible(true);
+        repaint();
     }
 
     /**Restituisce il modello per la tabella
