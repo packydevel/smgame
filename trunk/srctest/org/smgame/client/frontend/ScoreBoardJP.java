@@ -30,12 +30,11 @@ public class ScoreBoardJP extends JPanel {
         public JLabelRenderer(LinkedHashMap<Integer, Color> playerColorLHM) {
             colorLHM = playerColorLHM;
         }
-        
+
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            if (column == 1) {
+            if (column == 0) {
                 setForeground(colorLHM.get(row));
-            }
-            if (column != 0) {
+            } else {
                 setHorizontalAlignment(JLabel.TRAILING);
             }
 
