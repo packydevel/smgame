@@ -53,8 +53,11 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
      *
      */
     public NewGameJIF(boolean online) {
-        super("Nuova Partita", false, true, false, false);
-
+        super("Nuova Partita ", false, true, false, false);
+        String text = "Offline";
+        if (online)
+            text="Online";
+        this.setTitle(getTitle() + text);
         this.online = online;
 
         JTabbedPane tabbedPane = new JTabbedPane();
