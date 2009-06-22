@@ -20,30 +20,37 @@ import javax.swing.table.TableColumn;
  */
 public class ScoreBoardJP extends JPanel {
 
-    private class JLabelRenderer extends JLabel implements TableCellRenderer {
-        LinkedHashMap<Integer,Color> colorLHM;
+    private JLabel typeEndJL;
+    private JTable scoreboardJT;
 
-        public JLabelRenderer(LinkedHashMap<Integer,Color> playerColorLHM) {
+    private class JLabelRenderer extends JLabel implements TableCellRenderer {
+
+        LinkedHashMap<Integer, Color> colorLHM;
+
+        public JLabelRenderer(LinkedHashMap<Integer, Color> playerColorLHM) {
             colorLHM = playerColorLHM;
         }
+        
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            if (column == 1) {
+                setForeground(colorLHM.get(row));
+            }
+            if (column != 0) {
+                setHorizontalAlignment(JLabel.TRAILING);
+            }
 
-        public Component getTableCellRendererComponent(JTable table, Object value,
-                boolean isSelected, boolean hasFocus, int row, int column) {            
-            setForeground(colorLHM.get(row));            
             setText(value.toString());
+
             return this;
         }
     } //end class JLabelRenderer
-
-    private JLabel typeEndJL;
-    private JTable scoreboardJT;    
 
     /**Costruttore
      *
      * @param status stato della partita
      * @param data matrice dei dati
      */
-    public ScoreBoardJP(String status, Object[][] data, LinkedHashMap<Integer,Color> playerColorLHM) {
+    public ScoreBoardJP(String status, Object[][] data, LinkedHashMap<Integer, Color> playerColorLHM) {
         setPreferredSize(new Dimension(400, 250));
         setLayout(new BorderLayout());
         typeEndJL = new JLabel(status);
@@ -55,7 +62,10 @@ public class ScoreBoardJP extends JPanel {
         scoreboardJT.setCellSelectionEnabled(false);
 
         scoreboardJT.getTableHeader().setReorderingAllowed(false);
-            scoreboardJT.getColumn("Giocatore").setCellRenderer(new JLabelRenderer(playerColorLHM));
+        scoreboardJT.getColumn("Giocatore").setCellRenderer(new JLabelRenderer(playerColorLHM));
+        scoreboardJT.getColumn("Punteggio").setCellRenderer(new JLabelRenderer(playerColorLHM));
+        scoreboardJT.getColumn("Vincita").setCellRenderer(new JLabelRenderer(playerColorLHM));
+        scoreboardJT.getColumn("Credito").setCellRenderer(new JLabelRenderer(playerColorLHM));
         scoreboardJT.repaint();
 
         setWitdhColumn(0, 140);
