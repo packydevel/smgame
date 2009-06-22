@@ -2,7 +2,6 @@ package org.smgame.client;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.smgame.core.GUICoreMediator;
@@ -14,6 +13,7 @@ import org.smgame.client.frontend.GameVO;
 import org.smgame.client.frontend.MainVO;
 import org.smgame.client.frontend.MessageType;
 import org.smgame.client.frontend.NewGameVO;
+import org.smgame.client.frontend.StoryBoardVO;
 import org.smgame.server.IGameMediator;
 import org.smgame.util.Logging;
 import org.smgame.util.NoGamesException;
@@ -55,9 +55,12 @@ public class ClientProxy {
         return clientProxy;
     }
 
+    /**Testa la connessione al server RMI
+     *
+     * @return oggetto mainVO
+     */
     public MainVO connect() {
         mainVO.clear();
-
         try {
             stub = RMIClient.getStub();
             mainVO.setMessageType(MessageType.INFO);
@@ -307,20 +310,18 @@ public class ClientProxy {
      *
      * @return map dati
      */
-    public LinkedHashMap<Long, Object[][]> requestStoryGames() {
-        if (gameMode == GameMode.OFFLINE) {
-            return GUICoreMediator.requestStoryGames();
-        } else {
-            try {
-                stub = RMIClient.getStub();
-                return stub.requestStoryGames();
-            } catch (Exception e) {
-                return null;
-            }
+    public StoryBoardVO requestStoryGames() {
+        StoryBoardVO storyVO = new StoryBoardVO();
+        try {
+            stub = RMIClient.getStub();
+            storyVO = stub.requestStoryGames();
+        } catch (Exception e) {
+            storyVO.setMessageType(MessageType.ERROR);
+            storyVO.setMessage("Impossibile connettersi al server RMI o al database");
+            return storyVO;
         }
+        return storyVO;
     }
-
-
 
 
     public MainVO requestMainVO() {

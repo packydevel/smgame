@@ -11,6 +11,7 @@ import org.smgame.client.frontend.LoadGameVO;
 import org.smgame.client.frontend.MenuVO;
 import org.smgame.client.frontend.GameVO;
 import org.smgame.client.frontend.MainVO;
+import org.smgame.client.frontend.StoryBoardVO;
 import org.smgame.util.NoGamesException;
 
 /**Interfaccia game mediator
@@ -51,5 +52,5 @@ public interface IGameMediator extends Remote {
 
     public Object[][] requestDataReport() throws RemoteException;
 
-    public LinkedHashMap<Long, Object[][]> requestStoryGames() throws RemoteException;
+    public StoryBoardVO requestStoryGames() throws RemoteException;
 }
