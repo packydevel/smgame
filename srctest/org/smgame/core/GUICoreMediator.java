@@ -30,6 +30,7 @@ import org.smgame.client.frontend.MainVO;
 import org.smgame.client.frontend.MenuVO;
 import org.smgame.client.frontend.MessageType;
 import org.smgame.client.frontend.GameVO;
+import org.smgame.client.frontend.StoryBoardVO;
 import org.smgame.core.card.Card;
 import org.smgame.server.frontend.ServerVO;
 import org.smgame.util.BetOverflowException;
@@ -542,20 +543,15 @@ public class GUICoreMediator {
      *
      * @return map storico partite
      */
-    public static LinkedHashMap<Long, Object[][]> requestStoryGames() {
+    public static StoryBoardVO requestStoryGames() {
+        StoryBoardVO storyVO = new StoryBoardVO();
         DBTransactions dbt = new DBTransactions();
         LinkedHashMap<Long, Object[][]> map = null;
         try {
-            map = dbt.getStoryGame();
-        } catch (ClassNotFoundException ex) {
-            Logging.logExceptionSevere(GUICoreMediator.class, ex);
-        } catch (SQLException ex) {
-            Logging.logExceptionSevere(GUICoreMediator.class, ex);
-        } catch (IOException ex) {
-            Logging.logExceptionSevere(GUICoreMediator.class, ex);
+            storyVO.setStory(dbt.getStoryGame());
         } catch (Exception ex) {
             Logging.logExceptionSevere(GUICoreMediator.class, ex);
         }
-        return map;
+        return storyVO;
     }
 } //end  class

@@ -3,7 +3,6 @@ package org.smgame.server;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.smgame.core.GUICoreMediator;
@@ -12,6 +11,7 @@ import org.smgame.client.frontend.GameVO;
 import org.smgame.client.frontend.LoadGameVO;
 import org.smgame.client.frontend.MainVO;
 import org.smgame.client.frontend.MenuVO;
+import org.smgame.client.frontend.StoryBoardVO;
 import org.smgame.util.NoGamesException;
 
 /**
@@ -83,7 +83,7 @@ public class Stub implements IGameMediator {
         return GUICoreMediator.requestDataReport();
     }
 
-    public LinkedHashMap<Long, Object[][]> requestStoryGames(){
+    public StoryBoardVO requestStoryGames(){
         return GUICoreMediator.requestStoryGames();
     }
 }
