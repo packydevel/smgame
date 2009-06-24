@@ -7,12 +7,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -161,6 +159,9 @@ public class GUICoreMediator {
         saveGames();
     }
 
+    /**Salva la partita online e scrive sul db
+     *
+     */
     public static void saveGameOnline() {
         try {
             trans.executeArraylistTransactions();
@@ -475,7 +476,7 @@ public class GUICoreMediator {
         return gameVO;
     }
 
-    /**setta la posizione del prossimo giocatore
+    /**seleziona il prossimo giocatore
      *
      */
     private static void selectNextPlayer() {
@@ -539,9 +540,9 @@ public class GUICoreMediator {
         }
     }
 
-    /**Richiede e restituisce lo storico della partita
+    /**Richiede e restituisce lo storico della partita tramite oggetto storyboardVO
      *
-     * @return map storico partite
+     * @return oggetto storyboardVO
      */
     public static StoryBoardVO requestStoryGames() {
         StoryBoardVO storyVO = new StoryBoardVO();
