@@ -1,14 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.core.player;
 
 import java.util.Comparator;
 
-/**
+/**Classe Comparatore di crediti giocatoro
  *
- * @author packyuser
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class PlayerCreditComparator implements Comparator<Player> {
 

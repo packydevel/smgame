@@ -1,7 +1,6 @@
 package org.smgame.core.card;
 
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;

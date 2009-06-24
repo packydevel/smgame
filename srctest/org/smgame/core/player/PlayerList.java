@@ -23,26 +23,52 @@ public class PlayerList implements Serializable {
     public PlayerList() {
     }
 
+    /**Aggiunge giocatore alla lista
+     *
+     * @param player giocatore
+     */
     public void addPlayer(Player player) {
         playerAL.add(player);
     }
 
+    /**REstituisce giocatore n della lista
+     *
+     * @param order numero lista
+     * @return giocatore
+     */
     public Player getPlayer(int order) {
         return playerAL.get(order);
     }
 
+    /**restituisce posizione nella lista
+     *
+     * @param player giocatore
+     * @return posizione
+     */
     public int indexOfPlayer(Player player) {
         return playerAL.indexOf(player);
     }
 
+    /**Restituisce dimensione lista
+     *
+     * @return dimensione
+     */
     public int size() {
         return playerAL.size();
     }
 
+    /**Retituisce la lista iterata dei giocatori
+     *
+     * @return lista iterata
+     */
     public Iterator<Player> getPlayerListIterator() {
         return playerAL.iterator();
     }
 
+    /**Restituisce un player casuale
+     *
+     * @return player random
+     */
     public Player selectRandomPlayer() {
         List<Player> tempList = new ArrayList<Player>(playerAL);
         Collections.shuffle(tempList, new Random(System.currentTimeMillis()));
@@ -81,6 +107,10 @@ public class PlayerList implements Serializable {
         return null;
     }
 
+    /**Restituisce la lista di giocatori ordinata per il massimo punteggio?
+     *
+     * @return lista giocatori
+     */
     public List<Player> maxPlayerScoreList() {
         int count;
         ArrayList<Player> playerSubList = new ArrayList();
