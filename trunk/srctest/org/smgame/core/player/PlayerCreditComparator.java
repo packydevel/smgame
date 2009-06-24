@@ -2,7 +2,7 @@ package org.smgame.core.player;
 
 import java.util.Comparator;
 
-/**Classe Comparatore di crediti giocatoro
+/**Classe Comparatore di crediti giocatori
  *
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
