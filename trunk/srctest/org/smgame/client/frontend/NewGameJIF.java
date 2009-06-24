@@ -33,8 +33,8 @@ import org.smgame.client.ClientProxy;
 public class NewGameJIF extends JInternalFrame implements IGameJIF {
 
     private JPanel playerJP,  preferenceJP;
-    private GridBagConstraints labelGBC,  textFieldGBC,  comboBoxGBC,  checkBoxGBC,  buttonGBC;
-    private JLabel playersNumberJL,  cpuflagJL,  mancheNumberJL,  jollyCardJL,  kingSMPayRuleJL;
+    private GridBagConstraints labelGBC, textFieldGBC, comboBoxGBC, checkBoxGBC, buttonGBC;
+    private JLabel playersNumberJL,  cpuflagJL;
     private JComboBox playersNumberJCB;
     private JButton cancelJB;
     private JButton okJB;
@@ -42,7 +42,7 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
     private JCheckBox cpuflagJCKB[];
     private JLabel gameNameJL;
     private JLabel playerJL[];
-    private JTextField gameNameJTF,  mancheNumberJTF,  jollyCardJTF,  kingSMPayRuleJTF;
+    private JTextField gameNameJTF, mancheNumberJTF, jollyCardJTF, kingSMPayRuleJTF, deckJTF;
     private JTextField playerJTF[];
     private NewGameVO newGameVO = new NewGameVO();
     private int previousPlayersNumber = 0;
@@ -207,14 +207,15 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
 
         GridBagConstraints jtextFieldGBC = new GridBagConstraints();
         jtextFieldGBC.fill = GridBagConstraints.NONE;
-        jtextFieldGBC.weightx = 1;
-        jtextFieldGBC.weighty = 1;
+        jtextFieldGBC.weightx = 0;
+        jtextFieldGBC.weighty = 0;
         jtextFieldGBC.anchor = GridBagConstraints.NORTHWEST;
         jtextFieldGBC.gridx = 1;
         jtextFieldGBC.gridy = 0;
 
         mancheNumberJTF = new JTextField();
         mancheNumberJTF.setText("10");
+        mancheNumberJTF.setColumns(3);
         mancheNumberJTF.setEnabled(false);
         preferenceJP.add(mancheNumberJTF, jtextFieldGBC);
 
@@ -223,6 +224,7 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
 
         jollyCardJTF = new JTextField();
         jollyCardJTF.setText("Re di Denari");
+        jollyCardJTF.setColumns(8);
         jollyCardJTF.setEnabled(false);
         jtextFieldGBC.gridy = 1;
         preferenceJP.add(jollyCardJTF, jtextFieldGBC);
@@ -232,11 +234,22 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
 
         kingSMPayRuleJTF = new JTextField();
         kingSMPayRuleJTF.setText("doppio");
+        kingSMPayRuleJTF.setColumns(5);
         kingSMPayRuleJTF.setEnabled(false);
-        jtextFieldGBC.gridy = 2;
+        jtextFieldGBC.gridy = 2;        
+        preferenceJP.add(kingSMPayRuleJTF, jtextFieldGBC);
+
+        jlabelGBC.gridy = 3;
+        preferenceJP.add(new JLabel("Mazzo di carte: "), jlabelGBC);
+
+        deckJTF = new JTextField();
+        deckJTF.setText("Napoletane");
+        deckJTF.setColumns(8);
+        deckJTF.setEnabled(false);
+        jtextFieldGBC.gridy = 3;
         jtextFieldGBC.weightx = 1;
         jtextFieldGBC.weighty = 1;
-        preferenceJP.add(kingSMPayRuleJTF, jtextFieldGBC);
+        preferenceJP.add(deckJTF, jtextFieldGBC);
     }
 
     /* gestisce le azioni e gli eventi della newgame */
