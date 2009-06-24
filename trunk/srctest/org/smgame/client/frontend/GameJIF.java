@@ -34,7 +34,6 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import org.smgame.client.ClientProxy;
-import org.smgame.util.Logging;
 
 public class GameJIF extends JInternalFrame implements IGameJIF {
 
@@ -336,7 +335,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             try {
                 bet = betValueFormatter.parse(getBet(i)).doubleValue();
             } catch (Exception e) {
-                Logging.logExceptionSevere(this.getClass(), e);
+                //Logging.logExceptionSevere(this.getClass(), e);
             }
         }
 
@@ -353,7 +352,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             try {
                 bet = betValueFormatter.parse(getBet(i)).doubleValue();
             } catch (Exception e) {
-                Logging.logExceptionSevere(this.getClass(), e);
+                //Logging.logExceptionSevere(this.getClass(), e);
             }
         }
 
@@ -420,9 +419,13 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
             if (gameVO.isEndManche()) {
                 gameVO.getPlayerRoleMap();
+                int pos =-1;
+                if (gameVO.isEndGame()){
+                    
+                }
                 JOptionPane.showInternalMessageDialog(this,
                         new ScoreBoardJP("Terminata Manche n° " + 
-                        gameVO.getCurrentManche(), dataReport, playerColorLHM, gameVO.isEndGame()),
+                        gameVO.getCurrentManche(), dataReport, playerColorLHM, pos),
                     "Score Board", JOptionPane.INFORMATION_MESSAGE);
                 if (gameVO.isEndGame()) {
                     JOptionPane.showInternalMessageDialog(this, "Questa partita è terminata!!!",

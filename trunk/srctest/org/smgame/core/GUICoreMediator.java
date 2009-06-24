@@ -36,7 +36,7 @@ import org.smgame.server.frontend.ServerVO;
 import org.smgame.util.BetOverflowException;
 import org.smgame.util.Common;
 import org.smgame.util.ImageEdit;
-import org.smgame.util.Logging;
+//import org.smgame.util.Logging;
 import org.smgame.util.NoGamesException;
 import org.smgame.util.ScoreOverflowException;
 
@@ -195,7 +195,7 @@ public class GUICoreMediator {
             mainVO.setMessageType(MessageType.INFO);
             mainVO.setMessage("La Partita è stata salvata correttamente!");
         } catch (Exception e) {
-            Logging.logExceptionSevere(GUICoreMediator.class, e);
+            //Logging.logExceptionSevere(GUICoreMediator.class, e);
             mainVO.setMessageType(MessageType.ERROR);
             mainVO.setMessage("Non è stato possibile salvare la partita");
         }
@@ -298,15 +298,15 @@ public class GUICoreMediator {
 //                selectNextPlayer();
 //            }
             gameVO.setExceptionMessage(boe.getMessage());
-            Logging.logExceptionWarning(boe);
+            //Logging.logExceptionWarning(boe);
         } catch (ScoreOverflowException soe) {
             if (!currentGame.getGameEngine().isEndManche()) {
                 selectNextPlayer();
             }
             gameVO.setExceptionMessage(soe.getMessage());
-            Logging.logExceptionWarning(soe);
+            //Logging.logExceptionWarning(soe);
         } catch (Exception e) {
-            Logging.logExceptionSevere(GUICoreMediator.class, e);
+            //Logging.logExceptionSevere(GUICoreMediator.class, e);
         }
 
     }
@@ -326,7 +326,7 @@ public class GUICoreMediator {
             gameVO.setExceptionMessage(null);
         } catch (BetOverflowException boe) {
             gameVO.setExceptionMessage(boe.getMessage());
-            Logging.logExceptionWarning(boe);
+            //Logging.logExceptionWarning(boe);
         }
     }
 
@@ -550,7 +550,7 @@ public class GUICoreMediator {
         try {
             storyVO.setStory(dbt.getStoryGame());
         } catch (Exception ex) {
-            Logging.logExceptionSevere(GUICoreMediator.class, ex);
+            //Logging.logExceptionSevere(GUICoreMediator.class, ex);
         }
         return storyVO;
     }
