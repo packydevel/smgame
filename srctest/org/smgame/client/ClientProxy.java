@@ -15,7 +15,6 @@ import org.smgame.client.frontend.MessageType;
 import org.smgame.client.frontend.NewGameVO;
 import org.smgame.client.frontend.StoryBoardVO;
 import org.smgame.server.IGameMediator;
-import org.smgame.util.Logging;
 import org.smgame.util.NoGamesException;
 
 /** Classe client mediator
@@ -109,7 +108,7 @@ public class ClientProxy {
                 stub = RMIClient.getStub();
                 stub.createGame(gameName, gameSetting, playerNameList, playerTypeList);
             } catch (Exception e) {
-                Logging.logExceptionSevere(this.getClass(), e);
+                //Logging.logExceptionSevere(this.getClass(), e);
                 newGameVO.setMessageType(MessageType.ERROR);
                 newGameVO.setMessage("Impossibile Giocare una Partita OnLine!");
             }

@@ -8,7 +8,6 @@ import javax.swing.UIManager;
 import org.smgame.client.frontend.MainJF;
 import org.smgame.core.GameMode;
 import org.smgame.util.Common;
-import org.smgame.util.Logging;
 
 /**Classe SetteMezzo client
  *
@@ -32,18 +31,19 @@ public class SMGameClient extends JApplet {
     @Override
     public void start() {
         //System.setSecurityManager(new SecurityManager());
-        Logging.createLog(Common.getCurrentDateTime());
+        Common.setWorkspace(getCodeBase().toString(), true);
+        //Logging.createLog("smgameclient");
 
         try {
             UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
         } catch (Exception e) {
-            Logging.logExceptionSevere(this.getClass(), e);
+            //Logging.logExceptionSevere(this.getClass(), e);
         }
         MainJF frame = new MainJF();
         try {
-            //GUICoreMediator.loadGames();
+          //ClientProxy.getInstance().loadGames(GameMode.OFFLINE);
         } catch (Exception e) {
-            Logging.logExceptionSevere(this.getClass(), e);
+            //Logging.logExceptionSevere(this.getClass(), e);
         }
     }
 
@@ -57,14 +57,15 @@ public class SMGameClient extends JApplet {
      * @param args argomenti
      */
     public static void main(String[] args) {
-        Logging.createLog(Common.getCurrentDateTime());
+        Common.setWorkspace(System.getProperty("user.dir"), false);
+        //Logging.createLog("smgameclient");
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
                 try {
                     UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
                 } catch (Exception e) {
-                    Logging.logExceptionSevere(this.getClass(), e);
+                    //Logging.logExceptionSevere(this.getClass(), e);
                 }
                 MainJF frame = new MainJF();
             } //end run

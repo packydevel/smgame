@@ -96,32 +96,34 @@ public class PlayerList implements Serializable {
 
         return playerSubList;
     }
-//
-//    /**restituisce gli stati dei giocatori
-//     *
-//     * @return hashmap giocatore stato
-//     */
-//    Map<Player, PlayerStatus> getPlayerStatusMap() {
-//        HashMap<Player, PlayerStatus> map = new HashMap<Player, PlayerStatus>();
-//
-//        for (Player p : playerAL) {
-//            map.put(p, p.getStatus());
-//        }
-//
-//        return map;
-//    }
-//
-//    /**Restituisce il punteggio visibile di ciascun giocatore
-//     *
-//     * @return hashmap giocatore punteggio
-//     */
-//    Map<Player, Double> getPlayerVisibleScoreMap() {
-//        HashMap<Player, Double> map = new HashMap<Player, Double>();
-//
-//        for (Player p : playerAL) {
-//            map.put(p, p.getVisibleScore());
-//        }
-//
-//        return map;
-//    }
+
+
+    /**restituisce gli stati dei giocatori
+     *
+     * @return hashmap giocatore stato
+     */
+/*    Map<Player, PlayerStatus> getPlayerStatusMap() {
+        HashMap<Player, PlayerStatus> map = new HashMap<Player, PlayerStatus>();
+
+        for (Player p : playerAL) {
+            map.put(p, p.getStatus());
+        }
+
+        return map;
+    }
+
+    /**Restituisce il punteggio visibile di ciascun giocatore
+     *
+     * @return hashmap giocatore punteggio
+     */
+/*    Map<Player, Double> getPlayerVisibleScoreMap() {
+        HashMap<Player, Double> map = new HashMap<Player, Double>();
+
+        for (Player p : playerAL) {
+            map.put(p, p.getVisibleScore());
+        }
+
+        return map;
+    }
+    */
 }
