@@ -421,10 +421,12 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             if (gameVO.isEndManche()) {
                 gameVO.getPlayerRoleMap();
                 JOptionPane.showInternalMessageDialog(this,
-                        new ScoreBoardJP("Terminata Manche n° " + gameVO.getCurrentManche(), dataReport, playerColorLHM),
-                        "Score Board", JOptionPane.INFORMATION_MESSAGE);
+                        new ScoreBoardJP("Terminata Manche n° " + 
+                        gameVO.getCurrentManche(), dataReport, playerColorLHM, gameVO.isEndGame()),
+                    "Score Board", JOptionPane.INFORMATION_MESSAGE);
                 if (gameVO.isEndGame()) {
-                    JOptionPane.showInternalMessageDialog(this, "Questa partita è terminata!!!", "Info", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showInternalMessageDialog(this, "Questa partita è terminata!!!",
+                            "Info", JOptionPane.INFORMATION_MESSAGE);
                     dispose();
                 } else {
                     refreshComponent();//initBoard();
