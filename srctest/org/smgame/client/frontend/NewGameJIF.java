@@ -85,25 +85,25 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
         textFieldGBC = new GridBagConstraints();
         textFieldGBC.weightx = 0;
         textFieldGBC.weighty = 0;
-        textFieldGBC.insets = new Insets(2, 2, 2, 2);
+        //textFieldGBC.insets = new Insets(2, 2, 2, 2);
         textFieldGBC.anchor = GridBagConstraints.NORTHWEST;
 
         comboBoxGBC = new GridBagConstraints();
         comboBoxGBC.weightx = 0;
         comboBoxGBC.weighty = 0;
-        comboBoxGBC.insets = new Insets(2, 2, 2, 2);
+        //comboBoxGBC.insets = new Insets(2, 2, 2, 2);
         comboBoxGBC.anchor = GridBagConstraints.NORTHWEST;
 
         checkBoxGBC = new GridBagConstraints();
         checkBoxGBC.weightx = 0;
         checkBoxGBC.weighty = 0;
-        checkBoxGBC.insets = new Insets(2, 2, 2, 2);
+        //checkBoxGBC.insets = new Insets(2, 2, 2, 2);
         checkBoxGBC.anchor = GridBagConstraints.CENTER;
 
         buttonGBC = new GridBagConstraints();
         buttonGBC.weightx = 0;
         buttonGBC.weighty = 1;
-        buttonGBC.insets = new Insets(2, 2, 2, 2);
+        //buttonGBC.insets = new Insets(2, 2, 2, 2);
         buttonGBC.anchor = GridBagConstraints.SOUTHEAST;
 
         gameNameJL = new JLabel("Nome Partita:");
@@ -186,52 +186,60 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
         });
         playerJP.add(okJB, buttonGBC);
 
-        textFieldGBC.fill = GridBagConstraints.NONE;
+        initPreferencesJP();
+                
+        add(tabbedPane);
+    }
 
-        mancheNumberJL = new JLabel("Numero Manches:");
+    /**inizializza pannello preferenze */
+    private void initPreferencesJP(){
+        preferenceJP.setLayout(new GridBagLayout());
+
+        GridBagConstraints labelGBC = new GridBagConstraints();
+        labelGBC.weightx = 0;
+        labelGBC.weighty = 0;
+        labelGBC.insets = new Insets(2, 2, 2, 2);
+        labelGBC.anchor = GridBagConstraints.NORTHWEST;
         labelGBC.gridx = 0;
         labelGBC.gridy = 0;
-        preferenceJP.add(mancheNumberJL, labelGBC);
+
+        preferenceJP.add(new JLabel("Numero Manches:"), labelGBC);
+
+        GridBagConstraints textFieldGBC = new GridBagConstraints();
+        textFieldGBC.fill = GridBagConstraints.NONE;
+        textFieldGBC.weightx = 0;
+        textFieldGBC.weighty = 0;
+        textFieldGBC.anchor = GridBagConstraints.NORTHWEST;
+        textFieldGBC.gridx = 1;
+        textFieldGBC.gridy = 0;
 
         mancheNumberJTF = new JTextField();
         mancheNumberJTF.setText("10");
         mancheNumberJTF.setEnabled(false);
-        textFieldGBC.gridx = 1;
-        textFieldGBC.gridy = 0;
         preferenceJP.add(mancheNumberJTF, textFieldGBC);
 
-        jollyCardJL = new JLabel("Matta:");
-        labelGBC.gridx = 0;
         labelGBC.gridy = 1;
-        preferenceJP.add(jollyCardJL, labelGBC);
+        preferenceJP.add(new JLabel("Matta:"), labelGBC);
 
         jollyCardJTF = new JTextField();
         jollyCardJTF.setText("Re di Denari");
         jollyCardJTF.setEnabled(false);
-        textFieldGBC.gridx = 1;
         textFieldGBC.gridy = 1;
         preferenceJP.add(jollyCardJTF, textFieldGBC);
 
-        kingSMPayRuleJL = new JLabel("Pagamento del Sette e Mezzo Reale: ");
-        labelGBC.gridx = 0;
         labelGBC.gridy = 2;
-        preferenceJP.add(kingSMPayRuleJL, labelGBC);
+        preferenceJP.add(new JLabel("Pagamento del Sette e Mezzo Reale: "), labelGBC);
 
         kingSMPayRuleJTF = new JTextField();
         kingSMPayRuleJTF.setText("doppio");
         kingSMPayRuleJTF.setEnabled(false);
-        textFieldGBC.gridx = 1;
         textFieldGBC.gridy = 2;
         textFieldGBC.weightx = 1;
         textFieldGBC.weighty = 1;
         preferenceJP.add(kingSMPayRuleJTF, textFieldGBC);
-
-        textFieldGBC.weightx = 0;
-        textFieldGBC.weighty = 0;
-
-        add(tabbedPane);
     }
 
+    /* gestisce le azioni e gli eventi della newgame */
     private void newGameActionPerformed(ActionEvent evt) {
         int i;
         int y = 3;
