@@ -195,48 +195,48 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
     private void initPreferencesJP(){
         preferenceJP.setLayout(new GridBagLayout());
 
-        GridBagConstraints labelGBC = new GridBagConstraints();
-        labelGBC.weightx = 0;
-        labelGBC.weighty = 0;
-        labelGBC.insets = new Insets(2, 2, 2, 2);
-        labelGBC.anchor = GridBagConstraints.NORTHWEST;
-        labelGBC.gridx = 0;
-        labelGBC.gridy = 0;
+        GridBagConstraints jlabelGBC = new GridBagConstraints();
+        jlabelGBC.weightx = 0;
+        jlabelGBC.weighty = 0;
+        jlabelGBC.insets = new Insets(2, 2, 2, 2);
+        jlabelGBC.anchor = GridBagConstraints.NORTHWEST;
+        jlabelGBC.gridx = 0;
+        jlabelGBC.gridy = 0;
 
-        preferenceJP.add(new JLabel("Numero Manches:"), labelGBC);
+        preferenceJP.add(new JLabel("Numero Manches:"), jlabelGBC);
 
-        GridBagConstraints textFieldGBC = new GridBagConstraints();
-        textFieldGBC.fill = GridBagConstraints.NONE;
-        textFieldGBC.weightx = 0;
-        textFieldGBC.weighty = 0;
-        textFieldGBC.anchor = GridBagConstraints.NORTHWEST;
-        textFieldGBC.gridx = 1;
-        textFieldGBC.gridy = 0;
+        GridBagConstraints jtextFieldGBC = new GridBagConstraints();
+        jtextFieldGBC.fill = GridBagConstraints.NONE;
+        jtextFieldGBC.weightx = 1;
+        jtextFieldGBC.weighty = 1;
+        jtextFieldGBC.anchor = GridBagConstraints.NORTHWEST;
+        jtextFieldGBC.gridx = 1;
+        jtextFieldGBC.gridy = 0;
 
         mancheNumberJTF = new JTextField();
         mancheNumberJTF.setText("10");
         mancheNumberJTF.setEnabled(false);
-        preferenceJP.add(mancheNumberJTF, textFieldGBC);
+        preferenceJP.add(mancheNumberJTF, jtextFieldGBC);
 
-        labelGBC.gridy = 1;
-        preferenceJP.add(new JLabel("Matta:"), labelGBC);
+        jlabelGBC.gridy = 1;
+        preferenceJP.add(new JLabel("Matta:"), jlabelGBC);
 
         jollyCardJTF = new JTextField();
         jollyCardJTF.setText("Re di Denari");
         jollyCardJTF.setEnabled(false);
-        textFieldGBC.gridy = 1;
-        preferenceJP.add(jollyCardJTF, textFieldGBC);
+        jtextFieldGBC.gridy = 1;
+        preferenceJP.add(jollyCardJTF, jtextFieldGBC);
 
-        labelGBC.gridy = 2;
-        preferenceJP.add(new JLabel("Pagamento del Sette e Mezzo Reale: "), labelGBC);
+        jlabelGBC.gridy = 2;
+        preferenceJP.add(new JLabel("Pagamento del Sette e Mezzo Reale: "), jlabelGBC);
 
         kingSMPayRuleJTF = new JTextField();
         kingSMPayRuleJTF.setText("doppio");
         kingSMPayRuleJTF.setEnabled(false);
-        textFieldGBC.gridy = 2;
-        textFieldGBC.weightx = 1;
-        textFieldGBC.weighty = 1;
-        preferenceJP.add(kingSMPayRuleJTF, textFieldGBC);
+        jtextFieldGBC.gridy = 2;
+        jtextFieldGBC.weightx = 1;
+        jtextFieldGBC.weighty = 1;
+        preferenceJP.add(kingSMPayRuleJTF, jtextFieldGBC);
     }
 
     /* gestisce le azioni e gli eventi della newgame */
