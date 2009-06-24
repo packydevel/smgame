@@ -1,10 +1,7 @@
 package org.smgame.util;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 /**Classe metodi comuni
  *
@@ -13,11 +10,9 @@ import java.util.GregorianCalendar;
  */
 public class Common {
 
-    final static String separ = File.separator;
-    final static String curDir = "c:" + separ + "smgamelog";
-    //final static String dirResource = separ + "org" + separ + "smgame" + separ + "resource" + separ;
+    static String separ = File.separator;
+    static String curDir;
     final static String dirResource = "/org/smgame/resource/";
-    //final static String dirResourceCard = dirResource + "cardimage" + separ;
     final static String dirResourceCard = dirResource + "cardimage/";
 
     /**Restituisce il percorso di lavoro corrente comprensivo di primo separatore
@@ -25,7 +20,15 @@ public class Common {
      * @return percorso lavoro
      */
     public static String getWorkspace() {
-        return curDir + separ;
+        return curDir;
+    }
+
+    public static void setWorkspace(String dir, boolean applet){
+        curDir = dir;
+        if (applet)
+            separ = "/";
+        else
+            curDir += separ;
     }
 
     /**Restituisce il percorso delle resource
@@ -43,31 +46,7 @@ public class Common {
      */
     public static String getResourceCards(String typecard) {
         return dirResourceCard + typecard + separ;
-    }
-
-    /**Restituisce la cartella dei log
-     *
-     * @return workspace log
-     */
-    public static String getWorkspaceLog() {
-        String log = curDir;
-        File f = new File(log);
-        if (!f.exists()) {
-            f.mkdir();
-        }
-        return log + separ;
-    }
-
-    /**Restituisce data e ora in formato stringa
-     *
-     * @return aaaammgg_hhmmss
-     */
-    public static String getCurrentDateTime() {
-        GregorianCalendar cal = new GregorianCalendar();
-        String data = cal.get(Calendar.YEAR) + (cal.get(Calendar.MONTH) + 1) + cal.get(Calendar.DATE) + "_" +
-                cal.get(Calendar.HOUR_OF_DAY) + cal.get(Calendar.MINUTE) + cal.get(Calendar.SECOND);
-        return data;
-    }
+    }    
 
     /**Converte un percorso stringa in una URL
      *
