@@ -31,12 +31,14 @@ public class DBAccess {
      * @throws java.io.IOException
      */
     private DBAccess() throws ClassNotFoundException, SQLException, IOException {
-        DBPropertiesVO dbpropVO = DBPropertiesVO.getIstance();
+        DBPropertiesVO dbpropVO = requestDBPropertiesVO();
         //carico il driver JDBC MYSQL
         Class.forName(DRIVER_CLASS_NAME_MYSQL);
         //creo l'url JDBC per la connessione
-        conn = DriverManager.getConnection(dbpropVO.getURL(), dbpropVO.getUSER(), dbpropVO.getPASSWORD());
-        Logging.logInfo("Connessione effettuata con: " + dbpropVO.getURL());
+        String url = dbpropVO.getUri() + dbpropVO.getServer() + ":" + dbpropVO.getPort() + "/" +
+                dbpropVO.getDatabase();
+        conn = DriverManager.getConnection(url, dbpropVO.getUser(), dbpropVO.getPassword());
+        Logging.logInfo("Connessione effettuata con: " + url);
     }
 
     /**inizializza e restituisce l'oggetto connessione
@@ -67,6 +69,28 @@ public class DBAccess {
         if (tempConn.isValid(0))
             return true;       
         return false;
+    }
+
+    /**legge il file contenente le informazioni sul database e setta le variabili per la connessione
+     *
+     * @throws java.io.IOException
+     */
+    public static DBPropertiesVO requestDBPropertiesVO() throws IOException{
+        Properties properties = new Properties();
+
+        properties.load(DBAccess.class.getResourceAsStream(Common.getResource()+"database.properties"));
+
+        Logging.logInfo("Caricamento database.properties effettuato");
+
+        DBPropertiesVO dbPropVO = new DBPropertiesVO();
+        dbPropVO.setUri(properties.getProperty("URI"));
+        dbPropVO.setServer(properties.getProperty("SERVER"));
+        dbPropVO.setPort(properties.getProperty("PORT"));
+        dbPropVO.setDatabase(properties.getProperty("DATABASE"));
+        dbPropVO.setUser(properties.getProperty("USER"));
+        dbPropVO.setPassword(properties.getProperty("PASSWORD"));
+
+        return dbPropVO;
     }
     
 }//end class
