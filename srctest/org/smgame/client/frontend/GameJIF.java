@@ -34,6 +34,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import org.smgame.client.ClientProxy;
+import org.smgame.core.GUICoreMediator;
 
 public class GameJIF extends JInternalFrame implements IGameJIF {
 
@@ -121,6 +122,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         pack();
     }
 
+    /**inizializza componenti */
     private void initComponents() {
         gameVO = ClientProxy.getInstance().requestGameVO();
         playerList = gameVO.getPlayerIndexList();
@@ -361,6 +363,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         refreshComponent();
     }
 
+    /**Aggiorna le componenti */
     private void refreshComponent() {
         LinkedHashMap<Integer,Color> playerColorLHM = new LinkedHashMap<Integer, Color>();
 
@@ -399,10 +402,10 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
                     selectBank(i);
                     playerColorLHM.remove(i);
                     playerColorLHM.put(Integer.valueOf(i), Color.ORANGE);
-                    System.out.println("Ti riconosco come mazziere:" + i);
+                    //System.out.println("Ti riconosco come mazziere:" + i);
                 } else {
                     deselectBank(i);
-                    System.out.println("Non ti riconosco come mazziere:" + i);
+                    //System.out.println("Non ti riconosco come mazziere:" + i);
                 }
 
                 if (gameVO.getPlayerPlayingMap().get(i) == true) {
@@ -419,9 +422,9 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
             if (gameVO.isEndManche()) {
                 gameVO.getPlayerRoleMap();
-                int pos =-1;
+                ArrayList<Integer> pos = null;
                 if (gameVO.isEndGame()){
-                    
+                    pos = gameVO.getPlayerMaxCreditList();
                 }
                 JOptionPane.showInternalMessageDialog(this,
                         new ScoreBoardJP("Terminata Manche n° " + 

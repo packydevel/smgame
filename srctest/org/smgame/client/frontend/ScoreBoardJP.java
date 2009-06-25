@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import javax.swing.JLabel;
@@ -31,7 +32,7 @@ public class ScoreBoardJP extends JPanel {
      * @param playerColorLHM mappa dei colori associati ai player
      */
     public ScoreBoardJP(String status, Object[][] data, 
-            LinkedHashMap<Integer, Color> playerColorLHM, int maxPos) {
+            LinkedHashMap<Integer, Color> playerColorLHM, ArrayList<Integer> maxPos) {
 
         setPreferredSize(new Dimension(400, 250));
         setLayout(new BorderLayout());
@@ -50,8 +51,11 @@ public class ScoreBoardJP extends JPanel {
         scoreboardJT.getColumn("Credito").setCellRenderer(new JLabelRenderer(playerColorLHM));
         scoreboardJT.repaint();
 
-        if (maxPos>-1){
-            scoreboardJT.getColumn("Credito").setCellRenderer(new JLabelRenderer(maxPos));
+        if (maxPos!=null){
+            for (int i=0; i<maxPos.size(); i++) {
+                scoreboardJT.getColumn("Credito").setCellRenderer(new JLabelRenderer(maxPos.get(i)));
+                System.out.println(maxPos.get(i));
+            }
         }
 
 
@@ -113,10 +117,11 @@ public class ScoreBoardJP extends JPanel {
  */
 class JLabelRenderer extends JLabel implements TableCellRenderer {
     LinkedHashMap<Integer, Color> colorLHM;
-    int maxPos;
+    int pos;
 
-    public JLabelRenderer(int pos){
-        maxPos = pos;
+    public JLabelRenderer(int _pos){
+        System.out.println(_pos);
+        this.pos = _pos;
     }
 
     public JLabelRenderer(LinkedHashMap<Integer, Color> playerColorLHM) {
@@ -130,8 +135,13 @@ class JLabelRenderer extends JLabel implements TableCellRenderer {
         } else {
             setHorizontalAlignment(JLabel.TRAILING);
         }
-        if ((maxPos == row) && (column==3))
-            setForeground(Color.GREEN);
+        if (column==3){
+            System.out.println(pos);
+            if (pos==row) //TODO: capire cosa fare quando non è terminata la partita visto che pos = 0
+                setForeground(Color.GREEN);
+            else
+                setForeground(Color.BLACK);
+        }
 
         setText(value.toString());
         return this;

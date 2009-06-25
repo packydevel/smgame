@@ -20,6 +20,7 @@ public class GameVO implements Serializable {
     private HashMap<Integer, String> playerStatusMap = new HashMap<Integer, String>();
     private HashMap<Integer, Boolean> playerMaxScoreMap = new HashMap<Integer, Boolean>();
     private HashMap<Integer, Boolean> playerRequestBetMap = new HashMap<Integer, Boolean>();
+    private ArrayList<Integer> playerMaxCreditList = new ArrayList<Integer>();
     private boolean endManche = false,  endGame = false;
     private int currentManche;
     String exceptionMessage;
@@ -185,6 +186,24 @@ public class GameVO implements Serializable {
         exceptionMessage = message;
     }
 
+    /**restituisce la lista delle posizioni dei player col massimo credito
+     *
+     * @return lista/singolo player
+     */
+    public ArrayList<Integer> getPlayerMaxCreditList() {
+        return playerMaxCreditList;
+    }
+
+    /**imposta la lista dei player col massimo credito
+     *
+     * @param playerMaxCreditList
+     */
+    public void setPlayerMaxCreditList(ArrayList<Integer> playerMaxCreditList) {
+        this.playerMaxCreditList = playerMaxCreditList;
+    }
+
+
+
     public void clear() {
         getPlayerIndexList().clear();
         getPlayerNameMap().clear();
@@ -198,6 +217,7 @@ public class GameVO implements Serializable {
         getPlayerRoleMap().clear();
         getPlayerPlayingMap().clear();
         getPlayerRequestBetMap().clear();
+        getPlayerMaxCreditList().clear();
         exceptionMessage = null;
     }
 }//end class

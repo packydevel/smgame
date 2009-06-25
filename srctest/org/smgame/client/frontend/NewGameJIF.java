@@ -52,7 +52,7 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
     /**Costruttore
      *
      */
-    public NewGameJIF(boolean online) {
+    public NewGameJIF(boolean online) {        
         super("Nuova Partita ", false, true, false, false);
         String text = "Offline";
         if (online)
@@ -85,25 +85,25 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
         textFieldGBC = new GridBagConstraints();
         textFieldGBC.weightx = 0;
         textFieldGBC.weighty = 0;
-        //textFieldGBC.insets = new Insets(2, 2, 2, 2);
+        textFieldGBC.insets = new Insets(2, 2, 2, 2);
         textFieldGBC.anchor = GridBagConstraints.NORTHWEST;
 
         comboBoxGBC = new GridBagConstraints();
         comboBoxGBC.weightx = 0;
         comboBoxGBC.weighty = 0;
-        //comboBoxGBC.insets = new Insets(2, 2, 2, 2);
+        comboBoxGBC.insets = new Insets(2, 2, 2, 2);
         comboBoxGBC.anchor = GridBagConstraints.NORTHWEST;
 
         checkBoxGBC = new GridBagConstraints();
         checkBoxGBC.weightx = 0;
         checkBoxGBC.weighty = 0;
-        //checkBoxGBC.insets = new Insets(2, 2, 2, 2);
+        checkBoxGBC.insets = new Insets(2, 2, 2, 2);
         checkBoxGBC.anchor = GridBagConstraints.CENTER;
 
         buttonGBC = new GridBagConstraints();
         buttonGBC.weightx = 0;
         buttonGBC.weighty = 1;
-        //buttonGBC.insets = new Insets(2, 2, 2, 2);
+        buttonGBC.insets = new Insets(2, 2, 2, 2);
         buttonGBC.anchor = GridBagConstraints.SOUTHEAST;
 
         gameNameJL = new JLabel("Nome Partita:");
@@ -186,71 +186,59 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
         });
         playerJP.add(okJB, buttonGBC);
 
-        initPreferencesJP();
-                
-        add(tabbedPane);
-    }
+        ////inizio pannello preferenze////////
+        textFieldGBC.fill = GridBagConstraints.NONE;
 
-    /**inizializza pannello preferenze */
-    private void initPreferencesJP(){
-        preferenceJP.setLayout(new GridBagLayout());
-
-        GridBagConstraints jlabelGBC = new GridBagConstraints();
-        jlabelGBC.weightx = 0;
-        jlabelGBC.weighty = 0;
-        jlabelGBC.insets = new Insets(2, 2, 2, 2);
-        jlabelGBC.anchor = GridBagConstraints.NORTHWEST;
-        jlabelGBC.gridx = 0;
-        jlabelGBC.gridy = 0;
-
-        preferenceJP.add(new JLabel("Numero Manches:"), jlabelGBC);
-
-        GridBagConstraints jtextFieldGBC = new GridBagConstraints();
-        jtextFieldGBC.fill = GridBagConstraints.NONE;
-        jtextFieldGBC.weightx = 0;
-        jtextFieldGBC.weighty = 0;
-        jtextFieldGBC.anchor = GridBagConstraints.NORTHWEST;
-        jtextFieldGBC.gridx = 1;
-        jtextFieldGBC.gridy = 0;
+        labelGBC.gridx = 0;
+        labelGBC.gridy = 0;
+        preferenceJP.add(new JLabel("Numero Manches:"), labelGBC);
 
         mancheNumberJTF = new JTextField();
         mancheNumberJTF.setText("10");
-        mancheNumberJTF.setColumns(3);
         mancheNumberJTF.setEnabled(false);
-        preferenceJP.add(mancheNumberJTF, jtextFieldGBC);
+        mancheNumberJTF.setColumns(3);
+        textFieldGBC.gridx = 1;
+        textFieldGBC.gridy = 0;
+        preferenceJP.add(mancheNumberJTF, textFieldGBC);
 
-        jlabelGBC.gridy = 1;
-        preferenceJP.add(new JLabel("Matta:"), jlabelGBC);
+
+        labelGBC.gridy = 1;
+        preferenceJP.add(new JLabel("Matta:"), labelGBC);
 
         jollyCardJTF = new JTextField();
         jollyCardJTF.setText("Re di Denari");
-        jollyCardJTF.setColumns(8);
         jollyCardJTF.setEnabled(false);
-        jtextFieldGBC.gridy = 1;
-        preferenceJP.add(jollyCardJTF, jtextFieldGBC);
+        jollyCardJTF.setColumns(8);
+        textFieldGBC.gridy = 1;
+        preferenceJP.add(jollyCardJTF, textFieldGBC);
 
-        jlabelGBC.gridy = 2;
-        preferenceJP.add(new JLabel("Pagamento del Sette e Mezzo Reale: "), jlabelGBC);
+        labelGBC.gridy = 2;
+        preferenceJP.add(new JLabel("Pagamento del Sette e Mezzo Reale: "), labelGBC);
 
         kingSMPayRuleJTF = new JTextField();
         kingSMPayRuleJTF.setText("doppio");
-        kingSMPayRuleJTF.setColumns(5);
         kingSMPayRuleJTF.setEnabled(false);
-        jtextFieldGBC.gridy = 2;        
-        preferenceJP.add(kingSMPayRuleJTF, jtextFieldGBC);
+        kingSMPayRuleJTF.setColumns(5);
+        textFieldGBC.gridy = 2;
 
-        jlabelGBC.gridy = 3;
-        preferenceJP.add(new JLabel("Mazzo di carte: "), jlabelGBC);
+        labelGBC.gridy = 3;
+        preferenceJP.add(new JLabel("Mazzo: "), labelGBC);
 
-        deckJTF = new JTextField();
-        deckJTF.setText("Napoletane");
-        deckJTF.setColumns(8);
-        deckJTF.setEnabled(false);
-        jtextFieldGBC.gridy = 3;
-        jtextFieldGBC.weightx = 1;
-        jtextFieldGBC.weighty = 1;
-        preferenceJP.add(deckJTF, jtextFieldGBC);
+        kingSMPayRuleJTF = new JTextField();
+        kingSMPayRuleJTF.setText("Napoletane");
+        kingSMPayRuleJTF.setEnabled(false);
+        kingSMPayRuleJTF.setColumns(8);
+        textFieldGBC.gridy = 3;
+        textFieldGBC.weightx = 1;
+        textFieldGBC.weighty = 1;
+        preferenceJP.add(kingSMPayRuleJTF, textFieldGBC);
+
+        textFieldGBC.weightx = 0;
+        textFieldGBC.weighty = 0;
+
+        add(tabbedPane);
     }
+
 
     /* gestisce le azioni e gli eventi della newgame */
     private void newGameActionPerformed(ActionEvent evt) {
