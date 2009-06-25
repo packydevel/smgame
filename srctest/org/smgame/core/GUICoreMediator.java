@@ -460,13 +460,13 @@ public class GUICoreMediator {
                 } else {
                     gameVO.getPlayerPlayingMap().put(i, false);
                 }
-            } //end for
+            } //end for            
 
             if (currentGame.getGameEngine().isEndManche()) {
+                gameVO.setPlayerMaxCreditList(posPlayerMaxCredit());
                 currentGame.getGameEngine().closeManche();
                 gameVO.setEndManche(true);
-                addTransactionAL();
-                gameVO.setPlayerMaxCreditList(posPlayerMaxCredit());
+                addTransactionAL();                
             }
 
             gameVO.setCurrentManche(currentGame.getGameEngine().getCurrentManche());
@@ -552,7 +552,6 @@ public class GUICoreMediator {
         try {
             storyVO.setStory(dbt.getStoryGame());
         } catch (Exception ex) {
-            //Logging.logExceptionSevere(GUICoreMediator.class, ex);
         }
         return storyVO;
     }

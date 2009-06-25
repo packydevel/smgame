@@ -51,15 +51,12 @@ public class ScoreBoardJP extends JPanel {
         scoreboardJT.getColumn("Vincita").setCellRenderer(new JLabelRenderer(playerColorLHM));
         scoreboardJT.getColumn("Credito").setCellRenderer(new JLabelRenderer(playerColorLHM));
         scoreboardJT.repaint();
-
-        if (maxPos!=null){
-            for (int i=0; i<maxPos.size(); i++) {
-                scoreboardJT.getColumn("Credito").setCellRenderer(new JLabelRenderer(maxPos.get(i)));
-                System.out.println(maxPos.get(i));
-            }
-        } else
-            scoreboardJT.getColumn("Credito").setCellRenderer(new JLabelRenderer(-1));
-
+        
+        for (int i=0; i<maxPos.size(); i++){
+            scoreboardJT.getColumn("Credito").setCellRenderer(new JLabelRenderer(maxPos.get(i)));
+            System.out.println(maxPos.get(i));
+        }
+        
         setWitdhColumn(0, 140);
         setWitdhColumn(1, 70);
         setWitdhColumn(2, 85);
@@ -138,7 +135,7 @@ class JLabelRenderer extends JLabel implements TableCellRenderer {
         } else {
             setHorizontalAlignment(JLabel.TRAILING);
         }
-        if (column==3){
+        if (column==3) {
             if (pos==row)
                 setForeground(Color.GREEN);
             else
