@@ -20,17 +20,7 @@ public class DBAccess {
     //database management system usato
     //private String DBMS;
     //
-    private String URI;
-    //identificativo server
-    private String SERVER;
-    //nome basedati
-    private String DATABASE;
-    //porta
-    private String PORT;
-    //username accesso db
-    private String USER;
-    //password per l'user
-    private String PASSWORD;
+    
     //oggetto connessione
     private static Connection conn = null;
 
@@ -41,13 +31,12 @@ public class DBAccess {
      * @throws java.io.IOException
      */
     private DBAccess() throws ClassNotFoundException, SQLException, IOException {
-        readProperties();
+        DBPropertiesVO dbpropVO = DBPropertiesVO.getIstance();
         //carico il driver JDBC MYSQL
         Class.forName(DRIVER_CLASS_NAME_MYSQL);
         //creo l'url JDBC per la connessione
-        String url = URI + SERVER + ":" + PORT + "/" + DATABASE;
-        conn = DriverManager.getConnection(url, USER, PASSWORD);
-        Logging.logInfo("Connessione effettuata con: " + url);
+        conn = DriverManager.getConnection(dbpropVO.getURL(), dbpropVO.getUSER(), dbpropVO.getPASSWORD());
+        Logging.logInfo("Connessione effettuata con: " + dbpropVO.getURL());
     }
 
     /**inizializza e restituisce l'oggetto connessione
@@ -79,23 +68,5 @@ public class DBAccess {
             return true;       
         return false;
     }
-
-    /**legge il file contenente le informazioni sul database e setta le variabili per la connessione
-     *
-     * @throws java.io.IOException
-     */
-    private void readProperties() throws IOException {
-        Properties properties = new Properties();
-
-        properties.load(getClass().getResourceAsStream(Common.getResource()+"database.properties"));
-        
-        Logging.logInfo("Caricamento database.properties effettuato");
-        //DBMS = properties.getProperty("DBMS");
-        URI = properties.getProperty("URI");
-        SERVER = properties.getProperty("SERVER");
-        PORT = properties.getProperty("PORT");
-        DATABASE = properties.getProperty("DATABASE");
-        USER = properties.getProperty("USER");
-        PASSWORD = properties.getProperty("PASSWORD");
-    }
+    
 }//end class
