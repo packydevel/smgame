@@ -1,10 +1,5 @@
 package org.smgame.backend;
 
-import java.io.IOException;
-import java.util.Properties;
-import org.smgame.util.Common;
-import org.smgame.util.Logging;
-
 /**
  *
  * @author Traetta  Pasquale 450428
@@ -12,64 +7,62 @@ import org.smgame.util.Logging;
  */
 public class DBPropertiesVO {
 
-    private String URI, SERVER, DATABASE, PORT, USER, PASSWORD, URL;
-    private static DBPropertiesVO dbPropVO;
+    private String uri, server, database, port, user, password;
 
-    private DBPropertiesVO() throws IOException{
-        readProperties();
+    public String getDatabase() {
+        return database;
     }
 
-    public static DBPropertiesVO getIstance() throws IOException{
-        if (dbPropVO==null)
-            dbPropVO = new DBPropertiesVO();
-        return dbPropVO;
+    public void setDatabase(String database) {
+        this.database = database;
     }
 
-    /**legge il file contenente le informazioni sul database e setta le variabili per la connessione
-     *
-     * @throws java.io.IOException
-     */
-    private void readProperties() throws IOException{
-        Properties properties = new Properties();
-
-        properties.load(getClass().getResourceAsStream(Common.getResource()+"database.properties"));
-
-        Logging.logInfo("Caricamento database.properties effettuato");
-
-        URI = properties.getProperty("URI");
-        SERVER = properties.getProperty("SERVER");
-        PORT = properties.getProperty("PORT");
-        DATABASE = properties.getProperty("DATABASE");
-        USER = properties.getProperty("USER");
-        PASSWORD = properties.getProperty("PASSWORD");
-        URL = URI + SERVER + ":" + PORT + "/" + DATABASE;
+    public String getPassword() {
+        return password;
     }
 
-    public String getDATABASE() {
-        return DATABASE;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getPASSWORD() {
-        return PASSWORD;
+    public String getPort() {
+        return port;
     }
 
-    public String getPORT() {
-        return PORT;
+    public void setPort(String port) {
+        this.port = port;
     }
 
-    public String getSERVER() {
-        return SERVER;
+    public String getServer() {
+        return server;
     }
 
-    public String getURI() {
-        return URI;
+    public void setServer(String server) {
+        this.server = server;
     }
 
-    public String getUSER() {
-        return USER;
+    public String getUri() {
+        return uri;
     }
 
-    public String getURL() {
-        return URL;
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public void clear(){
+        server = null;
+        user = null;
+        uri = null;
+        database = null;
+        port = null;
+        password = null;
     }
 }

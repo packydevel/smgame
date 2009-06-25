@@ -13,8 +13,6 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -286,12 +284,12 @@ public class ServerJF extends JFrame implements WindowListener {
     }
 
     private void setTextDatabaseParameters() throws IOException{
-        DBPropertiesVO dbPropVO = DBPropertiesVO.getIstance();
-        hostnameJTF.setText(dbPropVO.getSERVER());
-        portJTF.setText(dbPropVO.getPORT());
-        dbnameJTF.setText(dbPropVO.getDATABASE());
-        usernameJTF.setText(dbPropVO.getUSER());
-        passwordJTF.setText(dbPropVO.getPASSWORD());
+        DBPropertiesVO dbPropVO = DBAccess.requestDBPropertiesVO();
+        hostnameJTF.setText(dbPropVO.getServer());
+        portJTF.setText(dbPropVO.getPort());
+        dbnameJTF.setText(dbPropVO.getDatabase());
+        usernameJTF.setText(dbPropVO.getUser());
+        passwordJTF.setText(dbPropVO.getPassword());
     }
 
     /**azioni che deve fare il server in seguto alla ricezione di actionevent */
