@@ -466,6 +466,7 @@ public class GUICoreMediator {
                 currentGame.getGameEngine().closeManche();
                 gameVO.setEndManche(true);
                 addTransactionAL();
+                gameVO.setPlayerMaxCreditList(posPlayerMaxCredit());
             }
 
             gameVO.setCurrentManche(currentGame.getGameEngine().getCurrentManche());
@@ -554,5 +555,18 @@ public class GUICoreMediator {
             //Logging.logExceptionSevere(GUICoreMediator.class, ex);
         }
         return storyVO;
+    }
+
+    /**restituisce le posizioni dei player col massimo credito
+     *
+     * @return arraylist posizioni
+     */
+    private static ArrayList<Integer> posPlayerMaxCredit() {
+        ArrayList<Integer> al = new ArrayList<Integer>();
+        List<Player> list = currentGame.getPlayerList().maxPlayerCreditList();
+        for (int i=0; i<list.size(); i++){
+            al.add(currentGame.getPlayerList().indexOfPlayer(list.get(i)));
+        }
+        return al;
     }
 } //end  class

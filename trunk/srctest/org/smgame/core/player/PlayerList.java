@@ -107,11 +107,11 @@ public class PlayerList implements Serializable {
         return null;
     }
 
-    /**Restituisce la lista di giocatori ordinata per il massimo punteggio?
+    /**Restituisce la lista di giocatori ordinata per il massimo credito
      *
      * @return lista giocatori
      */
-    public List<Player> maxPlayerScoreList() {
+    public List<Player> maxPlayerCreditList() {
         int count;
         ArrayList<Player> playerSubList = new ArrayList();
         ArrayList<Player> tempList = new ArrayList(playerAL);

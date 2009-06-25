@@ -3,6 +3,7 @@ package org.smgame.core.player;
 import java.util.Comparator;
 
 /**Classe Comparatore di crediti giocatori
+ * lo scopo è quello di trovare il massimo credito
  *
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
