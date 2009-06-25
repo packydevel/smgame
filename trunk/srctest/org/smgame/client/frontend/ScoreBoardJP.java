@@ -30,6 +30,7 @@ public class ScoreBoardJP extends JPanel {
      * @param status stato della partita
      * @param data matrice dei dati
      * @param playerColorLHM mappa dei colori associati ai player
+     * @param maxpos lista delle posizioni dei giocatori vincenti
      */
     public ScoreBoardJP(String status, Object[][] data, 
             LinkedHashMap<Integer, Color> playerColorLHM, ArrayList<Integer> maxPos) {
@@ -59,13 +60,10 @@ public class ScoreBoardJP extends JPanel {
         } else
             scoreboardJT.getColumn("Credito").setCellRenderer(new JLabelRenderer(-1));
 
-
         setWitdhColumn(0, 140);
         setWitdhColumn(1, 70);
         setWitdhColumn(2, 85);
-        setWitdhColumn(3, 100);
-
-        
+        setWitdhColumn(3, 100);        
 
         add(typeEndJL, BorderLayout.NORTH);
         add(new JScrollPane(scoreboardJT), BorderLayout.CENTER);
@@ -112,7 +110,7 @@ public class ScoreBoardJP extends JPanel {
     }
 } //end class
 
-/**
+/**Classe che re
  *
  *
  */
@@ -120,11 +118,18 @@ class JLabelRenderer extends JLabel implements TableCellRenderer {
     LinkedHashMap<Integer, Color> colorLHM;
     int pos;
 
-    public JLabelRenderer(int _pos){
-        System.out.println(_pos);
+    /**costruttore per settare il colore di chi ha vinto la partita
+     *
+     * @param _pos posizione
+     */
+    public JLabelRenderer(int _pos){        
         this.pos = _pos;
     }
 
+    /**costruttore per settare la mappa giocatore colore
+     *
+     * @param playerColorLHM mappa dati
+     */
     public JLabelRenderer(LinkedHashMap<Integer, Color> playerColorLHM) {
         colorLHM = playerColorLHM;
     }
@@ -137,8 +142,7 @@ class JLabelRenderer extends JLabel implements TableCellRenderer {
             setHorizontalAlignment(JLabel.TRAILING);
         }
         if (column==3){
-            System.out.println(pos);
-            if (pos==row) //TODO: capire cosa fare quando non è terminata la partita visto che pos = 0
+            if (pos==row)
                 setForeground(Color.GREEN);
             else
                 setForeground(Color.BLACK);
