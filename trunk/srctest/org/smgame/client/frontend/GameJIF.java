@@ -422,10 +422,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
             if (gameVO.isEndManche()) {
                 gameVO.getPlayerRoleMap();
-                ArrayList<Integer> pos = null;
-                if (gameVO.isEndGame()){
-                    pos = gameVO.getPlayerMaxCreditList();
-                }
+                ArrayList<Integer> pos = gameVO.getPlayerMaxCreditList();                
                 JOptionPane.showInternalMessageDialog(this,
                         new ScoreBoardJP("Terminata Manche n° " + 
                         gameVO.getCurrentManche(), dataReport, playerColorLHM, pos),
