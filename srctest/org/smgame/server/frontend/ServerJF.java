@@ -12,6 +12,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -26,6 +29,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneLayout;
 
+import org.smgame.backend.DBAccess;
+import org.smgame.backend.DBPropertiesVO;
 import org.smgame.core.GUICoreMediator;
 import org.smgame.client.frontend.MessageType;
 import org.smgame.server.RMIServer;
@@ -41,7 +46,7 @@ public class ServerJF extends JFrame implements WindowListener {
     JPanel statusJP, configJP, pathJP, fileJP, databaseJP;
     JScrollPane monitorJSP;
     GridBagConstraints panelGBC, labelGBC, textFieldGBC, buttonGBC, progressBarGBC;
-    JLabel pathJL, hostnameJL, portJL, dbnameJL, usernameJL, passwordJL;
+    JLabel pathJL;
     JButton startJB, stopJB, pathJB, testJB;
     JTextField hostnameJTF, portJTF, dbnameJTF, usernameJTF, passwordJTF;
     JTextArea monitorJTA;
@@ -201,71 +206,62 @@ public class ServerJF extends JFrame implements WindowListener {
             }
         });
         databaseJP.add(testJB, buttonGBC);
-
-        hostnameJL = new JLabel("Database Server:");
+        
         labelGBC.gridx = 0;
         labelGBC.gridy = 0;
-        databaseJP.add(hostnameJL, labelGBC);
+        databaseJP.add(new JLabel("Database Server:"), labelGBC);
 
         hostnameJTF = new JTextField();
         hostnameJTF.setPreferredSize(new Dimension(150, 20));
-        hostnameJTF.setText("localhost");
         hostnameJTF.setEnabled(false);
         textFieldGBC.gridx = 1;
         textFieldGBC.gridy = 0;
         databaseJP.add(hostnameJTF, textFieldGBC);
 
-        portJL = new JLabel("Porta:");
         labelGBC.gridx = 2;
         labelGBC.gridy = 0;
-        databaseJP.add(portJL, labelGBC);
+        databaseJP.add(new JLabel("Porta:"), labelGBC);
 
         portJTF = new JTextField();
         portJTF.setPreferredSize(new Dimension(70, 20));
-        portJTF.setText("3306");
         portJTF.setEnabled(false);
         textFieldGBC.gridx = 3;
         textFieldGBC.gridy = 0;
         databaseJP.add(portJTF, textFieldGBC);
-
-        dbnameJL = new JLabel("Nome DataBase:");
+       
         labelGBC.gridx = 0;
         labelGBC.gridy = 1;
-        databaseJP.add(dbnameJL, labelGBC);
+        databaseJP.add(new JLabel("Nome DataBase:"), labelGBC);
 
         dbnameJTF = new JTextField();
-        dbnameJTF.setPreferredSize(new Dimension(150, 20));
-        dbnameJTF.setText("SMGame");
+        dbnameJTF.setPreferredSize(new Dimension(150, 20));        
         dbnameJTF.setEnabled(false);
         textFieldGBC.gridx = 1;
         textFieldGBC.gridy = 1;
         databaseJP.add(dbnameJTF, textFieldGBC);
 
-        usernameJL = new JLabel("Username:");
-        labelGBC.gridx = 0;
         labelGBC.gridy = 2;
-        databaseJP.add(usernameJL, labelGBC);
+        databaseJP.add(new JLabel("Username:"), labelGBC);
 
         usernameJTF = new JTextField();
-        usernameJTF.setPreferredSize(new Dimension(150, 20));
-        usernameJTF.setText("smgameuser");
+        usernameJTF.setPreferredSize(new Dimension(150, 20));        
         usernameJTF.setEnabled(false);
-        textFieldGBC.gridx = 1;
         textFieldGBC.gridy = 2;
         databaseJP.add(usernameJTF, textFieldGBC);
-
-        passwordJL = new JLabel("Password:");
-        labelGBC.gridx = 0;
+        
         labelGBC.gridy = 3;
-        databaseJP.add(passwordJL, labelGBC);
+        databaseJP.add(new JLabel("Password:"), labelGBC);
 
         passwordJTF = new JTextField();
         passwordJTF.setPreferredSize(new Dimension(150, 20));
-        passwordJTF.setText("smgamepassword");
         passwordJTF.setEnabled(false);
-        textFieldGBC.gridx = 1;
         textFieldGBC.gridy = 3;
         databaseJP.add(passwordJTF, textFieldGBC);
+        
+        try {
+            setTextDatabaseParameters();
+        } catch (IOException ex) {
+        }
 
         add(tabbedPane);
         setSize(500, 370);
@@ -275,9 +271,7 @@ public class ServerJF extends JFrame implements WindowListener {
         addWindowListener(this);
     }
 
-    /**inizializza il pannello monitor
-     *
-     */
+    /**inizializza il pannello monitor */
     private void initMonitorJSP(){
         monitorJTA = new JTextArea();
         monitorJTA.setLineWrap(true);
@@ -291,6 +285,16 @@ public class ServerJF extends JFrame implements WindowListener {
         monitorJSP.setLayout(new ScrollPaneLayout());
     }
 
+    private void setTextDatabaseParameters() throws IOException{
+        DBPropertiesVO dbPropVO = DBPropertiesVO.getIstance();
+        hostnameJTF.setText(dbPropVO.getSERVER());
+        portJTF.setText(dbPropVO.getPORT());
+        dbnameJTF.setText(dbPropVO.getDATABASE());
+        usernameJTF.setText(dbPropVO.getUSER());
+        passwordJTF.setText(dbPropVO.getPASSWORD());
+    }
+
+    /**azioni che deve fare il server in seguto alla ricezione di actionevent */
     private void serverAction(ActionEvent e) {
         JFileChooser fileJFC;
 
@@ -339,14 +343,9 @@ public class ServerJF extends JFrame implements WindowListener {
             }
             monitorJTA.append(serverVO.getMessageType().toString() + " - " + serverVO.getMessage() + "\n");
         }
-    }
+    }    
 
-    public void windowActivated(WindowEvent e) {
-    }
-
-    public void windowClosed(WindowEvent e) {
-    }
-
+    @Override
     public void windowClosing(WindowEvent e) {
         int i;
         i = JOptionPane.showConfirmDialog(this, "Chiudendo il server non sarà più possibile eseguire partite OnLine. Sei Sicuro?", "Info", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -356,15 +355,21 @@ public class ServerJF extends JFrame implements WindowListener {
         }
     }
 
-    public void windowDeactivated(WindowEvent e) {
-    }
+    @Override
+    public void windowActivated(WindowEvent e) { }
 
-    public void windowDeiconified(WindowEvent e) {
-    }
+    @Override
+    public void windowClosed(WindowEvent e) { }
 
-    public void windowIconified(WindowEvent e) {
-    }
+    @Override
+    public void windowDeactivated(WindowEvent e) { }
 
-    public void windowOpened(WindowEvent e) {
-    }
+    @Override
+    public void windowDeiconified(WindowEvent e) { }
+
+    @Override
+    public void windowIconified(WindowEvent e) { }
+
+    @Override
+    public void windowOpened(WindowEvent e) { }
 }
