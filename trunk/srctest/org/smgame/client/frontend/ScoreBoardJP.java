@@ -110,10 +110,7 @@ public class ScoreBoardJP extends JPanel {
     }
 } //end class
 
-/**Classe che re
- *
- *
- */
+/**Classe che restituisce la jlabel della cella tabella con determinati colori di testo */
 class JLabelRenderer extends JLabel implements TableCellRenderer {
     LinkedHashMap<Integer, Color> colorLHM;
     int pos;
