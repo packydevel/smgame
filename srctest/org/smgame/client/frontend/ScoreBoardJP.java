@@ -56,7 +56,8 @@ public class ScoreBoardJP extends JPanel {
                 scoreboardJT.getColumn("Credito").setCellRenderer(new JLabelRenderer(maxPos.get(i)));
                 System.out.println(maxPos.get(i));
             }
-        }
+        } else
+            scoreboardJT.getColumn("Credito").setCellRenderer(new JLabelRenderer(-1));
 
 
         setWitdhColumn(0, 140);
