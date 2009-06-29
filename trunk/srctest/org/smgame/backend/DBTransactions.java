@@ -27,16 +27,13 @@ public class DBTransactions {
     private final String colTrans4 = "player";
     private final String colTrans5 = "score";
     private final String colTrans6 = "winlose";
-
     private final String tableCard = "CARDS c";
     private final String col1Card = "c.id";
     private final String col2Card = "c.suit";
     private final String col3Card = "c.point";
-
     private final String tableRelation = "TRANSACTION_CARD";
     private final String col1Rel = "transaction_id";
     private final String col2Rel = "card_id";
-
     private long idT; //id transazione
     private long id_game; //id partita
     private int manche; //numero manche
@@ -44,13 +41,13 @@ public class DBTransactions {
     private double score; //punteggio
     private double win; //vincita
     private ArrayList<Card> cardAL;
-
     private ArrayList<DBTransactions> transactionsAL;
 
     /**Costruttore vuoto
      *
      */
-    public DBTransactions() {}
+    public DBTransactions() {
+    }
 
     /**Costruttore
      * 
@@ -69,7 +66,7 @@ public class DBTransactions {
      * @param win vincita
      */
     public DBTransactions(long id_game, int manche, String player, double score,
-                            double win) {
+            double win) {
         this.id_game = id_game;
         this.manche = manche;
         this.player = player;
@@ -86,8 +83,8 @@ public class DBTransactions {
      * @param win vincita
      * @param cardal arraylist di carte
      */
-    public DBTransactions(long id_game, int manche, String player, double score, 
-                            double win, List<Card> cardal) {
+    public DBTransactions(long id_game, int manche, String player, double score,
+            double win, List<Card> cardal) {
         this.id_game = id_game;
         this.manche = manche;
         this.player = player;
@@ -160,10 +157,10 @@ public class DBTransactions {
      * @throws java.lang.Exception
      */
     public void executeSingleTransaction() throws ClassNotFoundException, SQLException,
-                                            IOException, Exception {
+            IOException, Exception {
         Connection conn = DBAccess.getConnection();
         String sql = "INSERT INTO " + tableTrans + "(" + colTrans2 + "," + colTrans3 + "," +
-                    colTrans4 + "," + colTrans5 + "," + colTrans6 + ") VALUES (?,?,?,?,?)";
+                colTrans4 + "," + colTrans5 + "," + colTrans6 + ") VALUES (?,?,?,?,?)";
         PreparedStatement prpstmt = conn.prepareStatement(sql);
         setParameter(prpstmt, 1, getId_game(), Types.BIGINT);
         setParameter(prpstmt, 2, getManche(), Types.INTEGER);
@@ -175,7 +172,7 @@ public class DBTransactions {
         setIdTransaction(getLastInsertId(conn));
         executeArraylistCardTransaction(conn);
     }
-    
+
     /**registra su db tutto l'arraylist transazioni
      * 
      * @throws java.lang.ClassNotFoundException
@@ -183,10 +180,11 @@ public class DBTransactions {
      * @throws java.io.IOException
      * @throws java.lang.Exception
      */
-    public void executeArraylistTransactions() throws ClassNotFoundException, SQLException, 
-                                                IOException, Exception{
-        for (int i=0; i<transactionsAL.size(); i++)
+    public void executeArraylistTransactions() throws ClassNotFoundException, SQLException,
+            IOException, Exception {
+        for (int i = 0; i < transactionsAL.size(); i++) {
             transactionsAL.get(i).executeSingleTransaction();
+        }
         resetArraylistTansactions();
     }
 
@@ -196,10 +194,10 @@ public class DBTransactions {
      * @throws java.sql.SQLException
      * @throws java.lang.Exception
      */
-    private void executeArraylistCardTransaction(Connection conn) throws SQLException, Exception{
+    private void executeArraylistCardTransaction(Connection conn) throws SQLException, Exception {
         String sql = "INSERT INTO " + tableRelation + " VALUES (?,(SELECT " + col1Card +
-                    " FROM " + tableCard + " WHERE " + col2Card + "=? AND " + col3Card + "=?));";
-        for (int i=0; i<cardAL.size(); i++){
+                " FROM " + tableCard + " WHERE " + col2Card + "=? AND " + col3Card + "=?));";
+        for (int i = 0; i < cardAL.size(); i++) {
             PreparedStatement prpstmt = conn.prepareStatement(sql);
             setParameter(prpstmt, 1, getIdTransaction(), Types.BIGINT);
             setParameter(prpstmt, 2, cardAL.get(i).getSuit().toString(), Types.VARCHAR);
@@ -213,16 +211,17 @@ public class DBTransactions {
      *
      * @param dbt transazione
      */
-    public void addToArraylistTransactions(DBTransactions dbt){
-        if (transactionsAL==null)
+    public void addToArraylistTransactions(DBTransactions dbt) {
+        if (transactionsAL == null) {
             transactionsAL = new ArrayList<DBTransactions>();
+        }
         transactionsAL.add(dbt);
     }
 
     /**azzera/resetta l'arraylist
      *
      */
-    public void resetArraylistTansactions(){
+    public void resetArraylistTansactions() {
         transactionsAL = null;
     }
 
@@ -255,13 +254,14 @@ public class DBTransactions {
     /**Cerca l'ultimo id appena inserito della transazione
      *
      */
-    private long getLastInsertId(Connection conn) throws ClassNotFoundException, SQLException, IOException{
+    private long getLastInsertId(Connection conn) throws ClassNotFoundException, SQLException, IOException {
         long last_id = -1;
         String sql = "SELECT LAST_INSERT_ID();";
         PreparedStatement prpstmt = conn.prepareStatement(sql);
         ResultSet rs = prpstmt.executeQuery();
-        if (rs.next())
-            last_id = rs.getLong(1);        
+        if (rs.next()) {
+            last_id = rs.getLong(1);
+        }
         return last_id;
     }
 
@@ -279,7 +279,7 @@ public class DBTransactions {
 
         LinkedHashMap<Long, Object[][]> map = new LinkedHashMap<Long, Object[][]>();
 
-        String sqlDistinct = "SELECT DISTINCT(" + colTrans2 + ") FROM "+ tableTrans;
+        String sqlDistinct = "SELECT DISTINCT(" + colTrans2 + ") FROM " + tableTrans;
         String sqlCount = "SELECT count(*) FROM " + tableTrans + " WHERE " + colTrans2 + "= ?;";
         String sqlSelect = "SELECT " + colTrans3 + ", " + colTrans4 + ", " + colTrans5 +
                 ", " + colTrans6 + " FROM " + tableTrans + " WHERE " + colTrans2 + "= ? " +
@@ -306,7 +306,7 @@ public class DBTransactions {
                 setParameter(prpstmtSelect, 1, id, Types.BIGINT);
                 Logging.logInfo(prpstmtSelect.toString());
                 ResultSet rsSelect = prpstmtSelect.executeQuery();
-                while (rsSelect.next()){
+                while (rsSelect.next()) {
                     matrix[r][0] = rsSelect.getInt(1);
                     matrix[r][1] = rsSelect.getString(2);
                     matrix[r][2] = rsSelect.getDouble(3);
@@ -317,7 +317,7 @@ public class DBTransactions {
             map.put(new Long(id), matrix);
         }//end while rsDistinct
         return map;
-    }    
+    }
 
     /**imposta i tipi di valore da usare per la preparedStatement
      *
