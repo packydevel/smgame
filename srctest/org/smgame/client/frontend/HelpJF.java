@@ -7,14 +7,11 @@ package org.smgame.client.frontend;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
@@ -32,15 +29,13 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
     private JPanel buttonJP,  contentJP;
     private JTextPane editorPaneJEP;
     private JSplitPane splitPaneJSP;
-    private GridBagConstraints panelGBC,  labelGBC,  textFieldGBC,  buttonGBC;
-    private JLabel pathJL,  playersNumberJL,  cpuflagJL,  hostnameJL,  portJL,  dbnameJL,  usernameJL,  passwordJL;
     private JButton userGuideJB,  refGuideJB,  javadocJB;
     private String userGuidePDF,  refGuidePDF,  javadocIndex;
 
     /**Costruttore
      *
      */
-    public HelpJF() {
+    public HelpJF(String doc) {
         super("Documentazione SMGame");
 
         setSize(new Dimension(1024, 768));
@@ -83,7 +78,14 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
         userGuidePDF = "/home/packyuser/Scrivania/Analisys.pdf";
         refGuidePDF = "/home/packyuser/Scrivania/Analisys.pdf";
         javadocIndex = getClass().getResource("/index.html").getPath();
-        showPDF(userGuidePDF);
+
+        if (doc.equals("UserGuide")) {
+            showPDF(userGuidePDF);
+        } else if (doc.equals("UserGuide")) {
+            showPDF(refGuidePDF);
+        } else {
+            showHTML(javadocIndex);
+        }
 
         setVisible(true);
     }

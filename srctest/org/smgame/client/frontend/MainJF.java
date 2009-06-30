@@ -31,6 +31,8 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
     public MainJF() {
         super("SMGame - Gioco Italiano del Sette e 1/2");
 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         ArrayList<String> menuItemNameList = new ArrayList<String>();
 
         setSize(1024, 768);
@@ -147,8 +149,12 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
             }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getTestConnectionJMI()) {
             analyzeVO(ClientProxy.getInstance().connect());
+        } else if ((JMenuItem) evt.getSource() == menuJMB.getUserGuideJMI()) {
+            new HelpJF("UserGuide");
+        } else if ((JMenuItem) evt.getSource() == menuJMB.getRefGuideJMI()) {
+            new HelpJF("ReferenceGuide");
         } else if ((JMenuItem) evt.getSource() == menuJMB.getJavadocJMI()) {
-            new HelpJF();
+            new HelpJF("JavaDoc");
         } else if ((JMenuItem) evt.getSource() == menuJMB.getAboutJMI()) {
             JOptionPane.showMessageDialog(this, new AboutJP(), "About ...", JOptionPane.PLAIN_MESSAGE);
         }
