@@ -4,7 +4,7 @@
  */
 package org.smgame.server;
 
-import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel;
 import java.rmi.RMISecurityManager;
 import javax.swing.UIManager;
 import org.smgame.core.GUICoreMediator;
@@ -24,7 +24,7 @@ public class SMGameServer {
 
             public void run() {
                 try {
-                    UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
+                    UIManager.setLookAndFeel(new SyntheticaSimple2DLookAndFeel());
                 } catch (Exception e) {
                     Logging.logExceptionSevere(this.getClass(), e);
                 }
