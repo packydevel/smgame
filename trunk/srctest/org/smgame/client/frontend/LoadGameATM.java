@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.client.frontend;
 
 import javax.swing.table.AbstractTableModel;
@@ -9,7 +5,8 @@ import org.smgame.core.GUICoreMediator;
 
 /**
  *
- * @author packyuser
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class LoadGameATM extends AbstractTableModel {
 

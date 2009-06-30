@@ -21,7 +21,7 @@ import org.smgame.util.NoGamesException;
  * è il mediatore tra server e gui
  *
  * @author Traetta  Pasquale 450428
-x * @author Mignogna Luca     467644
+ * @author Mignogna Luca     467644
  */
 public class ClientProxy {
 
@@ -322,7 +322,10 @@ public class ClientProxy {
         return storyVO;
     }
 
-
+    /**Richiede e restituisce l'oggetto mainVO (pattern value objects)
+     * 
+     * @return mainVO
+     */
     public MainVO requestMainVO() {
         if (gameMode == GameMode.OFFLINE) {
             return GUICoreMediator.requestMainVO();
@@ -357,6 +360,10 @@ public class ClientProxy {
         }
     }
 
+    /**richiede restituisce l'oggetto newgame secondo il pattern value objects
+     * 
+     * @return newgameVO
+     */
     public NewGameVO requestNewGameVO() {
         return newGameVO;
     }

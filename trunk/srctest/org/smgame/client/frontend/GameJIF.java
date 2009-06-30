@@ -34,8 +34,12 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import org.smgame.client.ClientProxy;
-import org.smgame.core.GUICoreMediator;
 
+/**Classe Gioco frame interno
+ *
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
+ */
 public class GameJIF extends JInternalFrame implements IGameJIF {
 
     private ArrayList<Integer> playerList;
@@ -52,8 +56,15 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
     private BetInputVerifier betInputVerifier = new BetInputVerifier();
     private DecimalFormat betValueFormatter;
 
+
+    /**Classe verifica input puntata
+     *
+     */
     class BetInputVerifier extends InputVerifier implements KeyListener {
 
+        /**Costruttore
+         *
+         */
         BetInputVerifier() {
             super();
             betValueFormatter = (DecimalFormat) NumberFormat.getCurrencyInstance();
@@ -67,7 +78,12 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
             return verify(input);
         }
 
-        //This method checks input, but should cause no side effects.
+
+        /**Verifica l'input
+         *
+         * @param input componente di provenienza
+         * @return true= se puntata immessa correttamente
+         */
         public boolean verify(JComponent input) {            
             JTextField betJTF = ((JTextField) input);
             JButton requestCardJB = new JButton(), declareGoodScoreJB = new JButton();
@@ -216,7 +232,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
     } //end initComponents
 
-    //inizializza il pannello del player - carte
+    /***inizializza il pannello del player - carte*/
     private JPanel initPanelPlayersCards() {
         JPanel pane = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pane.setPreferredSize(new Dimension(480, 53));
@@ -234,7 +250,7 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         return pane;
     } // initPanelPlayersCards
 
-//inizializza il pannello delle azioni
+    /**inizializza il pannello delle azioni*/
     private JPanel initPanelActions() {
         JPanel pane = new JPanel(new FlowLayout(FlowLayout.CENTER));
         pane.setPreferredSize(new Dimension(300, 28));
@@ -269,11 +285,11 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         pane.setVisible(true);
         return pane;
     }
-/*
-    private void initBoard() {
-        refreshComponent();
-    }
-*/
+
+    /**visualizza il pannello delle azioni
+     *
+     * @param playerIndex numero giocatore
+     */
     private void showActionPanelContent(int playerIndex) {
         for (int i = 0; i < playerActionMapJP.get(playerIndex).getComponentCount(); i++) {
             playerActionMapJP.get(playerIndex).getComponent(i).setVisible(true);
@@ -281,6 +297,10 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
     }
 
+    /**nascondi il pannello delle azioni
+     *
+     * @param playerIndex numero giocatore
+     */
     private void hideActionPanelContent(int playerIndex) {
         for (int i = 0; i < playerActionMapJP.get(playerIndex).getComponentCount(); i++) {
             playerActionMapJP.get(playerIndex).getComponent(i).setVisible(false);
@@ -288,14 +308,20 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
     }
 
-    //Seleziona/evidenzia il mazziere di turno
+    /**Seleziona/evidenzia il mazziere di turno
+     *
+     * @param i numero giocatore
+     */
     private void selectBank(int i) {
         ((TitledBorder) playerNameMapJP.get(i).getBorder()).setBorder(new LineBorder(Color.ORANGE));
         getBetJTF(i).setEnabled(false);
 
     }
 
-//Deseleziona l'ex-mazziere di turno, che diventa un player normale
+    /**Deseleziona l'ex-mazziere di turno, che diventa un player normale
+     *
+     * @param i numero giocatore
+     */
     private void deselectBank(int i) {
         ((TitledBorder) playerNameMapJP.get(i).getBorder()).setBorder(new LineBorder(Color.BLACK));
         getBetJTF(i).setEnabled(true);
@@ -309,27 +335,54 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
         ((TitledBorder) playerNameMapJP.get(i).getBorder()).setTitleColor(color);
     }
 
+    /**restituisce la textfield della puntata
+     *
+     * @param i numero giocatore
+     * @return jtextfield
+     */
     private JTextField getBetJTF(int i) {
         return ((JTextField) playerActionMapJP.get(i).getComponent(0));
     }
 
+    /**restituisce il bottone di richiesta carta
+     *
+     * @param i numero giocatore
+     * @return jbutton carta
+     */
     private JButton getRequestCardJB(int i) {
         return ((JButton) playerActionMapJP.get(i).getComponent(1));
     }
 
+    /**restituisce il bottone di dichiarazione di star bene
+     *
+     * @param i numero giocatore
+     * @return jbutton sto bene
+     */
     private JButton getDeclareGoodScoreJB(int i) {
         return ((JButton) playerActionMapJP.get(i).getComponent(2));
     }
 
-//preleva il valore della puntata
+    /**preleva il valore della puntata
+     *
+     * @param i numero giocatore
+     * @return puntata
+     */
     private String getBet(int i) {
         return ((JTextField) playerActionMapJP.get(i).getComponent(0)).getText();
     }
 
+    /**Resetta la puntata
+     *
+     * @param i numero giocatore
+     */
     private void resetBetJTF(int i) {
         ((JTextField) playerActionMapJP.get(i).getComponent(0)).setText("");
     }
 
+    /**Esegui l'azione di richiesta carta
+     *
+     * @param i numero giocatore
+     */
     private void requestCard(int i) {
         double bet = 0.00;
 
@@ -347,6 +400,10 @@ public class GameJIF extends JInternalFrame implements IGameJIF {
 
     } //end request card
 
+    /**Dichirazione di star bene
+     *
+     * @param i numero giocatore
+     */
     private void declareGoodScore(int i) {
         double bet = 0.00;
 

@@ -12,9 +12,9 @@ public class Common {
 
     static String separ = File.separator;
     static String curDir;
-    final static String dirResource = "/org/smgame/resource";
-    final static String dirResourceCard = dirResource + "/cardimage";
-    final static String dirResourceAuthor = dirResource + "/authorimage";
+    final static String dirResource = "/org/smgame/resource/";
+    final static String dirResourceCard = dirResource + "cardimage/";
+    final static String dirResourceAuthor = dirResource + "authorimage/";
 
     /**Restituisce il percorso di lavoro corrente comprensivo di primo separatore
      *
@@ -55,7 +55,7 @@ public class Common {
      * @return percorso img
      */
     public static String getResourceAuthors() {
-        return dirResourceAuthor + separ;
+        return dirResourceAuthor;
     }
 
     /**Converte un percorso stringa in una URL

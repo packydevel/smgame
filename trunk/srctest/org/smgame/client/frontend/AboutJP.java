@@ -10,10 +10,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.smgame.util.Common;
 
-/**Pannello abuto/ info autori
+/**Pannello about/ info autori
  *
- * @author luca
- * @author pasquale
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class AboutJP extends JPanel {
 
