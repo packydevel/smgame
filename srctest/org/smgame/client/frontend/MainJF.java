@@ -39,7 +39,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         desktop = new JDesktopPane();
-        desktop.setDesktopManager(new GameDM());
+        desktop.setDesktopManager(new CustomDM());
         getContentPane().add(BorderLayout.CENTER, desktop);
         setVisible(true);
         desktopWidth = desktop.getWidth();
