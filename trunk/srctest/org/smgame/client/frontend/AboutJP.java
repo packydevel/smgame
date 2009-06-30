@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.smgame.util.Common;
 
-/**JPanel del giocatore e delle carte
+/**Pannello abuto/ info autori
  *
  * @author luca
  * @author pasquale
@@ -23,8 +23,6 @@ public class AboutJP extends JPanel {
 
     /**Costruttore
      *
-     * @param tplayer
-     * @param tcash
      */
     public AboutJP() {
         setPreferredSize(new Dimension(500, 300));
@@ -52,5 +50,5 @@ public class AboutJP extends JPanel {
         footerJL.setForeground(Color.BLUE);
         footerJL.setHorizontalAlignment(JLabel.CENTER);
         add(footerJL, BorderLayout.SOUTH);
-    }//end initComponents
+    }
 }//end class

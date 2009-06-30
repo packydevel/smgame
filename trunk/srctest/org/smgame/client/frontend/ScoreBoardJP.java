@@ -30,7 +30,7 @@ public class ScoreBoardJP extends JPanel {
      * @param status stato della partita
      * @param data matrice dei dati
      * @param playerColorLHM mappa dei colori associati ai player
-     * @param maxpos lista delle posizioni dei giocatori vincenti
+     * @param maxPos lista delle posizioni dei giocatori vincenti
      */
     public ScoreBoardJP(String status, Object[][] data, 
             LinkedHashMap<Integer, Color> playerColorLHM, ArrayList<Integer> maxPos) {

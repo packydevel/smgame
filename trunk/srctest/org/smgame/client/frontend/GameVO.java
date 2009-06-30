@@ -27,7 +27,7 @@ public class GameVO implements Serializable {
 
     /**Restituisce la mappa dei nomi giocatori
      *
-     * @return
+     * @return hashmap numero-nome
      */
     public HashMap<Integer, String> getPlayerNameMap() {
         return playerNameMap;
@@ -35,7 +35,7 @@ public class GameVO implements Serializable {
 
     /**Restituisce la mappa del tipo di giocatori (umano/cpu)
      *
-     * @return
+     * @return hashmap numero-booleano
      */
     public HashMap<Integer, Boolean> getPlayerTypeMap() {
         return playerTypeMap;
@@ -43,7 +43,7 @@ public class GameVO implements Serializable {
 
     /**Restituisce la mappa dei crediti giocatori
      *
-     * @return
+     * @return hashmap numero-credito
      */
     public HashMap<Integer, String> getPlayerCreditMap() {
         return playerCreditMap;
@@ -51,7 +51,7 @@ public class GameVO implements Serializable {
 
     /**Restituisce la mappa di lista di imageicon
      *
-     * @return
+     * @return hashmap numero-lista immagini
      */
     public HashMap<Integer, ArrayList<ImageIcon>> getPlayerCardsImageMap() {
         return playerCardsImageMap;
@@ -59,7 +59,7 @@ public class GameVO implements Serializable {
 
     /**Restituisce la lista indice dei giocatori
      *
-     * @return
+     * @return lista
      */
     public ArrayList<Integer> getPlayerIndexList() {
         return playerList;
@@ -67,7 +67,7 @@ public class GameVO implements Serializable {
 
     /**Restituisce la mappa dei punteggi giocatori
      *
-     * @return
+     * @return hashmap numero-punteggio
      */
     public HashMap<Integer, String> getPlayerScoreMap() {
         return playerScoreMap;
@@ -75,7 +75,7 @@ public class GameVO implements Serializable {
 
     /**Restituisce la mappa delle puntate dei giocatori
      *
-     * @return
+     * @return hashmap numero-puntata
      */
     public HashMap<Integer, String> getPlayerStakeMap() {
         return playerStakeMap;
@@ -83,7 +83,7 @@ public class GameVO implements Serializable {
 
     /**restituisce la mappa dei booleani per la prima carta scoperta dei giocatori
      *
-     * @return
+     * @return hashmap numero-booleano
      */
     public HashMap<Integer, Boolean> getPlayerFirstCardDiscoveredMap() {
         return playerFirstCardDiscoveredMap;
@@ -91,7 +91,7 @@ public class GameVO implements Serializable {
 
     /**restituisce la mappa dei booleani relatiiv al ruolo dei giocatori (mazziere/normale)
      *
-     * @return
+     * @return hashmap numero-booleano
      */
     public HashMap<Integer, Boolean> getPlayerRoleMap() {
         return playerRoleMap;
@@ -100,7 +100,7 @@ public class GameVO implements Serializable {
     /**Restituisce la mappa dei booleani relativa ai giocatori che giocano,
      *quindi il possesso del turno attuale
      *
-     * @return
+     * @return hashmap numero-booleano
      */
     public HashMap<Integer, Boolean> getPlayerPlayingMap() {
         return playerPlayingMap;
@@ -108,7 +108,7 @@ public class GameVO implements Serializable {
 
     /**Restituisce la mappa dei booleani relativa allo stato del momento del giocatore
      *
-     * @return
+     * @return hashmap numero-stato
      */
     public HashMap<Integer, String> getPlayerStatusMap() {
         return playerStatusMap;
@@ -116,7 +116,7 @@ public class GameVO implements Serializable {
 
     /**Restituisce la mappa dei booleani dei giocatori che hanno il massimo punteggio
      *
-     * @return
+     * @return hashmap numero-booleano
      */
     public HashMap<Integer, Boolean> getPlayerMaxScoreMap() {
         return playerMaxScoreMap;
@@ -124,7 +124,7 @@ public class GameVO implements Serializable {
 
     /**REstituisce la mappa dei booleanni dei player che hanno richiesto la carta
      *
-     * @return
+     * @return hashmap numero-booleano
      */
     public HashMap<Integer, Boolean> getPlayerRequestBetMap() {
         return playerRequestBetMap;
@@ -132,7 +132,7 @@ public class GameVO implements Serializable {
 
     /**restituisce se è finita la manche
      *
-     * @return
+     * @return true = manche finita
      */
     public boolean isEndManche() {
         return endManche;
@@ -148,7 +148,7 @@ public class GameVO implements Serializable {
 
     /**REstituisce la fine dell partita
      *
-     * @return
+     * @return true = fine partita
      */
     public boolean isEndGame() {
         return endGame;
@@ -162,17 +162,25 @@ public class GameVO implements Serializable {
         endGame = flag;
     }
 
+    /**restituisce il numero manche corrente
+     *
+     * @return numero manche
+     */
     public int getCurrentManche() {
         return currentManche;
     }
 
+    /**imposta il numero di manche corrente
+     *
+     * @param currentManche
+     */
     public void setCurrentManche(int currentManche) {
         this.currentManche = currentManche;
     }
 
     /**Restituisce il messaggio dell'eccezione
      *
-     * @return
+     * @return eccezione
      */
     public String getExceptionMessage() {
         return exceptionMessage;
@@ -180,7 +188,7 @@ public class GameVO implements Serializable {
 
     /**imposta il messaggio dell'eccezione
      *
-     * @param message
+     * @param message eccezione
      */
     public void setExceptionMessage(String message) {
         exceptionMessage = message;
@@ -196,14 +204,16 @@ public class GameVO implements Serializable {
 
     /**imposta la lista dei player col massimo credito
      *
-     * @param playerMaxCreditList
+     * @param playerMaxCreditList lista player
      */
     public void setPlayerMaxCreditList(ArrayList<Integer> playerMaxCreditList) {
         this.playerMaxCreditList = playerMaxCreditList;
     }
 
 
-
+    /**resetta i valori
+     *
+     */
     public void clear() {
         getPlayerIndexList().clear();
         getPlayerNameMap().clear();
