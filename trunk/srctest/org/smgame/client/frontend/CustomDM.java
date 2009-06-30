@@ -11,7 +11,7 @@ import javax.swing.JComponent;
  *
  * @author packyuser
  */
-public class GameDM extends DefaultDesktopManager {
+public class CustomDM extends DefaultDesktopManager {
 
     public void dragFrame(JComponent f, int x, int y) {
         if (!(f instanceof IGameJIF)) {

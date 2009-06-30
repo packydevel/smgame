@@ -1,6 +1,6 @@
 package org.smgame.client;
 
-import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel;
 
 import javax.swing.JApplet;
 import javax.swing.UIManager;
@@ -35,7 +35,7 @@ public class SMGameClient extends JApplet {
         //Logging.createLog("smgameclient");
 
         try {
-            UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
+            UIManager.setLookAndFeel(new SyntheticaSimple2DLookAndFeel());
         } catch (Exception e) {
             //Logging.logExceptionSevere(this.getClass(), e);
         }
@@ -63,7 +63,7 @@ public class SMGameClient extends JApplet {
 
             public void run() {
                 try {
-                    UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
+                    UIManager.setLookAndFeel(new SyntheticaSimple2DLookAndFeel());
                 } catch (Exception e) {
                     //Logging.logExceptionSevere(this.getClass(), e);
                 }
