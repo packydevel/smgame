@@ -77,7 +77,7 @@ public class MenuJMB extends JMenuBar {
 
         newGameJM = new JMenu("newGameJM");
         newGameJM.setText("Nuova");
-        newGameJM.setMnemonic(KeyEvent.VK_P);
+        newGameJM.setMnemonic(KeyEvent.VK_N);
         newGameJM.add(newOnLineGameJMI);
         newGameJM.add(newOffLineGameJMI);
 
@@ -91,7 +91,7 @@ public class MenuJMB extends JMenuBar {
         gameJM.add(exitGameJMI);
 
         storyBoardJMI = new JMenuItem();
-        storyBoardJMI.setText("Storico Partite");
+        storyBoardJMI.setText("Storico Partite OnLine");
         storyBoardJMI.setName("storyBoardJMI");
         menuItemListJMI.add(storyBoardJMI);
 
@@ -127,7 +127,7 @@ public class MenuJMB extends JMenuBar {
         aboutJMI = new JMenuItem();
         aboutJMI.setText("About ...");
         aboutJMI.setName("aboutJMI");
-        aboutJMI.setAccelerator(KeyStroke.getKeyStroke("F10"));
+        aboutJMI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F10, ActionEvent.SHIFT_MASK));
         menuItemListJMI.add(aboutJMI);
 
         helpJM = new javax.swing.JMenu("helpJM");
