@@ -4,8 +4,6 @@
  */
 package org.smgame.client.frontend;
 
-import com.adobe.acrobat.Viewer;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -24,7 +22,6 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLFrameHyperlinkEvent;
-import org.smgame.client.frontend.PDFViewerJP;
 
 /**
  *
@@ -34,7 +31,6 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
 
     JPanel buttonJP, contentJP;
     JTextPane editorPaneJEP;
-    Viewer acrobatV;
     JSplitPane splitPaneJSP;
     GridBagConstraints panelGBC, labelGBC, textFieldGBC, buttonGBC;
     JLabel pathJL, playersNumberJL, cpuflagJL, hostnameJL, portJL, dbnameJL, usernameJL, passwordJL;
@@ -68,13 +64,9 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
         getContentPane().add(buttonJP, BorderLayout.NORTH);
 
         contentJP = new JPanel();
+        contentJP.setSize(new Dimension(1024, 740));
         contentJP.setLayout(new BorderLayout());
         getContentPane().add(contentJP, BorderLayout.CENTER);
-
-        try {
-            acrobatV = new Viewer();
-        } catch (Exception e) {
-        }
 
         splitPaneJSP = new JSplitPane();
 
