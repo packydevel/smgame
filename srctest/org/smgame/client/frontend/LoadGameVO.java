@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.smgame.client.frontend;
 
 import java.io.Serializable;
@@ -11,7 +6,8 @@ import java.util.HashMap;
 
 /**
  *
- * @author packyuser
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class LoadGameVO implements Serializable {
     private ArrayList<String> gameNameList = new ArrayList<String>();

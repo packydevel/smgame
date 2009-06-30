@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.client.frontend;
 
 import java.awt.BorderLayout;
@@ -20,9 +16,10 @@ import javax.swing.event.HyperlinkListener;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLFrameHyperlinkEvent;
 
-/**
+/**frame help/documentazione
  *
- * @author packyuser
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class HelpJF extends JFrame implements ActionListener, HyperlinkListener {
 
@@ -102,6 +99,10 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
         }
     }
 
+    /**visualizza pdf
+     *
+     * @param file nome file
+     */
     private void showPDF(String file) {
         try {
             getContentPane().remove(contentJP);
@@ -114,6 +115,10 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
         validate();
     }
 
+    /**visualizza html
+     *
+     * @param file nomefile
+     */
     private void showHTML(String file) {
         getContentPane().remove(contentJP);
         contentJP = new JPanel();

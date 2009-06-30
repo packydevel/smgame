@@ -14,14 +14,7 @@ import org.smgame.util.Logging;
  * @author Mignogna Luca     467644
  */
 public class DBAccess {
-    //driver mysql
-
-    final private String DRIVER_CLASS_NAME_MYSQL = "org.gjt.mm.mysql.Driver";
-    //database management system usato
-    //private String DBMS;
-    //
-    
-    //oggetto connessione
+    final private String DRIVER_CLASS_NAME_MYSQL = "org.gjt.mm.mysql.Driver";    
     private static Connection conn = null;
 
     /**Costruttore privato
