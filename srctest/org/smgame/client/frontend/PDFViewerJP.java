@@ -6,23 +6,18 @@ package org.smgame.client.frontend;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 
 import org.jpedal.PdfDecoder;
 import org.jpedal.exception.PdfException;
@@ -69,7 +64,7 @@ public class PDFViewerJP extends JPanel {
 
         //set page number display
         pageCounter2.setText(String.valueOf(currentPage));
-        pageCounter3.setText("of " + pdfDecoder.getPageCount());
+        pageCounter3.setText("di " + pdfDecoder.getPageCount());
     }
 
     /**
@@ -128,7 +123,6 @@ public class PDFViewerJP extends JPanel {
      * returns the scrollpane with pdfDecoder set as the viewport
      */
     private JScrollPane initPDFDisplay() {
-
         JScrollPane currentScroll = new JScrollPane();
         currentScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         currentScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -358,13 +352,5 @@ public class PDFViewerJP extends JPanel {
         });
 
         return list;
-    }
-
-    /**create a standalone program. User may pass in name of file as option*/
-    public static void main(String[] args) {
-
-        PDFViewerJP current;
-
-        current = new PDFViewerJP("/home/packyuser/Scrivania/Analisys.pdf");
     }
 }

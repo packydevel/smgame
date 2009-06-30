@@ -29,12 +29,13 @@ import javax.swing.text.html.HTMLFrameHyperlinkEvent;
  */
 public class HelpJF extends JFrame implements ActionListener, HyperlinkListener {
 
-    JPanel buttonJP, contentJP;
-    JTextPane editorPaneJEP;
-    JSplitPane splitPaneJSP;
-    GridBagConstraints panelGBC, labelGBC, textFieldGBC, buttonGBC;
-    JLabel pathJL, playersNumberJL, cpuflagJL, hostnameJL, portJL, dbnameJL, usernameJL, passwordJL;
-    JButton userGuideJB, refGuideJB, javadocJB;
+    private JPanel buttonJP,  contentJP;
+    private JTextPane editorPaneJEP;
+    private JSplitPane splitPaneJSP;
+    private GridBagConstraints panelGBC,  labelGBC,  textFieldGBC,  buttonGBC;
+    private JLabel pathJL,  playersNumberJL,  cpuflagJL,  hostnameJL,  portJL,  dbnameJL,  usernameJL,  passwordJL;
+    private JButton userGuideJB,  refGuideJB,  javadocJB;
+    private String userGuidePDF,  refGuidePDF,  javadocIndex;
 
     /**Costruttore
      *
@@ -64,7 +65,6 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
         getContentPane().add(buttonJP, BorderLayout.NORTH);
 
         contentJP = new JPanel();
-        contentJP.setSize(new Dimension(1024, 740));
         contentJP.setLayout(new BorderLayout());
         getContentPane().add(contentJP, BorderLayout.CENTER);
 
@@ -80,11 +80,10 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
 
         System.out.println(getClass().getResource("/").getPath());
 
-        try {
-            editorPaneJEP.setPage(getClass().getResource("/index.html"));
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
+        userGuidePDF = "/home/packyuser/Scrivania/Analisys.pdf";
+        refGuidePDF = "/home/packyuser/Scrivania/Analisys.pdf";
+        javadocIndex = getClass().getResource("/index.html").getPath();
+        showPDF(userGuidePDF);
 
         setVisible(true);
     }
@@ -92,11 +91,11 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
     public void actionPerformed(ActionEvent ae) {
         JButton button = (JButton) ae.getSource();
         if (button.equals(userGuideJB)) {
-            showPDF("Analisys.pdf");
+            showPDF(userGuidePDF);
         } else if (button.equals(refGuideJB)) {
-            showPDF("Analisys.pdf");
+            showPDF(refGuidePDF);
         } else {
-            showHTML("index.html");
+            showHTML(javadocIndex);
 
         }
     }
@@ -104,7 +103,7 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
     private void showPDF(String file) {
         try {
             getContentPane().remove(contentJP);
-            contentJP = new PDFViewerJP("/home/packyuser/Scrivania/Analisys.pdf");
+            contentJP = new PDFViewerJP(file);
             getContentPane().add(contentJP, BorderLayout.CENTER);
 
         } catch (Exception e) {
@@ -117,7 +116,7 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
         getContentPane().remove(contentJP);
         contentJP = new JPanel();
         try {
-            editorPaneJEP.setPage(getClass().getResource("/" + file));
+            editorPaneJEP.setPage("file://" + file);
             contentJP.add(editorPaneJEP, BorderLayout.CENTER);
         } catch (Exception e) {
             e.printStackTrace();
