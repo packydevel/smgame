@@ -140,14 +140,17 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
             }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getStoryBoardJMI()) {
             StoryBoardVO storyVO = ClientProxy.getInstance().requestStoryGames();
-            if (storyVO.getMessageType()==null)
-                JOptionPane.showMessageDialog(this,new StoryBoardJP(storyVO.getStory()));
-            else
+            if (storyVO.getMessageType() == null) {
+                JOptionPane.showMessageDialog(this, new StoryBoardJP(storyVO.getStory()));
+            } else {
                 analyzeVO(storyVO);
+            }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getTestConnectionJMI()) {
             analyzeVO(ClientProxy.getInstance().connect());
         } else if ((JMenuItem) evt.getSource() == menuJMB.getJavadocJMI()) {
             new HelpJF();
+        } else if ((JMenuItem) evt.getSource() == menuJMB.getAboutJMI()) {
+            JOptionPane.showMessageDialog(this, new AboutJP(), "About ...", JOptionPane.PLAIN_MESSAGE);
         }
     }
 
