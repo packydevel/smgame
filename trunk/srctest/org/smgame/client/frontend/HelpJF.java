@@ -4,6 +4,8 @@
  */
 package org.smgame.client.frontend;
 
+import com.adobe.acrobat.Viewer;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -22,6 +24,7 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLFrameHyperlinkEvent;
+import org.smgame.client.frontend.PDFViewerJP;
 
 /**
  *
@@ -29,8 +32,9 @@ import javax.swing.text.html.HTMLFrameHyperlinkEvent;
  */
 public class HelpJF extends JFrame implements ActionListener, HyperlinkListener {
 
-    JPanel buttonJP;
+    JPanel buttonJP, contentJP;
     JTextPane editorPaneJEP;
+    Viewer acrobatV;
     JSplitPane splitPaneJSP;
     GridBagConstraints panelGBC, labelGBC, textFieldGBC, buttonGBC;
     JLabel pathJL, playersNumberJL, cpuflagJL, hostnameJL, portJL, dbnameJL, usernameJL, passwordJL;
@@ -40,14 +44,18 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
      *
      */
     public HelpJF() {
-        super("SMGame JavaDoc");
+        super("Documentazione SMGame");
 
         setSize(new Dimension(1024, 768));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
         userGuideJB = new JButton("Manuale d'uso");
+        userGuideJB.addActionListener(this);
+
         refGuideJB = new JButton("Documento di Analisi");
+        refGuideJB.addActionListener(this);
+
         javadocJB = new JButton("SMGame JavaDoc");
         javadocJB.addActionListener(this);
 
@@ -59,6 +67,15 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
         buttonJP.add(javadocJB);
         getContentPane().add(buttonJP, BorderLayout.NORTH);
 
+        contentJP = new JPanel();
+        contentJP.setLayout(new BorderLayout());
+        getContentPane().add(contentJP, BorderLayout.CENTER);
+
+        try {
+            acrobatV = new Viewer();
+        } catch (Exception e) {
+        }
+
         splitPaneJSP = new JSplitPane();
 
         editorPaneJEP = new JTextPane();
@@ -66,8 +83,8 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
         editorPaneJEP.setMargin(new Insets(5, 5, 5, 5));
         editorPaneJEP.setEditable(false);
         editorPaneJEP.setContentType("text/html");
-        System.out.println(editorPaneJEP.getContentType());
         editorPaneJEP.addHyperlinkListener(this);
+        contentJP.add(editorPaneJEP, BorderLayout.CENTER);
 
         System.out.println(getClass().getResource("/").getPath());
 
@@ -77,17 +94,44 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
             ioe.printStackTrace();
         }
 
-
-        getContentPane().add(editorPaneJEP, BorderLayout.CENTER);
         setVisible(true);
     }
 
     public void actionPerformed(ActionEvent ae) {
-        try {
-            editorPaneJEP.setPage(getClass().getResource("/index.html"));
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+        JButton button = (JButton) ae.getSource();
+        if (button.equals(userGuideJB)) {
+            showPDF("Analisys.pdf");
+        } else if (button.equals(refGuideJB)) {
+            showPDF("Analisys.pdf");
+        } else {
+            showHTML("index.html");
+
         }
+    }
+
+    private void showPDF(String file) {
+        try {
+            getContentPane().remove(contentJP);
+            contentJP = new PDFViewerJP("/home/packyuser/Scrivania/Analisys.pdf");
+            getContentPane().add(contentJP, BorderLayout.CENTER);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        validate();
+    }
+
+    private void showHTML(String file) {
+        getContentPane().remove(contentJP);
+        contentJP = new JPanel();
+        try {
+            editorPaneJEP.setPage(getClass().getResource("/" + file));
+            contentJP.add(editorPaneJEP, BorderLayout.CENTER);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        getContentPane().add(contentJP, BorderLayout.CENTER);
+        validate();
     }
 
     public void hyperlinkUpdate(HyperlinkEvent e) {
