@@ -187,6 +187,10 @@ public class MenuJMB extends JMenuBar {
         return refGuideJMI;
     }
 
+    public JMenuItem getAboutJMI() {
+        return aboutJMI;
+    }
+
     public List<JMenuItem> getMenuItemListJMI() {
         return menuItemListJMI;
     }

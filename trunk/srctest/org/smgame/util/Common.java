@@ -14,6 +14,7 @@ public class Common {
     static String curDir;
     final static String dirResource = "/org/smgame/resource/";
     final static String dirResourceCard = dirResource + "cardimage/";
+    final static String dirResourceAuthor = dirResource + "authorimage/";
 
     /**Restituisce il percorso di lavoro corrente comprensivo di primo separatore
      *
@@ -23,12 +24,13 @@ public class Common {
         return curDir;
     }
 
-    public static void setWorkspace(String dir, boolean applet){
+    public static void setWorkspace(String dir, boolean applet) {
         curDir = dir;
-        if (applet)
+        if (applet) {
             separ = "/";
-        else
+        } else {
             curDir += separ;
+        }
     }
 
     /**Restituisce il percorso delle resource
@@ -46,17 +48,26 @@ public class Common {
      */
     public static String getResourceCards(String typecard) {
         return dirResourceCard + typecard + separ;
-    }    
+    }
+
+    /**Restituisce il percorso delle immagini degli Autori del Gioco
+     *
+     * @param typecard tipo mazzo usato
+     * @return percorso carte
+     */
+    public static String getResourceAuthors() {
+        return dirResourceAuthor + separ;
+    }
 
     /**Converte un percorso stringa in una URL
      *
      * @param path percorso
      * @return url
      */
-    public static URL convertStringToURL(String path){        
-        if (separ.equalsIgnoreCase("\\")){
+    public static URL convertStringToURL(String path) {
+        if (separ.equalsIgnoreCase("\\")) {
             path.replace('\\', '/');
-        }        
+        }
         return Common.class.getResource(path);
     }
 }//end class
