@@ -4,8 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.LinkedHashMap;
 import java.util.List;
+
 import org.smgame.core.GameSetting;
 import org.smgame.client.frontend.LoadGameVO;
 import org.smgame.client.frontend.MenuVO;
@@ -14,14 +14,24 @@ import org.smgame.client.frontend.MainVO;
 import org.smgame.client.frontend.StoryBoardVO;
 import org.smgame.util.NoGamesException;
 
-/**Interfaccia game mediator
+/**Interfaccia mediatore di gioco
  *
- * @author packyuser
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public interface IGameMediator extends Remote {
 
+    /**testa la connessione
+     *
+     * @throws java.rmi.RemoteException
+     */
     public void test() throws RemoteException;
 
+    /**Aggiunge item al menù
+     *
+     * @param menuItemList lista menù
+     * @throws java.rmi.RemoteException
+     */
     public void addMenuItem(List<String> menuItemList) throws RemoteException;
 
     public void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) throws RemoteException;
@@ -52,5 +62,10 @@ public interface IGameMediator extends Remote {
 
     public Object[][] requestDataReport() throws RemoteException;
 
+    /**richiede e restituisce l'oggetto storico partite
+     *
+     * @return 
+     * @throws java.rmi.RemoteException
+     */
     public StoryBoardVO requestStoryGames() throws RemoteException;
 }
