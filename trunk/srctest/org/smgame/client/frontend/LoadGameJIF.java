@@ -16,7 +16,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.EventListenerList;
 
-/**
+/**frame interno per il caricamento delle partite
  *
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
@@ -32,6 +32,9 @@ public class LoadGameJIF extends JInternalFrame implements IGameJIF {
     JLabel gameNameJL;
     int previousPlayersNumber = 0, currentPlayersNumber;
 
+    /**Costruttore
+     *
+     */
     public LoadGameJIF() {
         super("Carica Partita", false, true, false, false);
 
@@ -101,6 +104,10 @@ public class LoadGameJIF extends JInternalFrame implements IGameJIF {
         add(rootJP);
     }
 
+    /**carica la partita
+     *
+     * @param evt evento
+     */
     private void loadGame(ActionEvent evt) {
         if (evt.getSource().equals(cancelJB)) {
             dispose();
@@ -117,17 +124,26 @@ public class LoadGameJIF extends JInternalFrame implements IGameJIF {
     }
     protected EventListenerList eventListenerList = new javax.swing.event.EventListenerList();
 
-    // This methods allows classes to register for MyEvents
+    /**Permette alle classi di registrarsi per l'evento
+     *
+     * @param listener ascoltatore
+     */
     public void addMyEventListener(NewGameListener listener) {
         listenerList.add(NewGameListener.class, listener);
     }
 
-    // This methods allows classes to unregister for MyEvents
+    /**Permette alle classi di de-registrarsi per l'evento
+     *
+     * @param listener ascoltatore
+     */
     public void removeMyEventListener(NewGameListener listener) {
         listenerList.remove(NewGameListener.class, listener);
     }
 
-    // This private class is used to fire MyEvents
+    /**Gestisce gli eventi
+     *
+     * @param e evento
+     */
     void fireNewGameEvent(NewGameEvent e) {
         Object[] listeners = listenerList.getListenerList();
         for (int i = 0; i <
