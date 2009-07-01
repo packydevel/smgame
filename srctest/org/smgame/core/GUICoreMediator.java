@@ -69,14 +69,15 @@ public class GUICoreMediator {
         }
     }
 
-    /**Crea partita offline
+    /**Crea partita
      *
      * @param gameName nome partita
      * @param gameSetting settaggi partita
      * @param playerNameList lista giocatori
      * @param playerTypeList lista tipo di giocatore
      */
-    public static void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) {
+    public static void createGame(String gameName, GameSetting gameSetting,
+            List<String> playerNameList, List<Boolean> playerTypeList) {
 
         PlayerList playerList = new PlayerList();
 
