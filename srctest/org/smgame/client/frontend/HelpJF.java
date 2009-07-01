@@ -110,7 +110,7 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
             getContentPane().add(contentJP, BorderLayout.CENTER);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         validate();
     }
@@ -126,7 +126,7 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
             editorPaneJEP.setPage("file://" + file);
             contentJP.add(editorPaneJEP, BorderLayout.CENTER);
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         getContentPane().add(contentJP, BorderLayout.CENTER);
         validate();
@@ -143,7 +143,7 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
                 try {
                     pane.setPage(e.getURL());
                 } catch (Throwable t) {
-                    t.printStackTrace();
+                    //t.printStackTrace();
                 }
             }
         }

@@ -46,7 +46,7 @@ public class Logging {
      * @param e eccezione Exception
      */
     public static void logExceptionSevere(Class c, Exception e){
-        e.printStackTrace();
+        //e.printStackTrace();
         logger.severe(c.getName() + " - " + e.toString());
     }
 

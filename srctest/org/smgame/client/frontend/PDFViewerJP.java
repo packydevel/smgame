@@ -149,7 +149,7 @@ public class PDFViewerJP extends JPanel {
                         repaint();
                     } catch (Exception e1) {
                         System.err.println("back to page 1");
-                        e1.printStackTrace();
+                        //e1.printStackTrace();
                     }
 
                     //set page number display
@@ -177,7 +177,7 @@ public class PDFViewerJP extends JPanel {
                         repaint();
                     } catch (Exception e1) {
                         System.err.println("back 10 pages");
-                        e1.printStackTrace();
+                        //e1.printStackTrace();
                     }
 
 //            set page number display
@@ -205,7 +205,7 @@ public class PDFViewerJP extends JPanel {
                         repaint();
                     } catch (Exception e1) {
                         System.err.println("back 1 page");
-                        e1.printStackTrace();
+                        //e1.printStackTrace();
                     }
 
 //          set page number display
@@ -237,7 +237,7 @@ public class PDFViewerJP extends JPanel {
                         repaint();
                     } catch (Exception e) {
                         System.err.println("page number entered");
-                        e.printStackTrace();
+                        //e.printStackTrace();
                     }
 
                 } catch (Exception e) {
@@ -278,7 +278,7 @@ public class PDFViewerJP extends JPanel {
                         repaint();
                     } catch (Exception e1) {
                         System.err.println("forward 1 page");
-                        e1.printStackTrace();
+                        //e1.printStackTrace();
                     }
 
 //        set page number display
@@ -306,7 +306,7 @@ public class PDFViewerJP extends JPanel {
                         repaint();
                     } catch (Exception e1) {
                         System.err.println("forward 10 pages");
-                        e1.printStackTrace();
+                        //e1.printStackTrace();
                     }
 
 //        set page number display
@@ -334,7 +334,7 @@ public class PDFViewerJP extends JPanel {
                         repaint();
                     } catch (Exception e1) {
                         System.err.println("forward to last page");
-                        e1.printStackTrace();
+                        //e1.printStackTrace();
                     }
 
 //        set page number display
