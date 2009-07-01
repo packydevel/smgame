@@ -283,6 +283,8 @@ public class ServerJF extends JFrame implements WindowListener {
         monitorJSP.setLayout(new ScrollPaneLayout());
     }
 
+
+    /**imposta i parametri del database nelle textfield*/
     private void setTextDatabaseParameters() throws IOException{
         DBPropertiesVO dbPropVO = DBAccess.requestDBPropertiesVO();
         hostnameJTF.setText(dbPropVO.getServer());
