@@ -14,40 +14,48 @@ import org.smgame.client.frontend.MenuVO;
 import org.smgame.client.frontend.StoryBoardVO;
 import org.smgame.util.NoGamesException;
 
-/**
+/**Oggetto remoto
  *
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
 public class Stub implements IGameMediator {
 
+    @Override
     public void test() throws RemoteException {
     }
 
+    @Override
     public void addMenuItem(List<String> menuItemList) {
         GUICoreMediator.addMenuItem(menuItemList);
     }
 
+    @Override
     public void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) {
         GUICoreMediator.createGame(gameName, gameSetting, playerNameList, playerTypeList);
     }
 
+    @Override
     public void askCloseGame() {
         GUICoreMediator.askCloseGame();
     }
 
+    @Override
     public void closeGame() {
         GUICoreMediator.closeGame();
     }
 
+    @Override
     public void saveGame() {
         GUICoreMediator.saveGameOnline();
     }
 
+    @Override
     public void loadGame(String gameName) throws FileNotFoundException, IOException, ClassNotFoundException {
         GUICoreMediator.loadGame(gameName);
     }
 
+    @Override
     public void loadGames() throws FileNotFoundException, IOException, ClassNotFoundException {
         GUICoreMediator.loadGames();
     }
