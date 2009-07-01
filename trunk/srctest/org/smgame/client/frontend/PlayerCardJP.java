@@ -12,8 +12,8 @@ import javax.swing.border.LineBorder;
 
 /**JPanel del giocatore e delle carte
  *
- * @author luca
- * @author pasquale
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class PlayerCardJP extends JPanel {
 
@@ -27,8 +27,8 @@ public class PlayerCardJP extends JPanel {
 
     /**Costruttore
      *
-     * @param tplayer
-     * @param tcash
+     * @param tplayer nome giocatore
+     * @param tcash credito
      */
     public PlayerCardJP(String tplayer, String tcash) {
         name_player = tplayer;
@@ -37,6 +37,9 @@ public class PlayerCardJP extends JPanel {
         initComponents();
     }
 
+    /**inizializza le componenti
+     *
+     */
     private void initComponents() {
         setPreferredSize(new Dimension(700, 50));
         setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -55,7 +58,7 @@ public class PlayerCardJP extends JPanel {
 
     /**Aggiunge una carta GUI tramite label e icon
      *
-     * @param icon
+     * @param icon immagine carta
      */
     public void newLabelIconCard(ImageIcon icon) {
         if (number < max - 1) {
@@ -68,7 +71,7 @@ public class PlayerCardJP extends JPanel {
 
     /**Imposta la prima carta e la visualizza coperta
      *
-     * @param icons
+     * @param icons immagine carta
      */
     public void setFirstCard(ImageIcon[] icons) {
         firstcard = icons;
@@ -92,7 +95,7 @@ public class PlayerCardJP extends JPanel {
 
     /**Imposta il testo della label relativa alla puntata totale
      *
-     * @param tcash
+     * @param tcash credito
      */
     public void setCashLabel(String tcash) {
         ((JLabel) components[2]).setText(tcash);

@@ -1,14 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.smgame.client.frontend;
 
-/**
+/**Enumeratore tipo messaggio
  *
- * @author packyuser
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
-public enum MessageType {
-    INFO, WARNING, ERROR
-}
+public enum MessageType {INFO, WARNING, ERROR}
