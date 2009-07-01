@@ -24,6 +24,11 @@ public class Common {
         return curDir;
     }
 
+    /**imposta il percorso di lavoro
+     *
+     * @param dir directory
+     * @param applet true = esecuzione da applet
+     */
     public static void setWorkspace(String dir, boolean applet) {
         curDir = dir;
         if (applet) {
