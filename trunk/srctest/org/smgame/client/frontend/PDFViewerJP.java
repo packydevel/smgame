@@ -117,6 +117,7 @@ public class PDFViewerJP extends JPanel {
         JScrollPane currentScroll = new JScrollPane();
         currentScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         currentScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        currentScroll.getVerticalScrollBar().setUnitIncrement(20);
         currentScroll.setViewportView(pdfDecoder);
 
         return currentScroll;
