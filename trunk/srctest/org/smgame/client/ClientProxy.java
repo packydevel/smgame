@@ -334,7 +334,7 @@ public class ClientProxy {
                 stub = RMIClient.getStub();
                 return stub.requestMainVO();
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 return null;
             }
         }
@@ -380,7 +380,7 @@ public class ClientProxy {
                 stub = RMIClient.getStub();
                 return stub.requestGameVO();
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 return null;
             }
         }

@@ -167,13 +167,15 @@ public class GUICoreMediator {
         try {
             trans.executeArraylistTransactions();
         } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            serverVO.setMessage("Impossibile Connettersi al DataBase");
+            serverVO.setMessageType(MessageType.ERROR);
+            //ex.printStackTrace();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
         }
         trans.resetArraylistTansactions();
         currentGame.setLastSaveDate(new Date());
