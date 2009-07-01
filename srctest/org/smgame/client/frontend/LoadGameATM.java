@@ -3,7 +3,7 @@ package org.smgame.client.frontend;
 import javax.swing.table.AbstractTableModel;
 import org.smgame.core.GUICoreMediator;
 
-/**
+/**Modello di tabella per il caricamento delle partite
  *
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
@@ -13,6 +13,9 @@ public class LoadGameATM extends AbstractTableModel {
     private final String[] columnNames = {"Partita", "Tipo", "Data Creazione", "Data Ultimo Salvataggio"};
     private LoadGameVO loadGameVO;
 
+    /**Costruttore
+     *
+     */
     public LoadGameATM() {
         super();
         try {
@@ -22,6 +25,7 @@ public class LoadGameATM extends AbstractTableModel {
         }
     }
 
+    @Override
     public String getColumnName(int col) {
         return columnNames[col].toString();
     }

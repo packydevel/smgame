@@ -48,9 +48,11 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
     private int previousPlayersNumber = 0;
     private int currentPlayersNumber;
     private boolean online;
+    protected EventListenerList eventListenerList = new javax.swing.event.EventListenerList();
 
     /**Costruttore
      *
+     * @param online true = partita online
      */
     public NewGameJIF(boolean online) {        
         super("Nuova Partita ", false, true, false, false);
@@ -367,19 +369,27 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
             }
         }
     }
-    protected EventListenerList eventListenerList = new javax.swing.event.EventListenerList();
 
-    // This methods allows classes to register for MyEvents
+    /**Permette alle classi di registrarsi per l'evento
+     *
+     * @param listener ascoltatore
+     */
     public void addMyEventListener(NewGameListener listener) {
         listenerList.add(NewGameListener.class, listener);
     }
 
-    // This methods allows classes to unregister for MyEvents
+    /**Permette alle classi di de-registrarsi per l'evento
+     *
+     * @param listener ascoltatore
+     */
     public void removeMyEventListener(NewGameListener listener) {
         listenerList.remove(NewGameListener.class, listener);
     }
 
-    // This private class is used to fire MyEvents
+    /**Gestisce gli eventi
+     *
+     * @param e evento
+     */
     void fireNewGameEvent(NewGameEvent e) {
         Object[] listeners = listenerList.getListenerList();
         for (int i = 0; i < listeners.length; i += 2) {

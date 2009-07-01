@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.client.frontend;
 
 import java.awt.event.ActionEvent;
@@ -13,6 +9,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+/**Classe barra del menù
+ *
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
+ */
 public class MenuJMB extends JMenuBar {
 
     private JMenu gameJM;
@@ -33,9 +34,8 @@ public class MenuJMB extends JMenuBar {
     private JMenuItem aboutJMI;
     private ArrayList<JMenuItem> menuItemListJMI = new ArrayList<JMenuItem>();
 
-    /**
+    /**Costruttore
      *
-     * @author packyuser
      */
     public MenuJMB() {
 
@@ -143,54 +143,106 @@ public class MenuJMB extends JMenuBar {
         add(helpJM);
     }
 
+    /**Restituisce l'item chiusura partita
+     *
+     * @return item chiusura
+     */
     public JMenuItem getCloseGameJMI() {
         return closeGameJMI;
     }
 
+    /**Restituisce l'item uscita dal gioco
+     *
+     * @return item uscita
+     */
     public JMenuItem getExitGameJMI() {
         return exitGameJMI;
     }
 
+    /**Restituisce l'item carica partite
+     *
+     * @return item carica
+     */
     public JMenuItem getLoadGameJMI() {
         return loadGameJMI;
     }
 
+    /**restituisce l'item nuova partita online
+     *
+     * @return new online
+     */
     public JMenuItem getNewOnLineGameJMI() {
         return newOnLineGameJMI;
     }
 
+    /**Restituisce l'item nuova partita offline
+     *
+     * @return item new offline
+     */
     public JMenuItem getNewOffLineGameJMI() {
         return newOffLineGameJMI;
     }
 
+    /**Restituisce l'item salva partita
+     *
+     * @return item salva
+     */
     public JMenuItem getSaveGameJMI() {
         return saveGameJMI;
     }
 
+    /**Restituisce l'item storico partite
+     *
+     * @return item storico
+     */
     public JMenuItem getStoryBoardJMI() {
         return storyBoardJMI;
     }
 
+    /**Restituisce l'item testa connessione
+     *
+     * @return item test
+     */
     public JMenuItem getTestConnectionJMI() {
         return testConnectionJMI;
     }
 
+    /**Restituisce l'item guida utente
+     *
+     * @return guida utente
+     */
     public JMenuItem getUserGuideJMI() {
         return userGuideJMI;
     }
 
+    /**restituisce l'item javadoc
+     *
+     * @return item javadoc
+     */
     public JMenuItem getJavadocJMI() {
         return javadocJMI;
     }
 
+    /**restituisce l'item guida di riferimento
+     *
+     * @return item guida
+     */
     public JMenuItem getRefGuideJMI() {
         return refGuideJMI;
     }
 
+    /**Restituisce item about
+     *
+     * @return item about
+     */
     public JMenuItem getAboutJMI() {
         return aboutJMI;
     }
 
+    /**Restituisce lista di item di menù
+     *
+     * @return lista item
+     */
     public List<JMenuItem> getMenuItemListJMI() {
         return menuItemListJMI;
     }

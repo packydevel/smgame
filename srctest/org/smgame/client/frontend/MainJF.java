@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -12,8 +13,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
+
 import org.smgame.client.ClientProxy;
 
+/**Gestore interfaccia grafica
+ *
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
+ */
 public class MainJF extends JFrame implements InternalFrameListener, NewGameListener {
 
     private static JDesktopPane desktop;
@@ -25,7 +32,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
     private MenuVO menuVO;
     private int desktopWidth,  desktopHeight,  internalFrameWidth,  internalFrameHeight,  xbound,  ybound;
 
-    /**
+    /**Costruttore
      * 
      */
     public MainJF() {
@@ -62,6 +69,9 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         refreshMenuItem();
     }
 
+    /**aggiorna gli item del menà
+     *
+     */
     private void refreshMenuItem() {
         menuVO = ClientProxy.getInstance().requestMenuVO();
 
@@ -74,6 +84,11 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         }
     }
 
+    /**analizza i messaggi provenienti dal mainVO
+     *
+     * @param mainVO oggetto
+     * @return eventuale intero indicante opzione scelta dall'utente
+     */
     private int analyzeVO(MainVO mainVO) {
         if (mainVO.getMessageType() == MessageType.INFO) {
             JOptionPane.showInternalMessageDialog(desktop, mainVO.getMessage(), "Info", JOptionPane.INFORMATION_MESSAGE);
@@ -82,10 +97,13 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         } else if (mainVO.getMessageType() == MessageType.ERROR) {
             JOptionPane.showInternalMessageDialog(desktop, mainVO.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
         }
-
         return -1;
     }
 
+    /**Intercetta le azioni del menù
+     *
+     * @param evt eventi da gestire
+     */
     private void jMenu1ActionPerformed(ActionEvent evt) {
         if ((JMenuItem) evt.getSource() == menuJMB.getNewOnLineGameJMI()) {
             clearDesktop();
@@ -160,9 +178,9 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         }
     }
 
-    /**
+    /**Esegue la creazione a livello gui di una nuova partita
      *
-     * @param e
+     * @param e evento nuova partita
      */
     public void newGameCreating(NewGameEvent e) {
         clearDesktop();
@@ -181,6 +199,9 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         refreshMenuItem();
     }
 
+    /**Esegue la chiusura della partita
+     *
+     */
     private void executeCloseGame() {
         ClientProxy.getInstance().askCloseGame();
 
@@ -191,16 +212,15 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         }
     }
 
+    /**Pulisce il desktop
+     *
+     */
     private void clearDesktop() {
         for (JInternalFrame jiframe : desktop.getAllFrames()) {
             jiframe.dispose();
         }
     }
 
-    /**
-     * 
-     * @param e
-     */
     public void internalFrameClosed(InternalFrameEvent e) {
     }
 
