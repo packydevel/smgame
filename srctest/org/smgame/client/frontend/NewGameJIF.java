@@ -7,7 +7,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,15 +19,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-
 import javax.swing.event.EventListenerList;
+
 import org.smgame.client.ClientProxy;
 
 /**internal frame new game
  *frame interno nuovo gioco
  *
- * @author luca
- * @author pasquale
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class NewGameJIF extends JInternalFrame implements IGameJIF {
 
@@ -242,7 +241,10 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
     }
 
 
-    /* gestisce le azioni e gli eventi della newgame */
+    /** gestisce le azioni e gli eventi della newgame
+     *
+     * @param evt evento da gestire
+     */
     private void newGameActionPerformed(ActionEvent evt) {
         int i;
         int y = 3;

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.client.frontend;
 
 import java.awt.BorderLayout;
@@ -22,6 +18,11 @@ import javax.swing.JTextField;
 import org.jpedal.PdfDecoder;
 import org.jpedal.exception.PdfException;
 
+/**Pannello per visualizzare i pdf
+ *
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
+ */
 public class PDFViewerJP extends JPanel {
 
     /**the actual JPanel/decoder object*/
@@ -34,20 +35,15 @@ public class PDFViewerJP extends JPanel {
     private JTextField pageCounter2 = new JTextField(4);//000 used to set prefered size
     private JLabel pageCounter3 = new JLabel("di");//000 used to set prefered size
 
-    /**
-     * construct a pdf viewer, passing in the full file name
+    /**Costruttore
+     *
+     * @param name nome del file da aprire
      */
     public PDFViewerJP(String name) {
-
         pdfDecoder = new PdfDecoder(true);
-
-
         //ensure non-embedded font map to sensible replacements
         PdfDecoder.setFontReplacements(pdfDecoder);
-
-
         currentFile = name;//store file name for use in page changer
-
         try {
             //this opens the PDF and reads its internal details
             pdfDecoder.openPdfFile(currentFile);
@@ -56,9 +52,8 @@ public class PDFViewerJP extends JPanel {
             pdfDecoder.decodePage(currentPage);
             pdfDecoder.setPageParameters(1, 1); //values scaling (1=100%). page number
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
-
         //setup our GUI display
         initializeViewer();
 
@@ -67,29 +62,25 @@ public class PDFViewerJP extends JPanel {
         pageCounter3.setText("di " + pdfDecoder.getPageCount());
     }
 
-    /**
-     * check if encryption present and acertain password, return true if content accessable
+    /**Verifica se il criptaggio è presente ed un'eventuale passsword
+     *
+     * @return true = pdf accessibile, false = password o criptazione presente
      */
     private boolean checkEncryption() {
-
 //    check if file is encrypted
         if (pdfDecoder.isEncrypted()) {
-
             //if file has a null password it will have been decoded and isFileViewable will return true
             while (!pdfDecoder.isFileViewable()) {
-
                 /** popup window if password needed */
                 String password = JOptionPane.showInputDialog(this, "Please enter password");
-
                 /** try and reopen with new password */
                 if (password != null) {
                     try {
                         pdfDecoder.setEncryptionPassword(password);
                     } catch (PdfException e) {
-                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        //e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }
                 //pdfDecoder.verifyAccess();
-
                 }
             }
             return true;
@@ -98,8 +89,8 @@ public class PDFViewerJP extends JPanel {
         return true;
     }
 
-    /**
-     * setup the viewer and its components
+    /**Inizializza la visione e i suoi componenti
+     * 
      */
     private void initializeViewer() {
         setLayout(new BorderLayout());
@@ -131,8 +122,9 @@ public class PDFViewerJP extends JPanel {
         return currentScroll;
     }
 
-    /**
-     * setup the page display and changer panel and return it
+    /**Inizializza le componenti e le restituisce
+     *
+     * @return array di componenti
      */
     private Component[] initChangerPanel() {
 
