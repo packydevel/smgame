@@ -12,7 +12,8 @@ import org.smgame.util.Logging;
 
 /**Server RMI
  *
- * 
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class RMIServer {
 
@@ -27,8 +28,11 @@ public class RMIServer {
     private String bindName;
     private static final DateFormat dateFormat = DateFormat.getInstance();
 
-    // Must implement constructor to throw RemoteException:
+    /**Costruttore privato
+     *
+     */
     private RMIServer() {
+        // Must implement constructor to throw RemoteException:
         runtime = Runtime.getRuntime();
 
         if (System.getProperty("os.name").toLowerCase().equals("linux")) {
@@ -39,6 +43,10 @@ public class RMIServer {
         bindName = "rmi://localhost/ServerMediator";
     }
 
+    /**restituisce l'istanza del server
+     *
+     * @return istanza server, se nulla, viene creata
+     */
     public static RMIServer getInstance() {
         if (server == null) {
             server = new RMIServer();
@@ -47,6 +55,9 @@ public class RMIServer {
         return server;
     }
 
+    /**Lancia il server
+     *
+     */
     public void start() {
         serverVO.clear();
 
@@ -71,6 +82,9 @@ public class RMIServer {
         }
     }
 
+    /**Arresta il server
+     *
+     */
     public void stop() {
         if (rmiregistryProcess != null) {
             try {
@@ -86,6 +100,10 @@ public class RMIServer {
         }
     }
 
+    /**Richiede il value objects server
+     *
+     * @return serverVO
+     */
     public ServerVO requestServerVO() {
         return serverVO;
     }

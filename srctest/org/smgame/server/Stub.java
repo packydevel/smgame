@@ -16,7 +16,8 @@ import org.smgame.util.NoGamesException;
 
 /**
  *
- * @author packyuser
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class Stub implements IGameMediator {
 

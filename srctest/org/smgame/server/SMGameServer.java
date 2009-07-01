@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.smgame.server;
 
 import de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel;
@@ -11,12 +7,18 @@ import org.smgame.core.GUICoreMediator;
 import org.smgame.server.frontend.ServerJF;
 import org.smgame.util.Logging;
 
-/**
+/**Server smgame
  *
- * @author packyuser
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class SMGameServer {
 
+    /**esegue il main
+     *
+     * @param args argomenti
+     * @throws java.lang.Exception
+     */
     public static void main(String[] args) throws Exception {
         System.setSecurityManager(new RMISecurityManager());
         Logging.createLog("server");
@@ -31,7 +33,7 @@ public class SMGameServer {
                 new ServerJF();
             }
         });
-
+        
         GUICoreMediator.loadGames();
     }
 }
