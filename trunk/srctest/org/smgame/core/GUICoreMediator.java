@@ -20,8 +20,8 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import org.smgame.backend.DBAccess;
-import org.smgame.backend.DBTransactions;
+import org.smgame.beckend.DBAccess;
+import org.smgame.beckend.DBTransactions;
 import org.smgame.core.player.*;
 import org.smgame.client.frontend.LoadGameVO;
 import org.smgame.client.frontend.MainVO;

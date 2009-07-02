@@ -1,4 +1,4 @@
-package org.smgame.backend;
+package org.smgame.beckend;
 
 /**Classe proprietà database ValueObject
  *

@@ -1,4 +1,4 @@
-package org.smgame.backend;
+package org.smgame.beckend;
 
 import java.io.IOException;
 import java.sql.Connection;
