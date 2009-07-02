@@ -27,8 +27,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneLayout;
 
-import org.smgame.beckend.DBAccess;
-import org.smgame.beckend.DBPropertiesVO;
+import org.smgame.backend.DBAccess;
+import org.smgame.backend.DBPropertiesVO;
 import org.smgame.core.GUICoreMediator;
 import org.smgame.client.frontend.MessageType;
 import org.smgame.server.RMIServer;
