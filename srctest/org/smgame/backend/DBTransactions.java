@@ -281,9 +281,12 @@ public class DBTransactions {
 
         String sqlDistinct = "SELECT DISTINCT(" + colTrans2 + ") FROM " + tableTrans;
         String sqlCount = "SELECT count(*) FROM " + tableTrans + " WHERE " + colTrans2 + "= ?;";
-        String sqlSelect = "SELECT " + colTrans3 + ", " + colTrans4 + ", " + colTrans5 +
-                ", " + colTrans6 + " FROM " + tableTrans + " WHERE " + colTrans2 + "= ? " +
-                "ORDER BY " + colTrans3 + " ASC, " + colTrans6 + " DESC;";
+        String sqlSelect = "SELECT " + colTrans3 + ", " + colTrans4 + ", " + colTrans5 + ", " + colTrans6 +
+                "GROUP_CONCAT(LOWER("+ col3Card +"), \' \', LEFT(" + col2Card +",1)) AS group_card" +
+                " FROM " + tableTrans + ", " + tableCard + ", " + tableRelation +
+                " WHERE " + colTrans2 + "= ? AND " + col1Card + "=" + col2Rel + " AND " +
+                col1Rel + "=" + colTrans1 + " GROUP BY " + colTrans1 +
+                " ORDER BY " + colTrans3 + " ASC, " + colTrans6 + " DESC;";
 
         Connection conn = DBAccess.getConnection();
         PreparedStatement prpstmtDistinct = conn.prepareStatement(sqlDistinct);
@@ -300,7 +303,7 @@ public class DBTransactions {
             rsCount.next();
             int rows = rsCount.getInt(1);
             if (rows > 0) {
-                matrix = new Object[rows][4];
+                matrix = new Object[rows][5];
                 int r = 0;
                 PreparedStatement prpstmtSelect = conn.prepareStatement(sqlSelect);
                 setParameter(prpstmtSelect, 1, id, Types.BIGINT);
@@ -311,6 +314,7 @@ public class DBTransactions {
                     matrix[r][1] = rsSelect.getString(2);
                     matrix[r][2] = rsSelect.getDouble(3);
                     matrix[r][3] = rsSelect.getDouble(4);
+                    matrix[r][4] = rsSelect.getString(5);
                     r++;
                 }
             } //end if
