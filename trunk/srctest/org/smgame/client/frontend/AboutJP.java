@@ -8,7 +8,7 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import org.smgame.util.Common;
+import org.smgame.util.ResourceLocator;
 
 /**Pannello about/ info autori
  *
@@ -35,8 +35,8 @@ public class AboutJP extends JPanel {
         add(headerJL, BorderLayout.NORTH);
 
         authorImages = new ImageIcon[2];
-        authorImages[0] = new ImageIcon(Common.convertStringToURL(Common.getResourceAuthors() + "packyavatar.jpg"));
-        authorImages[1] = new ImageIcon(Common.convertStringToURL(Common.getResourceAuthors() + "judgeavatar.jpg"));
+        authorImages[0] = new ImageIcon(ResourceLocator.convertStringToURL(ResourceLocator.getResourceAuthors() + "packyavatar.jpg"));
+        authorImages[1] = new ImageIcon(ResourceLocator.convertStringToURL(ResourceLocator.getResourceAuthors() + "judgeavatar.jpg"));
 
         authorImagesJL = new JLabel[2];
         authorImagesJL[0] = new JLabel(authorImages[0]);

@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import javax.swing.ImageIcon;
-import org.smgame.util.Common;
+import org.smgame.util.ResourceLocator;
 
 /**Classe Mazzo
  * contiene le 40carte da gioco
@@ -52,8 +52,8 @@ public class Deck implements Serializable {
                 }
                 img += i + 1 + ".jpg";
 
-                String resource = Common.getResourceCards("napoletane") + img;
-                frontImage = new ImageIcon(Common.convertStringToURL(resource));
+                String resource = ResourceLocator.getResourceCards("napoletane") + img;
+                frontImage = new ImageIcon(ResourceLocator.convertStringToURL(resource));
                 if (point == Point.Re && suit == Suit.Danari) {
                     c = new JollyCard(point, suit, ALL_VALUE[i], frontImage);
                 } else {

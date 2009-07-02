@@ -63,7 +63,7 @@ public class RMIServer {
 
         try {
             rmiregistryProcess = runtime.exec(rmiRegistryCommand);
-            Thread.sleep(1000);
+            Thread.sleep(3000);
 
             rmiregistry = LocateRegistry.getRegistry();
 
@@ -88,7 +88,7 @@ public class RMIServer {
     public void stop() {
         if (rmiregistryProcess != null) {
             try {
-                UnicastRemoteObject.unexportObject(stub, true);
+                UnicastRemoteObject.unexportObject(istub, true);
                 rmiregistryProcess.destroy();
                 stub = null;
                 rmiregistryProcess = null;

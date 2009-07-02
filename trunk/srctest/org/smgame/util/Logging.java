@@ -23,7 +23,7 @@ public class Logging {
      */
     public static boolean createLog(String name) {
         logger = Logger.getLogger(name);
-        String dir = Common.getWorkspace() + name + ".log";
+        String dir = ResourceLocator.getWorkspace() + name + ".log";
         try {
             // This block configure the logger with handler and formatter
             filehandler = new FileHandler(dir, true);

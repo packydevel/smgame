@@ -7,7 +7,7 @@ import javax.swing.UIManager;
 
 import org.smgame.client.frontend.MainJF;
 import org.smgame.core.GameMode;
-import org.smgame.util.Common;
+import org.smgame.util.ResourceLocator;
 
 /**Classe SetteMezzo client
  *
@@ -27,7 +27,7 @@ public class SMGameClient extends JApplet {
     @Override
     public void start() {
         //System.setSecurityManager(new SecurityManager());
-        Common.setWorkspace(getCodeBase().toString(), true);        
+        ResourceLocator.setWorkspace(getCodeBase().toString(), true);
         try {
             UIManager.setLookAndFeel(new SyntheticaSimple2DLookAndFeel());
         } catch (Exception e) {
@@ -49,7 +49,7 @@ public class SMGameClient extends JApplet {
      * @param args argomenti
      */
     public static void main(String[] args) {
-        Common.setWorkspace(System.getProperty("user.dir"), false);
+        ResourceLocator.setWorkspace(System.getProperty("user.dir"), false);
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {

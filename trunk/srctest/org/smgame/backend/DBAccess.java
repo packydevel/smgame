@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-import org.smgame.util.Common;
+import org.smgame.util.ResourceLocator;
 import org.smgame.util.Logging;
 
 /** Classe DbAccess/accesso database
@@ -71,7 +71,7 @@ public class DBAccess {
     public static DBPropertiesVO requestDBPropertiesVO() throws IOException{
         Properties properties = new Properties();
 
-        properties.load(DBAccess.class.getResourceAsStream(Common.getResource()+"database.properties"));
+        properties.load(DBAccess.class.getResourceAsStream(ResourceLocator.getResource()+"database.properties"));
 
         Logging.logInfo("Caricamento database.properties effettuato");
 

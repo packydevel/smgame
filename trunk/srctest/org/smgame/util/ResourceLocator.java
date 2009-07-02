@@ -8,7 +8,7 @@ import java.net.URL;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
-public class Common {
+public class ResourceLocator {
 
     static String separ = File.separator;
     static String curDir;
@@ -72,6 +72,6 @@ public class Common {
         if (separ.equalsIgnoreCase("\\")) {
             path.replace('\\', '/');
         }
-        return Common.class.getResource(path);
+        return ResourceLocator.class.getResource(path);
     }
 }//end class
