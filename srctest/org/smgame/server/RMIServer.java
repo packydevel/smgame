@@ -88,7 +88,7 @@ public class RMIServer {
     public void stop() {
         if (rmiregistryProcess != null) {
             try {
-                UnicastRemoteObject.unexportObject(istub, true);
+                UnicastRemoteObject.unexportObject(stub, true);
                 rmiregistryProcess.destroy();
                 stub = null;
                 rmiregistryProcess = null;
