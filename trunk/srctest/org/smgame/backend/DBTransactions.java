@@ -20,20 +20,16 @@ import org.smgame.util.Logging;
  */
 public class DBTransactions {
 
-    private final String tableTrans = "TRANSACTIONS t"; //nome tabella
-    private final String colTrans1 = "t.transaction_id";
-    private final String colTrans2 = "t.game_id";
-    private final String colTrans3 = "t.manche";
-    private final String colTrans4 = "t.player_name";
-    private final String colTrans5 = "t.score";
-    private final String colTrans6 = "t.win_lose_amount";
+    private final String tableTrans = "TRANSACTIONS"; //nome tabella
+    private final String[] columnTrans = new String[]{"transaction_id", "game_id", "manche",
+                                                      "player_name", "score", "win_lose_amount"};
     private final String tableCard = "CARD c";
     private final String col1Card = "c.card_id";
     private final String col2Card = "c.suit";
     private final String col3Card = "c.point";
-    private final String tableRelation = "TRANSACTION_CARD tc";
-    private final String col1Rel = "tc.transaction_id";
-    private final String col2Rel = "tc.card_id";
+    private final String tableRelation = "TRANSACTION_CARD";
+    private final String col1Rel = "transaction_id";
+    private final String col2Rel = "card_id";
     private long idT; //id transazione
     private long id_game; //id partita
     private int manche; //numero manche
@@ -46,8 +42,7 @@ public class DBTransactions {
     /**Costruttore vuoto
      *
      */
-    public DBTransactions() {
-    }
+    public DBTransactions() {}
 
     /**Costruttore
      * 
@@ -159,8 +154,8 @@ public class DBTransactions {
     public void executeSingleTransaction() throws ClassNotFoundException, SQLException,
             IOException, Exception {
         Connection conn = DBAccess.getConnection();
-        String sql = "INSERT INTO " + tableTrans + "(" + colTrans2 + "," + colTrans3 + "," +
-                colTrans4 + "," + colTrans5 + "," + colTrans6 + ") VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO " + tableTrans + "(" + columnTrans[2] + "," + columnTrans[3] + "," +
+                columnTrans[4] + "," + columnTrans[5] + "," + columnTrans[6] + ") VALUES (?,?,?,?,?)";
         PreparedStatement prpstmt = conn.prepareStatement(sql);
         setParameter(prpstmt, 1, getId_game(), Types.BIGINT);
         setParameter(prpstmt, 2, getManche(), Types.INTEGER);
@@ -238,7 +233,7 @@ public class DBTransactions {
 
         ArrayList<DBTransactions> dbtransactionsAL = new ArrayList<DBTransactions>();
         Connection conn = DBAccess.getConnection();
-        String sql = "SELECT * FROM " + tableTrans + " WHERE " + colTrans2 + "= ?;";
+        String sql = "SELECT * FROM " + tableTrans + " WHERE " + columnTrans[2] + "= ?;";
         PreparedStatement prpstmt = conn.prepareStatement(sql);
         setParameter(prpstmt, 1, getId_game(), Types.BIGINT);
         Logging.logInfo(prpstmt.toString());
@@ -279,14 +274,14 @@ public class DBTransactions {
 
         LinkedHashMap<Long, Object[][]> map = new LinkedHashMap<Long, Object[][]>();
 
-        String sqlDistinct = "SELECT DISTINCT(" + colTrans2 + ") FROM " + tableTrans;
-        String sqlCount = "SELECT count(*) FROM " + tableTrans + " WHERE " + colTrans2 + "= ?;";
-        String sqlSelect = "SELECT " + colTrans3 + ", " + colTrans4 + ", " + colTrans5 + ", " + colTrans6 +
-                ", GROUP_CONCAT(LOWER("+ col3Card +"), \' \', LEFT(" + col2Card +",1)) AS group_card" +
-                " FROM " + tableTrans + ", " + tableCard + ", " + tableRelation +
-                " WHERE " + colTrans2 + "= ? AND " + col1Card + "=" + col2Rel + " AND " +
-                col1Rel + "=" + colTrans1 + " GROUP BY " + colTrans1 +
-                " ORDER BY " + colTrans3 + " ASC, " + colTrans6 + " DESC;";
+        String sqlDistinct = "SELECT DISTINCT(" + columnTrans[2] + ") FROM " + tableTrans;
+        String sqlCount = "SELECT count(*) FROM " + tableTrans + " WHERE " + columnTrans[2] + "= ?;";
+        String sqlSelect = "SELECT t." + columnTrans[3] + ", t." + columnTrans[4] + ", t." + columnTrans[5] + ", t."
+                + columnTrans[6] + ", GROUP_CONCAT(LOWER("+ col3Card +"), \' \', LEFT(" + col2Card +",1)) AS group_card" +
+                " FROM " + tableTrans + " t, " + tableCard + ", " + tableRelation +
+                " r WHERE " + columnTrans[2] + "= ? AND " + col1Card + "=r." + col2Rel + " AND r." +
+                col1Rel + "=" + columnTrans[1] + " GROUP BY " + columnTrans[1] +
+                " ORDER BY " + columnTrans[3] + " ASC, " + columnTrans[6] + " DESC;";
 
         Connection conn = DBAccess.getConnection();
         PreparedStatement prpstmtDistinct = conn.prepareStatement(sqlDistinct);
