@@ -20,20 +20,20 @@ import org.smgame.util.Logging;
  */
 public class DBTransactions {
 
-    private final String tableTrans = "TRANSACTIONS"; //nome tabella
-    private final String colTrans1 = "id";
-    private final String colTrans2 = "game_id";
-    private final String colTrans3 = "manche";
-    private final String colTrans4 = "player";
-    private final String colTrans5 = "score";
-    private final String colTrans6 = "winlose";
-    private final String tableCard = "CARDS c";
-    private final String col1Card = "c.id";
+    private final String tableTrans = "TRANSACTIONS t"; //nome tabella
+    private final String colTrans1 = "t.transaction_id";
+    private final String colTrans2 = "t.game_id";
+    private final String colTrans3 = "t.manche";
+    private final String colTrans4 = "t.player_name";
+    private final String colTrans5 = "t.score";
+    private final String colTrans6 = "t.win_lose_amount";
+    private final String tableCard = "CARD c";
+    private final String col1Card = "c.card_id";
     private final String col2Card = "c.suit";
     private final String col3Card = "c.point";
-    private final String tableRelation = "TRANSACTION_CARD";
-    private final String col1Rel = "transaction_id";
-    private final String col2Rel = "card_id";
+    private final String tableRelation = "TRANSACTION_CARD tc";
+    private final String col1Rel = "tc.transaction_id";
+    private final String col2Rel = "tc.card_id";
     private long idT; //id transazione
     private long id_game; //id partita
     private int manche; //numero manche
@@ -282,7 +282,7 @@ public class DBTransactions {
         String sqlDistinct = "SELECT DISTINCT(" + colTrans2 + ") FROM " + tableTrans;
         String sqlCount = "SELECT count(*) FROM " + tableTrans + " WHERE " + colTrans2 + "= ?;";
         String sqlSelect = "SELECT " + colTrans3 + ", " + colTrans4 + ", " + colTrans5 + ", " + colTrans6 +
-                "GROUP_CONCAT(LOWER("+ col3Card +"), \' \', LEFT(" + col2Card +",1)) AS group_card" +
+                ", GROUP_CONCAT(LOWER("+ col3Card +"), \' \', LEFT(" + col2Card +",1)) AS group_card" +
                 " FROM " + tableTrans + ", " + tableCard + ", " + tableRelation +
                 " WHERE " + colTrans2 + "= ? AND " + col1Card + "=" + col2Rel + " AND " +
                 col1Rel + "=" + colTrans1 + " GROUP BY " + colTrans1 +
