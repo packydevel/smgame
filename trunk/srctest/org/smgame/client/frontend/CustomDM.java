@@ -12,7 +12,7 @@ public class CustomDM extends DefaultDesktopManager {
 
     @Override
     public void dragFrame(JComponent f, int x, int y) {
-        if (!(f instanceof IGameJIF)) {
+        if (!(f instanceof ICustomDM)) {
             super.dragFrame(f, x, y);
         }
     }

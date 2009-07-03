@@ -30,7 +30,7 @@ import org.smgame.client.ClientProxy;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
-public class NewGameJIF extends JInternalFrame implements IGameJIF {
+public class NewGameJIF extends JInternalFrame implements ICustomDM {
 
     private JPanel playerJP, preferenceJP;
     private GridBagConstraints labelGBC, textFieldGBC, comboBoxGBC, checkBoxGBC, buttonGBC;

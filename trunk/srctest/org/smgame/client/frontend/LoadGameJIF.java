@@ -21,7 +21,7 @@ import javax.swing.event.EventListenerList;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
-public class LoadGameJIF extends JInternalFrame implements IGameJIF {
+public class LoadGameJIF extends JInternalFrame implements ICustomDM {
 
     JTable gameJT;
     LoadGameATM gameATM;
