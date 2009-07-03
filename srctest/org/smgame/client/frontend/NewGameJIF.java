@@ -31,9 +31,9 @@ import org.smgame.client.ClientProxy;
  */
 public class NewGameJIF extends JInternalFrame implements IGameJIF {
 
-    private JPanel playerJP,  preferenceJP;
+    private JPanel playerJP, preferenceJP;
     private GridBagConstraints labelGBC, textFieldGBC, comboBoxGBC, checkBoxGBC, buttonGBC;
-    private JLabel playersNumberJL,  cpuflagJL;
+    private JLabel playersNumberJL, cpuflagJL;
     private JComboBox playersNumberJCB;
     private JButton cancelJB;
     private JButton okJB;
@@ -41,7 +41,7 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
     private JCheckBox cpuflagJCKB[];
     private JLabel gameNameJL;
     private JLabel playerJL[];
-    private JTextField gameNameJTF, mancheNumberJTF, jollyCardJTF, kingSMPayRuleJTF, deckJTF;
+    private JTextField gameNameJTF, mancheNumberJTF;
     private JTextField playerJTF[];
     private NewGameVO newGameVO = new NewGameVO();
     private int previousPlayersNumber = 0;
@@ -53,11 +53,12 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
      *
      * @param online true = partita online
      */
-    public NewGameJIF(boolean online) {        
+    public NewGameJIF(boolean online) {
         super("Nuova Partita ", false, true, false, false);
         String text = "Offline";
-        if (online)
-            text="Online";
+        if (online) {
+            text = "Online";
+        }
         this.setTitle(getTitle() + text);
         this.online = online;
 
@@ -68,14 +69,7 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
                 "Giocatori della partita");
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
-        preferenceJP = new JPanel();
-        tabbedPane.addTab("Preferenze", null, preferenceJP,
-                "Preferenze di gioco");
-        tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
-
-
         playerJP.setLayout(new GridBagLayout());
-        preferenceJP.setLayout(new GridBagLayout());
 
         labelGBC = new GridBagConstraints();
         labelGBC.weightx = 0;
@@ -150,13 +144,13 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
         checkBoxGBC.gridx = 2;
         checkBoxGBC.gridy = 2;
         checkBoxGBC.ipadx = 50;
-        playerJP.add(allcpuflagJCKB, checkBoxGBC);
         allcpuflagJCKB.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
                 newGameActionPerformed(evt);
             }
         });
+        playerJP.add(allcpuflagJCKB, checkBoxGBC);
 
         cancelJB = new JButton("Annulla");
         cancelJB.setName("cancelJB");
@@ -187,59 +181,12 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
         });
         playerJP.add(okJB, buttonGBC);
 
-        ////inizio pannello preferenze////////
-        textFieldGBC.fill = GridBagConstraints.NONE;
-
-        labelGBC.gridx = 0;
-        labelGBC.gridy = 0;
-        preferenceJP.add(new JLabel("Numero Manches:"), labelGBC);
-
-        mancheNumberJTF = new JTextField();
-        mancheNumberJTF.setText("10");
-        mancheNumberJTF.setEnabled(false);
-        mancheNumberJTF.setColumns(3);
-        textFieldGBC.gridx = 1;
-        textFieldGBC.gridy = 0;
-        preferenceJP.add(mancheNumberJTF, textFieldGBC);
-
-
-        labelGBC.gridy = 1;
-        preferenceJP.add(new JLabel("Matta:"), labelGBC);
-
-        jollyCardJTF = new JTextField();
-        jollyCardJTF.setText("Re di Denari");
-        jollyCardJTF.setEnabled(false);
-        jollyCardJTF.setColumns(8);
-        textFieldGBC.gridy = 1;
-        preferenceJP.add(jollyCardJTF, textFieldGBC);
-
-        labelGBC.gridy = 2;
-        preferenceJP.add(new JLabel("Pagamento del Sette e Mezzo Reale: "), labelGBC);
-
-        kingSMPayRuleJTF = new JTextField();
-        kingSMPayRuleJTF.setText("doppio");
-        kingSMPayRuleJTF.setEnabled(false);
-        kingSMPayRuleJTF.setColumns(5);
-        textFieldGBC.gridy = 2;
-
-        labelGBC.gridy = 3;
-        preferenceJP.add(new JLabel("Mazzo: "), labelGBC);
-
-        kingSMPayRuleJTF = new JTextField();
-        kingSMPayRuleJTF.setText("Napoletane");
-        kingSMPayRuleJTF.setEnabled(false);
-        kingSMPayRuleJTF.setColumns(8);
-        textFieldGBC.gridy = 3;
-        textFieldGBC.weightx = 1;
-        textFieldGBC.weighty = 1;
-        preferenceJP.add(kingSMPayRuleJTF, textFieldGBC);
-
         textFieldGBC.weightx = 0;
         textFieldGBC.weighty = 0;
+        textFieldGBC.fill = GridBagConstraints.NONE;
 
         add(tabbedPane);
     }
-
 
     /** gestisce le azioni e gli eventi della newgame
      *
@@ -334,10 +281,12 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
 
             if ((JButton) evt.getSource() == okJB) {
                 if (gameNameJTF.getText().length() == 0) {
+                    JOptionPane.showInternalMessageDialog(this, "Tutti i campi devo essere valorizzati!!!", "Errore", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 for (int j = 0; j < currentPlayersNumber; j++) {
                     if (playerJTF[j].getText().length() == 0) {
+                        JOptionPane.showInternalMessageDialog(this, "Tutti i campi devo essere valorizzati!!!", "Errore", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                 }
