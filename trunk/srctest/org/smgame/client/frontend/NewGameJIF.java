@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -300,6 +301,13 @@ public class NewGameJIF extends JInternalFrame implements IGameJIF {
                     playerTypeList.add(new Boolean(cpuflagJCKB[j].isSelected()));
                 }
 
+                for (String s : playerNameList) {
+                    if (Collections.frequency(playerNameList, s) > 1) {
+                        JOptionPane.showInternalMessageDialog(this, "Non è possibile avere più Giocatori con o stesso nome!!!", "Errore", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
+                
                 if (online) {
                     ClientProxy.getInstance().createOnLineGame(gameName, null, playerNameList, playerTypeList);
                 } else {
