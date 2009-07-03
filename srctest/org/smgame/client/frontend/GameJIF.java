@@ -40,7 +40,7 @@ import org.smgame.client.ClientProxy;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
-public class GameJIF extends JInternalFrame implements IGameJIF {
+public class GameJIF extends JInternalFrame implements ICustomDM {
 
     private ArrayList<Integer> playerList;
     private HashMap<Integer, JPanel> playerNameMapJP;

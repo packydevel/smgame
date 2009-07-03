@@ -5,4 +5,4 @@ package org.smgame.client.frontend;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
-public interface IGameJIF {}
+public interface ICustomDM {}
