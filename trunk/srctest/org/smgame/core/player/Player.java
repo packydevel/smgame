@@ -14,7 +14,7 @@ import org.smgame.core.card.Suit;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
-public abstract class Player implements Serializable {
+public class Player implements Serializable {
     
     protected String name; //nome giocatore
     protected double credit; //credito
