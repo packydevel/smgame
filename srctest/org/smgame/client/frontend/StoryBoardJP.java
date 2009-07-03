@@ -33,17 +33,28 @@ public class StoryBoardJP extends JPanel{
      * @param map linkedhashmap
      */
     public StoryBoardJP(LinkedHashMap<Long, Object[][]> map) {
-        setPreferredSize(new Dimension(400, 250));
+        setPreferredSize(new Dimension(950, 250));
         setLayout(new BorderLayout());
-        dataLHM = map;
-        keyset = dataLHM.keySet().toArray();
 
-        storyboardJT = new JTable();        
+        storyboardJT = new JTable();
         storyboardJT.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         storyboardJT.setFocusable(false);
         storyboardJT.getTableHeader().setReorderingAllowed(false);
+
+        gameJL = new JLabel();
+
         counter = 0;
-        setTableModel(tableModel(dataLHM.get(keyset[counter])));
+
+        if ((map==null) || (map.isEmpty())){
+            dataLHM = null;
+            setTableModel(tableModel(null));
+            
+        } else {
+            keyset = dataLHM.keySet().toArray();
+            dataLHM = map;
+            setTableModel(tableModel(dataLHM.get(keyset[counter])));
+            gameJL.setText("id partita: " + keyset[counter].toString());
+        }                                
         
         add(new JScrollPane(storyboardJT), BorderLayout.CENTER);                
 
@@ -55,7 +66,7 @@ public class StoryBoardJP extends JPanel{
             }
         });
 
-        if (dataLHM.size()<=1)
+        if ((dataLHM==null) || (dataLHM.size()<=1))
             nextJB.setEnabled(false);
 
         previousJB = new JButton("Precedente");
@@ -66,9 +77,7 @@ public class StoryBoardJP extends JPanel{
                 previousGames();
             }
         });
-
-        gameJL = new JLabel();
-        gameJL.setText("id partita: " + keyset[counter].toString());
+                
 
         JPanel northJP = new JPanel(new BorderLayout());
         northJP.add(previousJB, BorderLayout.WEST);
@@ -85,9 +94,9 @@ public class StoryBoardJP extends JPanel{
      * @return DTM
      */
     private DefaultTableModel tableModel(Object[][] data) {
-        String[] columnNames = {"Manche", "Giocatore", "Punteggio", "Vincita"};
+        String[] columnNames = {"Manche", "Giocatore", "Punteggio", "Vincita", "Carte"};
         return new DefaultTableModel(data, columnNames) {
-            boolean[] canEdit = new boolean[]{false, false, false, false};
+            boolean[] canEdit = new boolean[]{false, false, false, false, false};
 
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -145,9 +154,10 @@ public class StoryBoardJP extends JPanel{
      */
     private void setTableModel(DefaultTableModel dtm){
         storyboardJT.setModel(dtm);
-        setWitdhColumn(0, 55);
+        setWitdhColumn(0, 50);
         setWitdhColumn(1, 150);
-        setWitdhColumn(2, 80);
-        setWitdhColumn(3, 95);
+        setWitdhColumn(2, 70);
+        setWitdhColumn(3, 75);
+        setWitdhColumn(4, 580);
     }
 }
