@@ -1,6 +1,5 @@
 package org.smgame.client.frontend;
 
-import org.smgame.core.GUICoreMediator;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -15,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.EventListenerList;
+import org.smgame.client.ClientProxy;
 
 /**frame interno per il caricamento delle partite
  *
@@ -113,10 +113,7 @@ public class LoadGameJIF extends JInternalFrame implements ICustomDM {
             dispose();
         } else {
             if (gameJT.getSelectedRow() != -1) {
-                try {
-                    GUICoreMediator.loadGame((String) gameJT.getValueAt(gameJT.getSelectedRow(), 0));
-                } catch (Exception e) {
-                }
+                ClientProxy.getInstance().loadGame((String) gameJT.getValueAt(gameJT.getSelectedRow(), 0));
                 fireNewGameEvent(new NewGameEvent(this));
                 dispose();
             }

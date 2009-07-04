@@ -113,8 +113,8 @@ public class PlayerList implements Serializable {
      */
     public List<Player> maxPlayerCreditList() {
         int count;
-        ArrayList<Player> playerSubList = new ArrayList();
-        ArrayList<Player> tempList = new ArrayList(playerAL);
+        ArrayList<Player> playerSubList = new ArrayList<Player>();
+        ArrayList<Player> tempList = new ArrayList<Player>(playerAL);
 
         Collections.sort(tempList, new PlayerCreditComparator());
 
@@ -123,37 +123,34 @@ public class PlayerList implements Serializable {
         for (int i = 0; i < count; i++) {
             playerSubList.add(tempList.get(i));
         }
-
         return playerSubList;
     }
-
-
     /**restituisce gli stati dei giocatori
      *
      * @return hashmap giocatore stato
      */
-/*    Map<Player, PlayerStatus> getPlayerStatusMap() {
-        HashMap<Player, PlayerStatus> map = new HashMap<Player, PlayerStatus>();
+    /*    Map<Player, PlayerStatus> getPlayerStatusMap() {
+    HashMap<Player, PlayerStatus> map = new HashMap<Player, PlayerStatus>();
 
-        for (Player p : playerAL) {
-            map.put(p, p.getStatus());
-        }
+    for (Player p : playerAL) {
+    map.put(p, p.getStatus());
+    }
 
-        return map;
+    return map;
     }
 
     /**Restituisce il punteggio visibile di ciascun giocatore
      *
      * @return hashmap giocatore punteggio
      */
-/*    Map<Player, Double> getPlayerVisibleScoreMap() {
-        HashMap<Player, Double> map = new HashMap<Player, Double>();
+    /*    Map<Player, Double> getPlayerVisibleScoreMap() {
+    HashMap<Player, Double> map = new HashMap<Player, Double>();
 
-        for (Player p : playerAL) {
-            map.put(p, p.getVisibleScore());
-        }
-
-        return map;
+    for (Player p : playerAL) {
+    map.put(p, p.getVisibleScore());
     }
-    */
+
+    return map;
+    }
+     */
 }

@@ -42,7 +42,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
 
         ArrayList<String> menuItemNameList = new ArrayList<String>();
 
-        setSize(1024, 768);
+        setSize(1024, 800);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         desktop = new JDesktopPane();
@@ -108,7 +108,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         if ((JMenuItem) evt.getSource() == menuJMB.getNewOnLineGameJMI()) {
             clearDesktop();
             internalFrameWidth = 400;
-            internalFrameHeight = 500;
+            internalFrameHeight = 520;
             xbound = (desktopWidth - internalFrameWidth) / 2;
             ybound = (desktopHeight - internalFrameHeight) / 2;
             newOnLineGameJIF = new NewGameJIF(true);
@@ -122,7 +122,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         } else if ((JMenuItem) evt.getSource() == menuJMB.getNewOffLineGameJMI()) {
             clearDesktop();
             internalFrameWidth = 400;
-            internalFrameHeight = 500;
+            internalFrameHeight = 520;
             xbound = (desktopWidth - internalFrameWidth) / 2;
             ybound = (desktopHeight - internalFrameHeight) / 2;
             newGameJIF = new NewGameJIF(false);
@@ -185,11 +185,14 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
     public void newGameCreating(NewGameEvent e) {
         clearDesktop();
 
-        internalFrameWidth = 960;
+        internalFrameWidth = 1000;
         internalFrameHeight = 700;
+        
+        gameJIF = new GameJIF();
+//        internalFrameWidth= gameJIF.getWidth();
+//        internalFrameHeight=gameJIF.getHeight();
         xbound = (desktopWidth - internalFrameWidth) / 2;
         ybound = (desktopHeight - internalFrameHeight) / 2;
-        gameJIF = new GameJIF();
         gameJIF.setPreferredSize(new Dimension(internalFrameWidth, internalFrameHeight));
         gameJIF.setBounds(xbound, ybound, internalFrameWidth, internalFrameHeight);
         gameJIF.setVisible(true);
@@ -197,6 +200,12 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         desktop.add(gameJIF);
 
         refreshMenuItem();
+
+        System.out.println(desktopWidth);
+        System.out.println(desktopHeight);
+        System.out.println(xbound);
+        System.out.println(ybound);
+        System.out.println(menuJMB.getHeight());
     }
 
     /**Esegue la chiusura della partita

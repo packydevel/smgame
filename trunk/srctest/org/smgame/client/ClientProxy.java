@@ -172,11 +172,12 @@ public class ClientProxy {
      */
     public void saveGame() {
         if (gameMode == GameMode.OFFLINE) {
-            GUICoreMediator.saveGameOffline();
+            GUICoreMediator.saveGame();
         } else {
             try {
                 stub = RMIClient.getStub();
-                stub.saveGame();
+                stub.saveTransaction();
+                GUICoreMediator.saveGame();
             } catch (Exception e) {
             }
         }
@@ -185,38 +186,18 @@ public class ClientProxy {
     /**Carica la partita
      *
      * @param gameName nome partita
-     * @throws java.io.FileNotFoundException
-     * @throws java.io.IOException
-     * @throws java.lang.ClassNotFoundException
+     * 
      */
-    public void loadGame(String gameName) throws FileNotFoundException, IOException, ClassNotFoundException {
-        if (gameMode == null || gameMode == GameMode.OFFLINE ) {
-            GUICoreMediator.loadGame(gameName);
-        } else {
-            try {
-                stub = RMIClient.getStub();
-                stub.loadGame(gameName);
-            } catch (Exception e) {
-            }
-        }
+    public void loadGame(String gameName) {
+
+        GUICoreMediator.loadGame(gameName);
     }
 
     /**Carica l'elenco delle partite
      *
-     * @throws java.io.FileNotFoundException
-     * @throws java.io.IOException
-     * @throws java.lang.ClassNotFoundException
      */
-    public void loadGames(GameMode gameMode) throws FileNotFoundException, IOException, ClassNotFoundException {
-        if (gameMode == GameMode.OFFLINE) {
-            GUICoreMediator.loadGames();
-        } else {
-            try {
-                stub = RMIClient.getStub();
-                stub.loadGames();
-            } catch (Exception e) {
-            }
-        }
+    public void loadGames() {
+        GUICoreMediator.loadGames();
     }
 
     /**Richiede il caricamento del gameVO

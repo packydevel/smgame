@@ -61,28 +61,7 @@ public interface IGameMediator extends Remote {
      *
      * @throws java.rmi.RemoteException
      */
-    public void saveGame() throws RemoteException;
-
-    /**carica partita
-     *
-     * @param gameName nome partita
-     *
-     * @throws java.io.FileNotFoundException
-     * @throws java.io.IOException
-     * @throws java.lang.ClassNotFoundException
-     * @throws java.rmi.RemoteException
-     */
-    public void loadGame(String gameName) throws FileNotFoundException, IOException, ClassNotFoundException, RemoteException;
-
-    /**Carica le partite
-     *
-     * @throws java.io.FileNotFoundException
-     * @throws java.io.IOException
-     * @throws java.lang.ClassNotFoundException
-     * @throws java.rmi.RemoteException
-     */
-    public void loadGames() throws FileNotFoundException, IOException, ClassNotFoundException, RemoteException;
-
+    public void saveTransaction() throws RemoteException;
     /**richiede e restituisce l'oggetto mainVO
      *
      * @return mainVO
