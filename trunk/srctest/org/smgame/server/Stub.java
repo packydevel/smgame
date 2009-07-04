@@ -1,18 +1,14 @@
 package org.smgame.server;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
 
 import org.smgame.core.GUICoreMediator;
 import org.smgame.core.GameSetting;
 import org.smgame.client.frontend.GameVO;
-import org.smgame.client.frontend.LoadGameVO;
 import org.smgame.client.frontend.MainVO;
 import org.smgame.client.frontend.MenuVO;
 import org.smgame.client.frontend.StoryBoardVO;
-import org.smgame.util.NoGamesException;
 
 /**Oggetto remoto
  *
@@ -46,16 +42,16 @@ public class Stub implements IGameMediator {
     }
 
     @Override
-    public void saveTransaction() {
-        GUICoreMediator.saveTransaction();
+    public void saveTransaction() throws RemoteException {
+        try {
+            GUICoreMediator.saveTransaction();
+        } catch (Exception e) {
+            throw new RemoteException();
+        }
     }
 
     public MainVO requestMainVO() {
         return GUICoreMediator.requestMainVO();
-    }
-
-    public LoadGameVO requestLoadGameVO() throws NoGamesException {
-        return GUICoreMediator.requestLoadGameVO();
     }
 
     public String getGameTitle() {
@@ -82,7 +78,7 @@ public class Stub implements IGameMediator {
         return GUICoreMediator.requestDataReport();
     }
 
-    public StoryBoardVO requestStoryGames(){
+    public StoryBoardVO requestStoryGames() {
         return GUICoreMediator.requestStoryGames();
     }
 }

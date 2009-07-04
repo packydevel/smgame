@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -34,9 +32,7 @@ import org.smgame.server.frontend.ServerVO;
 import org.smgame.util.BetOverflowException;
 import org.smgame.util.ResourceLocator;
 import org.smgame.util.ImageEdit;
-//import org.smgame.util.Logging;
 import org.smgame.util.Logging;
-import org.smgame.util.NoGamesException;
 import org.smgame.util.ScoreOverflowException;
 
 /**Classe GUICoreMediator
@@ -164,13 +160,14 @@ public class GUICoreMediator {
     /**Salva la partita online e scrive sul db
      *
      */
-    public static void saveTransaction() {
+    public static void saveTransaction() throws Exception {
         try {
             trans.executeArraylistTransactions();
             trans.resetArraylistTansactions();
         } catch (Exception e) {
             mainVO.setMessage("Impossibile Connettersi al DataBase");
             mainVO.setMessageType(MessageType.ERROR);
+            throw new Exception();
         }
     }
 
@@ -245,22 +242,19 @@ public class GUICoreMediator {
      * secondo il pattern Value Objected
      *
      * @return oggetto loadgameVO
-     * @throws org.smgame.util.NoGamesException
+     * 
      */
-    public static LoadGameVO requestLoadGameVO() throws NoGamesException {
+    public static LoadGameVO requestLoadGameVO() {
         loadGameVO.clear();
 
-        if (gameMap.size() != 0) {
-            for (Game g : gameMap.values()) {
-                loadGameVO.getGameNameList().add(g.getGameName());
-                loadGameVO.getGameNameGameModeMap().put(g.getGameName(), g.getGameMode().toString());
-                loadGameVO.getGameNameCreationDateMap().put(g.getGameName(), dateFormat.format(g.getCreationDate()));
-                loadGameVO.getGameNameLastSaveDateMap().put(g.getGameName(), dateFormat.format(g.getLastSaveDate()));
-            }
-            return loadGameVO;
-        } else {
-            throw new NoGamesException("Non ci sono partite da caricare");
+        for (Game g : gameMap.values()) {
+            loadGameVO.getGameNameList().add(g.getGameName());
+            loadGameVO.getGameNameGameModeMap().put(g.getGameName(), g.getGameMode().toString());
+            loadGameVO.getGameNameCreationDateMap().put(g.getGameName(), dateFormat.format(g.getCreationDate()));
+            loadGameVO.getGameNameLastSaveDateMap().put(g.getGameName(), dateFormat.format(g.getLastSaveDate()));
         }
+
+        return loadGameVO;
     }
 
     /**Restituisce il titolo della partita

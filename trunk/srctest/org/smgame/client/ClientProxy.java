@@ -1,7 +1,5 @@
 package org.smgame.client;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
 
 import org.smgame.core.GUICoreMediator;
@@ -15,7 +13,6 @@ import org.smgame.client.frontend.MessageType;
 import org.smgame.client.frontend.NewGameVO;
 import org.smgame.client.frontend.StoryBoardVO;
 import org.smgame.server.IGameMediator;
-import org.smgame.util.NoGamesException;
 
 /** Classe client mediator
  * è il mediatore tra server e gui
@@ -203,19 +200,11 @@ public class ClientProxy {
     /**Richiede il caricamento del gameVO
      *
      * @return istanza di gameVO
-     * @throws org.smgame.util.NoGamesException
+     * 
      */
-    public LoadGameVO requestLoadGameVO() throws NoGamesException {
-        if (gameMode == GameMode.OFFLINE) {
+    public LoadGameVO requestLoadGameVO() {
+       
             return GUICoreMediator.requestLoadGameVO();
-        } else {
-            try {
-                stub = RMIClient.getStub();
-                return stub.requestLoadGameVO();
-            } catch (Exception e) {
-                return null;
-            }
-        }
     }
 
     /**Restituisce il titolo della partita
