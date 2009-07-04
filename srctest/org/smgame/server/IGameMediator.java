@@ -1,18 +1,14 @@
 package org.smgame.server;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
 import org.smgame.core.GameSetting;
-import org.smgame.client.frontend.LoadGameVO;
 import org.smgame.client.frontend.MenuVO;
 import org.smgame.client.frontend.GameVO;
 import org.smgame.client.frontend.MainVO;
 import org.smgame.client.frontend.StoryBoardVO;
-import org.smgame.util.NoGamesException;
 
 /**Interfaccia mediatore di gioco
  *
@@ -77,15 +73,6 @@ public interface IGameMediator extends Remote {
      * @throws java.rmi.RemoteException
      */
     public MenuVO requestMenuVO() throws RemoteException;
-
-    /**Richiede e restituisce l'oggetto loadgameVO per il caricamento partite
-     *
-     * @return loadgameVO
-     *
-     * @throws org.smgame.util.NoGamesException
-     * @throws java.rmi.RemoteException
-     */
-    public LoadGameVO requestLoadGameVO() throws NoGamesException, RemoteException;
 
     /**richide e restituisce l'oggetto gameVO per la partita
      *
