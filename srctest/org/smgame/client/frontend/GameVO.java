@@ -21,7 +21,7 @@ public class GameVO implements Serializable {
     private HashMap<Integer, String> playerStatusMap = new HashMap<Integer, String>();
     private HashMap<Integer, Boolean> playerMaxScoreMap = new HashMap<Integer, Boolean>();
     private HashMap<Integer, Boolean> playerRequestBetMap = new HashMap<Integer, Boolean>();
-    private HashMap<Integer,Color> playerMaxCreditList;
+    private HashMap<Integer,Color> playerMaxCreditList = new HashMap<Integer,Color>();
     private boolean endManche = false,  endGame = false;
     private int currentManche;
     String exceptionMessage;
