@@ -4,12 +4,8 @@ import java.awt.Dimension;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-
 import java.util.Map;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -36,7 +32,7 @@ public class ScoreBoardJP extends JPanel {
      * @param maxPos lista delle posizioni dei giocatori vincenti
      */
     public ScoreBoardJP(String status, Object[][] data,
-            LinkedHashMap<Integer, Color> playerColorLHM, Map<Integer,Color> colorCreditHM) {
+            Map<Integer, Color> playerColorLHM, Map<Integer,Color> colorCreditHM) {
 
         setPreferredSize(new Dimension(400, 250));
         setLayout(new BorderLayout());
@@ -51,11 +47,7 @@ public class ScoreBoardJP extends JPanel {
         scoreboardJT.getTableHeader().setReorderingAllowed(false);
         scoreboardJT.getColumn("Giocatore").setCellRenderer(new JLabelRenderer(playerColorLHM));
         scoreboardJT.getColumn("Punteggio").setCellRenderer(new JLabelRenderer(playerColorLHM));
-        scoreboardJT.getColumn("Vincita").setCellRenderer(new JLabelRenderer(playerColorLHM));
-        scoreboardJT.getColumn("Credito").setCellRenderer(new JLabelRenderer(playerColorLHM));
-        scoreboardJT.repaint();
-
-        
+        scoreboardJT.getColumn("Vincita").setCellRenderer(new JLabelRenderer(playerColorLHM));       
         scoreboardJT.getColumn("Credito").setCellRenderer(new JLabelRenderer(colorCreditHM));
         
 
@@ -135,6 +127,7 @@ class JLabelRenderer extends JLabel implements TableCellRenderer {
             setHorizontalAlignment(JLabel.TRAILING);
         }
         if (column == 3) {
+            setHorizontalAlignment(JLabel.TRAILING);
             setForeground(colorLHM.get(row));
         }
 
