@@ -22,8 +22,9 @@ import javax.swing.table.TableColumn;
  * @author Mignogna Luca     467644
  */
 public class ScoreBoardJP extends JPanel {
+
     private JLabel typeEndJL;
-    private JTable scoreboardJT;        
+    private JTable scoreboardJT;
 
     /**Costruttore
      *
@@ -32,7 +33,7 @@ public class ScoreBoardJP extends JPanel {
      * @param playerColorLHM mappa dei colori associati ai player
      * @param maxPos lista delle posizioni dei giocatori vincenti
      */
-    public ScoreBoardJP(String status, Object[][] data, 
+    public ScoreBoardJP(String status, Object[][] data,
             LinkedHashMap<Integer, Color> playerColorLHM, ArrayList<Integer> maxPos) {
 
         setPreferredSize(new Dimension(400, 250));
@@ -51,16 +52,16 @@ public class ScoreBoardJP extends JPanel {
         scoreboardJT.getColumn("Vincita").setCellRenderer(new JLabelRenderer(playerColorLHM));
         scoreboardJT.getColumn("Credito").setCellRenderer(new JLabelRenderer(playerColorLHM));
         scoreboardJT.repaint();
-        
-        for (int i=0; i<maxPos.size(); i++){
+
+        for (int i = 0; i < maxPos.size(); i++) {
             scoreboardJT.getColumn("Credito").setCellRenderer(new JLabelRenderer(maxPos.get(i)));
             System.out.println(maxPos.get(i));
         }
-        
+
         setWitdhColumn(0, 140);
         setWitdhColumn(1, 70);
         setWitdhColumn(2, 85);
-        setWitdhColumn(3, 100);        
+        setWitdhColumn(3, 100);
 
         add(typeEndJL, BorderLayout.NORTH);
         add(new JScrollPane(scoreboardJT), BorderLayout.CENTER);
@@ -77,14 +78,14 @@ public class ScoreBoardJP extends JPanel {
         final Object[][] d = data;
         String[] columnNames = {"Giocatore", "Punteggio", "Vincita", "Credito"};
         return new DefaultTableModel(d, columnNames) {
+
             Class[] types = new Class[]{java.lang.String.class,
                 java.lang.Object.class, java.lang.Double.class, java.lang.Double.class};
 
             @Override
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
-
             boolean[] canEdit = new boolean[]{false, false, false, false};
 
             @Override
@@ -109,6 +110,7 @@ public class ScoreBoardJP extends JPanel {
 
 /**Classe che restituisce la jlabel della cella tabella con determinati colori di testo */
 class JLabelRenderer extends JLabel implements TableCellRenderer {
+
     LinkedHashMap<Integer, Color> colorLHM;
     int pos;
 
@@ -116,7 +118,7 @@ class JLabelRenderer extends JLabel implements TableCellRenderer {
      *
      * @param _pos posizione
      */
-    public JLabelRenderer(int _pos){        
+    public JLabelRenderer(int _pos) {
         this.pos = _pos;
     }
 
@@ -135,14 +137,16 @@ class JLabelRenderer extends JLabel implements TableCellRenderer {
         } else {
             setHorizontalAlignment(JLabel.TRAILING);
         }
-        if (column==3) {
-            if (pos==row)
+        if (column == 3) {
+            if (pos == row) {
                 setForeground(Color.GREEN);
-            else
+            } else {
                 setForeground(Color.BLACK);
+            }
         }
 
         setText(value.toString());
         return this;
     }
 } //end class JLabelRenderer
+

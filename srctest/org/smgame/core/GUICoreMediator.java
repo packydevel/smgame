@@ -200,6 +200,7 @@ public class GUICoreMediator {
      *
      */
     public static void loadGame(String gameName) {
+        loadGames();
         for (Game g : gameMap.values()) {
             if (g.getGameName().equals(gameName)) {
                 currentGame = g;
@@ -219,6 +220,7 @@ public class GUICoreMediator {
             ois.close();
             fis.close();
         } catch (Exception e) {
+            gameMap.clear();
         }
     }
 
@@ -445,8 +447,8 @@ public class GUICoreMediator {
             } //end for            
 
             if (currentGame.getGameEngine().isEndManche()) {
-                gameVO.setPlayerMaxCreditList(posPlayerMaxCredit());
                 currentGame.getGameEngine().closeManche();
+                gameVO.setPlayerMaxCreditList(posPlayerMaxCredit());
                 gameVO.setEndManche(true);
                 addTransactionAL();
             }
