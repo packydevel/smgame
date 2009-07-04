@@ -1,11 +1,13 @@
 package org.smgame.server;
 
 import de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 import java.rmi.RMISecurityManager;
 import javax.swing.UIManager;
 import org.smgame.core.GUICoreMediator;
 import org.smgame.server.frontend.ServerJF;
 import org.smgame.util.Logging;
+import org.smgame.util.ResourceLocator;
 
 /**Server smgame
  *
@@ -21,12 +23,13 @@ public class SMGameServer {
      */
     public static void main(String[] args) throws Exception {
         System.setSecurityManager(new RMISecurityManager());
+        ResourceLocator.setWorkspace(System.getProperty("user.dir"), false);
         Logging.createLog("server");
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
                 try {
-                    UIManager.setLookAndFeel(new SyntheticaSimple2DLookAndFeel());
+                    UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
                 } catch (Exception e) {
                     Logging.logExceptionSevere(this.getClass(), e);
                 }
