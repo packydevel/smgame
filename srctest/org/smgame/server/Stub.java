@@ -46,18 +46,8 @@ public class Stub implements IGameMediator {
     }
 
     @Override
-    public void saveGame() {
-        GUICoreMediator.saveGameOnline();
-    }
-
-    @Override
-    public void loadGame(String gameName) throws FileNotFoundException, IOException, ClassNotFoundException {
-        GUICoreMediator.loadGame(gameName);
-    }
-
-    @Override
-    public void loadGames() throws FileNotFoundException, IOException, ClassNotFoundException {
-        GUICoreMediator.loadGames();
+    public void saveTransaction() {
+        GUICoreMediator.saveTransaction();
     }
 
     public MainVO requestMainVO() {

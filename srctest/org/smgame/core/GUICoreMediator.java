@@ -155,7 +155,7 @@ public class GUICoreMediator {
      * @throws java.io.FileNotFoundException
      * @throws java.io.IOException
      */
-    public static void saveGameOffline() {
+    public static void saveGame() {
         currentGame.setLastSaveDate(new Date());
         gameMap.put(currentGame.getGameID(), currentGame);
         saveGames();
@@ -164,24 +164,14 @@ public class GUICoreMediator {
     /**Salva la partita online e scrive sul db
      *
      */
-    public static void saveGameOnline() {
+    public static void saveTransaction() {
         try {
             trans.executeArraylistTransactions();
-        } catch (ClassNotFoundException ex) {
-            //ex.printStackTrace();
-        } catch (SQLException ex) {
-            serverVO.setMessage("Impossibile Connettersi al DataBase");
-            serverVO.setMessageType(MessageType.ERROR);
-            //ex.printStackTrace();
-        } catch (IOException ex) {
-            //ex.printStackTrace();
-        } catch (Exception ex) {
-            //ex.printStackTrace();
+            trans.resetArraylistTansactions();
+        } catch (Exception e) {
+            mainVO.setMessage("Impossibile Connettersi al DataBase");
+            mainVO.setMessageType(MessageType.ERROR);
         }
-        trans.resetArraylistTansactions();
-        currentGame.setLastSaveDate(new Date());
-        gameMap.put(currentGame.getGameID(), currentGame);
-        saveGames();
     }
 
     /**Salva partite
@@ -201,8 +191,9 @@ public class GUICoreMediator {
             mainVO.setMessage("La Partita è stata salvata correttamente!");
         } catch (Exception e) {
             //Logging.logExceptionSevere(GUICoreMediator.class, e);
+            e.printStackTrace();
             mainVO.setMessageType(MessageType.ERROR);
-            mainVO.setMessage("Non è stato possibile salvare la partita");
+            mainVO.setMessage("Non è stato possibile salvare la partita!!!");
         }
     }
 
@@ -210,12 +201,8 @@ public class GUICoreMediator {
      *
      * @param gameName nome partita da caricare
      *
-     * @throws java.io.FileNotFoundException
-     * @throws java.io.IOException
-     * @throws java.lang.ClassNotFoundException
      */
-    public static void loadGame(String gameName)
-            throws FileNotFoundException, IOException, ClassNotFoundException {
+    public static void loadGame(String gameName) {
         for (Game g : gameMap.values()) {
             if (g.getGameName().equals(gameName)) {
                 currentGame = g;
@@ -226,9 +213,6 @@ public class GUICoreMediator {
 
     /**Carica la map delle partite
      *
-     * @throws java.io.FileNotFoundException
-     * @throws java.io.IOException
-     * @throws java.lang.ClassNotFoundException
      */
     public static void loadGames() {
         try {
@@ -470,7 +454,7 @@ public class GUICoreMediator {
                 gameVO.setPlayerMaxCreditList(posPlayerMaxCredit());
                 currentGame.getGameEngine().closeManche();
                 gameVO.setEndManche(true);
-                addTransactionAL();                
+                addTransactionAL();
             }
 
             gameVO.setCurrentManche(currentGame.getGameEngine().getCurrentManche());
@@ -567,9 +551,10 @@ public class GUICoreMediator {
     private static ArrayList<Integer> posPlayerMaxCredit() {
         ArrayList<Integer> al = new ArrayList<Integer>();
         List<Player> list = currentGame.getPlayerList().maxPlayerCreditList();
-        for (int i=0; i<list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
             al.add(currentGame.getPlayerList().indexOfPlayer(list.get(i)));
         }
         return al;
     }
 } //end  class
+

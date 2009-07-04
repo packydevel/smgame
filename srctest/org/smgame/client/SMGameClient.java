@@ -1,12 +1,10 @@
 package org.smgame.client;
 
-import de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel;
 
 import javax.swing.JApplet;
 import javax.swing.UIManager;
 
 import org.smgame.client.frontend.MainJF;
-import org.smgame.core.GameMode;
 import org.smgame.util.ResourceLocator;
 
 /**Classe SetteMezzo client
@@ -29,12 +27,13 @@ public class SMGameClient extends JApplet {
         //System.setSecurityManager(new SecurityManager());
         ResourceLocator.setWorkspace(getCodeBase().toString(), true);
         try {
-            UIManager.setLookAndFeel(new SyntheticaSimple2DLookAndFeel());
+            UIManager.setLookAndFeel(new org.jvnet.substance.SubstanceLegacyDefaultLookAndFeel());
+                    //SyntheticaSimple2DLookAndFeel());
         } catch (Exception e) {
         }
         MainJF frame = new MainJF();
         try {
-          //ClientProxy.getInstance().loadGames(GameMode.OFFLINE);
+          ClientProxy.getInstance().loadGames();
         } catch (Exception e) {
         }
     }
@@ -54,7 +53,8 @@ public class SMGameClient extends JApplet {
 
             public void run() {
                 try {
-                    UIManager.setLookAndFeel(new SyntheticaSimple2DLookAndFeel());
+                    UIManager.setLookAndFeel(new org.jvnet.substance.skin.SubstanceMistAquaLookAndFeel());
+                    //UIManager.setLookAndFeel(new SyntheticaSimple2DLookAndFeel());
                 } catch (Exception e) {
                 }
                 MainJF frame = new MainJF();
@@ -62,7 +62,7 @@ public class SMGameClient extends JApplet {
         }); //end invokelater
 
         try {
-            ClientProxy.getInstance().loadGames(GameMode.OFFLINE);
+            ClientProxy.getInstance().loadGames();
         } catch (Exception e) {
         }
     }
