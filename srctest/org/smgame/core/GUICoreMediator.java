@@ -35,6 +35,7 @@ import org.smgame.util.BetOverflowException;
 import org.smgame.util.ResourceLocator;
 import org.smgame.util.ImageEdit;
 //import org.smgame.util.Logging;
+import org.smgame.util.Logging;
 import org.smgame.util.NoGamesException;
 import org.smgame.util.ScoreOverflowException;
 
@@ -538,9 +539,9 @@ public class GUICoreMediator {
                 serverVO.setMessageType(MessageType.ERROR);
             }
         } catch (Exception e) {
-            //e.printStackTrace();
             serverVO.setMessage("Impossibile Connettersi al DataBase");
             serverVO.setMessageType(MessageType.ERROR);
+            Logging.logExceptionSevere(GUICoreMediator.class, e);
         }
     }
 
@@ -551,10 +552,10 @@ public class GUICoreMediator {
     public static StoryBoardVO requestStoryGames() {
         StoryBoardVO storyVO = new StoryBoardVO();
         DBTransactions dbt = new DBTransactions();
-        LinkedHashMap<Long, Object[][]> map = null;
         try {
             storyVO.setStory(dbt.getStoryGame());
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return storyVO;
     }
