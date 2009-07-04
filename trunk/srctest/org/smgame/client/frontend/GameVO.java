@@ -1,5 +1,6 @@
 package org.smgame.client.frontend;
 
+import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +21,7 @@ public class GameVO implements Serializable {
     private HashMap<Integer, String> playerStatusMap = new HashMap<Integer, String>();
     private HashMap<Integer, Boolean> playerMaxScoreMap = new HashMap<Integer, Boolean>();
     private HashMap<Integer, Boolean> playerRequestBetMap = new HashMap<Integer, Boolean>();
-    private ArrayList<Integer> playerMaxCreditList = new ArrayList<Integer>();
+    private HashMap<Integer,Color> playerMaxCreditList;
     private boolean endManche = false,  endGame = false;
     private int currentManche;
     String exceptionMessage;
@@ -198,15 +199,15 @@ public class GameVO implements Serializable {
      *
      * @return lista/singolo player
      */
-    public ArrayList<Integer> getPlayerMaxCreditList() {
+    public HashMap<Integer,Color> getPlayerMaxCreditList() {
         return playerMaxCreditList;
     }
 
-    /**imposta la lista dei player col massimo credito
+    /**imposta la lista dei colori per il credito del player
      *
      * @param playerMaxCreditList lista player
      */
-    public void setPlayerMaxCreditList(ArrayList<Integer> playerMaxCreditList) {
+    public void setPlayerMaxCreditList(HashMap<Integer,Color> playerMaxCreditList) {
         this.playerMaxCreditList = playerMaxCreditList;
     }
 

@@ -1,6 +1,5 @@
 package org.smgame.server;
 
-import de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 import java.rmi.RMISecurityManager;
 import javax.swing.UIManager;

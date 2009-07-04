@@ -479,7 +479,7 @@ public class GameJIF extends JInternalFrame implements ICustomDM {
 
             if (gameVO.isEndManche()) {
                 gameVO.getPlayerRoleMap();
-                ArrayList<Integer> pos = gameVO.getPlayerMaxCreditList();                
+                HashMap<Integer,Color> pos = gameVO.getPlayerMaxCreditList();
                 JOptionPane.showInternalMessageDialog(this,
                         new ScoreBoardJP("Terminata Manche n° " + 
                         gameVO.getCurrentManche(), dataReport, playerColorLHM, pos),
