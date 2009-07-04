@@ -112,17 +112,25 @@ public class PlayerList implements Serializable {
      * @return lista giocatori
      */
     public List<Player> maxPlayerCreditList() {
-        int count;
+        int i;
+        boolean isMaxCredit = true;
         ArrayList<Player> playerSubList = new ArrayList<Player>();
         ArrayList<Player> tempList = new ArrayList<Player>(playerAL);
 
         Collections.sort(tempList, new PlayerCreditComparator());
 
-        count = Collections.frequency(tempList, tempList.get(0));
-
-        for (int i = 0; i < count; i++) {
-            playerSubList.add(tempList.get(i));
+        i = 0;
+        while (isMaxCredit && i < tempList.size()) {
+            if (tempList.get(i).getCredit() != tempList.get(0).getCredit()) {
+                isMaxCredit = false;
+            } else {
+                playerSubList.add(tempList.get(i));
+                i++;
+            }
         }
+
+        System.out.println("il numero di giocatori col credito + alto è: " + playerSubList.size());
+
         return playerSubList;
     }
     /**restituisce gli stati dei giocatori

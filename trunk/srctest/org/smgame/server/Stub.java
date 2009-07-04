@@ -50,18 +50,22 @@ public class Stub implements IGameMediator {
         }
     }
 
+    @Override
     public MainVO requestMainVO() {
         return GUICoreMediator.requestMainVO();
     }
 
+    @Override
     public String getGameTitle() {
         return GUICoreMediator.getGameTitle();
     }
 
+    @Override
     public void requestCard(int playerIndex, double bet) {
         GUICoreMediator.requestCard(playerIndex, bet);
     }
 
+    @Override
     public void declareGoodScore(int playerIndex, double bet) {
         GUICoreMediator.declareGoodScore(playerIndex, bet);
     }
