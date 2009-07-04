@@ -6,8 +6,10 @@ import java.awt.Color;
 import java.awt.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+import java.util.Map;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -34,7 +36,7 @@ public class ScoreBoardJP extends JPanel {
      * @param maxPos lista delle posizioni dei giocatori vincenti
      */
     public ScoreBoardJP(String status, Object[][] data,
-            LinkedHashMap<Integer, Color> playerColorLHM, ArrayList<Integer> maxPos) {
+            LinkedHashMap<Integer, Color> playerColorLHM, Map<Integer,Color> colorCreditHM) {
 
         setPreferredSize(new Dimension(400, 250));
         setLayout(new BorderLayout());
@@ -53,10 +55,9 @@ public class ScoreBoardJP extends JPanel {
         scoreboardJT.getColumn("Credito").setCellRenderer(new JLabelRenderer(playerColorLHM));
         scoreboardJT.repaint();
 
-        for (int i = 0; i < maxPos.size(); i++) {
-            scoreboardJT.getColumn("Credito").setCellRenderer(new JLabelRenderer(maxPos.get(i)));
-            System.out.println(maxPos.get(i));
-        }
+        
+        scoreboardJT.getColumn("Credito").setCellRenderer(new JLabelRenderer(colorCreditHM));
+        
 
         setWitdhColumn(0, 140);
         setWitdhColumn(1, 70);
@@ -111,22 +112,18 @@ public class ScoreBoardJP extends JPanel {
 /**Classe che restituisce la jlabel della cella tabella con determinati colori di testo */
 class JLabelRenderer extends JLabel implements TableCellRenderer {
 
-    LinkedHashMap<Integer, Color> colorLHM;
-    int pos;
+    Map<Integer, Color> colorLHM;
 
     /**costruttore per settare il colore di chi ha vinto la partita
      *
      * @param _pos posizione
-     */
-    public JLabelRenderer(int _pos) {
-        this.pos = _pos;
-    }
+     */   
 
     /**costruttore per settare la mappa giocatore colore
      *
      * @param playerColorLHM mappa dati
      */
-    public JLabelRenderer(LinkedHashMap<Integer, Color> playerColorLHM) {
+    public JLabelRenderer(Map<Integer, Color> playerColorLHM) {
         colorLHM = playerColorLHM;
     }
 
@@ -138,15 +135,10 @@ class JLabelRenderer extends JLabel implements TableCellRenderer {
             setHorizontalAlignment(JLabel.TRAILING);
         }
         if (column == 3) {
-            if (pos == row) {
-                setForeground(Color.GREEN);
-            } else {
-                setForeground(Color.BLACK);
-            }
+            setForeground(colorLHM.get(row));
         }
 
         setText(value.toString());
         return this;
     }
 } //end class JLabelRenderer
-

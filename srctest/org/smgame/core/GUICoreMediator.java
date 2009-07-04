@@ -1,5 +1,6 @@
 package org.smgame.core;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -448,7 +449,7 @@ public class GUICoreMediator {
 
             if (currentGame.getGameEngine().isEndManche()) {
                 currentGame.getGameEngine().closeManche();
-                gameVO.setPlayerMaxCreditList(posPlayerMaxCredit());
+                gameVO.setPlayerMaxCreditList(colorPlayerCredit());
                 gameVO.setEndManche(true);
                 addTransactionAL();
             }
@@ -544,13 +545,20 @@ public class GUICoreMediator {
      *
      * @return arraylist posizioni
      */
-    private static ArrayList<Integer> posPlayerMaxCredit() {
-        ArrayList<Integer> al = new ArrayList<Integer>();
-        List<Player> list = currentGame.getPlayerList().maxPlayerCreditList();
-        for (int i = 0; i < list.size(); i++) {
-            al.add(currentGame.getPlayerList().indexOfPlayer(list.get(i)));
+    private static HashMap<Integer,Color> colorPlayerCredit() {
+        HashMap<Integer,Color> playersHM = new HashMap<Integer, Color>();
+        List<Player> maxL = currentGame.getPlayerList().maxPlayerCreditList();
+        PlayerList playerL = currentGame.getPlayerList();
+        for (int i = 0; i < playerL.size(); i++) {
+            playersHM.put(i, Color.BLACK);
         }
-        return al;
+        for (int i = 0; i < maxL.size(); i++) {
+            playersHM.remove(playerL.indexOfPlayer(maxL.get(i)));
+            playersHM.put(playerL.indexOfPlayer(maxL.get(i)), Color.GREEN);
+        }
+
+        
+        return playersHM;
     }
 } //end  class
 

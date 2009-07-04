@@ -1,6 +1,6 @@
 package org.smgame.client;
 
-
+import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 import javax.swing.JApplet;
 import javax.swing.UIManager;
 
@@ -27,8 +27,7 @@ public class SMGameClient extends JApplet {
         //System.setSecurityManager(new SecurityManager());
         ResourceLocator.setWorkspace(getCodeBase().toString(), true);
         try {
-            UIManager.setLookAndFeel(new org.jvnet.substance.SubstanceLegacyDefaultLookAndFeel());
-                    //SyntheticaSimple2DLookAndFeel());
+            UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
         } catch (Exception e) {
         }
         MainJF frame = new MainJF();
@@ -53,10 +52,8 @@ public class SMGameClient extends JApplet {
 
             public void run() {
                 try {
-                    UIManager.setLookAndFeel(new org.jvnet.substance.skin.SubstanceMistAquaLookAndFeel());
-                    //UIManager.setLookAndFeel(new SyntheticaSimple2DLookAndFeel());
-                } catch (Exception e) {
-                }
+                    UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
+                } catch (Exception e) {}
                 MainJF frame = new MainJF();
             } //end run
         }); //end invokelater
