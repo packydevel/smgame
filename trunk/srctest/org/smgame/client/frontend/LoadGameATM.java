@@ -21,7 +21,6 @@ public class LoadGameATM extends AbstractTableModel {
         try {
             loadGameVO = GUICoreMediator.requestLoadGameVO();
         } catch (Exception e) {
-            //Logging.logExceptionSevere(e);
         }
     }
 

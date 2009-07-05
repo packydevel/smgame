@@ -52,7 +52,6 @@ public class PDFViewerJP extends JPanel {
             pdfDecoder.decodePage(currentPage);
             pdfDecoder.setPageParameters(1, 1); //values scaling (1=100%). page number
         } catch (Exception e) {
-            //e.printStackTrace();
         }
         //setup our GUI display
         initializeViewer();
@@ -78,7 +77,6 @@ public class PDFViewerJP extends JPanel {
                     try {
                         pdfDecoder.setEncryptionPassword(password);
                     } catch (PdfException e) {
-                        //e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }
                 //pdfDecoder.verifyAccess();
                 }
@@ -149,8 +147,6 @@ public class PDFViewerJP extends JPanel {
                         pdfDecoder.invalidate();
                         repaint();
                     } catch (Exception e1) {
-                        System.err.println("back to page 1");
-                        //e1.printStackTrace();
                     }
 
                     //set page number display
@@ -177,8 +173,6 @@ public class PDFViewerJP extends JPanel {
                         pdfDecoder.invalidate();
                         repaint();
                     } catch (Exception e1) {
-                        System.err.println("back 10 pages");
-                        //e1.printStackTrace();
                     }
 
 //            set page number display
@@ -205,8 +199,6 @@ public class PDFViewerJP extends JPanel {
                         pdfDecoder.invalidate();
                         repaint();
                     } catch (Exception e1) {
-                        System.err.println("back 1 page");
-                        //e1.printStackTrace();
                     }
 
 //          set page number display
@@ -237,8 +229,6 @@ public class PDFViewerJP extends JPanel {
                         pdfDecoder.invalidate();
                         repaint();
                     } catch (Exception e) {
-                        System.err.println("page number entered");
-                        //e.printStackTrace();
                     }
 
                 } catch (Exception e) {
@@ -278,8 +268,6 @@ public class PDFViewerJP extends JPanel {
                         pdfDecoder.invalidate();
                         repaint();
                     } catch (Exception e1) {
-                        System.err.println("forward 1 page");
-                        //e1.printStackTrace();
                     }
 
 //        set page number display
@@ -306,8 +294,6 @@ public class PDFViewerJP extends JPanel {
                         pdfDecoder.invalidate();
                         repaint();
                     } catch (Exception e1) {
-                        System.err.println("forward 10 pages");
-                        //e1.printStackTrace();
                     }
 
 //        set page number display
@@ -334,8 +320,6 @@ public class PDFViewerJP extends JPanel {
                         pdfDecoder.invalidate();
                         repaint();
                     } catch (Exception e1) {
-                        System.err.println("forward to last page");
-                        //e1.printStackTrace();
                     }
 
 //        set page number display

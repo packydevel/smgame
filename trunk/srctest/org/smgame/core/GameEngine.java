@@ -294,7 +294,6 @@ public class GameEngine implements Serializable {
                 declareGoodScore(player, 0.00);
             }
         } catch (Exception e) {
-            //Logging.logExceptionSevere(e);
         }
     }//end playcpu
 
