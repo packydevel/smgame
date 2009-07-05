@@ -105,8 +105,6 @@ public class GameEngine implements Serializable {
             player.getCardList().add(card);
             player.getBetList().add(bet);
 
-            //System.out.println(card.getFrontImage().getDescription());
-
             if (player.getScore() > 7.5) {
                 deck.addOffGameCards(player.getCardList());
                 if (player.getRole() != PlayerRole.Bank) {

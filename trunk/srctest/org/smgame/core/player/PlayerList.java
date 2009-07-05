@@ -129,8 +129,6 @@ public class PlayerList implements Serializable {
             }
         }
 
-        System.out.println("il numero di giocatori col credito + alto è: " + playerSubList.size());
-
         return playerSubList;
     }
     /**restituisce gli stati dei giocatori

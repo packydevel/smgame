@@ -144,8 +144,6 @@ public class GameJIF extends JInternalFrame implements ICustomDM {
         playerList = gameVO.getPlayerIndexList();
 
         size = playerList.size();
-        System.out.println(gameVO.getPlayerNameMap());
-        System.out.println(gameVO.getPlayerTypeMap());
 
         playerNameMapJP = new HashMap<Integer, JPanel>(size);
         playerCardsMapJP = new HashMap<Integer, JPanel>(size);
@@ -459,10 +457,8 @@ public class GameJIF extends JInternalFrame implements ICustomDM {
                     selectBank(i);
                     playerColorLHM.remove(i);
                     playerColorLHM.put(Integer.valueOf(i), Color.ORANGE);
-                    //System.out.println("Ti riconosco come mazziere:" + i);
                 } else {
                     deselectBank(i);
-                    //System.out.println("Non ti riconosco come mazziere:" + i);
                 }
 
                 if (gameVO.getPlayerPlayingMap().get(i) == true) {
