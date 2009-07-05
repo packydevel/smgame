@@ -334,9 +334,9 @@ public class DBTransactions {
         String sqlSelect = "SELECT t." + columnTrans[2] + ", t." + columnTrans[3] + ", t." + columnTrans[4] + ", t."
                 + columnTrans[5] + ", GROUP_CONCAT(LOWER("+ columnCard[2] +"), \' \', LEFT(" + columnCard[1] +",1)) AS group_card" +
                 " FROM " + tableTrans + " t, " + tableCard + ", " + tableRelation +
-                " r WHERE " + columnTrans[1] + "= ? AND " + columnCard[0] + "=r." + columnRelation[1] + " AND r." +
-                columnRelation[0] + "=" + columnTrans[0] + " GROUP BY " + columnTrans[0] +
-                " ORDER BY " + columnTrans[2] + " ASC, " + columnTrans[5] + " DESC;";
+                " r WHERE t." + columnTrans[1] + "= ? AND " + columnCard[0] + "=r." + columnRelation[1] + " AND r." +
+                columnRelation[0] + "=t." + columnTrans[0] + " GROUP BY t." + columnTrans[0] +
+                " ORDER BY t." + columnTrans[2] + " ASC, t." + columnTrans[5] + " DESC;";
 
         Connection conn = DBAccess.getConnection();
 
