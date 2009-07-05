@@ -319,7 +319,7 @@ public class ClientProxy {
             } catch (Exception e) {
                 mainVO.clear();
                 mainVO.setMessageType(MessageType.ERROR);
-                mainVO.setMessage("Impossibile connettersi al server RMI!");
+                mainVO.setMessage("Impossibile connettersi al Server!!!");
                 return null;
             }
 

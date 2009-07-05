@@ -351,7 +351,6 @@ public class GameEngine implements Serializable {
     /**chiudi la manche
      */
     public void closeManche() {
-        Card card;
         Iterator<Player> playerListIterator;
         Player p;
 
