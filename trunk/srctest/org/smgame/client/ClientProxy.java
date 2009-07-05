@@ -168,16 +168,7 @@ public class ClientProxy {
      *
      */
     public void saveGame() {
-        if (gameMode == GameMode.OFFLINE) {
-            GUICoreMediator.saveGame();
-        } else {
-            try {
-                stub = RMIClient.getStub();
-                stub.saveTransaction();
-                GUICoreMediator.saveGame();
-            } catch (Exception e) {
-            }
-        }
+        GUICoreMediator.saveGame();
     }
 
     /**Carica la partita
@@ -187,6 +178,7 @@ public class ClientProxy {
      */
     public void loadGame(long gameID) {
         GUICoreMediator.loadGame(gameID);
+        this.gameMode = GameMode.OFFLINE;
     }
 
     /**Carica l'elenco delle partite
@@ -202,8 +194,7 @@ public class ClientProxy {
      * 
      */
     public LoadGameVO requestLoadGameVO() {
-       
-            return GUICoreMediator.requestLoadGameVO();
+        return GUICoreMediator.requestLoadGameVO();
     }
 
     /**Restituisce il titolo della partita
@@ -220,6 +211,7 @@ public class ClientProxy {
             } catch (Exception e) {
                 return null;
             }
+
         }
     }
 
@@ -271,6 +263,7 @@ public class ClientProxy {
             } catch (Exception e) {
                 return null;
             }
+
         }
     }
 
@@ -282,17 +275,19 @@ public class ClientProxy {
         StoryBoardVO storyVO = new StoryBoardVO();
         try {
             stub = RMIClient.getStub();
-            storyVO = stub.requestStoryGames();
+            storyVO =
+                    stub.requestStoryGames();
         } catch (Exception e) {
             storyVO.setMessageType(MessageType.ERROR);
             storyVO.setMessage("Impossibile connettersi al server RMI o al database");
             return storyVO;
         }
+
         return storyVO;
     }
 
     /**Richiede e restituisce l'oggetto mainVO (pattern value objects)
-     * 
+     *
      * @return mainVO
      */
     public MainVO requestMainVO() {
@@ -306,6 +301,7 @@ public class ClientProxy {
                 //e.printStackTrace();
                 return null;
             }
+
         }
     }
 
@@ -326,6 +322,7 @@ public class ClientProxy {
                 mainVO.setMessage("Impossibile connettersi al server RMI!");
                 return null;
             }
+
         }
     }
 

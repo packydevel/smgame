@@ -331,7 +331,11 @@ public class GUICoreMediator {
             menuVO.getItemEnabledMap().put("newOnLineGameJMI", false);
             menuVO.getItemEnabledMap().put("newOffLineGameJMI", false);
             menuVO.getItemEnabledMap().put("loadGameJMI", false);
-            menuVO.getItemEnabledMap().put("saveGameJMI", true);
+            if (currentGame.getGameMode() == GameMode.OFFLINE) {
+                menuVO.getItemEnabledMap().put("saveGameJMI", true);
+            } else {
+                menuVO.getItemEnabledMap().put("saveGameJMI", false);
+            }
             menuVO.getItemEnabledMap().put("closeGameJMI", true);
         }
 
@@ -542,8 +546,8 @@ public class GUICoreMediator {
      *
      * @return arraylist posizioni
      */
-    private static HashMap<Integer,Color> colorPlayerCredit() {
-        HashMap<Integer,Color> playersHM = new HashMap<Integer, Color>();
+    private static HashMap<Integer, Color> colorPlayerCredit() {
+        HashMap<Integer, Color> playersHM = new HashMap<Integer, Color>();
         List<Player> maxL = currentGame.getPlayerList().maxPlayerCreditList();
         PlayerList playerL = currentGame.getPlayerList();
         for (int i = 0; i < playerL.size(); i++) {
@@ -554,7 +558,7 @@ public class GUICoreMediator {
             playersHM.put(playerL.indexOfPlayer(maxL.get(i)), Color.GREEN);
         }
 
-        
+
         return playersHM;
     }
 } //end  class
