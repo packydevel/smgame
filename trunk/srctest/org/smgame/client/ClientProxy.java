@@ -185,9 +185,8 @@ public class ClientProxy {
      * @param gameName nome partita
      * 
      */
-    public void loadGame(String gameName) {
-
-        GUICoreMediator.loadGame(gameName);
+    public void loadGame(long gameID) {
+        GUICoreMediator.loadGame(gameID);
     }
 
     /**Carica l'elenco delle partite

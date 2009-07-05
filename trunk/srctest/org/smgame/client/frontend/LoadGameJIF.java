@@ -43,6 +43,8 @@ public class LoadGameJIF extends JInternalFrame implements ICustomDM {
         gameJT.setFillsViewportHeight(true);
         gameJT.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         gameJT.setColumnSelectionAllowed(false);
+        gameJT.getColumnModel().getColumn(0).setMinWidth(0);
+        gameJT.getColumnModel().getColumn(0).setMaxWidth(0);
 
         rootJP = new JPanel();
         rootJP.setLayout(new GridBagLayout());
@@ -113,7 +115,8 @@ public class LoadGameJIF extends JInternalFrame implements ICustomDM {
             dispose();
         } else {
             if (gameJT.getSelectedRow() != -1) {
-                ClientProxy.getInstance().loadGame((String) gameJT.getValueAt(gameJT.getSelectedRow(), 0));
+                ClientProxy.getInstance().loadGame((Long) gameJT.getValueAt(gameJT.getSelectedRow(), 0));
+                System.out.println((Long) gameJT.getValueAt(gameJT.getSelectedRow(), 0));
                 fireNewGameEvent(new NewGameEvent(this));
                 dispose();
             }

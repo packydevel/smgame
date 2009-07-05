@@ -10,50 +10,61 @@ import java.util.HashMap;
  * @author Mignogna Luca     467644
  */
 public class LoadGameVO implements Serializable {
-    private ArrayList<String> gameNameList = new ArrayList<String>();
-    private HashMap<String, String> gameNameGameModeMap = new HashMap<String, String>();
-    private HashMap<String, String> gameNameCreationDateMap = new HashMap<String, String>();
-    private HashMap<String, String> gameNameLastSaveDateMap = new HashMap<String, String>();
+
+    private ArrayList<Long> gameIDList = new ArrayList<Long>();
+    private HashMap<Long, String> gameNameMap = new HashMap<Long, String>();
+    private HashMap<Long, String> gameModeMap = new HashMap<Long, String>();
+    private HashMap<Long, String> gameCreationDateMap = new HashMap<Long, String>();
+    private HashMap<Long, String> gameLastSaveDateMap = new HashMap<Long, String>();
 
     /**Restituisce una mappa di valori nome e data creazione
      *
      * @return mappa valori
      */
-    public HashMap<String, String> getGameNameCreationDateMap() {
-        return gameNameCreationDateMap;
+    public HashMap<Long, String> getGameNameMap() {
+        return gameNameMap;
     }
 
     /**Restituisce una mappa di valori nome e data ultimo salvataggio
      *
      * @return mappa
      */
-    public HashMap<String, String> getGameNameLastSaveDateMap() {
-        return gameNameLastSaveDateMap;
+    public HashMap<Long, String> getGameCreationDateMap() {
+        return gameCreationDateMap;
+    }
+
+    /**Restituisce una mappa di valori nome e data ultimo salvataggio
+     *
+     * @return mappa
+     */
+    public HashMap<Long, String> getGameLastSaveDateMap() {
+        return gameLastSaveDateMap;
     }
 
     /**Restituisce la lista dei nomi partite
      *
      * @return lista nomi
      */
-    public ArrayList<String> getGameNameList() {
-        return gameNameList;
+    public ArrayList<Long> getGameIDList() {
+        return gameIDList;
     }
 
     /**Restituisce una mappa di valori nome e tipo di partita
      *
      * @return mappa
      */
-    public HashMap<String, String> getGameNameGameModeMap() {
-        return gameNameGameModeMap;
+    public HashMap<Long, String> getGameModeMap() {
+        return gameModeMap;
     }
 
     /**azzera le istanze rimuovendo gli elementi
      *
      */
     public void clear() {
-        getGameNameList().clear();
-        getGameNameGameModeMap().clear();
-        getGameNameCreationDateMap().clear();
-        getGameNameLastSaveDateMap().clear();
+        gameIDList.clear();
+        gameNameMap.clear();
+        gameModeMap.clear();
+        gameCreationDateMap.clear();
+        gameLastSaveDateMap.clear();
     }
 }
