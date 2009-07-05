@@ -282,6 +282,10 @@ public class ClientProxy {
         try {
             stub = RMIClient.getStub();
             storyVO = stub.requestStoryGames();
+            if (storyVO.getStory().size()==0){
+                storyVO.setMessageType(MessageType.ERROR);
+                storyVO.setMessage("Non ci sono partite da visualizzare");
+            }
         } catch (Exception e) {
             storyVO.setMessageType(MessageType.ERROR);
             storyVO.setMessage("Impossibile connettersi al server RMI o al database");
