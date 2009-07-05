@@ -184,7 +184,10 @@ public class GUICoreMediator {
      */
     private static void saveGames() {
         try {
-            FileOutputStream fos = new FileOutputStream(fileName);
+            File f = new File(fileName);
+            System.out.println(fileName);
+            f.createNewFile();
+            FileOutputStream fos = new FileOutputStream(f);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(gameMap);
             oos.flush();
@@ -193,6 +196,7 @@ public class GUICoreMediator {
             mainVO.setMessageType(MessageType.INFO);
             mainVO.setMessage("La Partita è stata salvata correttamente!");
         } catch (Exception e) {
+            e.printStackTrace();
             mainVO.setMessageType(MessageType.ERROR);
             mainVO.setMessage("Non è stato possibile salvare la partita!!!");
         }
