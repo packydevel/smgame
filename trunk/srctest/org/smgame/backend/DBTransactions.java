@@ -24,12 +24,9 @@ public class DBTransactions {
     private final String[] columnTrans = new String[]{"transaction_id", "game_id", "manche",
                                                       "player_name", "score", "win_lose_amount"};
     private final String tableCard = "CARD c";
-    private final String col1Card = "c.card_id";
-    private final String col2Card = "c.suit";
-    private final String col3Card = "c.point";
+    private final String[] columnCard = new String[]{"c.card_id", "c.suit", "c.point"};
     private final String tableRelation = "TRANSACTION_CARD";
-    private final String col1Rel = "transaction_id";
-    private final String col2Rel = "card_id";
+    private final String[] columnRelation = new String[]{"transaction_id", "card_id"};
     private long idT; //id transazione
     private long id_game; //id partita
     private int manche; //numero manche
@@ -190,8 +187,8 @@ public class DBTransactions {
      * @throws java.lang.Exception
      */
     private void executeArraylistCardTransaction(Connection conn) throws SQLException, Exception {
-        String sql = "INSERT INTO " + tableRelation + " VALUES (?,(SELECT " + col1Card +
-                " FROM " + tableCard + " WHERE " + col2Card + "=? AND " + col3Card + "=?));";
+        String sql = "INSERT INTO " + tableRelation + " VALUES (?,(SELECT " + columnCard[0] +
+                " FROM " + tableCard + " WHERE " + columnCard[1] + "=? AND " + columnCard[2] + "=?));";
         for (int i = 0; i < cardAL.size(); i++) {
             PreparedStatement prpstmt = conn.prepareStatement(sql);
             setParameter(prpstmt, 1, getIdTransaction(), Types.BIGINT);
@@ -277,10 +274,10 @@ public class DBTransactions {
         String sqlDistinct = "SELECT DISTINCT(" + columnTrans[1] + ") FROM " + tableTrans;
         String sqlCount = "SELECT count(*) FROM " + tableTrans + " WHERE " + columnTrans[1] + "= ?;";
         String sqlSelect = "SELECT t." + columnTrans[2] + ", t." + columnTrans[3] + ", t." + columnTrans[4] + ", t."
-                + columnTrans[5] + ", GROUP_CONCAT(LOWER("+ col3Card +"), \' \', LEFT(" + col2Card +",1)) AS group_card" +
+                + columnTrans[5] + ", GROUP_CONCAT(LOWER("+ columnCard[2] +"), \' \', LEFT(" + columnCard[1] +",1)) AS group_card" +
                 " FROM " + tableTrans + " t, " + tableCard + ", " + tableRelation +
-                " r WHERE " + columnTrans[1] + "= ? AND " + col1Card + "=r." + col2Rel + " AND r." +
-                col1Rel + "=" + columnTrans[0] + " GROUP BY " + columnTrans[0] +
+                " r WHERE " + columnTrans[1] + "= ? AND " + columnCard[0] + "=r." + columnRelation[1] + " AND r." +
+                columnRelation[0] + "=" + columnTrans[0] + " GROUP BY " + columnTrans[0] +
                 " ORDER BY " + columnTrans[2] + " ASC, " + columnTrans[5] + " DESC;";
 
         Connection conn = DBAccess.getConnection();
@@ -315,6 +312,60 @@ public class DBTransactions {
             } //end if
             map.put(new Long(id), matrix);
         }//end while rsDistinct
+        return map;
+    }
+
+    /**Restituisce un map (long, matrice oggetti) ordinato per inserimento
+     *
+     * @return oggetto maps
+     *
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
+     * @throws java.io.IOException
+     * @throws java.lang.Exception
+     */
+    public LinkedHashMap<Long, Object[][]> getStoryGame(ArrayList<Long> idAL) throws
+            ClassNotFoundException, SQLException, IOException, Exception {
+
+        LinkedHashMap<Long, Object[][]> map = new LinkedHashMap<Long, Object[][]>();
+
+        String sqlCount = "SELECT count(*) FROM " + tableTrans + " WHERE " + columnTrans[1] + "= ?;";
+        String sqlSelect = "SELECT t." + columnTrans[2] + ", t." + columnTrans[3] + ", t." + columnTrans[4] + ", t."
+                + columnTrans[5] + ", GROUP_CONCAT(LOWER("+ columnCard[2] +"), \' \', LEFT(" + columnCard[1] +",1)) AS group_card" +
+                " FROM " + tableTrans + " t, " + tableCard + ", " + tableRelation +
+                " r WHERE " + columnTrans[1] + "= ? AND " + columnCard[0] + "=r." + columnRelation[1] + " AND r." +
+                columnRelation[0] + "=" + columnTrans[0] + " GROUP BY " + columnTrans[0] +
+                " ORDER BY " + columnTrans[2] + " ASC, " + columnTrans[5] + " DESC;";
+
+        Connection conn = DBAccess.getConnection();
+
+        for(int i=0; i<idAL.size(); i++) {
+            Object[][] matrix = null;
+            long id = idAL.get(i);
+            PreparedStatement prpstmtCount = conn.prepareStatement(sqlCount);
+            setParameter(prpstmtCount, 1, id, Types.BIGINT);
+            Logging.logInfo(prpstmtCount.toString());
+            ResultSet rsCount = prpstmtCount.executeQuery();
+            rsCount.next();
+            int rows = rsCount.getInt(1);
+            if (rows > 0) {
+                matrix = new Object[rows][5];
+                int r = 0;
+                PreparedStatement prpstmtSelect = conn.prepareStatement(sqlSelect);
+                setParameter(prpstmtSelect, 1, id, Types.BIGINT);
+                Logging.logInfo(prpstmtSelect.toString());
+                ResultSet rsSelect = prpstmtSelect.executeQuery();
+                while (rsSelect.next()) {
+                    matrix[r][0] = rsSelect.getInt(1);
+                    matrix[r][1] = rsSelect.getString(2);
+                    matrix[r][2] = rsSelect.getDouble(3);
+                    matrix[r][3] = rsSelect.getDouble(4);
+                    matrix[r][4] = rsSelect.getString(5);
+                    r++;
+                }
+            } //end if
+            map.put(new Long(id), matrix);
+        }//end for
         return map;
     }
 
