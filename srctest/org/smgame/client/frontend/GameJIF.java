@@ -51,11 +51,10 @@ public class GameJIF extends JInternalFrame implements ICustomDM {
     private HashMap<Integer, JPanel> playerActionMapJP; //Lista pannelli giocatore-carte
     private List<JLabel> playerCardsListJL;
     private GameVO gameVO;
-    private GridBagConstraints panelGBC,  labelGBC,  textFieldGBC,  buttonGBC;
-    private int size,  currentIndex;
+    private GridBagConstraints panelGBC, labelGBC, textFieldGBC, buttonGBC;
+    private int size, currentIndex;
     private BetInputVerifier betInputVerifier = new BetInputVerifier();
     private DecimalFormat betValueFormatter;
-
 
     /**Classe verifica input puntata
      *
@@ -78,13 +77,12 @@ public class GameJIF extends JInternalFrame implements ICustomDM {
             return verify(input);
         }
 
-
         /**Verifica l'input
          *
          * @param input componente di provenienza
          * @return true= se puntata immessa correttamente
          */
-        public boolean verify(JComponent input) {            
+        public boolean verify(JComponent input) {
             JTextField betJTF = ((JTextField) input);
             JButton requestCardJB = new JButton(), declareGoodScoreJB = new JButton();
             String betText = betJTF.getText();
@@ -388,7 +386,6 @@ public class GameJIF extends JInternalFrame implements ICustomDM {
             try {
                 bet = betValueFormatter.parse(getBet(i)).doubleValue();
             } catch (Exception e) {
-                //Logging.logExceptionSevere(this.getClass(), e);
             }
         }
 
@@ -409,7 +406,6 @@ public class GameJIF extends JInternalFrame implements ICustomDM {
             try {
                 bet = betValueFormatter.parse(getBet(i)).doubleValue();
             } catch (Exception e) {
-                //Logging.logExceptionSevere(this.getClass(), e);
             }
         }
 
@@ -420,12 +416,12 @@ public class GameJIF extends JInternalFrame implements ICustomDM {
 
     /**Aggiorna le componenti */
     private void refreshComponent() {
-        LinkedHashMap<Integer,Color> playerColorLHM = new LinkedHashMap<Integer, Color>();
+        LinkedHashMap<Integer, Color> playerColorLHM = new LinkedHashMap<Integer, Color>();
 
         gameVO = ClientProxy.getInstance().requestGameVO();
 
-            if (gameVO.getExceptionMessage() != null) {
-                JOptionPane.showInternalMessageDialog(this, gameVO.getExceptionMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+        if (gameVO.getExceptionMessage() != null) {
+            JOptionPane.showInternalMessageDialog(this, gameVO.getExceptionMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
         } else {
             setTitle(ClientProxy.getInstance().getGameTitle() + gameVO.getCurrentManche());
             Object[][] dataReport = ClientProxy.getInstance().requestDataReport();
@@ -475,11 +471,11 @@ public class GameJIF extends JInternalFrame implements ICustomDM {
 
             if (gameVO.isEndManche()) {
                 gameVO.getPlayerRoleMap();
-                HashMap<Integer,Color> pos = gameVO.getPlayerMaxCreditList();
+                HashMap<Integer, Color> pos = gameVO.getPlayerMaxCreditList();
                 JOptionPane.showInternalMessageDialog(this,
-                        new ScoreBoardJP("Terminata Manche n° " + 
+                        new ScoreBoardJP("Terminata Manche n° " +
                         gameVO.getCurrentManche(), dataReport, playerColorLHM, pos),
-                    "Score Board", JOptionPane.INFORMATION_MESSAGE);
+                        "Score Board", JOptionPane.INFORMATION_MESSAGE);
                 if (gameVO.isEndGame()) {
                     JOptionPane.showInternalMessageDialog(this, "Questa partita è terminata!!!",
                             "Info", JOptionPane.INFORMATION_MESSAGE);
@@ -491,3 +487,4 @@ public class GameJIF extends JInternalFrame implements ICustomDM {
         }
     }
 }//end gameJIF
+

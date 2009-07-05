@@ -187,8 +187,6 @@ public class GUICoreMediator {
             mainVO.setMessageType(MessageType.INFO);
             mainVO.setMessage("La Partita è stata salvata correttamente!");
         } catch (Exception e) {
-            //Logging.logExceptionSevere(GUICoreMediator.class, e);
-            e.printStackTrace();
             mainVO.setMessageType(MessageType.ERROR);
             mainVO.setMessage("Non è stato possibile salvare la partita!!!");
         }
@@ -275,19 +273,13 @@ public class GUICoreMediator {
             currentGame.getGameEngine().requestCard(player, bet);
             gameVO.setExceptionMessage(null);
         } catch (BetOverflowException boe) {
-//            if (!currentGame.getGameEngine().isEndManche()) {
-//                selectNextPlayer();
-//            }
             gameVO.setExceptionMessage(boe.getMessage());
-            //Logging.logExceptionWarning(boe);
         } catch (ScoreOverflowException soe) {
             if (!currentGame.getGameEngine().isEndManche()) {
                 selectNextPlayer();
             }
             gameVO.setExceptionMessage(soe.getMessage());
-            //Logging.logExceptionWarning(soe);
         } catch (Exception e) {
-            //Logging.logExceptionSevere(GUICoreMediator.class, e);
         }
 
     }
@@ -307,7 +299,6 @@ public class GUICoreMediator {
             gameVO.setExceptionMessage(null);
         } catch (BetOverflowException boe) {
             gameVO.setExceptionMessage(boe.getMessage());
-            //Logging.logExceptionWarning(boe);
         }
     }
 
@@ -534,8 +525,7 @@ public class GUICoreMediator {
         DBTransactions dbt = new DBTransactions();
         try {
             storyVO.setStory(dbt.getStoryGame());
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
         }
         return storyVO;
     }
