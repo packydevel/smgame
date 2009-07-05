@@ -44,17 +44,11 @@ public class StoryBoardJP extends JPanel{
         gameJL = new JLabel();
 
         counter = 0;
-
-        if ((map==null) || (map.isEmpty())){
-            dataLHM = null;
-            setTableModel(tableModel(null));
-            
-        } else {
-            keyset = dataLHM.keySet().toArray();
-            dataLHM = map;
-            setTableModel(tableModel(dataLHM.get(keyset[counter])));
-            gameJL.setText("id partita: " + keyset[counter].toString());
-        }                                
+        
+        dataLHM = map;
+        keyset = dataLHM.keySet().toArray();
+        setTableModel(tableModel(dataLHM.get((Long)keyset[counter])));
+        gameJL.setText("id partita: " + keyset[counter].toString());
         
         add(new JScrollPane(storyboardJT), BorderLayout.CENTER);                
 
@@ -66,7 +60,7 @@ public class StoryBoardJP extends JPanel{
             }
         });
 
-        if ((dataLHM==null) || (dataLHM.size()<=1))
+        if (dataLHM.size()<=1)
             nextJB.setEnabled(false);
 
         previousJB = new JButton("Precedente");
@@ -123,7 +117,7 @@ public class StoryBoardJP extends JPanel{
     private void nextGames() {        
         if (dataLHM.size() > (counter + 1)){
             ++counter;            
-            setTableModel(tableModel(dataLHM.get(keyset[counter])));
+            setTableModel(tableModel(dataLHM.get((Long)keyset[counter])));
             gameJL.setText("id partita: "+keyset[counter].toString());
         }
         if (counter == 1)
@@ -139,7 +133,7 @@ public class StoryBoardJP extends JPanel{
     private void previousGames() {
         if (counter > 0){
             --counter;            
-            setTableModel(tableModel(dataLHM.get(keyset[counter])));
+            setTableModel(tableModel(dataLHM.get((Long)keyset[counter])));
             gameJL.setText("id partita: "+keyset[counter].toString());
         }
         if (dataLHM.size() > (counter + 1))

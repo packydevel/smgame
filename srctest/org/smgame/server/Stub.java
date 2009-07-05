@@ -19,8 +19,7 @@ import org.smgame.core.GameMode;
 public class Stub implements IGameMediator {
 
     @Override
-    public void test() throws RemoteException {
-    }
+    public void test() throws RemoteException { }
 
     @Override
     public void addMenuItem(List<String> menuItemList) {
@@ -78,7 +77,11 @@ public class Stub implements IGameMediator {
     }
 
     @Override
-    public StoryBoardVO requestStoryGames() {
-        return GUICoreMediator.requestStoryGames();
+    public StoryBoardVO requestStoryGames() throws RemoteException {
+        try {
+            return GUICoreMediator.requestStoryGames();
+        } catch (Exception ex) {
+            throw new RemoteException();
+        }
     }
 }
