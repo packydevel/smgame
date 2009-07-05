@@ -33,9 +33,13 @@ public class ResourceLocator {
         curDir = dir;
         if (applet) {
             separ = "/";
+            if (IsWindows()) {
+                curDir = curDir.substring(6) + "\\";
+            }
         } else {
             curDir += separ;
         }
+        System.out.println(curDir);
     }
 
     /**Restituisce il percorso delle resource
@@ -73,5 +77,12 @@ public class ResourceLocator {
             path.replace('\\', '/');
         }
         return ResourceLocator.class.getResource(path);
+    }
+
+    private static boolean IsWindows(){
+        boolean windows = false;
+        if (System.getProperty("os.name").substring(0, 7).equalsIgnoreCase("Windows"))
+            windows = true;
+        return windows;
     }
 }//end class

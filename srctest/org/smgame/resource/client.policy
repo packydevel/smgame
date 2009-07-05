@@ -1,4 +1,4 @@
-grant {
-    permission java.io.FilePermission "<<ALL FILES>>","write";
+grant {    
+    permission java.io.FilePermission "games.dat",""read,write"";
     permission java.security.AllPermission;
 };

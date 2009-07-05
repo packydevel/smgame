@@ -15,17 +15,15 @@ import org.smgame.util.ResourceLocator;
 public class SMGameClient extends JApplet {
 
     @Override
-    public void init() {
-    }
+    public void init() { }
 
     @Override
-    public void stop() {
-    }
+    public void stop() { }
 
     @Override
     public void start() {
         //System.setSecurityManager(new SecurityManager());
-        ResourceLocator.setWorkspace(getCodeBase().toString(), true);
+        ResourceLocator.setWorkspace((getCodeBase().toString()), true);
         try {
             UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
         } catch (Exception e) {
