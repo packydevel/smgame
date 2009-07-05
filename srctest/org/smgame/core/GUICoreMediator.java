@@ -202,7 +202,6 @@ public class GUICoreMediator {
     public static void loadGame(long gameID) {
         loadGames();
         currentGame = gameMap.get(gameID);
-        System.out.println(gameMap.containsKey(gameID));
     }
 
     /**Carica la map delle partite

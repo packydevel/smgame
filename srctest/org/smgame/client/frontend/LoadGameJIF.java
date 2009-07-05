@@ -116,7 +116,6 @@ public class LoadGameJIF extends JInternalFrame implements ICustomDM {
         } else {
             if (gameJT.getSelectedRow() != -1) {
                 ClientProxy.getInstance().loadGame((Long) gameJT.getValueAt(gameJT.getSelectedRow(), 0));
-                System.out.println((Long) gameJT.getValueAt(gameJT.getSelectedRow(), 0));
                 fireNewGameEvent(new NewGameEvent(this));
                 dispose();
             }

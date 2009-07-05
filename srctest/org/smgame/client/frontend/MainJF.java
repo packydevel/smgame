@@ -80,7 +80,6 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         } else {
             for (JMenuItem jmi : menuJMB.getMenuItemListJMI()) {
                 jmi.setEnabled(menuVO.getItemEnabledMap().get(jmi.getName()));
-                System.out.println(jmi.getName() + " - " + jmi.isEnabled());
             }
         }
     }
@@ -201,12 +200,6 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         desktop.add(gameJIF);
 
         refreshMenuItem();
-
-        System.out.println(desktopWidth);
-        System.out.println(desktopHeight);
-        System.out.println(xbound);
-        System.out.println(ybound);
-        System.out.println(menuJMB.getHeight());
     }
 
     /**Esegue la chiusura della partita

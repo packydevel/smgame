@@ -70,8 +70,6 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
         editorPaneJEP.addHyperlinkListener(this);
         contentJP.add(editorPaneJEP, BorderLayout.CENTER);
 
-        System.out.println(getClass().getResource("/").getPath());
-
         userGuidePDF = "/home/packyuser/Scrivania/Analisys.pdf";
         refGuidePDF = "/home/packyuser/Scrivania/Analisys.pdf";
         javadocIndex = getClass().getResource("/index.html").getPath();

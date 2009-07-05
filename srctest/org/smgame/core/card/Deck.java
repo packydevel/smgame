@@ -118,15 +118,6 @@ public class Deck implements Serializable {
         offGameCardList.addAll(cardList);
     }
 
-    /**Stampa le carte
-     * 
-     */
-    public void print() {
-        for (Card c : CARDS) {
-            System.out.println(c.toString());
-        }
-    }//end print
-
     /**Restituisce la carta selezionata
      *
      * @param point punto

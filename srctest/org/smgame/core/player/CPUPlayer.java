@@ -90,17 +90,13 @@ public class CPUPlayer extends Player implements Serializable {
                                     }
                                 } while (i <= 7);
 
-                                System.out.println(p.getName() + " - " + "Good: " + allGoodValues + " All: " + allHypotheticValues);
                                 double temp = (((2 * (double) allGoodValues) / (double) allHypotheticValues) - 1) * p.getStake();
-                                System.out.println("thresold " + temp);
                                 threshold += temp;
                             }
                         }
                     }
                 }
             }
-
-            System.out.println(name + " - " + threshold);
 
             if (threshold >= 0.00) {
                 return true;
