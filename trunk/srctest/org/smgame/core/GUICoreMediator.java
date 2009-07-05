@@ -74,8 +74,7 @@ public class GUICoreMediator {
      * @param playerNameList lista giocatori
      * @param playerTypeList lista tipo di giocatore
      */
-    public static void createGame(String gameName, GameSetting gameSetting,
-            List<String> playerNameList, List<Boolean> playerTypeList) {
+    public static void createGame(String gameName, GameSetting gameSetting, GameMode gameMode, List<String> playerNameList, List<Boolean> playerTypeList) {
 
         PlayerList playerList = new PlayerList();
 
@@ -92,7 +91,7 @@ public class GUICoreMediator {
         currentGame = new Game();
         currentGame.generateGameID();
         currentGame.setGameName(gameName);
-        currentGame.setGameMode(GameMode.OFFLINE);
+        currentGame.setGameMode(gameMode);
         currentGame.setCreationDate(new Date());
         currentGame.setGameSetting(new GameSetting());
         currentGame.setPlayerList(playerList);

@@ -99,11 +99,11 @@ public class ClientProxy {
         this.gameMode = gameMode;
 
         if (gameMode == GameMode.OFFLINE) {
-            GUICoreMediator.createGame(gameName, gameSetting, playerNameList, playerTypeList);
+            GUICoreMediator.createGame(gameName, gameSetting, gameMode, playerNameList, playerTypeList);
         } else {
             try {
                 stub = RMIClient.getStub();
-                stub.createGame(gameName, gameSetting, playerNameList, playerTypeList);
+                stub.createGame(gameName, gameSetting, gameMode, playerNameList, playerTypeList);
             } catch (Exception e) {
                 //Logging.logExceptionSevere(this.getClass(), e);
                 newGameVO.setMessageType(MessageType.ERROR);
