@@ -54,11 +54,6 @@ public interface IGameMediator extends Remote {
      */
     public void closeGame() throws RemoteException;
 
-    /**salva partita
-     *
-     * @throws java.rmi.RemoteException
-     */
-    public void saveTransaction() throws RemoteException;
     /**richiede e restituisce l'oggetto mainVO
      *
      * @return mainVO
