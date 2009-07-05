@@ -9,6 +9,7 @@ import org.smgame.client.frontend.MenuVO;
 import org.smgame.client.frontend.GameVO;
 import org.smgame.client.frontend.MainVO;
 import org.smgame.client.frontend.StoryBoardVO;
+import org.smgame.core.GameMode;
 
 /**Interfaccia mediatore di gioco
  *
@@ -39,7 +40,7 @@ public interface IGameMediator extends Remote {
      *
      * @throws java.rmi.RemoteException
      */
-    public void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) throws RemoteException;
+    public void createGame(String gameName, GameSetting gameSetting, GameMode gameMode, List<String> playerNameList, List<Boolean> playerTypeList) throws RemoteException;
 
     /**chiedi chiusura partita
      *

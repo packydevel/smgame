@@ -30,7 +30,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
     private LoadGameJIF loadGameJIF;
     private GameJIF gameJIF;
     private MenuVO menuVO;
-    private int desktopWidth,  desktopHeight,  internalFrameWidth,  internalFrameHeight,  xbound,  ybound;
+    private int desktopWidth, desktopHeight, internalFrameWidth, internalFrameHeight, xbound, ybound;
 
     /**Costruttore
      * 
@@ -80,6 +80,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         } else {
             for (JMenuItem jmi : menuJMB.getMenuItemListJMI()) {
                 jmi.setEnabled(menuVO.getItemEnabledMap().get(jmi.getName()));
+                System.out.println(jmi.getName() + " - " + jmi.isEnabled());
             }
         }
     }
@@ -187,7 +188,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
 
         internalFrameWidth = 1000;
         internalFrameHeight = 700;
-        
+
         gameJIF = new GameJIF();
 //        internalFrameWidth= gameJIF.getWidth();
 //        internalFrameHeight=gameJIF.getHeight();

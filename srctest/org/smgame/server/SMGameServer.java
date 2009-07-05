@@ -35,7 +35,5 @@ public class SMGameServer {
                 new ServerJF();
             }
         });
-        
-        GUICoreMediator.loadGames();
     }
 }

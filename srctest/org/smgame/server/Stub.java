@@ -9,6 +9,7 @@ import org.smgame.client.frontend.GameVO;
 import org.smgame.client.frontend.MainVO;
 import org.smgame.client.frontend.MenuVO;
 import org.smgame.client.frontend.StoryBoardVO;
+import org.smgame.core.GameMode;
 
 /**Oggetto remoto
  *
@@ -27,8 +28,8 @@ public class Stub implements IGameMediator {
     }
 
     @Override
-    public void createGame(String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) {
-        GUICoreMediator.createGame(gameName, gameSetting, playerNameList, playerTypeList);
+    public void createGame(String gameName, GameSetting gameSetting, GameMode gameMode, List<String> playerNameList, List<Boolean> playerTypeList) {
+        GUICoreMediator.createGame(gameName, gameSetting, gameMode, playerNameList, playerTypeList);
     }
 
     @Override
