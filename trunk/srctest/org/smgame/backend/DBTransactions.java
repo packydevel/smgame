@@ -315,8 +315,9 @@ public class DBTransactions {
         return map;
     }
 
-    /**Restituisce un map (long, matrice oggetti) ordinato per inserimento
+    /**Restituisce un map (long, matrice oggetti), relativo alle partite dell'arraylist, ordinato per inserimento
      *
+     * @param idAL arraylist id partite
      * @return oggetto maps
      *
      * @throws java.lang.ClassNotFoundException
