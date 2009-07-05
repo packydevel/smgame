@@ -157,17 +157,23 @@ public class GUICoreMediator {
         saveGames();
     }
 
-    /**Salva la partita online e scrive sul db
+    /**Effettua la scrittura sul db a fine manche
      *
      */
-    public static void saveTransaction() throws Exception {
-        try {
-            trans.executeArraylistTransactions();
-            trans.resetArraylistTansactions();
-        } catch (Exception e) {
-            mainVO.setMessage("Impossibile Connettersi al DataBase");
-            mainVO.setMessageType(MessageType.ERROR);
-            throw new Exception();
+    private static void saveTransaction() {
+        long game_id = currentGame.getGameID();
+        Iterator<Player> playerListIterator;
+        Player p;
+        playerListIterator = currentGame.getPlayerList().getPlayerListIterator();
+        while (playerListIterator.hasNext()) {
+            p = playerListIterator.next();
+            DBTransactions dbt = new DBTransactions(game_id, currentGame.getGameEngine().getCurrentManche(),
+                    p.getName(), p.getScore(), p.getLastWinLoseAmount(), p.getCardList());
+            try {
+                dbt.executeSingleTransaction();
+            } catch (Exception e) {
+                gameVO.setExceptionMessage("Errore di connessione");
+            }
         }
     }
 
@@ -279,9 +285,7 @@ public class GUICoreMediator {
                 selectNextPlayer();
             }
             gameVO.setExceptionMessage(soe.getMessage());
-        } catch (Exception e) {
-        }
-
+        } catch (Exception e) { }
     }
 
     /**Dichiarazione del giocatore di stare bene con eventuale puntata
@@ -320,11 +324,7 @@ public class GUICoreMediator {
             menuVO.getItemEnabledMap().put("newOnLineGameJMI", false);
             menuVO.getItemEnabledMap().put("newOffLineGameJMI", false);
             menuVO.getItemEnabledMap().put("loadGameJMI", false);
-            if (currentGame.getGameMode() == GameMode.OFFLINE) {
-                menuVO.getItemEnabledMap().put("saveGameJMI", true);
-            } else {
-                menuVO.getItemEnabledMap().put("saveGameJMI", false);
-            }
+            menuVO.getItemEnabledMap().put("saveGameJMI", true);
             menuVO.getItemEnabledMap().put("closeGameJMI", true);
         }
 
@@ -441,7 +441,8 @@ public class GUICoreMediator {
                 currentGame.getGameEngine().closeManche();
                 gameVO.setPlayerMaxCreditList(colorPlayerCredit());
                 gameVO.setEndManche(true);
-                addTransactionAL();
+                if (currentGame.getGameMode()==GameMode.ONLINE)
+                    saveTransaction();
             }
 
             gameVO.setCurrentManche(currentGame.getGameEngine().getCurrentManche());
@@ -479,23 +480,6 @@ public class GUICoreMediator {
         return data;
     }
 
-    /**Aggiunge la transazione all'arraylist di transazioni
-     *
-     */
-    private static void addTransactionAL() {
-        long game_id = currentGame.getGameID();
-        Iterator<Player> playerListIterator;
-        Player p;
-
-        playerListIterator = currentGame.getPlayerList().getPlayerListIterator();
-        while (playerListIterator.hasNext()) {
-            p = playerListIterator.next();
-            DBTransactions dbt = new DBTransactions(game_id, currentGame.getGameEngine().getCurrentManche(),
-                    p.getName(), p.getScore(), p.getLastWinLoseAmount(), p.getCardList());
-            trans.addToArraylistTransactions(dbt);
-        }
-    }
-
     /**Testa la connessione al db
      *
      */
@@ -530,12 +514,12 @@ public class GUICoreMediator {
         return storyVO;
     }
 
-    /**restituisce le posizioni dei player col massimo credito
+    /**restituisce il colore associato al credito per ciascun player
      *
-     * @return arraylist posizioni
+     * @return hashmap coppia giocatore colore
      */
-    private static HashMap<Integer, Color> colorPlayerCredit() {
-        HashMap<Integer, Color> playersHM = new HashMap<Integer, Color>();
+    private static HashMap<Integer,Color> colorPlayerCredit() {
+        HashMap<Integer,Color> playersHM = new HashMap<Integer, Color>();
         List<Player> maxL = currentGame.getPlayerList().maxPlayerCreditList();
         PlayerList playerL = currentGame.getPlayerList();
         for (int i = 0; i < playerL.size(); i++) {
@@ -546,8 +530,7 @@ public class GUICoreMediator {
             playersHM.put(playerL.indexOfPlayer(maxL.get(i)), Color.GREEN);
         }
 
-
+        
         return playersHM;
     }
 } //end  class
-

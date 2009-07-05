@@ -42,7 +42,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
 
         ArrayList<String> menuItemNameList = new ArrayList<String>();
 
-        setSize(1024, 800);
+        setSize(1024, 768);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         desktop = new JDesktopPane();
@@ -185,8 +185,8 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
     public void newGameCreating(NewGameEvent e) {
         clearDesktop();
 
-        internalFrameWidth = 1000;
-        internalFrameHeight = 700;
+        internalFrameWidth = 1010;
+        internalFrameHeight = 720;
 
         gameJIF = new GameJIF();
 //        internalFrameWidth= gameJIF.getWidth();
