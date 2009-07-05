@@ -43,15 +43,6 @@ public class Stub implements IGameMediator {
     }
 
     @Override
-    public void saveTransaction() throws RemoteException {
-        try {
-            GUICoreMediator.saveTransaction();
-        } catch (Exception e) {
-            throw new RemoteException();
-        }
-    }
-
-    @Override
     public MainVO requestMainVO() {
         return GUICoreMediator.requestMainVO();
     }
@@ -71,18 +62,22 @@ public class Stub implements IGameMediator {
         GUICoreMediator.declareGoodScore(playerIndex, bet);
     }
 
+    @Override
     public MenuVO requestMenuVO() {
         return GUICoreMediator.requestMenuVO();
     }
 
+    @Override
     public GameVO requestGameVO() {
         return GUICoreMediator.requestGameVO();
     }
 
+    @Override
     public Object[][] requestDataReport() {
         return GUICoreMediator.requestDataReport();
     }
 
+    @Override
     public StoryBoardVO requestStoryGames() {
         return GUICoreMediator.requestStoryGames();
     }
