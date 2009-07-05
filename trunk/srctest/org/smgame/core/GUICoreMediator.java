@@ -504,13 +504,10 @@ public class GUICoreMediator {
      *
      * @return oggetto storyboardVO
      */
-    public static StoryBoardVO requestStoryGames() {
+    public static StoryBoardVO requestStoryGames() throws Exception {
         StoryBoardVO storyVO = new StoryBoardVO();
-        DBTransactions dbt = new DBTransactions();
-        try {
-            storyVO.setStory(dbt.getStoryGame());
-        } catch (Exception e) {
-        }
+        DBTransactions dbt = new DBTransactions();        
+        storyVO.setStory(dbt.getStoryGame());
         return storyVO;
     }
 
