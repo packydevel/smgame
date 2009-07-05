@@ -3,7 +3,6 @@ package org.smgame.server;
 import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 import java.rmi.RMISecurityManager;
 import javax.swing.UIManager;
-import org.smgame.core.GUICoreMediator;
 import org.smgame.server.frontend.ServerJF;
 import org.smgame.util.Logging;
 import org.smgame.util.ResourceLocator;
@@ -26,6 +25,7 @@ public class SMGameServer {
         Logging.createLog("server");
         java.awt.EventQueue.invokeLater(new Runnable() {
 
+            @Override
             public void run() {
                 try {
                     UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
@@ -34,6 +34,6 @@ public class SMGameServer {
                 }
                 new ServerJF();
             }
-        });
+        });       
     }
 }
