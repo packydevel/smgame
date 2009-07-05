@@ -10,7 +10,7 @@ import org.smgame.core.GUICoreMediator;
  */
 public class LoadGameATM extends AbstractTableModel {
 
-    private final String[] columnNames = {"Partita", "Tipo", "Data Creazione", "Data Ultimo Salvataggio"};
+    private final String[] columnNames = {"GameID", "Partita", "Tipo", "Data Creazione", "Data Ultimo Salvataggio"};
     private LoadGameVO loadGameVO;
 
     /**Costruttore
@@ -34,7 +34,7 @@ public class LoadGameATM extends AbstractTableModel {
         if (loadGameVO == null) {
             return 0;
         }
-        return loadGameVO.getGameNameList().size();
+        return loadGameVO.getGameIDList().size();
     }
 
     public int getColumnCount() {
@@ -42,16 +42,19 @@ public class LoadGameATM extends AbstractTableModel {
     }
 
     public Object getValueAt(int row, int col) {
-        String gameName = loadGameVO.getGameNameList().get(row);
+        long gameID = loadGameVO.getGameIDList().get(row);
+
 
         if (col == 0) {
-            return gameName;
+            return gameID;
         } else if (col == 1) {
-            return loadGameVO.getGameNameGameModeMap().get(gameName);
+            return loadGameVO.getGameNameMap().get(gameID);
         } else if (col == 2) {
-            return loadGameVO.getGameNameCreationDateMap().get(gameName);
+            return loadGameVO.getGameModeMap().get(gameID);
         } else if (col == 3) {
-            return loadGameVO.getGameNameLastSaveDateMap().get(gameName);
+            return loadGameVO.getGameCreationDateMap().get(gameID);
+        } else if (col == 4) {
+            return loadGameVO.getGameLastSaveDateMap().get(gameID);
         }
 
         return -1;

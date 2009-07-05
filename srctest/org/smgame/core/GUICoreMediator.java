@@ -200,14 +200,10 @@ public class GUICoreMediator {
      * @param gameName nome partita da caricare
      *
      */
-    public static void loadGame(String gameName) {
+    public static void loadGame(long gameID) {
         loadGames();
-        for (Game g : gameMap.values()) {
-            if (g.getGameName().equals(gameName)) {
-                currentGame = g;
-                return;
-            }
-        }
+        currentGame = gameMap.get(gameID);
+        System.out.println(gameMap.containsKey(gameID));
     }
 
     /**Carica la map delle partite
@@ -251,10 +247,11 @@ public class GUICoreMediator {
         loadGameVO.clear();
 
         for (Game g : gameMap.values()) {
-            loadGameVO.getGameNameList().add(g.getGameName());
-            loadGameVO.getGameNameGameModeMap().put(g.getGameName(), g.getGameMode().toString());
-            loadGameVO.getGameNameCreationDateMap().put(g.getGameName(), dateFormat.format(g.getCreationDate()));
-            loadGameVO.getGameNameLastSaveDateMap().put(g.getGameName(), dateFormat.format(g.getLastSaveDate()));
+            loadGameVO.getGameIDList().add(g.getGameID());
+            loadGameVO.getGameNameMap().put(g.getGameID(), g.getGameName());
+            loadGameVO.getGameModeMap().put(g.getGameID(), g.getGameMode().toString());
+            loadGameVO.getGameCreationDateMap().put(g.getGameID(), dateFormat.format(g.getCreationDate()));
+            loadGameVO.getGameLastSaveDateMap().put(g.getGameID(), dateFormat.format(g.getLastSaveDate()));
         }
 
         return loadGameVO;
