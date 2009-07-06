@@ -34,37 +34,12 @@ public class DBTransactions {
     private double score; //punteggio
     private double win; //vincita
     private ArrayList<Card> cardAL;
-    private ArrayList<DBTransactions> transactionsAL;
+    //private ArrayList<DBTransactions> transactionsAL;
 
     /**Costruttore vuoto
      *
      */
-    public DBTransactions() {}
-
-    /**Costruttore
-     * 
-     * @param id_game id partita
-     */
-    public DBTransactions(long id_game) {
-        this.id_game = id_game;
-    }
-
-    /**Costruttore
-     *
-     * @param id_game id partita
-     * @param manche numero di manche nel gioco
-     * @param player giocatore
-     * @param score punteggio
-     * @param win vincita
-     */
-    public DBTransactions(long id_game, int manche, String player, double score,
-            double win) {
-        this.id_game = id_game;
-        this.manche = manche;
-        this.player = player;
-        this.score = score;
-        this.win = win;
-    }
+    public DBTransactions() {}        
 
     /**Costruttore
      *
@@ -165,21 +140,6 @@ public class DBTransactions {
         executeArraylistCardTransaction(conn);
     }
 
-    /**registra su db tutto l'arraylist transazioni
-     * 
-     * @throws java.lang.ClassNotFoundException
-     * @throws java.sql.SQLException
-     * @throws java.io.IOException
-     * @throws java.lang.Exception
-     */
-    public void executeArraylistTransactions() throws ClassNotFoundException, SQLException,
-            IOException, Exception {
-        for (int i = 0; i < transactionsAL.size(); i++) {
-            transactionsAL.get(i).executeSingleTransaction();
-        }
-        resetArraylistTansactions();
-    }
-
     /**Scrive su db le carte presenti nell'arraylist delle transazioni
      *
      * @param conn connessione db
@@ -197,50 +157,6 @@ public class DBTransactions {
             Logging.logInfo(prpstmt.toString());
             prpstmt.execute();
         }
-    }
-
-    /**Aggiunge all'arraylist una transazione da registrare a posteriori
-     *
-     * @param dbt transazione
-     */
-    public void addToArraylistTransactions(DBTransactions dbt) {
-        if (transactionsAL == null) {
-            transactionsAL = new ArrayList<DBTransactions>();
-        }
-        transactionsAL.add(dbt);
-    }
-
-    /**azzera/resetta l'arraylist
-     *
-     */
-    public void resetArraylistTansactions() {
-        transactionsAL = null;
-    }
-
-    /**Restituisce l'arraylist delle transazioni
-     *
-     * @return arraylist transazioni
-     * @throws java.lang.ClassNotFoundException
-     * @throws java.sql.SQLException
-     * @throws java.io.IOException
-     * @throws java.lang.Exception
-     */
-    public ArrayList<DBTransactions> getTransactionsAL() throws
-            ClassNotFoundException, SQLException, IOException, Exception {
-
-        ArrayList<DBTransactions> dbtransactionsAL = new ArrayList<DBTransactions>();
-        Connection conn = DBAccess.getConnection();
-        String sql = "SELECT * FROM " + tableTrans + " WHERE " + columnTrans[1] + "= ?;";
-        PreparedStatement prpstmt = conn.prepareStatement(sql);
-        setParameter(prpstmt, 1, getId_game(), Types.BIGINT);
-        Logging.logInfo(prpstmt.toString());
-        ResultSet rs = prpstmt.executeQuery();
-        while (rs.next()) {
-            DBTransactions dbt = new DBTransactions(id_game, rs.getInt(2), rs.getString(3),
-                    rs.getDouble(4), rs.getDouble(5));
-            dbtransactionsAL.add(dbt);
-        }
-        return dbtransactionsAL;
     }
 
     /**Cerca l'ultimo id appena inserito della transazione
