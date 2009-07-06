@@ -29,19 +29,9 @@ public class ResourceLocator {
      * @param dir directory
      * @param applet true = esecuzione da applet
      */
-    public static void setWorkspace(String dir, boolean applet) {
+    public static void setWorkspace(String dir) {
         String prefix = "file:";
-        String tempDir;
-        //     if (!applet) {
-
-//        if (isWindows()) {
-//            prefix = prefix + "/";
-//        }
-
-        tempDir = prefix + dir + separ;
-        curDir = tempDir.replace('\\', '/');
-        //      } else
-        //System.out.println(curDir);
+        curDir = prefix + dir + separ;
     }
 
     /**Restituisce il percorso delle resource
