@@ -34,6 +34,6 @@ public class SMGameServer {
                 }
                 new ServerJF();
             }
-        });       
+        });
     }
 }
