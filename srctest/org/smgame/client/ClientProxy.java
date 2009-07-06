@@ -139,12 +139,12 @@ public class ClientProxy {
     public void askCloseGame() {
         if (gameMode == GameMode.OFFLINE) {
             GUICoreMediator.askCloseGame();
-        } else {
-        }
-        try {
-            stub = RMIClient.getStub();
-            stub.askCloseGame();
-        } catch (Exception e) {
+        } else {        
+            try {
+                stub = RMIClient.getStub();
+                stub.askCloseGame();
+            } catch (Exception e) {
+            }
         }
     }
 
@@ -167,16 +167,8 @@ public class ClientProxy {
      *
      */
     public void saveGame() {
-        if (gameMode == GameMode.OFFLINE) {
-            GUICoreMediator.saveGame();
-        } /*else {
-        try {
-        stub = RMIClient.getStub();
-        stub.saveTransaction();
-        GUICoreMediator.saveGame();
-        } catch (Exception e) {
-        }
-        }*/
+        if (gameMode == GameMode.OFFLINE)
+            GUICoreMediator.saveGame();        
     }
 
     /**Carica la partita
