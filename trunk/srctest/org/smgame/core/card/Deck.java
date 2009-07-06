@@ -1,6 +1,7 @@
 package org.smgame.core.card;
 
 import java.io.Serializable;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -53,7 +54,8 @@ public class Deck implements Serializable {
                 img += i + 1 + ".jpg";
 
                 String resource = ResourceLocator.getResourceCards("napoletane") + img;
-                frontImage = new ImageIcon(ResourceLocator.convertStringToURL(resource));
+                URL image = ResourceLocator.convertStringToURL(resource);
+                frontImage = new ImageIcon(image);
                 if (point == Point.Re && suit == Suit.Danari) {
                     c = new JollyCard(point, suit, ALL_VALUE[i], frontImage);
                 } else {

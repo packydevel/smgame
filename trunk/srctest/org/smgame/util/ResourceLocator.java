@@ -56,7 +56,7 @@ public class ResourceLocator {
      * @return percorso carte
      */
     public static String getResourceCards(String typecard) {
-        return dirResourceCard + typecard + separ;
+        return dirResourceCard + typecard + "/";
     }
 
     /**Restituisce il percorso delle immagini degli Autori del Gioco
@@ -81,9 +81,11 @@ public class ResourceLocator {
 
     public static boolean IsWindows() {
         boolean windows = false;
+        String osName = System.getProperty("os.name").toLowerCase();
 
-        if (!System.getProperty("os.name").toLowerCase().equals("linux")) {
-            if (System.getProperty("os.name").length() == 7 && System.getProperty("os.name").substring(0, 7).toLowerCase().equals("windows")) {
+        if (!osName.equals("linux")) {
+            if ((osName.length() > 6) &&
+                    (osName.substring(0, 7).toLowerCase().equalsIgnoreCase("windows"))) {
                 windows = true;
             }
         }
