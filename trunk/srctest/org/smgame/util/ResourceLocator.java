@@ -30,6 +30,7 @@ public class ResourceLocator {
      * @param applet true = esecuzione da applet
      */
     public static void setWorkspace(String dir, boolean applet) {
+        System.out.println(dir);
         curDir = dir;
         if (applet) {
             separ = "/";
@@ -39,7 +40,6 @@ public class ResourceLocator {
         } else {
             curDir += separ;
         }
-        System.out.println(curDir);
     }
 
     /**Restituisce il percorso delle resource
@@ -79,10 +79,16 @@ public class ResourceLocator {
         return ResourceLocator.class.getResource(path);
     }
 
-    private static boolean IsWindows(){
+    public static boolean IsWindows() {
         boolean windows = false;
-        if (System.getProperty("os.name").substring(0, 7).equalsIgnoreCase("Windows"))
-            windows = true;
+
+        if (!System.getProperty("os.name").toLowerCase().equals("linux")) {
+            if (System.getProperty("os.name").length() == 7 && System.getProperty("os.name").substring(0, 7).toLowerCase().equals("windows")) {
+                windows = true;
+            }
+        }
+
         return windows;
     }
 }//end class
+
