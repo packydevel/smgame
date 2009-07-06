@@ -52,6 +52,7 @@ public class SMGameClient extends JApplet {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
 
+            @Override
             public void run() {
                 try {
                     UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());

@@ -82,6 +82,7 @@ public class GameJIF extends JInternalFrame implements ICustomDM {
          * @param input componente di provenienza
          * @return true= se puntata immessa correttamente
          */
+        @Override
         public boolean verify(JComponent input) {
             JTextField betJTF = ((JTextField) input);
             JButton requestCardJB = new JButton(), declareGoodScoreJB = new JButton();
@@ -108,16 +109,19 @@ public class GameJIF extends JInternalFrame implements ICustomDM {
             return true;
         }
 
+        @Override
         public void keyPressed(KeyEvent e) {
             JTextField source = (JTextField) e.getSource();
             shouldYieldFocus(source); //ignore return value
         }
 
+        @Override
         public void keyReleased(KeyEvent e) {
             JTextField source = (JTextField) e.getSource();
             shouldYieldFocus(source); //ignore return value
         }
 
+        @Override
         public void keyTyped(KeyEvent e) {
             JTextField source = (JTextField) e.getSource();
             shouldYieldFocus(source); //ignore return value
@@ -263,6 +267,7 @@ public class GameJIF extends JInternalFrame implements ICustomDM {
         requestCardJB.setPreferredSize(new Dimension(120, 20));
         requestCardJB.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent evt) {
                 requestCard(currentIndex);
             }
@@ -273,6 +278,7 @@ public class GameJIF extends JInternalFrame implements ICustomDM {
         declareGoodScoreJB.setPreferredSize(new Dimension(80, 20));
         declareGoodScoreJB.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent evt) {
                 declareGoodScore(currentIndex);
             }

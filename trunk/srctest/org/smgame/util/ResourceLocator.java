@@ -30,11 +30,15 @@ public class ResourceLocator {
      * @param applet true = esecuzione da applet
      */
     public static void setWorkspace(String dir, boolean applet) {
-        String prefix = "file:";
-
-        if (isWindows()) {
-            prefix = prefix + "/";
-        }
+        if (!applet) {
+            String prefix = "file:";
+            if (isWindows()) {
+                prefix = prefix + "/";
+            }
+            String tempDir = prefix + dir + separ;
+            curDir = tempDir.replace('\\', '/');
+        } else
+            curDir = dir;
 
         //       curDir = dir;
         //       if (applet) {
@@ -46,7 +50,7 @@ public class ResourceLocator {
 //            curDir += separ;
 //        }
 
-        curDir = prefix + dir + separ;
+        
         System.out.println(curDir);
     }
 
@@ -81,9 +85,6 @@ public class ResourceLocator {
      * @return url
      */
     public static URL convertStringToURL(String path) {
-        if (separ.equalsIgnoreCase("\\")) {
-            path.replace('\\', '/');
-        }
         return ResourceLocator.class.getResource(path);
     }
 
