@@ -33,8 +33,7 @@ public class SMGameClient extends JApplet {
         MainJF frame = new MainJF();
         try {
             ClientProxy.getInstance().loadGames();
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
     }
 
     @Override
