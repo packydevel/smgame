@@ -15,10 +15,12 @@ import org.smgame.util.ResourceLocator;
 public class SMGameClient extends JApplet {
 
     @Override
-    public void init() { }
+    public void init() {
+    }
 
     @Override
-    public void stop() { }
+    public void stop() {
+    }
 
     @Override
     public void start() {
@@ -30,8 +32,9 @@ public class SMGameClient extends JApplet {
         }
         MainJF frame = new MainJF();
         try {
-          ClientProxy.getInstance().loadGames();
-        } catch (Exception e) {}
+            ClientProxy.getInstance().loadGames();
+        } catch (Exception e) {
+        }
     }
 
     @Override
@@ -44,13 +47,16 @@ public class SMGameClient extends JApplet {
      * @param args argomenti
      */
     public static void main(String[] args) {
+        //System.setSecurityManager(new SecurityManager());
         ResourceLocator.setWorkspace(System.getProperty("user.dir"), false);
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
                 try {
                     UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 MainJF frame = new MainJF();
             } //end run
         }); //end invokelater
