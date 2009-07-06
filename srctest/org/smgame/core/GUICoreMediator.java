@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URI;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -51,8 +52,8 @@ public class GUICoreMediator {
     private static GameVO gameVO = new GameVO();
     private static LoadGameVO loadGameVO = new LoadGameVO();
     private static Game currentGame = null;
-    private static String fileName = ResourceLocator.getWorkspace() + "games.dat";
     private static String fileDir = ResourceLocator.getWorkspace();
+    private static String fileName = fileDir + "games.dat";
     private static final NumberFormat numberFormat = new DecimalFormat("#0.00");
     private static final DateFormat dateFormat = DateFormat.getInstance();
     private static DBTransactions trans = new DBTransactions();
@@ -184,8 +185,7 @@ public class GUICoreMediator {
      */
     private static void saveGames() {
         try {
-            File f = new File(fileName);
-            System.out.println(fileName);
+            File f = new File(new URI(fileName));
             f.createNewFile();
             FileOutputStream fos = new FileOutputStream(f);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -217,7 +217,8 @@ public class GUICoreMediator {
      */
     public static void loadGames() {
         try {
-            FileInputStream fis = new FileInputStream(fileName);
+            File f = new File(new URI(fileName));
+            FileInputStream fis = new FileInputStream(f);
             ObjectInputStream ois = new ObjectInputStream(fis);
             gameMap = (HashMap<Long, Game>) ois.readObject();
             ois.close();
@@ -289,7 +290,8 @@ public class GUICoreMediator {
                 selectNextPlayer();
             }
             gameVO.setExceptionMessage(soe.getMessage());
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 
     /**Dichiarazione del giocatore di stare bene con eventuale puntata
@@ -445,8 +447,9 @@ public class GUICoreMediator {
                 currentGame.getGameEngine().closeManche();
                 gameVO.setPlayerMaxCreditList(colorPlayerCredit());
                 gameVO.setEndManche(true);
-                if (currentGame.getGameMode()==GameMode.ONLINE)
+                if (currentGame.getGameMode() == GameMode.ONLINE) {
                     saveTransaction();
+                }
             }
 
             gameVO.setCurrentManche(currentGame.getGameEngine().getCurrentManche());
@@ -510,7 +513,7 @@ public class GUICoreMediator {
      */
     public static StoryBoardVO requestStoryGames() throws Exception {
         StoryBoardVO storyVO = new StoryBoardVO();
-        DBTransactions dbt = new DBTransactions();        
+        DBTransactions dbt = new DBTransactions();
         storyVO.setStory(dbt.getStoryGame());
         return storyVO;
     }
@@ -519,8 +522,8 @@ public class GUICoreMediator {
      *
      * @return hashmap coppia giocatore colore
      */
-    private static HashMap<Integer,Color> colorPlayerCredit() {
-        HashMap<Integer,Color> playersHM = new HashMap<Integer, Color>();
+    private static HashMap<Integer, Color> colorPlayerCredit() {
+        HashMap<Integer, Color> playersHM = new HashMap<Integer, Color>();
         List<Player> maxL = currentGame.getPlayerList().maxPlayerCreditList();
         PlayerList playerL = currentGame.getPlayerList();
         for (int i = 0; i < playerL.size(); i++) {
@@ -531,7 +534,8 @@ public class GUICoreMediator {
             playersHM.put(playerL.indexOfPlayer(maxL.get(i)), Color.GREEN);
         }
 
-        
+
         return playersHM;
     }
 } //end  class
+

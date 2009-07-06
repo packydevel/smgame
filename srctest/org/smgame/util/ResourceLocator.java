@@ -30,7 +30,6 @@ public class ResourceLocator {
      * @param applet true = esecuzione da applet
      */
     public static void setWorkspace(String dir, boolean applet) {
-        System.out.println(dir);
         curDir = dir;
         if (applet) {
             separ = "/";
