@@ -1,6 +1,7 @@
 package org.smgame.client;
 
 import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
+import java.net.URI;
 import javax.swing.JApplet;
 import javax.swing.UIManager;
 
@@ -54,7 +55,10 @@ public class SMGameClient extends JApplet {
      */
     public static void main(String[] args) {
         //System.setSecurityManager(new SecurityManager());
-        ResourceLocator.setWorkspace(System.getProperty("user.dir"), false);
+        try {
+            ResourceLocator.setWorkspace(new URI(System.getProperty("user.dir")).getPath(), false);
+        } catch (Exception e) {
+        }
 
         java.awt.EventQueue.invokeLater(new Runnable() {
 
