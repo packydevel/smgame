@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URI;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
@@ -46,7 +47,7 @@ public class PDFViewerJP extends JPanel {
         currentFile = name;//store file name for use in page changer
         try {
             //this opens the PDF and reads its internal details
-            pdfDecoder.openPdfFile(currentFile);
+            pdfDecoder.openPdfFile(new URI(currentFile).getPath());
 
             //these 2 lines opens page 1 at 100% scaling
             pdfDecoder.decodePage(currentPage);

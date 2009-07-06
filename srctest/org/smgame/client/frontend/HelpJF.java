@@ -15,6 +15,7 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLFrameHyperlinkEvent;
+import org.smgame.util.ResourceLocator;
 
 /**frame help/documentazione
  *
@@ -23,11 +24,11 @@ import javax.swing.text.html.HTMLFrameHyperlinkEvent;
  */
 public class HelpJF extends JFrame implements ActionListener, HyperlinkListener {
 
-    private JPanel buttonJP,  contentJP;
+    private JPanel buttonJP, contentJP;
     private JTextPane editorPaneJEP;
     private JSplitPane splitPaneJSP;
-    private JButton userGuideJB,  refGuideJB,  javadocJB;
-    private String userGuidePDF,  refGuidePDF,  javadocIndex;
+    private JButton userGuideJB, refGuideJB, javadocJB;
+    private String userGuidePDF, refGuidePDF, javadocIndex;
 
     /**Costruttore
      *
@@ -70,9 +71,9 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
         editorPaneJEP.addHyperlinkListener(this);
         contentJP.add(editorPaneJEP, BorderLayout.CENTER);
 
-        userGuidePDF = "/home/packyuser/Scrivania/Analisys.pdf";
-        refGuidePDF = "/home/packyuser/Scrivania/Analisys.pdf";
-        javadocIndex = getClass().getResource("/index.html").getPath();
+        userGuidePDF = ResourceLocator.getWorkspace() + "doc/Analisys.pdf";
+        refGuidePDF = ResourceLocator.getWorkspace() + "doc/Analisys.pdf";
+        javadocIndex = ResourceLocator.getWorkspace() + "javadoc/index.html";
 
         if (doc.equals("UserGuide")) {
             showPDF(userGuidePDF);
@@ -120,7 +121,8 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
         getContentPane().remove(contentJP);
         contentJP = new JPanel();
         try {
-            editorPaneJEP.setPage("file://" + file);
+            System.out.println(file);
+            editorPaneJEP.setPage(file);
             contentJP.add(editorPaneJEP, BorderLayout.CENTER);
         } catch (Exception e) {
         }
@@ -139,6 +141,7 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
                 try {
                     pane.setPage(e.getURL());
                 } catch (Throwable t) {
+                    t.printStackTrace();
                 }
             }
         }
