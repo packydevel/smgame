@@ -31,7 +31,7 @@ public class ResourceLocator {
      */
     public static void setWorkspace(String dir) {
         String prefix = "file:";
-        curDir = prefix + dir + separ;
+        curDir = prefix + dir;
     }
 
     /**Restituisce il percorso delle resource

@@ -60,10 +60,10 @@ public class ClientProxy {
         try {
             stub = RMIClient.getStub();
             mainVO.setMessageType(MessageType.INFO);
-            mainVO.setMessage("Connessione al Server RMI riuscita!");
+            mainVO.setMessage("Connessione al Server riuscita!");
         } catch (Exception e) {
             mainVO.setMessageType(MessageType.ERROR);
-            mainVO.setMessage("Impossibile connettersi al server RMI!");
+            mainVO.setMessage("Impossibile connettersi al Server!!!");
             return mainVO;
         }
 
@@ -281,7 +281,7 @@ public class ClientProxy {
             }
         } catch (Exception e) {
             storyVO.setMessageType(MessageType.ERROR);
-            storyVO.setMessage("Impossibile connettersi al server RMI o al database");
+            storyVO.setMessage("Impossibile connettersi al server!!!");
             return storyVO;
         }
         return storyVO;

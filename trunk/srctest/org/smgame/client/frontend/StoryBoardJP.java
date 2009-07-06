@@ -33,7 +33,7 @@ public class StoryBoardJP extends JPanel{
      * @param map linkedhashmap
      */
     public StoryBoardJP(LinkedHashMap<Long, Object[][]> map) {
-        setPreferredSize(new Dimension(950, 250));
+        setPreferredSize(new Dimension(950, 600));
         setLayout(new BorderLayout());
 
         storyboardJT = new JTable();
