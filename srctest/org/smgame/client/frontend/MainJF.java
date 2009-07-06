@@ -161,7 +161,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         } else if ((JMenuItem) evt.getSource() == menuJMB.getStoryBoardJMI()) {
             StoryBoardVO storyVO = ClientProxy.getInstance().requestStoryGames();
             if (storyVO.getMessageType() == null) {
-                JOptionPane.showMessageDialog(this, new StoryBoardJP(storyVO.getStory()));
+                JOptionPane.showInternalMessageDialog(desktop, new StoryBoardJP(storyVO.getStory()), "Info", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 analyzeVO(storyVO);
             }
@@ -251,3 +251,4 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
     public void internalFrameActivated(InternalFrameEvent e) {
     }
 } //end class
+

@@ -32,16 +32,16 @@ public class RMIClient {
      * @throws java.lang.Exception
      */
     public static IGameMediator getStub() throws Exception {
-        if (stub == null) {
-            new RMIClient();
-        } else {
-            try {
-                stub.test();
-            } catch (Exception e) {
-                stub = null;
-                throw new Exception();
+        try {
+            if (stub == null) {
+                new RMIClient();
             }
+            stub.test();
+        } catch (Exception e) {
+            stub = null;
+            throw new Exception();
         }
+        
         return stub;
     }
 }
