@@ -27,7 +27,7 @@ public class SMGameClient extends JApplet {
     public void start() {
         //System.setSecurityManager(new SecurityManager());
         try {
-            ResourceLocator.setWorkspace(getCodeBase().toURI().getPath(), true);
+            ResourceLocator.setWorkspace(getCodeBase().toURI().getPath());
         } catch (Exception e) {
         }
 
@@ -56,7 +56,7 @@ public class SMGameClient extends JApplet {
     public static void main(String[] args) {
         //System.setSecurityManager(new SecurityManager());
         try {
-            ResourceLocator.setWorkspace(new File(System.getProperty("user.dir")).toURI().getPath(), false);
+            ResourceLocator.setWorkspace(new File(System.getProperty("user.dir")).toURI().getPath());
         } catch (Exception e) {
         }
 

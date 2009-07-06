@@ -1,6 +1,7 @@
 package org.smgame.server;
 
 import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
+import java.io.File;
 import java.rmi.RMISecurityManager;
 import javax.swing.UIManager;
 import org.smgame.server.frontend.ServerJF;
@@ -21,7 +22,7 @@ public class SMGameServer {
      */
     public static void main(String[] args) throws Exception {
         System.setSecurityManager(new RMISecurityManager());
-        ResourceLocator.setWorkspace(System.getProperty("user.dir"), false);
+        ResourceLocator.setWorkspace(new File(System.getProperty("user.dir")).toURI().getPath());
         Logging.createLog("server");
         java.awt.EventQueue.invokeLater(new Runnable() {
 
