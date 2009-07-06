@@ -9,6 +9,7 @@ import java.util.Date;
 import org.smgame.client.frontend.MessageType;
 import org.smgame.server.frontend.ServerVO;
 import org.smgame.util.Logging;
+import org.smgame.util.ResourceLocator;
 
 /**Server RMI
  *
@@ -35,10 +36,10 @@ public class RMIServer {
         // Must implement constructor to throw RemoteException:
         runtime = Runtime.getRuntime();
 
-        if (System.getProperty("os.name").toLowerCase().equals("linux")) {
-            rmiRegistryCommand = "rmiregistry";
-        } else if (System.getProperty("os.name").toLowerCase().equals("windows xp")) {            
+        if (ResourceLocator.IsWindows()) {
             rmiRegistryCommand = "rmiregistry.exe";
+        } else {            
+            rmiRegistryCommand = "rmiregistry";
         }
         bindName = "rmi://localhost/ServerMediator";
     }
