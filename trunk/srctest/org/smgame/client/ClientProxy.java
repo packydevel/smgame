@@ -170,12 +170,12 @@ public class ClientProxy {
         if (gameMode == GameMode.OFFLINE) {
             GUICoreMediator.saveGame();
         } /*else {
-            try {
-                stub = RMIClient.getStub();
-                stub.saveTransaction();
-                GUICoreMediator.saveGame();
-            } catch (Exception e) {
-            }
+        try {
+        stub = RMIClient.getStub();
+        stub.saveTransaction();
+        GUICoreMediator.saveGame();
+        } catch (Exception e) {
+        }
         }*/
     }
 
@@ -186,6 +186,7 @@ public class ClientProxy {
      */
     public void loadGame(long gameID) {
         GUICoreMediator.loadGame(gameID);
+        gameMode = GameMode.OFFLINE;
     }
 
     /**Carica l'elenco delle partite
@@ -201,8 +202,8 @@ public class ClientProxy {
      * 
      */
     public LoadGameVO requestLoadGameVO() {
-       
-            return GUICoreMediator.requestLoadGameVO();
+
+        return GUICoreMediator.requestLoadGameVO();
     }
 
     /**Restituisce il titolo della partita
@@ -282,7 +283,7 @@ public class ClientProxy {
         try {
             stub = RMIClient.getStub();
             storyVO = stub.requestStoryGames();
-            if (storyVO.getStory().size()==0){
+            if (storyVO.getStory().size() == 0) {
                 storyVO.setMessageType(MessageType.ERROR);
                 storyVO.setMessage("Non ci sono partite da visualizzare");
             }

@@ -33,7 +33,8 @@ public class SMGameClient extends JApplet {
         MainJF frame = new MainJF();
         try {
             ClientProxy.getInstance().loadGames();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 
     @Override
@@ -47,7 +48,8 @@ public class SMGameClient extends JApplet {
      */
     public static void main(String[] args) {
         //System.setSecurityManager(new SecurityManager());
-        ResourceLocator.setWorkspace(System.getProperty("user.dir"), false);
+        ResourceLocator.setWorkspace("file:"+System.getProperty("user.dir"), false);
+
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
