@@ -39,19 +39,7 @@ public class ResourceLocator {
             curDir = tempDir.replace('\\', '/');
         } else
             curDir = dir;
-
-        //       curDir = dir;
-        //       if (applet) {
-//            separ = "/";
-        //           if (IsWindows()) {
-//                curDir = curDir.substring(6) + "\\";
-        //           }
-//        } else {
-//            curDir += separ;
-//        }
-
-        
-        System.out.println(curDir);
+        //System.out.println(curDir);
     }
 
     /**Restituisce il percorso delle resource
