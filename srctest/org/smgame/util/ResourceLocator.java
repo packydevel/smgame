@@ -30,15 +30,18 @@ public class ResourceLocator {
      * @param applet true = esecuzione da applet
      */
     public static void setWorkspace(String dir, boolean applet) {
-        if (!applet) {
-            String prefix = "file:";
-            if (isWindows()) {
-                prefix = prefix + "/";
-            }
-            String tempDir = prefix + dir + separ;
-            curDir = tempDir.replace('\\', '/');
-        } else
-            curDir = dir;
+        String prefix = "file:";
+        String tempDir;
+        //     if (!applet) {
+
+        if (isWindows()) {
+            prefix = prefix + "/";
+
+        }
+
+        tempDir = prefix + dir + separ;
+        curDir = tempDir.replace('\\', '/');
+        //      } else
         //System.out.println(curDir);
     }
 

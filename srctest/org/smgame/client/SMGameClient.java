@@ -25,12 +25,22 @@ public class SMGameClient extends JApplet {
     @Override
     public void start() {
         //System.setSecurityManager(new SecurityManager());
-        ResourceLocator.setWorkspace((getCodeBase().toString()), true);
+        try {
+            ResourceLocator.setWorkspace(getCodeBase().toURI().getPath(), true);
+
+        } catch (Exception e) {
+        }
+        
         try {
             UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
         } catch (Exception e) {
         }
         MainJF frame = new MainJF();
+
+
+
+
+
         try {
             ClientProxy.getInstance().loadGames();
         } catch (Exception e) {
@@ -59,6 +69,7 @@ public class SMGameClient extends JApplet {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
                 MainJF frame = new MainJF();
             } //end run
         }); //end invokelater
