@@ -34,10 +34,9 @@ public class ResourceLocator {
         String tempDir;
         //     if (!applet) {
 
-        if (isWindows()) {
-            prefix = prefix + "/";
-
-        }
+//        if (isWindows()) {
+//            prefix = prefix + "/";
+//        }
 
         tempDir = prefix + dir + separ;
         curDir = tempDir.replace('\\', '/');
