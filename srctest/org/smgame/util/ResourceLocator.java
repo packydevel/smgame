@@ -85,7 +85,7 @@ public class ResourceLocator {
 
         if (!osName.equals("linux")) {
             if ((osName.length() > 6) &&
-                    (osName.substring(0, 7).toLowerCase().equalsIgnoreCase("windows"))) {
+                    (osName.substring(0, 6).toLowerCase().equalsIgnoreCase("windows"))) {
                 windows = true;
             }
         }

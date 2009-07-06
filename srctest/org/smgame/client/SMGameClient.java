@@ -27,24 +27,20 @@ public class SMGameClient extends JApplet {
         //System.setSecurityManager(new SecurityManager());
         try {
             ResourceLocator.setWorkspace(getCodeBase().toURI().getPath(), true);
-
         } catch (Exception e) {
         }
-        
+
         try {
             UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
         } catch (Exception e) {
         }
-        MainJF frame = new MainJF();
-
-
-
-
 
         try {
             ClientProxy.getInstance().loadGames();
         } catch (Exception e) {
         }
+
+        MainJF frame = new MainJF();
     }
 
     @Override
