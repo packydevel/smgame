@@ -30,15 +30,24 @@ public class ResourceLocator {
      * @param applet true = esecuzione da applet
      */
     public static void setWorkspace(String dir, boolean applet) {
-        curDir = dir;
-        if (applet) {
-            separ = "/";
-            if (IsWindows()) {
-                curDir = curDir.substring(6) + "\\";
-            }
-        } else {
-            curDir += separ;
+        String prefix = "file:";
+
+        if (isWindows()) {
+            prefix = prefix + "/";
         }
+
+        //       curDir = dir;
+        //       if (applet) {
+//            separ = "/";
+        //           if (IsWindows()) {
+//                curDir = curDir.substring(6) + "\\";
+        //           }
+//        } else {
+//            curDir += separ;
+//        }
+
+        curDir = prefix + dir + separ;
+        System.out.println(curDir);
     }
 
     /**Restituisce il percorso delle resource
@@ -78,7 +87,7 @@ public class ResourceLocator {
         return ResourceLocator.class.getResource(path);
     }
 
-    public static boolean IsWindows() {
+    public static boolean isWindows() {
         boolean windows = false;
         String osName = System.getProperty("os.name").toLowerCase();
 

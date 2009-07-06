@@ -36,9 +36,9 @@ public class RMIServer {
         // Must implement constructor to throw RemoteException:
         runtime = Runtime.getRuntime();
 
-        if (ResourceLocator.IsWindows()) {
+        if (ResourceLocator.isWindows()) {
             rmiRegistryCommand = "rmiregistry.exe";
-        } else {            
+        } else {
             rmiRegistryCommand = "rmiregistry";
         }
         bindName = "rmi://localhost/ServerMediator";
