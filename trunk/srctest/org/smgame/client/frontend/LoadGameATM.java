@@ -29,6 +29,7 @@ public class LoadGameATM extends AbstractTableModel {
         return columnNames[col].toString();
     }
 
+    @Override
     public int getRowCount() {
         if (loadGameVO == null) {
             return 0;
@@ -36,10 +37,12 @@ public class LoadGameATM extends AbstractTableModel {
         return loadGameVO.getGameIDList().size();
     }
 
+    @Override
     public int getColumnCount() {
         return columnNames.length;
     }
 
+    @Override
     public Object getValueAt(int row, int col) {
         long gameID = loadGameVO.getGameIDList().get(row);
 
@@ -59,6 +62,7 @@ public class LoadGameATM extends AbstractTableModel {
         return -1;
     }
 
+    @Override
     public boolean isCellEditable(int row, int col) {
         return false;
     }

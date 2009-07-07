@@ -83,6 +83,7 @@ public class LoadGameJIF extends JInternalFrame implements ICustomDM {
         buttonGBC.gridy = 1;
         cancelJB.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent evt) {
                 loadGame(evt);
             }
@@ -97,6 +98,7 @@ public class LoadGameJIF extends JInternalFrame implements ICustomDM {
         buttonGBC.weightx = 1;
         okJB.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent evt) {
                 loadGame(evt);
             }

@@ -27,19 +27,10 @@ public class SMGameClient extends JApplet {
     public void start() {
         //System.setSecurityManager(new SecurityManager());
         try {
-            ResourceLocator.setWorkspace(getCodeBase().toURI().getPath());
-        } catch (Exception e) {
-        }
-
-        try {
-            UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
-        } catch (Exception e) {
-        }
-
-        try {
+            ResourceLocator.setWorkspace(getCodeBase().toURI().getPath());                
+            UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());        
             ClientProxy.getInstance().loadGames();
-        } catch (Exception e) {
-        }
+        } catch (Exception e) { }
 
         MainJF frame = new MainJF();
     }
@@ -57,8 +48,7 @@ public class SMGameClient extends JApplet {
         //System.setSecurityManager(new SecurityManager());
         try {
             ResourceLocator.setWorkspace(new File(System.getProperty("user.dir")).toURI().getPath());
-        } catch (Exception e) {
-        }
+        } catch (Exception e) { }
 
         java.awt.EventQueue.invokeLater(new Runnable() {
 
@@ -66,9 +56,7 @@ public class SMGameClient extends JApplet {
             public void run() {
                 try {
                     UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                } catch (Exception e) { }
 
                 MainJF frame = new MainJF();
             } //end run
@@ -76,7 +64,6 @@ public class SMGameClient extends JApplet {
 
         try {
             ClientProxy.getInstance().loadGames();
-        } catch (Exception e) {
-        }
+        } catch (Exception e) { }
     }
 }
