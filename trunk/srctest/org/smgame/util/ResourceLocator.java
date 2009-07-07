@@ -3,7 +3,7 @@ package org.smgame.util;
 import java.io.File;
 import java.net.URL;
 
-/**Classe metodi comuni
+/**Classe Lacazione Risorse
  *
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
@@ -12,6 +12,7 @@ public class ResourceLocator {
 
     static String separ = File.separator;
     static String curDir;
+    
     final static String dirResource = "/org/smgame/resource/";
     final static String dirResourceCard = dirResource + "cardimage/";
     final static String dirResourceAuthor = dirResource + "authorimage/";
@@ -68,13 +69,17 @@ public class ResourceLocator {
         return ResourceLocator.class.getResource(path);
     }
 
+    /**Verifica se il sistema operativo in uso è windows
+     *
+     * @return true = windows, altrimenti false
+     */
     public static boolean isWindows() {
         boolean windows = false;
         String osName = System.getProperty("os.name").toLowerCase();
 
         if (!osName.equals("linux")) {
             if ((osName.length() > 6) &&
-                    (osName.substring(0, 6).toLowerCase().equalsIgnoreCase("windows"))) {
+                    (osName.substring(0, 7).toLowerCase().equalsIgnoreCase("windows"))) {
                 windows = true;
             }
         }
@@ -82,4 +87,3 @@ public class ResourceLocator {
         return windows;
     }
 }//end class
-
