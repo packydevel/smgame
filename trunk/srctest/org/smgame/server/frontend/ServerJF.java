@@ -114,7 +114,7 @@ public class ServerJF extends JFrame implements WindowListener {
         fileJP = new JPanel();
         fileJP.setPreferredSize(new Dimension(470, 100));
         fileJP.setLayout(new BorderLayout());
-        fileJP.setBorder(BorderFactory.createTitledBorder("Path del File delle Partite"));
+        fileJP.setBorder(BorderFactory.createTitledBorder("Path del File di Logging"));
         panelGBC.gridx = 0;
         panelGBC.gridy = 0;
         configJP.add(fileJP, panelGBC);
