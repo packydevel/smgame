@@ -55,6 +55,7 @@ public class StoryBoardJP extends JPanel{
         nextJB = new JButton("Successiva");
         nextJB.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent evt) {                
                 nextGames();
             }
@@ -67,6 +68,7 @@ public class StoryBoardJP extends JPanel{
         previousJB.setEnabled(false);
         previousJB.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent evt) {
                 previousGames();
             }

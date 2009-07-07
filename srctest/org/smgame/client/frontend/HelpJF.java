@@ -86,6 +86,7 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
         setVisible(true);
     }
 
+    @Override
     public void actionPerformed(ActionEvent ae) {
         JButton button = (JButton) ae.getSource();
         if (button.equals(userGuideJB)) {
@@ -130,6 +131,7 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
         validate();
     }
 
+    @Override
     public void hyperlinkUpdate(HyperlinkEvent e) {
         if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
             JTextPane pane = (JTextPane) e.getSource();
