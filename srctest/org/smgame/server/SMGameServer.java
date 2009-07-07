@@ -1,9 +1,12 @@
 package org.smgame.server;
 
 import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
+
 import java.io.File;
 import java.rmi.RMISecurityManager;
+
 import javax.swing.UIManager;
+
 import org.smgame.server.frontend.ServerJF;
 import org.smgame.util.Logging;
 import org.smgame.util.ResourceLocator;

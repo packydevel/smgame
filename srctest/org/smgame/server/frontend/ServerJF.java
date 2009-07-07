@@ -35,8 +35,8 @@ import org.smgame.server.RMIServer;
 
 /**frame interno server
  *
- * @author luca
- * @author pasquale
+ * @author Traetta  Pasquale 450428
+ * @author Mignogna Luca     467644
  */
 public class ServerJF extends JFrame implements WindowListener {
 
