@@ -2,7 +2,6 @@ package org.smgame.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -31,7 +30,6 @@ public class Logging {
         try {
             File f = new File(new java.net.URI(dir));
             // This block configure the logger with handler and formatter
-            //filehandler = new FileHandler(dir, true);
             filehandler = new FileHandler(f.getAbsolutePath(), true);
             logger.addHandler(filehandler);
             logger.setLevel(Level.ALL);
