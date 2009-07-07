@@ -145,6 +145,7 @@ public class ServerJF extends JFrame implements WindowListener {
         buttonGBC.anchor = GridBagConstraints.SOUTHEAST;
         startJB.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent evt) {
                 serverAction(evt);
             }
@@ -162,6 +163,7 @@ public class ServerJF extends JFrame implements WindowListener {
         buttonGBC.anchor = GridBagConstraints.SOUTHWEST;
         stopJB.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent evt) {
                 serverAction(evt);
             }
@@ -182,6 +184,7 @@ public class ServerJF extends JFrame implements WindowListener {
         pathJB.setVisible(true);
         pathJB.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent evt) {
                 serverAction(evt);
             }
@@ -199,6 +202,7 @@ public class ServerJF extends JFrame implements WindowListener {
         buttonGBC.anchor = GridBagConstraints.SOUTH;
         testJB.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent evt) {
                 serverAction(evt);
             }
