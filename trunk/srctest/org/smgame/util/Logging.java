@@ -1,6 +1,9 @@
 package org.smgame.util;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,13 +27,19 @@ public class Logging {
     public static boolean createLog(String name) {
         logger = Logger.getLogger(name);
         String dir = ResourceLocator.getWorkspace() + name + ".log";
+
         try {
+            File f = new File(new java.net.URI(dir));
             // This block configure the logger with handler and formatter
-            filehandler = new FileHandler(dir, true);
+            //filehandler = new FileHandler(dir, true);
+            filehandler = new FileHandler(f.getAbsolutePath(), true);
             logger.addHandler(filehandler);
             logger.setLevel(Level.ALL);
             SimpleFormatter formatter = new SimpleFormatter();
             filehandler.setFormatter(formatter);
+        } catch (URISyntaxException urise) {
+            logger.severe(urise.getLocalizedMessage());
+            return false;
         } catch (IOException ioe) {
             logger.severe(ioe.getLocalizedMessage());
             return false;
