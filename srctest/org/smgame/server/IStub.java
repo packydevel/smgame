@@ -16,7 +16,7 @@ import org.smgame.core.GameMode;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
-public interface IGameMediator extends Remote {
+public interface IStub extends Remote {
 
     /**testa la connessione
      *

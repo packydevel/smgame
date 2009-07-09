@@ -16,7 +16,7 @@ import org.smgame.core.GameMode;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
-public class Stub implements IGameMediator {
+public class Stub implements IStub {
 
     @Override
     public void test() throws RemoteException { }
