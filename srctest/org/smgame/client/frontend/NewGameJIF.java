@@ -309,9 +309,9 @@ public class NewGameJIF extends JInternalFrame implements ICustomDM {
                 }
                 
                 if (online) {
-                    ClientProxy.getInstance().createOnLineGame(gameName, null, playerNameList, playerTypeList);
+                    ClientProxy.getInstance().createOnLineGame(gameName, playerNameList, playerTypeList);
                 } else {
-                    ClientProxy.getInstance().createOffLineGame(gameName, null, playerNameList, playerTypeList);
+                    ClientProxy.getInstance().createOffLineGame(gameName, playerNameList, playerTypeList);
                 }
 
                 newGameVO = ClientProxy.getInstance().requestNewGameVO();
