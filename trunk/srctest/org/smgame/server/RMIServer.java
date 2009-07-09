@@ -19,7 +19,7 @@ import org.smgame.util.ResourceLocator;
 public class RMIServer {
 
     private static RMIServer server;
-    private IGameMediator istub;
+    private IStub istub;
     private Stub stub;
     private static ServerVO serverVO = new ServerVO();
     private String rmiRegistryCommand = "";
@@ -70,7 +70,7 @@ public class RMIServer {
 
             stub = new Stub();
 
-            istub = (IGameMediator) UnicastRemoteObject.exportObject(stub, 0);
+            istub = (IStub) UnicastRemoteObject.exportObject(stub, 0);
             rmiregistry.rebind(bindName, istub);
 
             serverVO.setMessage(dateFormat.format(new Date()) + "- RMI Server Avviato su localhost");

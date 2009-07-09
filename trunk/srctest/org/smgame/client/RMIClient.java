@@ -3,7 +3,7 @@ package org.smgame.client;
 import java.rmi.RMISecurityManager;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import org.smgame.server.IGameMediator;
+import org.smgame.server.IStub;
 
 /**Classe client rmi
  *
@@ -12,7 +12,7 @@ import org.smgame.server.IGameMediator;
  */
 public class RMIClient {
 
-    private static IGameMediator stub = null;
+    private static IStub stub = null;
 
     /**Costruttore privato
      * ottiene la rappresentazione in locale dell'oggetto remoto
@@ -22,7 +22,7 @@ public class RMIClient {
     private RMIClient() throws Exception {
         System.setSecurityManager(new RMISecurityManager());
         Registry registry = LocateRegistry.getRegistry("localhost");
-        stub = (IGameMediator) registry.lookup("rmi://localhost/ServerMediator");
+        stub = (IStub) registry.lookup("rmi://localhost/ServerMediator");
     }
 
     /**restituisce l'oggetto stub/surrogato
@@ -31,7 +31,7 @@ public class RMIClient {
      *
      * @throws java.lang.Exception
      */
-    public static IGameMediator getStub() throws Exception {
+    public static IStub getStub() throws Exception {
         try {
             if (stub == null) {
                 new RMIClient();

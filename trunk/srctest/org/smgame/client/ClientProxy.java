@@ -12,7 +12,7 @@ import org.smgame.client.frontend.MainVO;
 import org.smgame.client.frontend.MessageType;
 import org.smgame.client.frontend.NewGameVO;
 import org.smgame.client.frontend.StoryBoardVO;
-import org.smgame.server.IGameMediator;
+import org.smgame.server.IStub;
 
 /** Classe client mediator
  * è il mediatore tra server e gui
@@ -25,7 +25,7 @@ public class ClientProxy {
     private static ClientProxy clientProxy;
     private UUID clientID;
     private GameMode gameMode;
-    private IGameMediator stub;
+    private IStub stub;
     private MainVO mainVO = new MainVO();
     private NewGameVO newGameVO = new NewGameVO();
 
