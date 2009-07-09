@@ -344,7 +344,11 @@ public class GUICoreMediator {
             menuVO.getItemEnabledMap().put("newOnLineGameJMI", false);
             menuVO.getItemEnabledMap().put("newOffLineGameJMI", false);
             menuVO.getItemEnabledMap().put("loadGameJMI", false);
-            menuVO.getItemEnabledMap().put("saveGameJMI", true);
+            if (currentGame.getGameMode() == GameMode.OFFLINE) {
+                menuVO.getItemEnabledMap().put("saveGameJMI", true);
+            } else {
+                menuVO.getItemEnabledMap().put("saveGameJMI", false);
+            }
             menuVO.getItemEnabledMap().put("closeGameJMI", true);
         }
 
@@ -488,7 +492,7 @@ public class GUICoreMediator {
     public static Object[][] requestDataReport(UUID clientID) {
         Game currentGame = getGameByClient(clientID);
         int size = gameVO.getPlayerIndexList().size();
-        
+
         Object[][] data = new Object[size][4];
         for (int i = 0; i < size; i++) {
             Player tempPlayer = currentGame.getPlayerList().getPlayer(i);
