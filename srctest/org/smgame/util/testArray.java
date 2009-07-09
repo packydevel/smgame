@@ -9,12 +9,15 @@ public class testArray {
     public static void main(String args[]) {
         String a, b, c;
 
-        a = new String("test");
+        //     a = new String("test");
+        a = "test";
         b = a;
 
         System.out.println("a==b " + (a == b));
 
-        b = new String("test");
+        b = "test";
+//      b = new String("test");
+
 
         System.out.println("a==b " + (a == b));
 
