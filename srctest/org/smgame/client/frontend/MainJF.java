@@ -64,8 +64,6 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
 
         setJMenuBar(menuJMB);
 
-        //ClientProxy.getInstance().addMenuItem(menuItemNameList);
-
         refreshMenuItem();
     }
 

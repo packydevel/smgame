@@ -24,13 +24,6 @@ public interface IGameMediator extends Remote {
      */
     public void test() throws RemoteException;
 
-//    /**Aggiunge item al menù
-//     *
-//     * @param menuItemList lista menù
-//     * @throws java.rmi.RemoteException
-//     */
-//    public void addMenuItem(List<String> menuItemList) throws RemoteException;
-
     /**Crea partita
      *
      * @param gameName nome

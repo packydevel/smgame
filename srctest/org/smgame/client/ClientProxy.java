@@ -72,21 +72,6 @@ public class ClientProxy {
         return mainVO;
     }
 
-//    /**Aggiunge il menu
-//     *
-//     * @param menuItemList lista di voci per menù
-//     */
-//    public void addMenuItem(List<String> menuItemList) {
-//        if (gameMode == GameMode.OFFLINE) {
-//            GUICoreMediator.addMenuItem(menuItemList);
-//        } else {
-//            try {
-//                stub.addMenuItem(menuItemList);
-//            } catch (Exception e) {
-//            }
-//        }
-//    }
-
     /**Crea il gioco differenziandosi in base alla modalità online/offline
      *
      * @param gameMode tipo partita
