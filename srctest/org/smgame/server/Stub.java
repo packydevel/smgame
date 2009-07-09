@@ -21,10 +21,10 @@ public class Stub implements IGameMediator {
     @Override
     public void test() throws RemoteException { }
 
-    @Override
-    public void addMenuItem(List<String> menuItemList) {
-        GUICoreMediator.addMenuItem(menuItemList);
-    }
+//    @Override
+//    public void addMenuItem(List<String> menuItemList) {
+//        GUICoreMediator.addMenuItem(menuItemList);
+//    }
 
     @Override
     public void createGame(UUID clientID, String gameName, GameMode gameMode, List<String> playerNameList, List<Boolean> playerTypeList) {

@@ -53,7 +53,6 @@ public class GUICoreMediator {
     private static MenuVO menuVO = new MenuVO();
     private static GameVO gameVO = new GameVO();
     private static LoadGameVO loadGameVO = new LoadGameVO();
-    //private static Game currentGame = null;
     private static String fileDir = ResourceLocator.getWorkspace();
     private static String fileName = fileDir + "games.dat";
     private static final NumberFormat numberFormat = new DecimalFormat("#0.00");
@@ -99,15 +98,15 @@ public class GUICoreMediator {
         return gameMap.get(clientGameMap.get(clientID));
     }
 
-    /**Aggiunge al menù gli item
-     *
-     * @param menuItemList lista di item/voci da aggiungere
-     */
-    public static void addMenuItem(List<String> menuItemList) {
-        for (String s : menuItemList) {
-            menuVO.getItemEnabledMap().put(s, false);
-        }
-    }
+//    /**Aggiunge al menù gli item
+//     *
+//     * @param menuItemList lista di item/voci da aggiungere
+//     */
+//    private static void addMenuItem(List<String> menuItemList) {
+//        for (String s : menuItemList) {
+//            menuVO.getItemEnabledMap().put(s, false);
+//        }
+//    }
 
     /**Chiede la chiusura del gioco
      *
