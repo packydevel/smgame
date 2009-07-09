@@ -29,7 +29,7 @@ import javax.swing.ScrollPaneLayout;
 
 import org.smgame.backend.DBAccess;
 import org.smgame.backend.DBPropertiesVO;
-import org.smgame.core.GUICoreMediator;
+import org.smgame.core.CoreProxy;
 import org.smgame.client.frontend.MessageType;
 import org.smgame.server.RMIServer;
 
@@ -131,7 +131,7 @@ public class ServerJF extends JFrame implements WindowListener {
         pathJP.setPreferredSize(new Dimension(70, 30));
         fileJP.add(BorderLayout.SOUTH, pathJP);
 
-        pathJL = new JLabel("Path: " + GUICoreMediator.getSaveDirectory());
+        pathJL = new JLabel("Path: " + CoreProxy.getSaveDirectory());
         fileJP.add(BorderLayout.NORTH, pathJL);
 
         startJB = new JButton("Start");
@@ -329,8 +329,8 @@ public class ServerJF extends JFrame implements WindowListener {
             fileJFC.setMultiSelectionEnabled(false);
 
             if (fileJFC.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-                GUICoreMediator.setSaveDirectory(fileJFC.getSelectedFile());
-                serverVO = GUICoreMediator.requestServerVO();
+                CoreProxy.setSaveDirectory(fileJFC.getSelectedFile());
+                serverVO = CoreProxy.requestServerVO();
                 if (serverVO.getMessageType() == MessageType.ERROR) {
                     JOptionPane.showMessageDialog(this, serverVO.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
                 } else {
@@ -338,8 +338,8 @@ public class ServerJF extends JFrame implements WindowListener {
                 }
             }
         } else if (((JButton) e.getSource()).equals(testJB)) {
-            GUICoreMediator.testDBConnection();
-            serverVO = GUICoreMediator.requestServerVO();
+            CoreProxy.testDBConnection();
+            serverVO = CoreProxy.requestServerVO();
             if (serverVO.getMessageType() == MessageType.ERROR) {
                 JOptionPane.showMessageDialog(this, serverVO.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
             } else {

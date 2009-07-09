@@ -1,7 +1,7 @@
 package org.smgame.client.frontend;
 
 import javax.swing.table.AbstractTableModel;
-import org.smgame.core.GUICoreMediator;
+import org.smgame.core.CoreProxy;
 
 /**Modello di tabella per il caricamento delle partite
  *
@@ -19,7 +19,7 @@ public class LoadGameATM extends AbstractTableModel {
     public LoadGameATM() {
         super();
         try {
-            loadGameVO = GUICoreMediator.requestLoadGameVO();
+            loadGameVO = CoreProxy.requestLoadGameVO();
         } catch (Exception e) {
         }
     }

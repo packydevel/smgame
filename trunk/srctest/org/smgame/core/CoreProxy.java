@@ -38,13 +38,13 @@ import org.smgame.util.ImageEdit;
 import org.smgame.util.Logging;
 import org.smgame.util.ScoreOverflowException;
 
-/**Classe GUICoreMediator
+/**Classe CoreProxy
  * mediatore tra la gui e il core
  *
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
-public class GUICoreMediator {
+public class CoreProxy {
 
     private static HashMap<UUID, Long> clientGameMap = new HashMap<UUID, Long>();
     private static HashMap<Long, Game> gameMap = new HashMap<Long, Game>();
@@ -97,16 +97,6 @@ public class GUICoreMediator {
     private static Game getGameByClient(UUID clientID) {
         return gameMap.get(clientGameMap.get(clientID));
     }
-
-//    /**Aggiunge al menù gli item
-//     *
-//     * @param menuItemList lista di item/voci da aggiungere
-//     */
-//    private static void addMenuItem(List<String> menuItemList) {
-//        for (String s : menuItemList) {
-//            menuVO.getItemEnabledMap().put(s, false);
-//        }
-//    }
 
     /**Chiede la chiusura del gioco
      *
@@ -522,7 +512,7 @@ public class GUICoreMediator {
         } catch (Exception e) {
             serverVO.setMessage("Impossibile Connettersi al DataBase");
             serverVO.setMessageType(MessageType.ERROR);
-            Logging.logExceptionSevere(GUICoreMediator.class, e);
+            Logging.logExceptionSevere(CoreProxy.class, e);
         }
     }
 
