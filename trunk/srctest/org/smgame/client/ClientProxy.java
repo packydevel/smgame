@@ -2,9 +2,9 @@ package org.smgame.client;
 
 import java.util.List;
 
+import java.util.UUID;
 import org.smgame.core.GUICoreMediator;
 import org.smgame.core.GameMode;
-import org.smgame.core.GameSetting;
 import org.smgame.client.frontend.LoadGameVO;
 import org.smgame.client.frontend.MenuVO;
 import org.smgame.client.frontend.GameVO;
@@ -23,6 +23,7 @@ import org.smgame.server.IGameMediator;
 public class ClientProxy {
 
     private static ClientProxy clientProxy;
+    private UUID clientID;
     private GameMode gameMode;
     private IGameMediator stub;
     private MainVO mainVO = new MainVO();
@@ -34,6 +35,7 @@ public class ClientProxy {
      */
     private ClientProxy() {
         try {
+            clientID = UUID.randomUUID();
             stub = RMIClient.getStub();
         } catch (Exception e) {
         }
@@ -93,17 +95,17 @@ public class ClientProxy {
      * @param playerNameList lista nomi giocatori
      * @param playerTypeList lista tipo giocatori
      */
-    private void createGame(GameMode gameMode, String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) {
+    private void createGame(GameMode gameMode, String gameName, List<String> playerNameList, List<Boolean> playerTypeList) {
         newGameVO.clear();
 
         this.gameMode = gameMode;
 
         if (gameMode == GameMode.OFFLINE) {
-            GUICoreMediator.createGame(gameName, gameSetting, gameMode, playerNameList, playerTypeList);
+            GUICoreMediator.createGame(clientID, gameName, gameMode, playerNameList, playerTypeList);
         } else {
             try {
                 stub = RMIClient.getStub();
-                stub.createGame(gameName, gameSetting, gameMode, playerNameList, playerTypeList);
+                stub.createGame(clientID, gameName, gameMode, playerNameList, playerTypeList);
             } catch (Exception e) {
                 newGameVO.setMessageType(MessageType.ERROR);
                 newGameVO.setMessage("Impossibile Giocare una Partita OnLine!");
@@ -118,8 +120,8 @@ public class ClientProxy {
      * @param playerNameList lista nomi giocatori
      * @param playerTypeList lista tipo giocatori
      */
-    public void createOffLineGame(String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) {
-        createGame(GameMode.OFFLINE, gameName, gameSetting, playerNameList, playerTypeList);
+    public void createOffLineGame(String gameName, List<String> playerNameList, List<Boolean> playerTypeList) {
+        createGame(GameMode.OFFLINE, gameName, playerNameList, playerTypeList);
     }
 
     /**Crea il gioco online
@@ -129,8 +131,8 @@ public class ClientProxy {
      * @param playerNameList lista nomi giocatori
      * @param playerTypeList lista tipo giocatori
      */
-    public void createOnLineGame(String gameName, GameSetting gameSetting, List<String> playerNameList, List<Boolean> playerTypeList) {
-        createGame(GameMode.ONLINE, gameName, gameSetting, playerNameList, playerTypeList);
+    public void createOnLineGame(String gameName, List<String> playerNameList, List<Boolean> playerTypeList) {
+        createGame(GameMode.ONLINE, gameName, playerNameList, playerTypeList);
     }
 
     /**Chiede la chiusura della partita
@@ -139,7 +141,7 @@ public class ClientProxy {
     public void askCloseGame() {
         if (gameMode == GameMode.OFFLINE) {
             GUICoreMediator.askCloseGame();
-        } else {        
+        } else {
             try {
                 stub = RMIClient.getStub();
                 stub.askCloseGame();
@@ -153,11 +155,11 @@ public class ClientProxy {
      */
     public void closeGame() {
         if (gameMode == GameMode.OFFLINE) {
-            GUICoreMediator.closeGame();
+            GUICoreMediator.closeGame(clientID);
         } else {
             try {
                 stub = RMIClient.getStub();
-                stub.closeGame();
+                stub.closeGame(clientID);
             } catch (Exception e) {
             }
         }
@@ -167,8 +169,9 @@ public class ClientProxy {
      *
      */
     public void saveGame() {
-        if (gameMode == GameMode.OFFLINE)
-            GUICoreMediator.saveGame();        
+        if (gameMode == GameMode.OFFLINE) {
+            GUICoreMediator.saveGame(clientID);
+        }
     }
 
     /**Carica la partita
@@ -177,7 +180,7 @@ public class ClientProxy {
      * 
      */
     public void loadGame(long gameID) {
-        GUICoreMediator.loadGame(gameID);
+        GUICoreMediator.loadGame(clientID, gameID);
         gameMode = GameMode.OFFLINE;
     }
 
@@ -204,11 +207,11 @@ public class ClientProxy {
      */
     public String getGameTitle() {
         if (gameMode == GameMode.OFFLINE) {
-            return GUICoreMediator.getGameTitle();
+            return GUICoreMediator.getGameTitle(clientID);
         } else {
             try {
                 stub = RMIClient.getStub();
-                return stub.getGameTitle();
+                return stub.getGameTitle(clientID);
             } catch (Exception e) {
                 return null;
             }
@@ -222,11 +225,11 @@ public class ClientProxy {
      */
     public void requestCard(int playerIndex, double bet) {
         if (gameMode == GameMode.OFFLINE) {
-            GUICoreMediator.requestCard(playerIndex, bet);
+            GUICoreMediator.requestCard(clientID, playerIndex, bet);
         } else {
             try {
                 stub = RMIClient.getStub();
-                stub.requestCard(playerIndex, bet);
+                stub.requestCard(clientID, playerIndex, bet);
             } catch (Exception e) {
             }
         }
@@ -239,11 +242,11 @@ public class ClientProxy {
      */
     public void declareGoodScore(int playerIndex, double bet) {
         if (gameMode == GameMode.OFFLINE) {
-            GUICoreMediator.declareGoodScore(playerIndex, bet);
+            GUICoreMediator.declareGoodScore(clientID, playerIndex, bet);
         } else {
             try {
                 stub = RMIClient.getStub();
-                stub.declareGoodScore(playerIndex, bet);
+                stub.declareGoodScore(clientID, playerIndex, bet);
             } catch (Exception e) {
             }
         }
@@ -255,11 +258,11 @@ public class ClientProxy {
      */
     public Object[][] requestDataReport() {
         if (gameMode == GameMode.OFFLINE) {
-            return GUICoreMediator.requestDataReport();
+            return GUICoreMediator.requestDataReport(clientID);
         } else {
             try {
                 stub = RMIClient.getStub();
-                return stub.requestDataReport();
+                return stub.requestDataReport(clientID);
             } catch (Exception e) {
                 return null;
             }
@@ -310,11 +313,11 @@ public class ClientProxy {
      */
     public MenuVO requestMenuVO() {
         if (gameMode == null || gameMode == GameMode.OFFLINE) {
-            return GUICoreMediator.requestMenuVO();
+            return GUICoreMediator.requestMenuVO(clientID);
         } else {
             try {
                 stub = RMIClient.getStub();
-                return stub.requestMenuVO();
+                return stub.requestMenuVO(clientID);
             } catch (Exception e) {
                 mainVO.clear();
                 mainVO.setMessageType(MessageType.ERROR);
@@ -338,11 +341,11 @@ public class ClientProxy {
      */
     public GameVO requestGameVO() {
         if (gameMode == GameMode.OFFLINE) {
-            return GUICoreMediator.requestGameVO();
+            return GUICoreMediator.requestGameVO(clientID);
         } else {
             try {
                 stub = RMIClient.getStub();
-                return stub.requestGameVO();
+                return stub.requestGameVO(clientID);
             } catch (Exception e) {
                 return null;
             }

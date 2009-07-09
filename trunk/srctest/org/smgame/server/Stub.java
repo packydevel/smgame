@@ -3,8 +3,8 @@ package org.smgame.server;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import java.util.UUID;
 import org.smgame.core.GUICoreMediator;
-import org.smgame.core.GameSetting;
 import org.smgame.client.frontend.GameVO;
 import org.smgame.client.frontend.MainVO;
 import org.smgame.client.frontend.MenuVO;
@@ -27,8 +27,8 @@ public class Stub implements IGameMediator {
     }
 
     @Override
-    public void createGame(String gameName, GameSetting gameSetting, GameMode gameMode, List<String> playerNameList, List<Boolean> playerTypeList) {
-        GUICoreMediator.createGame(gameName, gameSetting, gameMode, playerNameList, playerTypeList);
+    public void createGame(UUID clientID, String gameName, GameMode gameMode, List<String> playerNameList, List<Boolean> playerTypeList) {
+        GUICoreMediator.createGame(clientID, gameName, gameMode, playerNameList, playerTypeList);
     }
 
     @Override
@@ -37,8 +37,8 @@ public class Stub implements IGameMediator {
     }
 
     @Override
-    public void closeGame() {
-        GUICoreMediator.closeGame();
+    public void closeGame(UUID clientID) {
+        GUICoreMediator.closeGame(clientID);
     }
 
     @Override
@@ -47,33 +47,33 @@ public class Stub implements IGameMediator {
     }
 
     @Override
-    public String getGameTitle() {
-        return GUICoreMediator.getGameTitle();
+    public String getGameTitle(UUID clientID) {
+        return GUICoreMediator.getGameTitle(clientID);
     }
 
     @Override
-    public void requestCard(int playerIndex, double bet) {
-        GUICoreMediator.requestCard(playerIndex, bet);
+    public void requestCard(UUID clientID, int playerIndex, double bet) {
+        GUICoreMediator.requestCard(clientID, playerIndex, bet);
     }
 
     @Override
-    public void declareGoodScore(int playerIndex, double bet) {
-        GUICoreMediator.declareGoodScore(playerIndex, bet);
+    public void declareGoodScore(UUID clientID, int playerIndex, double bet) {
+        GUICoreMediator.declareGoodScore(clientID, playerIndex, bet);
     }
 
     @Override
-    public MenuVO requestMenuVO() {
-        return GUICoreMediator.requestMenuVO();
+    public MenuVO requestMenuVO(UUID clientID) {
+        return GUICoreMediator.requestMenuVO(clientID);
     }
 
     @Override
-    public GameVO requestGameVO() {
-        return GUICoreMediator.requestGameVO();
+    public GameVO requestGameVO(UUID clientID) {
+        return GUICoreMediator.requestGameVO(clientID);
     }
 
     @Override
-    public Object[][] requestDataReport() {
-        return GUICoreMediator.requestDataReport();
+    public Object[][] requestDataReport(UUID clientID) {
+        return GUICoreMediator.requestDataReport(clientID);
     }
 
     @Override

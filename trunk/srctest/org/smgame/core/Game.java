@@ -19,7 +19,6 @@ public class Game implements Serializable {
     private long gameID;
     private String gameName;
     private GameMode gameMode;
-    private GameSetting gameSetting;
     private GameEngine gameEngine;
     private Deck deck;
     private PlayerList playerList;
@@ -53,7 +52,6 @@ public class Game implements Serializable {
         deck = new Deck();
         gameEngine = new GameEngine();
         gameEngine.setDeck(deck);
-        gameEngine.setGameSetting(gameSetting);
         gameEngine.setPlayerList(playerList);
     }
 
@@ -94,14 +92,6 @@ public class Game implements Serializable {
      */
     public void setGameMode(GameMode gameMode) {
         this.gameMode = gameMode;
-    }
-
-    /**imposta i settaggi della partita
-     *
-     * @param gameSetting settaggi
-     */
-    public void setGameSetting(GameSetting gameSetting) {
-        this.gameSetting = gameSetting;
     }
 
     /**imposta l'ultima data salvata

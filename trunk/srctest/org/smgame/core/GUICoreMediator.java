@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import java.util.UUID;
 import javax.swing.ImageIcon;
 
 import org.smgame.backend.DBAccess;
@@ -45,28 +46,19 @@ import org.smgame.util.ScoreOverflowException;
  */
 public class GUICoreMediator {
 
+    private static HashMap<UUID, Long> clientGameMap = new HashMap<UUID, Long>();
     private static HashMap<Long, Game> gameMap = new HashMap<Long, Game>();
     private static ServerVO serverVO = new ServerVO();
     private static MainVO mainVO = new MainVO();
     private static MenuVO menuVO = new MenuVO();
     private static GameVO gameVO = new GameVO();
     private static LoadGameVO loadGameVO = new LoadGameVO();
-    private static Game currentGame = null;
+    //private static Game currentGame = null;
     private static String fileDir = ResourceLocator.getWorkspace();
     private static String fileName = fileDir + "games.dat";
     private static final NumberFormat numberFormat = new DecimalFormat("#0.00");
     private static final DateFormat dateFormat = DateFormat.getInstance();
     private static DBTransactions trans = new DBTransactions();
-
-    /**Aggiunge al menù gli item
-     * 
-     * @param menuItemList lista di item/voci da aggiungere
-     */
-    public static void addMenuItem(List<String> menuItemList) {
-        for (String s : menuItemList) {
-            menuVO.getItemEnabledMap().put(s, false);
-        }
-    }
 
     /**Crea partita
      *
@@ -75,8 +67,9 @@ public class GUICoreMediator {
      * @param playerNameList lista giocatori
      * @param playerTypeList lista tipo di giocatore
      */
-    public static void createGame(String gameName, GameSetting gameSetting, GameMode gameMode, List<String> playerNameList, List<Boolean> playerTypeList) {
+    public static void createGame(UUID clientID, String gameName, GameMode gameMode, List<String> playerNameList, List<Boolean> playerTypeList) {
 
+        Game currentGame;
         PlayerList playerList = new PlayerList();
 
         for (int i = 0; i < playerNameList.size(); i++) {
@@ -94,10 +87,26 @@ public class GUICoreMediator {
         currentGame.setGameName(gameName);
         currentGame.setGameMode(gameMode);
         currentGame.setCreationDate(new Date());
-        currentGame.setGameSetting(new GameSetting());
         currentGame.setPlayerList(playerList);
         currentGame.generateGameEngine();
         currentGame.getGameEngine().start();
+
+        clientGameMap.put(clientID, currentGame.getGameID());
+        gameMap.put(currentGame.getGameID(), currentGame);
+    }
+
+    private static Game getGameByClient(UUID clientID) {
+        return gameMap.get(clientGameMap.get(clientID));
+    }
+
+    /**Aggiunge al menù gli item
+     *
+     * @param menuItemList lista di item/voci da aggiungere
+     */
+    public static void addMenuItem(List<String> menuItemList) {
+        for (String s : menuItemList) {
+            menuVO.getItemEnabledMap().put(s, false);
+        }
     }
 
     /**Chiede la chiusura del gioco
@@ -112,8 +121,8 @@ public class GUICoreMediator {
     /**Chiude la partita
      *
      */
-    public static void closeGame() {
-        currentGame = null;
+    public static void closeGame(UUID clientID) {
+        clientGameMap.put(clientID, null);
         gameVO.clear();
     }
 
@@ -152,7 +161,8 @@ public class GUICoreMediator {
      * @throws java.io.FileNotFoundException
      * @throws java.io.IOException
      */
-    public static void saveGame() {
+    public static void saveGame(UUID clientID) {
+        Game currentGame = getGameByClient(clientID);
         currentGame.setLastSaveDate(new Date());
         gameMap.put(currentGame.getGameID(), currentGame);
         saveGames();
@@ -161,7 +171,7 @@ public class GUICoreMediator {
     /**Effettua la scrittura sul db a fine manche
      *
      */
-    private static void saveTransaction() {
+    private static void saveTransaction(Game currentGame) {
         long game_id = currentGame.getGameID();
         Iterator<Player> playerListIterator;
         Player p;
@@ -207,9 +217,10 @@ public class GUICoreMediator {
      * @param gameName nome partita da caricare
      *
      */
-    public static void loadGame(long gameID) {
+    public static void loadGame(UUID clientID, long gameID) {
+        Game currentGame;
         loadGames();
-        currentGame = gameMap.get(gameID);
+        clientGameMap.put(clientID, gameID);
     }
 
     /**Carica la map delle partite
@@ -268,8 +279,8 @@ public class GUICoreMediator {
      *
      * @return titolo
      */
-    public static String getGameTitle() {
-        return currentGame.getGameName() + " - Manche n° ";
+    public static String getGameTitle(UUID clientID) {
+        return getGameByClient(clientID).getGameName() + " - Manche n° ";
     }
 
     /**Richiesta della carta da parte del giocatore, con eventuale puntata
@@ -277,7 +288,9 @@ public class GUICoreMediator {
      * @param playerIndex indice giocatore
      * @param bet puntata
      */
-    public static void requestCard(int playerIndex, double bet) {
+    public static void requestCard(UUID clientID, int playerIndex, double bet) {
+
+        Game currentGame = getGameByClient(clientID);
         Player player = currentGame.getPlayerList().getPlayer(playerIndex);
 
         try {
@@ -287,7 +300,7 @@ public class GUICoreMediator {
             gameVO.setExceptionMessage(boe.getMessage());
         } catch (ScoreOverflowException soe) {
             if (!currentGame.getGameEngine().isEndManche()) {
-                selectNextPlayer();
+                selectNextPlayer(currentGame);
             }
             gameVO.setExceptionMessage(soe.getMessage());
         } catch (Exception e) {
@@ -299,12 +312,13 @@ public class GUICoreMediator {
      * @param playerIndex indice giocatore
      * @param bet puntata
      */
-    public static void declareGoodScore(int playerIndex, double bet) {
+    public static void declareGoodScore(UUID clientID, int playerIndex, double bet) {
+        Game currentGame = getGameByClient(clientID);
         Player player = currentGame.getPlayerList().getPlayer(playerIndex);
         try {
             currentGame.getGameEngine().declareGoodScore(player, bet);
             if (!currentGame.getGameEngine().isEndManche()) {
-                selectNextPlayer();
+                selectNextPlayer(currentGame);
             }
             gameVO.setExceptionMessage(null);
         } catch (BetOverflowException boe) {
@@ -316,8 +330,8 @@ public class GUICoreMediator {
      *
      * @return  oggetto menuVO
      */
-    public static MenuVO requestMenuVO() {
-
+    public static MenuVO requestMenuVO(UUID clientID) {
+        Game currentGame = getGameByClient(clientID);
         menuVO.clear();
 
         if (currentGame == null) {
@@ -352,8 +366,8 @@ public class GUICoreMediator {
      *
      * @return oggetto gameVO
      */
-    public static GameVO requestGameVO() {
-
+    public static GameVO requestGameVO(UUID clientID) {
+        Game currentGame = getGameByClient(clientID);
         ArrayList<ImageIcon> playerCardsImageList = new ArrayList<ImageIcon>();
 
         if (gameVO.getExceptionMessage() == null || currentGame.getGameEngine().isEndManche()) {
@@ -445,10 +459,10 @@ public class GUICoreMediator {
 
             if (currentGame.getGameEngine().isEndManche()) {
                 currentGame.getGameEngine().closeManche();
-                gameVO.setPlayerMaxCreditList(colorPlayerCredit());
+                gameVO.setPlayerMaxCreditList(colorPlayerCredit(currentGame));
                 gameVO.setEndManche(true);
                 if (currentGame.getGameMode() == GameMode.ONLINE) {
-                    saveTransaction();
+                    saveTransaction(currentGame);
                 }
             }
 
@@ -463,7 +477,7 @@ public class GUICoreMediator {
     /**seleziona il prossimo giocatore
      *
      */
-    private static void selectNextPlayer() {
+    private static void selectNextPlayer(Game currentGame) {
         currentGame.getGameEngine().nextPlayer(currentGame.getGameEngine().getCurrentPlayer());
     }
 
@@ -471,8 +485,10 @@ public class GUICoreMediator {
      *
      * @return matrice di dati
      */
-    public static Object[][] requestDataReport() {
+    public static Object[][] requestDataReport(UUID clientID) {
+        Game currentGame = getGameByClient(clientID);
         int size = gameVO.getPlayerIndexList().size();
+        
         Object[][] data = new Object[size][4];
         for (int i = 0; i < size; i++) {
             Player tempPlayer = currentGame.getPlayerList().getPlayer(i);
@@ -522,7 +538,7 @@ public class GUICoreMediator {
      *
      * @return hashmap coppia giocatore colore
      */
-    private static HashMap<Integer, Color> colorPlayerCredit() {
+    private static HashMap<Integer, Color> colorPlayerCredit(Game currentGame) {
         HashMap<Integer, Color> playersHM = new HashMap<Integer, Color>();
         List<Player> maxL = currentGame.getPlayerList().maxPlayerCreditList();
         PlayerList playerL = currentGame.getPlayerList();

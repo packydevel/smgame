@@ -21,9 +21,9 @@ import org.smgame.util.ScoreOverflowException;
 public class GameEngine implements Serializable {
 
     private static GameEngine gameEngine = null;
-    private GameSetting gameSetting;
     private Deck deck;
     private PlayerList playerList;
+    private final int MANCHE_NUMBER = 10;
     private final double MAX_CREDIT = 64000;
     private final double MAX_SCORE = 7.5;
     private int currentManche;
@@ -52,14 +52,6 @@ public class GameEngine implements Serializable {
      */
     public void setDeck(Deck deck) {
         this.deck = deck;
-    }
-
-    /**imposta i settaggi di gioco della partita corrente
-     *
-     * @param gameSetting settaggi
-     */
-    public void setGameSetting(GameSetting gameSetting) {
-        this.gameSetting = gameSetting;
     }
 
     /**imposta la lista dei player
@@ -379,7 +371,7 @@ public class GameEngine implements Serializable {
      * @return true = terminata
      */
     public boolean isEndGame() {
-        if ((gameSetting.getManches() == currentManche && isEndManche()) ||
+        if ((MANCHE_NUMBER == currentManche && isEndManche()) ||
                 playerList.existsBankruptPlayer()) {
             return true;
         }
