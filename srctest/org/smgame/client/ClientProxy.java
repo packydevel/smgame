@@ -3,7 +3,7 @@ package org.smgame.client;
 import java.util.List;
 
 import java.util.UUID;
-import org.smgame.core.GUICoreMediator;
+import org.smgame.core.CoreProxy;
 import org.smgame.core.GameMode;
 import org.smgame.client.frontend.LoadGameVO;
 import org.smgame.client.frontend.MenuVO;
@@ -86,7 +86,7 @@ public class ClientProxy {
         this.gameMode = gameMode;
 
         if (gameMode == GameMode.OFFLINE) {
-            GUICoreMediator.createGame(clientID, gameName, gameMode, playerNameList, playerTypeList);
+            CoreProxy.createGame(clientID, gameName, gameMode, playerNameList, playerTypeList);
         } else {
             try {
                 stub = RMIClient.getStub();
@@ -125,7 +125,7 @@ public class ClientProxy {
      */
     public void askCloseGame() {
         if (gameMode == GameMode.OFFLINE) {
-            GUICoreMediator.askCloseGame();
+            CoreProxy.askCloseGame();
         } else {
             try {
                 stub = RMIClient.getStub();
@@ -140,7 +140,7 @@ public class ClientProxy {
      */
     public void closeGame() {
         if (gameMode == GameMode.OFFLINE) {
-            GUICoreMediator.closeGame(clientID);
+            CoreProxy.closeGame(clientID);
         } else {
             try {
                 stub = RMIClient.getStub();
@@ -155,7 +155,7 @@ public class ClientProxy {
      */
     public void saveGame() {
         if (gameMode == GameMode.OFFLINE) {
-            GUICoreMediator.saveGame(clientID);
+            CoreProxy.saveGame(clientID);
         }
     }
 
@@ -165,7 +165,7 @@ public class ClientProxy {
      * 
      */
     public void loadGame(long gameID) {
-        GUICoreMediator.loadGame(clientID, gameID);
+        CoreProxy.loadGame(clientID, gameID);
         gameMode = GameMode.OFFLINE;
     }
 
@@ -173,7 +173,7 @@ public class ClientProxy {
      *
      */
     public void loadGames() {
-        GUICoreMediator.loadGames();
+        CoreProxy.loadGames();
     }
 
     /**Richiede il caricamento del gameVO
@@ -183,7 +183,7 @@ public class ClientProxy {
      */
     public LoadGameVO requestLoadGameVO() {
 
-        return GUICoreMediator.requestLoadGameVO();
+        return CoreProxy.requestLoadGameVO();
     }
 
     /**Restituisce il titolo della partita
@@ -192,7 +192,7 @@ public class ClientProxy {
      */
     public String getGameTitle() {
         if (gameMode == GameMode.OFFLINE) {
-            return GUICoreMediator.getGameTitle(clientID);
+            return CoreProxy.getGameTitle(clientID);
         } else {
             try {
                 stub = RMIClient.getStub();
@@ -210,7 +210,7 @@ public class ClientProxy {
      */
     public void requestCard(int playerIndex, double bet) {
         if (gameMode == GameMode.OFFLINE) {
-            GUICoreMediator.requestCard(clientID, playerIndex, bet);
+            CoreProxy.requestCard(clientID, playerIndex, bet);
         } else {
             try {
                 stub = RMIClient.getStub();
@@ -227,7 +227,7 @@ public class ClientProxy {
      */
     public void declareGoodScore(int playerIndex, double bet) {
         if (gameMode == GameMode.OFFLINE) {
-            GUICoreMediator.declareGoodScore(clientID, playerIndex, bet);
+            CoreProxy.declareGoodScore(clientID, playerIndex, bet);
         } else {
             try {
                 stub = RMIClient.getStub();
@@ -243,7 +243,7 @@ public class ClientProxy {
      */
     public Object[][] requestDataReport() {
         if (gameMode == GameMode.OFFLINE) {
-            return GUICoreMediator.requestDataReport(clientID);
+            return CoreProxy.requestDataReport(clientID);
         } else {
             try {
                 stub = RMIClient.getStub();
@@ -281,7 +281,7 @@ public class ClientProxy {
      */
     public MainVO requestMainVO() {
         if (gameMode == GameMode.OFFLINE) {
-            return GUICoreMediator.requestMainVO();
+            return CoreProxy.requestMainVO();
         } else {
             try {
                 stub = RMIClient.getStub();
@@ -298,7 +298,7 @@ public class ClientProxy {
      */
     public MenuVO requestMenuVO() {
         if (gameMode == null || gameMode == GameMode.OFFLINE) {
-            return GUICoreMediator.requestMenuVO(clientID);
+            return CoreProxy.requestMenuVO(clientID);
         } else {
             try {
                 stub = RMIClient.getStub();
@@ -326,7 +326,7 @@ public class ClientProxy {
      */
     public GameVO requestGameVO() {
         if (gameMode == GameMode.OFFLINE) {
-            return GUICoreMediator.requestGameVO(clientID);
+            return CoreProxy.requestGameVO(clientID);
         } else {
             try {
                 stub = RMIClient.getStub();

@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import java.util.UUID;
-import org.smgame.core.GUICoreMediator;
+import org.smgame.core.CoreProxy;
 import org.smgame.client.frontend.GameVO;
 import org.smgame.client.frontend.MainVO;
 import org.smgame.client.frontend.MenuVO;
@@ -23,58 +23,58 @@ public class Stub implements IGameMediator {
 
     @Override
     public void createGame(UUID clientID, String gameName, GameMode gameMode, List<String> playerNameList, List<Boolean> playerTypeList) {
-        GUICoreMediator.createGame(clientID, gameName, gameMode, playerNameList, playerTypeList);
+        CoreProxy.createGame(clientID, gameName, gameMode, playerNameList, playerTypeList);
     }
 
     @Override
     public void askCloseGame() {
-        GUICoreMediator.askCloseGame();
+        CoreProxy.askCloseGame();
     }
 
     @Override
     public void closeGame(UUID clientID) {
-        GUICoreMediator.closeGame(clientID);
+        CoreProxy.closeGame(clientID);
     }
 
     @Override
     public MainVO requestMainVO() {
-        return GUICoreMediator.requestMainVO();
+        return CoreProxy.requestMainVO();
     }
 
     @Override
     public String getGameTitle(UUID clientID) {
-        return GUICoreMediator.getGameTitle(clientID);
+        return CoreProxy.getGameTitle(clientID);
     }
 
     @Override
     public void requestCard(UUID clientID, int playerIndex, double bet) {
-        GUICoreMediator.requestCard(clientID, playerIndex, bet);
+        CoreProxy.requestCard(clientID, playerIndex, bet);
     }
 
     @Override
     public void declareGoodScore(UUID clientID, int playerIndex, double bet) {
-        GUICoreMediator.declareGoodScore(clientID, playerIndex, bet);
+        CoreProxy.declareGoodScore(clientID, playerIndex, bet);
     }
 
     @Override
     public MenuVO requestMenuVO(UUID clientID) {
-        return GUICoreMediator.requestMenuVO(clientID);
+        return CoreProxy.requestMenuVO(clientID);
     }
 
     @Override
     public GameVO requestGameVO(UUID clientID) {
-        return GUICoreMediator.requestGameVO(clientID);
+        return CoreProxy.requestGameVO(clientID);
     }
 
     @Override
     public Object[][] requestDataReport(UUID clientID) {
-        return GUICoreMediator.requestDataReport(clientID);
+        return CoreProxy.requestDataReport(clientID);
     }
 
     @Override
     public StoryBoardVO requestStoryGames() throws RemoteException {
         try {
-            return GUICoreMediator.requestStoryGames();
+            return CoreProxy.requestStoryGames();
         } catch (Exception ex) {
             throw new RemoteException();
         }
