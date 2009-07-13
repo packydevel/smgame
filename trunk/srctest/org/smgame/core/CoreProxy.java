@@ -17,7 +17,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-
 import java.util.UUID;
 import javax.swing.ImageIcon;
 
@@ -57,17 +56,17 @@ public class CoreProxy {
     private static String fileName = fileDir + "games.dat";
     private static final NumberFormat numberFormat = new DecimalFormat("#0.00");
     private static final DateFormat dateFormat = DateFormat.getInstance();
-    private static DBTransactions trans = new DBTransactions();
 
     /**Crea partita
      *
+     * @param clientID identificativo unico
      * @param gameName nome partita
-     * @param gameSetting settaggi partita
+     * @param gameMode tipo partita
      * @param playerNameList lista giocatori
      * @param playerTypeList lista tipo di giocatore
      */
-    public static void createGame(UUID clientID, String gameName, GameMode gameMode, List<String> playerNameList, List<Boolean> playerTypeList) {
-
+    public static void createGame(UUID clientID, String gameName, GameMode gameMode,
+            List<String> playerNameList, List<Boolean> playerTypeList) {
         Game currentGame;
         PlayerList playerList = new PlayerList();
 
@@ -94,6 +93,11 @@ public class CoreProxy {
         gameMap.put(currentGame.getGameID(), currentGame);
     }
 
+    /**Restituisce il gioco del client
+     * 
+     * @param clientID identificativo unico
+     * @return game
+     */
     private static Game getGameByClient(UUID clientID) {
         return gameMap.get(clientGameMap.get(clientID));
     }
@@ -109,6 +113,7 @@ public class CoreProxy {
 
     /**Chiude la partita
      *
+     * @param clientID identificativo unico
      */
     public static void closeGame(UUID clientID) {
         clientGameMap.put(clientID, null);
@@ -147,8 +152,7 @@ public class CoreProxy {
 
     /**Salva partita offline
      *
-     * @throws java.io.FileNotFoundException
-     * @throws java.io.IOException
+     * @param clientID identificativo unico
      */
     public static void saveGame(UUID clientID) {
         Game currentGame = getGameByClient(clientID);
@@ -159,6 +163,7 @@ public class CoreProxy {
 
     /**Effettua la scrittura sul db a fine manche
      *
+     * @param currentGame partita corrente
      */
     private static void saveTransaction(Game currentGame) {
         long game_id = currentGame.getGameID();
@@ -203,11 +208,10 @@ public class CoreProxy {
 
     /**Carica partita
      *
-     * @param gameName nome partita da caricare
-     *
+     * @param clientID identificativo unico
+     * @param gameID id partita da caricare
      */
     public static void loadGame(UUID clientID, long gameID) {
-        Game currentGame;
         loadGames();
         clientGameMap.put(clientID, gameID);
     }
@@ -266,6 +270,7 @@ public class CoreProxy {
 
     /**Restituisce il titolo della partita
      *
+     * @param clientID identificativo unico
      * @return titolo
      */
     public static String getGameTitle(UUID clientID) {
@@ -274,6 +279,7 @@ public class CoreProxy {
 
     /**Richiesta della carta da parte del giocatore, con eventuale puntata
      *
+     * @param clientID identificativo unico
      * @param playerIndex indice giocatore
      * @param bet puntata
      */
@@ -298,6 +304,7 @@ public class CoreProxy {
 
     /**Dichiarazione del giocatore di stare bene con eventuale puntata
      *
+     * @param clientID identificativo unico
      * @param playerIndex indice giocatore
      * @param bet puntata
      */
@@ -317,6 +324,7 @@ public class CoreProxy {
 
     /**richiede e Restituisce l'oggetto menuVO (pattern value objected)
      *
+     * @param clientID identificativo unico
      * @return  oggetto menuVO
      */
     public static MenuVO requestMenuVO(UUID clientID) {
@@ -357,6 +365,7 @@ public class CoreProxy {
 
     /**Richiede e restituisce l'oggetto GameVO
      *
+     * @param clientID identificativo unico
      * @return oggetto gameVO
      */
     public static GameVO requestGameVO(UUID clientID) {
@@ -469,6 +478,7 @@ public class CoreProxy {
 
     /**seleziona il prossimo giocatore
      *
+     * @param currentGame partita corrente
      */
     private static void selectNextPlayer(Game currentGame) {
         currentGame.getGameEngine().nextPlayer(currentGame.getGameEngine().getCurrentPlayer());
@@ -476,6 +486,7 @@ public class CoreProxy {
 
     /**Richiede i dati per popolare la scoreboard di fine manche
      *
+     * @param clientID identificativo unico
      * @return matrice di dati
      */
     public static Object[][] requestDataReport(UUID clientID) {

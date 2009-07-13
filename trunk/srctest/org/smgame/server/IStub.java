@@ -26,14 +26,16 @@ public interface IStub extends Remote {
 
     /**Crea partita
      *
-     * @param gameName nome
-     * @param gameSetting settaggi
+     * @param clientID identificativo unico
+     * @param gameName nome partita
+     * @param gameMode tipo partita
      * @param playerNameList lista nomi
      * @param playerTypeList lista tipo
      *
      * @throws java.rmi.RemoteException
      */
-    public void createGame(UUID clientID, String gameName, GameMode gameMode, List<String> playerNameList, List<Boolean> playerTypeList) throws RemoteException;
+    public void createGame(UUID clientID, String gameName, GameMode gameMode,
+            List<String> playerNameList, List<Boolean> playerTypeList) throws RemoteException;
 
     /**chiedi chiusura partita
      *
@@ -42,6 +44,8 @@ public interface IStub extends Remote {
     public void askCloseGame() throws RemoteException;
 
     /**Chiudi partita
+     *
+     * @param clientID identificativo unico
      *
      * @throws java.rmi.RemoteException
      */
@@ -57,6 +61,7 @@ public interface IStub extends Remote {
 
     /**Richiede e restituisce l'oggetto menuVO per il menù
      *
+     * @param clientID identificativo unico
      * @return menuVO
      *
      * @throws java.rmi.RemoteException
@@ -65,6 +70,7 @@ public interface IStub extends Remote {
 
     /**richide e restituisce l'oggetto gameVO per la partita
      *
+     * @param clientID identificativo unico
      * @return gamevo
      *
      * @throws java.rmi.RemoteException
@@ -73,6 +79,7 @@ public interface IStub extends Remote {
 
     /**restituisce il titolo
      *
+     * @param clientID identificativo unico
      * @return titolo
      *
      * @throws java.rmi.RemoteException
@@ -81,6 +88,7 @@ public interface IStub extends Remote {
 
     /**richiede carta
      *
+     * @param clientID identificativo unico
      * @param playerIndex indice giocatore
      * @param bet puntata
      *
@@ -90,6 +98,7 @@ public interface IStub extends Remote {
 
     /**dichiara di star bene
      *
+     * @param clientID identificativo unico
      * @param playerIndex indice giocatore
      * @param bet puntata
      *
@@ -99,6 +108,7 @@ public interface IStub extends Remote {
 
     /**richiede e restituisce la matrice report
      *
+     * @param clientID identificativo unico
      * @return matrice
      *
      * @throws java.rmi.RemoteException

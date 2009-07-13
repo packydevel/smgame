@@ -14,8 +14,8 @@ import org.smgame.client.frontend.NewGameVO;
 import org.smgame.client.frontend.StoryBoardVO;
 import org.smgame.server.IStub;
 
-/** Classe client mediator
- * è il mediatore tra server e gui
+/** Classe client proxy, fa da proxy tra client/gui e server
+ * 
  *
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
@@ -80,7 +80,8 @@ public class ClientProxy {
      * @param playerNameList lista nomi giocatori
      * @param playerTypeList lista tipo giocatori
      */
-    private void createGame(GameMode gameMode, String gameName, List<String> playerNameList, List<Boolean> playerTypeList) {
+    private void createGame(GameMode gameMode, String gameName, List<String> playerNameList,
+            List<Boolean> playerTypeList) {
         newGameVO.clear();
 
         this.gameMode = gameMode;
@@ -101,22 +102,22 @@ public class ClientProxy {
     /**Crea il gioco offline
      *
      * @param gameName nome partita
-     * @param gameSetting settaggi partita
      * @param playerNameList lista nomi giocatori
      * @param playerTypeList lista tipo giocatori
      */
-    public void createOffLineGame(String gameName, List<String> playerNameList, List<Boolean> playerTypeList) {
+    public void createOffLineGame(String gameName, List<String> playerNameList,
+            List<Boolean> playerTypeList) {
         createGame(GameMode.OFFLINE, gameName, playerNameList, playerTypeList);
     }
 
     /**Crea il gioco online
      *
      * @param gameName nome partita
-     * @param gameSetting settaggi partita
      * @param playerNameList lista nomi giocatori
      * @param playerTypeList lista tipo giocatori
      */
-    public void createOnLineGame(String gameName, List<String> playerNameList, List<Boolean> playerTypeList) {
+    public void createOnLineGame(String gameName, List<String> playerNameList,
+            List<Boolean> playerTypeList) {
         createGame(GameMode.ONLINE, gameName, playerNameList, playerTypeList);
     }
 
@@ -161,7 +162,7 @@ public class ClientProxy {
 
     /**Carica la partita
      *
-     * @param gameName nome partita
+     * @param gameID idpartita
      * 
      */
     public void loadGame(long gameID) {
