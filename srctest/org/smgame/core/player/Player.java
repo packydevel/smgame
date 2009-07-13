@@ -9,7 +9,7 @@ import org.smgame.core.card.JollyCard;
 import org.smgame.core.card.Point;
 import org.smgame.core.card.Suit;
 
-/**Classe astratta Giocatore
+/**Classe Giocatore
  * 
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
@@ -124,16 +124,6 @@ public class Player implements Serializable {
             }
         }
     }
-//
-//    private boolean hasJollyCard() {
-//        for (Card c : cardList) {
-//            if (c instanceof JollyCard) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//
 
     /**verifica se c'è sette e mezzo
      *
