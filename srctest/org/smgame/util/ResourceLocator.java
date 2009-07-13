@@ -28,7 +28,6 @@ public class ResourceLocator {
     /**imposta il percorso di lavoro
      *
      * @param dir directory
-     * @param applet true = esecuzione da applet
      */
     public static void setWorkspace(String dir) {
         String prefix = "file:";
