@@ -153,7 +153,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         } else if ((JMenuItem) evt.getSource() == menuJMB.getExitGameJMI()) {
             if (JOptionPane.showInternalConfirmDialog(desktop,
                     "Sei sicuro di voler uscire? Le partite non salvate saranno perse!", "Info",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
                 this.dispose();
             }
         } else if ((JMenuItem) evt.getSource() == menuJMB.getStoryBoardJMI()) {
