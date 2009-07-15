@@ -222,7 +222,7 @@ public class ServerJF extends JFrame implements WindowListener {
         }
 
         add(tabbedPane);
-        setSize(500, 220);
+        setSize(500, 250);
         setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
