@@ -119,7 +119,7 @@ public class ServerJF extends JFrame implements WindowListener {
         buttonGBC.gridy = 0;
         buttonGBC.weightx = 0.5;
         buttonGBC.weighty = 0.5;
-        buttonGBC.anchor = GridBagConstraints.SOUTHEAST;
+        buttonGBC.anchor = GridBagConstraints.CENTER;
         startJB.addActionListener(new ActionListener() {
 
             @Override
@@ -137,7 +137,7 @@ public class ServerJF extends JFrame implements WindowListener {
         buttonGBC.gridy = 0;
         buttonGBC.weightx = 0.5;
         buttonGBC.weighty = 0.5;
-        buttonGBC.anchor = GridBagConstraints.SOUTHWEST;
+        buttonGBC.anchor = GridBagConstraints.CENTER;
         stopJB.addActionListener(new ActionListener() {
 
             @Override
@@ -222,7 +222,7 @@ public class ServerJF extends JFrame implements WindowListener {
         }
 
         add(tabbedPane);
-        setSize(500, 370);
+        setSize(500, 200);
         setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
