@@ -118,14 +118,7 @@ public class PDFViewerJP extends JPanel {
         currentScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         currentScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         currentScroll.getVerticalScrollBar().setUnitIncrement(20);
-
-        //System.out.println(currentScroll.getViewport().get);
         currentScroll.setViewportView(pdfDecoder);
-
-        System.out.println(currentScroll.getViewport().getViewPosition().toString());
-        System.out.println(currentScroll.getViewport().getViewSize().toString());
-        System.out.println(currentScroll.getViewportBorderBounds().toString());
-        currentScroll.getViewport().setViewPosition(new Point(100, 100));
 
         return currentScroll;
     }

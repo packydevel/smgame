@@ -58,7 +58,7 @@ public class MainJF extends JFrame implements WindowListener, InternalFrameListe
         menuJMB = new MenuJMB();
         for (JMenuItem jmi : menuJMB.getMenuItemListJMI()) {
             jmi.addActionListener(new ActionListener() {
-
+                @Override
                 public void actionPerformed(ActionEvent evt) {
                     jMenu1ActionPerformed(evt);
                 }
@@ -179,6 +179,7 @@ public class MainJF extends JFrame implements WindowListener, InternalFrameListe
      *
      * @param e evento nuova partita
      */
+    @Override
     public void newGameCreating(NewGameEvent e) {
         clearDesktop();
 
