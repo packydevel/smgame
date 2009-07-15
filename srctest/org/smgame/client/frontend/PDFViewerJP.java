@@ -3,6 +3,7 @@ package org.smgame.client.frontend;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URI;
@@ -79,7 +80,7 @@ public class PDFViewerJP extends JPanel {
                         pdfDecoder.setEncryptionPassword(password);
                     } catch (PdfException e) {
                     }
-                //pdfDecoder.verifyAccess();
+                    //pdfDecoder.verifyAccess();
                 }
             }
             return true;
@@ -117,7 +118,14 @@ public class PDFViewerJP extends JPanel {
         currentScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         currentScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         currentScroll.getVerticalScrollBar().setUnitIncrement(20);
+
+        //System.out.println(currentScroll.getViewport().get);
         currentScroll.setViewportView(pdfDecoder);
+
+        System.out.println(currentScroll.getViewport().getViewPosition().toString());
+        System.out.println(currentScroll.getViewport().getViewSize().toString());
+        System.out.println(currentScroll.getViewportBorderBounds().toString());
+        currentScroll.getViewport().setViewPosition(new Point(100, 100));
 
         return currentScroll;
     }
@@ -127,7 +135,6 @@ public class PDFViewerJP extends JPanel {
      * @return array di componenti
      */
     private Component[] initChangerPanel() {
-
         Component[] list = new Component[11];
 
         /**back to page 1*/
@@ -150,7 +157,6 @@ public class PDFViewerJP extends JPanel {
                         repaint();
                     } catch (Exception e1) {
                     }
-
                     //set page number display
                     pageCounter2.setText(String.valueOf(currentPage));
                 }

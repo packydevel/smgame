@@ -37,7 +37,8 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
         super("Documentazione SMGame");
 
         setSize(new Dimension(1024, 768));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setResizable(false);
         setLayout(new BorderLayout());
 
         userGuideJB = new JButton("Manuale d'uso");
@@ -52,6 +53,7 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
 
         buttonJP = new JPanel();
         buttonJP.setLayout(new FlowLayout(FlowLayout.LEFT));
+        buttonJP.setPreferredSize(new Dimension(1020,30));
         buttonJP.add(userGuideJB);
         buttonJP.add(refGuideJB);
         buttonJP.add(javadocJB);
@@ -64,8 +66,8 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
         splitPaneJSP = new JSplitPane();
 
         editorPaneJEP = new JTextPane();
-        editorPaneJEP.setSize(new Dimension(1024, 740));
-        editorPaneJEP.setMargin(new Insets(5, 5, 5, 5));
+        editorPaneJEP.setPreferredSize(new Dimension(1020,690));
+        editorPaneJEP.setMargin(new Insets(2, 2, 2, 2));
         editorPaneJEP.setEditable(false);
         editorPaneJEP.setContentType("text/html");
         editorPaneJEP.addHyperlinkListener(this);
@@ -82,8 +84,6 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
         } else {
             showHTML(javadocIndex);
         }
-
-        setVisible(true);
     }
 
     @Override

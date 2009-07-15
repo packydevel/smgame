@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.JDesktopPane;
@@ -21,7 +23,7 @@ import org.smgame.client.ClientProxy;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
-public class MainJF extends JFrame implements InternalFrameListener, NewGameListener {
+public class MainJF extends JFrame implements WindowListener, InternalFrameListener, NewGameListener {
 
     private static JDesktopPane desktop;
     private MenuJMB menuJMB;
@@ -29,6 +31,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
     private NewGameJIF newGameJIF;
     private LoadGameJIF loadGameJIF;
     private GameJIF gameJIF;
+    private HelpJF helpJF;
     private MenuVO menuVO;
     private int desktopWidth, desktopHeight, internalFrameWidth, internalFrameHeight, xbound, ybound;
 
@@ -38,13 +41,13 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
     public MainJF() {
         super("SMGame - Gioco Italiano del Sette e 1/2");
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         ArrayList<String> menuItemNameList = new ArrayList<String>();
 
         setSize(1024, 768);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(this);
         desktop = new JDesktopPane();
         desktop.setDesktopManager(new CustomDM());
         getContentPane().add(BorderLayout.CENTER, desktop);
@@ -151,11 +154,7 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         } else if ((JMenuItem) evt.getSource() == menuJMB.getCloseGameJMI()) {
             executeCloseGame();
         } else if ((JMenuItem) evt.getSource() == menuJMB.getExitGameJMI()) {
-            if (JOptionPane.showInternalConfirmDialog(desktop,
-                    "Sei sicuro di voler uscire? Le partite non salvate saranno perse!", "Info",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
-                this.dispose();
-            }
+           closeFrame();
         } else if ((JMenuItem) evt.getSource() == menuJMB.getStoryBoardJMI()) {
             StoryBoardVO storyVO = ClientProxy.getInstance().requestStoryGames();
             if (storyVO.getMessageType() == null) {
@@ -166,11 +165,11 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         } else if ((JMenuItem) evt.getSource() == menuJMB.getTestConnectionJMI()) {
             analyzeVO(ClientProxy.getInstance().connect());
         } else if ((JMenuItem) evt.getSource() == menuJMB.getUserGuideJMI()) {
-            new HelpJF("UserGuide");
+            showHelp("UserGuide");
         } else if ((JMenuItem) evt.getSource() == menuJMB.getRefGuideJMI()) {
-            new HelpJF("ReferenceGuide");
+            showHelp("ReferenceGuide");
         } else if ((JMenuItem) evt.getSource() == menuJMB.getJavadocJMI()) {
-            new HelpJF("JavaDoc");
+            showHelp("JavaDoc");
         } else if ((JMenuItem) evt.getSource() == menuJMB.getAboutJMI()) {
             JOptionPane.showMessageDialog(this, new AboutJP(), "About ...", JOptionPane.PLAIN_MESSAGE);
         }
@@ -222,12 +221,72 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         }
     }
 
+    /**Pulisce il desktop
+     *
+     * @param doc stringa che rappresenta il documento da visualizzare
+     */
+    private void showHelp(String doc) {
+        if (helpJF != null) {
+            helpJF.dispose();
+        }
+        helpJF = new HelpJF(doc);
+        helpJF.setVisible(true);
+    }
+
+    /**Chiude il Frame corrente, l'Applicazione ed eventualmente anche il Frame HelpJF
+     *
+     * @param doc stringa che rappresenta il documento da visualizzare
+     */
+    private void closeFrame() {
+        if (JOptionPane.showInternalConfirmDialog(desktop,
+                "Sei sicuro di voler uscire? Le partite non salvate saranno perse!", "Info",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
+            if (helpJF != null) {
+                helpJF.dispose();
+            }
+            this.dispose();
+            System.exit(0);
+        }
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        closeFrame();
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+    }
+
+    @Override
     public void internalFrameClosed(InternalFrameEvent e) {
     }
 
+    @Override
     public void internalFrameDeactivated(InternalFrameEvent e) {
     }
 
+    @Override
     public void internalFrameClosing(InternalFrameEvent e) {
         if (e.getInternalFrame() instanceof NewGameJIF) {
         } else if (e.getInternalFrame() instanceof LoadGameJIF) {
@@ -235,17 +294,22 @@ public class MainJF extends JFrame implements InternalFrameListener, NewGameList
         } else if (e.getInternalFrame() instanceof GameJIF) {
             executeCloseGame();
         }
+
     }
 
+    @Override
     public void internalFrameOpened(InternalFrameEvent e) {
     }
 
+    @Override
     public void internalFrameIconified(InternalFrameEvent e) {
     }
 
+    @Override
     public void internalFrameDeiconified(InternalFrameEvent e) {
     }
 
+    @Override
     public void internalFrameActivated(InternalFrameEvent e) {
     }
 } //end class
