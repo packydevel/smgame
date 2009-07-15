@@ -117,7 +117,7 @@ public class ServerJF extends JFrame implements WindowListener {
         startJB.setVisible(true);
         buttonGBC.gridx = 0;
         buttonGBC.gridy = 0;
-        buttonGBC.weightx = 0.5;
+        buttonGBC.weightx = 0;
         buttonGBC.weighty = 0.5;
         buttonGBC.anchor = GridBagConstraints.CENTER;
         startJB.addActionListener(new ActionListener() {
@@ -135,7 +135,7 @@ public class ServerJF extends JFrame implements WindowListener {
         stopJB.setVisible(true);
         buttonGBC.gridx = 1;
         buttonGBC.gridy = 0;
-        buttonGBC.weightx = 0.5;
+        buttonGBC.weightx = 0;
         buttonGBC.weighty = 0.5;
         buttonGBC.anchor = GridBagConstraints.CENTER;
         stopJB.addActionListener(new ActionListener() {
@@ -222,7 +222,7 @@ public class ServerJF extends JFrame implements WindowListener {
         }
 
         add(tabbedPane);
-        setSize(500, 200);
+        setSize(500, 220);
         setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -288,7 +288,7 @@ public class ServerJF extends JFrame implements WindowListener {
     @Override
     public void windowClosing(WindowEvent e) {
         int i;
-        i = JOptionPane.showConfirmDialog(this, "Chiudendo il server non sarà più possibile eseguire partite OnLine. Sei Sicuro?", "Info", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        i = JOptionPane.showConfirmDialog(this, "Chiudendo il Server non sarà più possibile eseguire partite OnLine. Sei Sicuro?", "Info", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (i == 0) {
             RMIServer.getInstance().stop();
             dispose();
