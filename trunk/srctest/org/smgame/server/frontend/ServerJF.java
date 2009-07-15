@@ -20,7 +20,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
@@ -41,14 +40,13 @@ import org.smgame.server.RMIServer;
 public class ServerJF extends JFrame implements WindowListener {
 
     ServerVO serverVO;
-    JPanel statusJP, configJP, pathJP, fileJP, databaseJP;
+    JPanel statusJP, configJP, databaseJP;
     JScrollPane monitorJSP;
-    GridBagConstraints panelGBC, labelGBC, textFieldGBC, buttonGBC, progressBarGBC;
+    GridBagConstraints panelGBC, labelGBC, textFieldGBC, buttonGBC;
     JLabel pathJL;
-    JButton startJB, stopJB, pathJB, testJB;
+    JButton startJB, stopJB, testJB;
     JTextField hostnameJTF, portJTF, dbnameJTF, usernameJTF, passwordJTF;
     JTextArea monitorJTA;
-    JProgressBar progressBarJPG;
 
     /**Costruttore
      *
@@ -105,20 +103,6 @@ public class ServerJF extends JFrame implements WindowListener {
         buttonGBC.insets = new Insets(2, 2, 2, 2);
         buttonGBC.anchor = GridBagConstraints.SOUTH;
 
-        progressBarGBC = new GridBagConstraints();
-        progressBarGBC.weightx = 0;
-        progressBarGBC.weighty = 0;
-        progressBarGBC.insets = new Insets(2, 2, 2, 2);
-        progressBarGBC.anchor = GridBagConstraints.SOUTH;
-
-        fileJP = new JPanel();
-        fileJP.setPreferredSize(new Dimension(470, 100));
-        fileJP.setLayout(new BorderLayout());
-        fileJP.setBorder(BorderFactory.createTitledBorder("Path del File di Logging"));
-        panelGBC.gridx = 0;
-        panelGBC.gridy = 0;
-        configJP.add(fileJP, panelGBC);
-
         databaseJP = new JPanel();
         databaseJP.setPreferredSize(new Dimension(470, 170));
         databaseJP.setLayout(new GridBagLayout());
@@ -126,13 +110,6 @@ public class ServerJF extends JFrame implements WindowListener {
         panelGBC.gridx = 0;
         panelGBC.gridy = 1;
         configJP.add(databaseJP, panelGBC);
-
-        pathJP = new JPanel();
-        pathJP.setPreferredSize(new Dimension(70, 30));
-        fileJP.add(BorderLayout.SOUTH, pathJP);
-
-        pathJL = new JLabel("Path: " + CoreProxy.getSaveDirectory());
-        fileJP.add(BorderLayout.NORTH, pathJL);
 
         startJB = new JButton("Start");
         startJB.setName("startJB");
@@ -170,27 +147,6 @@ public class ServerJF extends JFrame implements WindowListener {
         });
         statusJP.add(stopJB, buttonGBC);
 
-        progressBarJPG = new JProgressBar(0, 100);
-        progressBarJPG.setPreferredSize(new Dimension(470, 20));
-        progressBarGBC.gridx = 0;
-        progressBarGBC.gridy = 3;
-        progressBarGBC.gridwidth = 2;
-        progressBarGBC.weighty = 0.5;
-        statusJP.add(progressBarJPG, progressBarGBC);
-
-        pathJB = new JButton("Scegli il Path");
-        pathJB.setSize(new Dimension(70, 20));
-        pathJB.setEnabled(true);
-        pathJB.setVisible(true);
-        pathJB.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                serverAction(evt);
-            }
-        });
-        pathJP.add(pathJB);
-
         testJB = new JButton("Testa la Connessione al DataBase");
         testJB.setSize(new Dimension(70, 20));
         testJB.setEnabled(true);
@@ -208,7 +164,7 @@ public class ServerJF extends JFrame implements WindowListener {
             }
         });
         databaseJP.add(testJB, buttonGBC);
-        
+
         labelGBC.gridx = 0;
         labelGBC.gridy = 0;
         databaseJP.add(new JLabel("Database Server:"), labelGBC);
@@ -230,13 +186,13 @@ public class ServerJF extends JFrame implements WindowListener {
         textFieldGBC.gridx = 3;
         textFieldGBC.gridy = 0;
         databaseJP.add(portJTF, textFieldGBC);
-       
+
         labelGBC.gridx = 0;
         labelGBC.gridy = 1;
         databaseJP.add(new JLabel("Nome DataBase:"), labelGBC);
 
         dbnameJTF = new JTextField();
-        dbnameJTF.setPreferredSize(new Dimension(150, 20));        
+        dbnameJTF.setPreferredSize(new Dimension(150, 20));
         dbnameJTF.setEnabled(false);
         textFieldGBC.gridx = 1;
         textFieldGBC.gridy = 1;
@@ -246,11 +202,11 @@ public class ServerJF extends JFrame implements WindowListener {
         databaseJP.add(new JLabel("Username:"), labelGBC);
 
         usernameJTF = new JTextField();
-        usernameJTF.setPreferredSize(new Dimension(150, 20));        
+        usernameJTF.setPreferredSize(new Dimension(150, 20));
         usernameJTF.setEnabled(false);
         textFieldGBC.gridy = 2;
         databaseJP.add(usernameJTF, textFieldGBC);
-        
+
         labelGBC.gridy = 3;
         databaseJP.add(new JLabel("Password:"), labelGBC);
 
@@ -259,7 +215,7 @@ public class ServerJF extends JFrame implements WindowListener {
         passwordJTF.setEnabled(false);
         textFieldGBC.gridy = 3;
         databaseJP.add(passwordJTF, textFieldGBC);
-        
+
         try {
             setTextDatabaseParameters();
         } catch (IOException ex) {
@@ -274,7 +230,7 @@ public class ServerJF extends JFrame implements WindowListener {
     }
 
     /**inizializza il pannello monitor */
-    private void initMonitorJSP(){
+    private void initMonitorJSP() {
         monitorJTA = new JTextArea();
         monitorJTA.setLineWrap(true);
         monitorJTA.setWrapStyleWord(true);
@@ -287,9 +243,8 @@ public class ServerJF extends JFrame implements WindowListener {
         monitorJSP.setLayout(new ScrollPaneLayout());
     }
 
-
     /**imposta i parametri del database nelle textfield*/
-    private void setTextDatabaseParameters() throws IOException{
+    private void setTextDatabaseParameters() throws IOException {
         DBPropertiesVO dbPropVO = DBAccess.requestDBPropertiesVO();
         hostnameJTF.setText(dbPropVO.getServer());
         portJTF.setText(dbPropVO.getPort());
@@ -303,8 +258,6 @@ public class ServerJF extends JFrame implements WindowListener {
         JFileChooser fileJFC;
 
         if (((JButton) e.getSource()).equals(startJB)) {
-            progressBarJPG.setIndeterminate(true);
-
             RMIServer.getInstance().start();
             serverVO = RMIServer.getInstance().requestServerVO();
             if (serverVO.getMessageType() == MessageType.ERROR) {
@@ -314,29 +267,12 @@ public class ServerJF extends JFrame implements WindowListener {
                 stopJB.setEnabled(true);
             }
             monitorJTA.append(serverVO.getMessageType().toString() + " - " + serverVO.getMessage() + "\n");
-            progressBarJPG.setIndeterminate(false);
         } else if (((JButton) e.getSource()).equals(stopJB)) {
             RMIServer.getInstance().stop();
             serverVO = RMIServer.getInstance().requestServerVO();
             startJB.setEnabled(true);
             stopJB.setEnabled(false);
             monitorJTA.append(serverVO.getMessageType().toString() + " - " + serverVO.getMessage() + "\n");
-        } else if (((JButton) e.getSource()).equals(pathJB)) {
-            fileJFC = new JFileChooser();
-            fileJFC.setDialogTitle("Seleziona una Directory");
-            fileJFC.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            fileJFC.setFileHidingEnabled(true);
-            fileJFC.setMultiSelectionEnabled(false);
-
-            if (fileJFC.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-                CoreProxy.setSaveDirectory(fileJFC.getSelectedFile());
-                serverVO = CoreProxy.requestServerVO();
-                if (serverVO.getMessageType() == MessageType.ERROR) {
-                    JOptionPane.showMessageDialog(this, serverVO.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    pathJL.setText(fileJFC.getSelectedFile().getPath());
-                }
-            }
         } else if (((JButton) e.getSource()).equals(testJB)) {
             CoreProxy.testDBConnection();
             serverVO = CoreProxy.requestServerVO();
@@ -347,7 +283,7 @@ public class ServerJF extends JFrame implements WindowListener {
             }
             monitorJTA.append(serverVO.getMessageType().toString() + " - " + serverVO.getMessage() + "\n");
         }
-    }    
+    }
 
     @Override
     public void windowClosing(WindowEvent e) {
@@ -360,20 +296,26 @@ public class ServerJF extends JFrame implements WindowListener {
     }
 
     @Override
-    public void windowActivated(WindowEvent e) { }
+    public void windowActivated(WindowEvent e) {
+    }
 
     @Override
-    public void windowClosed(WindowEvent e) { }
+    public void windowClosed(WindowEvent e) {
+    }
 
     @Override
-    public void windowDeactivated(WindowEvent e) { }
+    public void windowDeactivated(WindowEvent e) {
+    }
 
     @Override
-    public void windowDeiconified(WindowEvent e) { }
+    public void windowDeiconified(WindowEvent e) {
+    }
 
     @Override
-    public void windowIconified(WindowEvent e) { }
+    public void windowIconified(WindowEvent e) {
+    }
 
     @Override
-    public void windowOpened(WindowEvent e) { }
+    public void windowOpened(WindowEvent e) {
+    }
 }
