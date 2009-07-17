@@ -486,7 +486,6 @@ public class GameJIF extends JInternalFrame implements ICustomDM {
                 if (gameVO.isEndGame()) {
                     JOptionPane.showInternalMessageDialog(this, "Questa partita è terminata!!!",
                             "Info", JOptionPane.INFORMATION_MESSAGE);
-                    dispose();
                 } else {
                     refreshComponent();//initBoard();
                 }
