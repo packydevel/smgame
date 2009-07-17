@@ -11,11 +11,12 @@ import java.net.URL;
 public class ResourceLocator {
 
     static String separ = File.separator;
-    static String curDir;
+    static String curDir ;
     
     final static String dirResource = "/org/smgame/resource/";
     final static String dirResourceCard = dirResource + "cardimage/";
     final static String dirResourceAuthor = dirResource + "authorimage/";
+    final static String dirConfig = "config/";
 
     /**Restituisce il percorso di lavoro corrente comprensivo di primo separatore
      *
@@ -84,5 +85,13 @@ public class ResourceLocator {
         }
 
         return windows;
+    }
+
+    /**Restituisce il percorso della cartella config
+     *
+     * @return configDir
+     */
+    public static String getResourceConfig() {        
+        return curDir+dirConfig;
     }
 }//end class
