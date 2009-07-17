@@ -122,7 +122,6 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
         getContentPane().remove(contentJP);
         contentJP = new JPanel();
         try {
-            System.out.println(file);
             editorPaneJEP.setPage(file);
             contentJP.add(editorPaneJEP, BorderLayout.CENTER);
         } catch (Exception e) {
@@ -143,7 +142,6 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
                 try {
                     pane.setPage(e.getURL());
                 } catch (Throwable t) {
-                    t.printStackTrace();
                 }
             }
         }

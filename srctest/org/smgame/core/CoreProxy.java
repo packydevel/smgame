@@ -190,7 +190,6 @@ public class CoreProxy {
             mainVO.setMessageType(MessageType.INFO);
             mainVO.setMessage("La Partita è stata salvata correttamente!");
         } catch (Exception e) {
-            e.printStackTrace();
             mainVO.setMessageType(MessageType.ERROR);
             mainVO.setMessage("Non è stato possibile salvare la partita!!!");
         }
