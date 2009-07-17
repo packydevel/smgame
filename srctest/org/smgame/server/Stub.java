@@ -35,11 +35,6 @@ public class Stub implements IStub {
     }
 
     @Override
-    public void askCloseGame() throws RemoteException {
-        CoreProxy.askCloseGame();
-    }
-
-    @Override
     public void closeGame(UUID clientID) {
         CoreProxy.closeGame(clientID);
     }
