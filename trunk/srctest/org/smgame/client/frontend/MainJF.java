@@ -189,9 +189,7 @@ public class MainJF extends JFrame implements WindowListener, InternalFrameListe
      *
      */
     private void executeCloseGame() {
-        ClientProxy.getInstance().askCloseGame();
-
-        if (analyzeVO(ClientProxy.getInstance().requestMainVO()) == 0) {
+        if (JOptionPane.showInternalConfirmDialog(desktop, "Sei sicuro di voler chiudere la Partita? I passaggi di gioco non salvati saranno persi!!!", "Attenzione", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
             ClientProxy.getInstance().closeGame();
             refreshMenuItem();
             clearDesktop();
@@ -283,13 +281,11 @@ public class MainJF extends JFrame implements WindowListener, InternalFrameListe
 
     @Override
     public void internalFrameClosing(InternalFrameEvent e) {
-        if (e.getInternalFrame() instanceof NewGameJIF) {
-        } else if (e.getInternalFrame() instanceof LoadGameJIF) {
+        if (e.getInternalFrame() instanceof LoadGameJIF) {
             refreshMenuItem();
         } else if (e.getInternalFrame() instanceof GameJIF) {
             executeCloseGame();
         }
-
     }
 
     @Override

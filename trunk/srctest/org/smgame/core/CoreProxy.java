@@ -102,15 +102,6 @@ public class CoreProxy {
         return gameMap.get(clientGameMap.get(clientID));
     }
 
-    /**Chiede la chiusura del gioco
-     *
-     */
-    public static void askCloseGame() {
-        mainVO.clear();
-        mainVO.setMessageType(MessageType.WARNING);
-        mainVO.setMessage("Sei sicuro di voler chiudere la Partita? I passaggi di gioco non salvati saranno persi!");
-    }
-
     /**Chiude la partita
      *
      * @param clientID identificativo unico
