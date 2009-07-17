@@ -35,11 +35,6 @@ public class Stub implements IStub {
     }
 
     @Override
-    public void closeGame(UUID clientID) {
-        CoreProxy.closeGame(clientID);
-    }
-
-    @Override
     public MainVO requestMainVO() {
         return CoreProxy.requestMainVO();
     }
