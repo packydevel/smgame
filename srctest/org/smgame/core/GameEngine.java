@@ -20,12 +20,9 @@ import org.smgame.util.ScoreOverflowException;
  */
 public class GameEngine implements Serializable {
 
-    private static GameEngine gameEngine = null;
     private Deck deck;
     private PlayerList playerList;
     private final int MANCHE_NUMBER = 10;
-    private final double MAX_CREDIT = 64000;
-    private final double MAX_SCORE = 7.5;
     private int currentManche;
     private Player bankPlayer;
     private Player currentPlayer;

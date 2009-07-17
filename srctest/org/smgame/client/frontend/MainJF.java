@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.ArrayList;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -27,7 +26,6 @@ public class MainJF extends JFrame implements WindowListener, InternalFrameListe
 
     private static JDesktopPane desktop;
     private MenuJMB menuJMB;
-    private NewGameJIF newOnLineGameJIF;
     private NewGameJIF newGameJIF;
     private LoadGameJIF loadGameJIF;
     private GameJIF gameJIF;
@@ -43,8 +41,6 @@ public class MainJF extends JFrame implements WindowListener, InternalFrameListe
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
-        ArrayList<String> menuItemNameList = new ArrayList<String>();
-
         setSize(1024, 768);
         setResizable(false);
         addWindowListener(this);
@@ -58,6 +54,7 @@ public class MainJF extends JFrame implements WindowListener, InternalFrameListe
         menuJMB = new MenuJMB();
         for (JMenuItem jmi : menuJMB.getMenuItemListJMI()) {
             jmi.addActionListener(new ActionListener() {
+
                 @Override
                 public void actionPerformed(ActionEvent evt) {
                     jMenu1ActionPerformed(evt);
@@ -70,7 +67,7 @@ public class MainJF extends JFrame implements WindowListener, InternalFrameListe
         refreshMenuItem();
     }
 
-    /**aggiorna gli item del menà
+    /**aggiorna gli item del menù
      *
      */
     private void refreshMenuItem() {
@@ -106,27 +103,15 @@ public class MainJF extends JFrame implements WindowListener, InternalFrameListe
      * @param evt eventi da gestire
      */
     private void jMenu1ActionPerformed(ActionEvent evt) {
-        if ((JMenuItem) evt.getSource() == menuJMB.getNewOnLineGameJMI()) {
+        if ((JMenuItem) evt.getSource() == menuJMB.getNewOffLineGameJMI() ||
+                (JMenuItem) evt.getSource() == menuJMB.getNewOnLineGameJMI()) {
+            boolean online=(JMenuItem) evt.getSource() != menuJMB.getNewOffLineGameJMI();
             clearDesktop();
             internalFrameWidth = 400;
             internalFrameHeight = 520;
             xbound = (desktopWidth - internalFrameWidth) / 2;
             ybound = (desktopHeight - internalFrameHeight) / 2;
-            newOnLineGameJIF = new NewGameJIF(true);
-            newOnLineGameJIF.setPreferredSize(new Dimension(internalFrameWidth, internalFrameHeight));
-            newOnLineGameJIF.setBounds(xbound, ybound, internalFrameWidth, internalFrameHeight);
-            newOnLineGameJIF.setVisible(true);
-            newOnLineGameJIF.addInternalFrameListener(this);
-            newOnLineGameJIF.addMyEventListener(this);
-            desktop.add(newOnLineGameJIF);
-            refreshMenuItem();
-        } else if ((JMenuItem) evt.getSource() == menuJMB.getNewOffLineGameJMI()) {
-            clearDesktop();
-            internalFrameWidth = 400;
-            internalFrameHeight = 520;
-            xbound = (desktopWidth - internalFrameWidth) / 2;
-            ybound = (desktopHeight - internalFrameHeight) / 2;
-            newGameJIF = new NewGameJIF(false);
+            newGameJIF = new NewGameJIF(online);
             newGameJIF.setPreferredSize(new Dimension(internalFrameWidth, internalFrameHeight));
             newGameJIF.setBounds(xbound, ybound, internalFrameWidth, internalFrameHeight);
             newGameJIF.setVisible(true);
@@ -154,7 +139,7 @@ public class MainJF extends JFrame implements WindowListener, InternalFrameListe
         } else if ((JMenuItem) evt.getSource() == menuJMB.getCloseGameJMI()) {
             executeCloseGame();
         } else if ((JMenuItem) evt.getSource() == menuJMB.getExitGameJMI()) {
-           closeFrame();
+            closeFrame();
         } else if ((JMenuItem) evt.getSource() == menuJMB.getStoryBoardJMI()) {
             StoryBoardVO storyVO = ClientProxy.getInstance().requestStoryGames();
             if (storyVO.getMessageType() == null) {
