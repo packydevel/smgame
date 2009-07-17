@@ -105,7 +105,7 @@ public class MainJF extends JFrame implements WindowListener, InternalFrameListe
     private void jMenu1ActionPerformed(ActionEvent evt) {
         if ((JMenuItem) evt.getSource() == menuJMB.getNewOffLineGameJMI() ||
                 (JMenuItem) evt.getSource() == menuJMB.getNewOnLineGameJMI()) {
-            boolean online=(JMenuItem) evt.getSource() != menuJMB.getNewOffLineGameJMI();
+            boolean online = (JMenuItem) evt.getSource() != menuJMB.getNewOffLineGameJMI();
             clearDesktop();
             internalFrameWidth = 400;
             internalFrameHeight = 520;
@@ -224,15 +224,24 @@ public class MainJF extends JFrame implements WindowListener, InternalFrameListe
      * @param doc stringa che rappresenta il documento da visualizzare
      */
     private void closeFrame() {
-        if (JOptionPane.showInternalConfirmDialog(desktop,
-                "Sei sicuro di voler uscire? Le partite non salvate saranno perse!", "Info",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
-            if (helpJF != null) {
-                helpJF.dispose();
-            }
-            this.dispose();
-            System.exit(0);
+        int returnCode=0;
+
+        if (desktop.getAllFrames().length != 0) {
+            returnCode = JOptionPane.showInternalConfirmDialog(desktop,
+                    "Sei sicuro di voler uscire? Le partite non salvate saranno perse!", "Info",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         }
+
+        if (returnCode == 1) {
+            return;
+        }
+
+        if (helpJF != null) {
+            helpJF.dispose();
+        }
+        
+        this.dispose();
+        System.exit(0);
     }
 
     @Override
