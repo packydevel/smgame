@@ -1,6 +1,5 @@
 package org.smgame.server.frontend;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -58,14 +57,14 @@ public class ServerJF extends JFrame implements WindowListener {
 
         statusJP = new JPanel();
         statusJP.setLayout(new GridBagLayout());
-        tabbedPane.addTab("Start/Stop", null, statusJP,
-                "Esegui Start/Stop del Server");
+        tabbedPane.addTab("Server RMI", null, statusJP,
+                "Esegui Start/Stop del Server RMI");
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
         configJP = new JPanel();
         configJP.setLayout(new GridBagLayout());
-        tabbedPane.addTab("Configurazione", null, configJP,
-                "Configurazione del Server");
+        tabbedPane.addTab("Database", null, configJP,
+                "Configurazione del Database");
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
         initMonitorJSP();
