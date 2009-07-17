@@ -79,7 +79,7 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
 
         if (doc.equals("UserGuide")) {
             showPDF(userGuidePDF);
-        } else if (doc.equals("UserGuide")) {
+        } else if (doc.equals("ReferenceGuide")) {
             showPDF(refGuidePDF);
         } else {
             showHTML(javadocIndex);
