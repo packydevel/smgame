@@ -37,14 +37,6 @@ public interface IStub extends Remote {
     public void createGame(UUID clientID, String gameName, GameMode gameMode,
             List<String> playerNameList, List<Boolean> playerTypeList) throws RemoteException;
 
-    /**Chiudi partita
-     *
-     * @param clientID identificativo unico
-     *
-     * @throws java.rmi.RemoteException
-     */
-    public void closeGame(UUID clientID) throws RemoteException;
-
     /**richiede e restituisce l'oggetto mainVO
      *
      * @return mainVO

@@ -191,9 +191,27 @@ public class MainJF extends JFrame implements WindowListener, InternalFrameListe
     private void executeCloseGame() {
         if (JOptionPane.showInternalConfirmDialog(desktop, "Sei sicuro di voler chiudere la Partita? I passaggi di gioco non salvati saranno persi!!!", "Attenzione", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
             ClientProxy.getInstance().closeGame();
-            refreshMenuItem();
+            resetMenuItems();
             clearDesktop();
         }
+    }
+
+    /**Ripristina gli item di menù allo stato iniziale
+     *
+     */
+    private void resetMenuItems() {
+        menuJMB.getNewOnLineGameJMI().setEnabled(true);
+        menuJMB.getNewOffLineGameJMI().setEnabled(true);
+        menuJMB.getLoadGameJMI().setEnabled(true);
+        menuJMB.getSaveGameJMI().setEnabled(false);
+        menuJMB.getCloseGameJMI().setEnabled(false);
+        menuJMB.getExitGameJMI().setEnabled(true);
+        menuJMB.getStoryBoardJMI().setEnabled(true);
+        menuJMB.getTestConnectionJMI().setEnabled(true);
+        menuJMB.getUserGuideJMI().setEnabled(true);
+        menuJMB.getJavadocJMI().setEnabled(true);
+        menuJMB.getRefGuideJMI().setEnabled(true);
+        menuJMB.getAboutJMI().setEnabled(true);
     }
 
     /**Pulisce il desktop
@@ -222,7 +240,7 @@ public class MainJF extends JFrame implements WindowListener, InternalFrameListe
      * @param doc stringa che rappresenta il documento da visualizzare
      */
     private void closeFrame() {
-        int returnCode=0;
+        int returnCode = 0;
 
         if (desktop.getAllFrames().length != 0) {
             returnCode = JOptionPane.showInternalConfirmDialog(desktop,
@@ -237,7 +255,7 @@ public class MainJF extends JFrame implements WindowListener, InternalFrameListe
         if (helpJF != null) {
             helpJF.dispose();
         }
-        
+
         this.dispose();
         System.exit(0);
     }

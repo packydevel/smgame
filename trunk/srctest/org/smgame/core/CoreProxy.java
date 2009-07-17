@@ -107,7 +107,6 @@ public class CoreProxy {
      * @param clientID identificativo unico
      */
     public static void closeGame(UUID clientID) {
-        clientGameMap.put(clientID, null);
         gameVO.clear();
     }
 

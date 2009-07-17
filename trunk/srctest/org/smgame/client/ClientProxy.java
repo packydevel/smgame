@@ -126,15 +126,7 @@ public class ClientProxy {
      *
      */
     public void closeGame() {
-        if (gameMode == GameMode.OFFLINE) {
-            CoreProxy.closeGame(clientID);
-        } else {
-            try {
-                stub = RMIClient.getStub();
-                stub.closeGame(clientID);
-            } catch (Exception e) {
-            }
-        }
+        CoreProxy.closeGame(clientID);
     }
 
     /**Salva la partita
