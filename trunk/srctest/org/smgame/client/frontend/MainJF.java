@@ -244,7 +244,7 @@ public class MainJF extends JFrame implements WindowListener, InternalFrameListe
 
         if (desktop.getAllFrames().length != 0) {
             returnCode = JOptionPane.showInternalConfirmDialog(desktop,
-                    "Sei sicuro di voler uscire? Le partite non salvate saranno perse!", "Info",
+                    "Sei sicuro di voler uscire?", "Info",
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         }
 
