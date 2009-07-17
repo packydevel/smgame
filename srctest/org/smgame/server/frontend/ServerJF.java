@@ -12,6 +12,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -215,8 +216,9 @@ public class ServerJF extends JFrame implements WindowListener {
         textFieldGBC.gridy = 3;
         databaseJP.add(passwordJTF, textFieldGBC);
 
-        try {
+        try {            
             setTextDatabaseParameters();
+        } catch (URISyntaxException ex) {
         } catch (IOException ex) {
         }
 
@@ -243,7 +245,7 @@ public class ServerJF extends JFrame implements WindowListener {
     }
 
     /**imposta i parametri del database nelle textfield*/
-    private void setTextDatabaseParameters() throws IOException {
+    private void setTextDatabaseParameters() throws IOException, URISyntaxException {
         DBPropertiesVO dbPropVO = DBAccess.requestDBPropertiesVO();
         hostnameJTF.setText(dbPropVO.getServer());
         portJTF.setText(dbPropVO.getPort());
