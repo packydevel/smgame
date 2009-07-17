@@ -8,8 +8,10 @@ import org.smgame.core.CoreProxy;
 import org.smgame.client.frontend.GameVO;
 import org.smgame.client.frontend.MainVO;
 import org.smgame.client.frontend.MenuVO;
+import org.smgame.client.frontend.MessageType;
 import org.smgame.client.frontend.StoryBoardVO;
 import org.smgame.core.GameMode;
+import org.smgame.server.frontend.ServerVO;
 
 /**Oggetto remoto
  *
@@ -19,7 +21,13 @@ import org.smgame.core.GameMode;
 public class Stub implements IStub {
 
     @Override
-    public void test() throws RemoteException { }
+    public void test() throws RemoteException {
+        CoreProxy.testDBConnection();
+        ServerVO serverVO = CoreProxy.requestServerVO();
+        if (serverVO.getMessageType() == MessageType.ERROR) {
+            throw new RemoteException();
+        }
+    }
 
     @Override
     public void createGame(UUID clientID, String gameName, GameMode gameMode, List<String> playerNameList, List<Boolean> playerTypeList) {
@@ -27,7 +35,7 @@ public class Stub implements IStub {
     }
 
     @Override
-    public void askCloseGame() {
+    public void askCloseGame() throws RemoteException {
         CoreProxy.askCloseGame();
     }
 

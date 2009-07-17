@@ -426,6 +426,7 @@ public class GameJIF extends JInternalFrame implements ICustomDM {
 
         gameVO = ClientProxy.getInstance().requestGameVO();
 
+
         if (gameVO.getExceptionMessage() != null) {
             JOptionPane.showInternalMessageDialog(this, gameVO.getExceptionMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
         } else {

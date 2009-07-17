@@ -61,6 +61,7 @@ public class ClientProxy {
         mainVO.clear();
         try {
             stub = RMIClient.getStub();
+            stub.test();
             mainVO.setMessageType(MessageType.INFO);
             mainVO.setMessage("Connessione al Server riuscita!");
         } catch (Exception e) {

@@ -15,7 +15,6 @@ import org.smgame.core.player.PlayerList;
  */
 public class Game implements Serializable {
 
-    private static Game game;
     private long gameID;
     private String gameName;
     private GameMode gameMode;
