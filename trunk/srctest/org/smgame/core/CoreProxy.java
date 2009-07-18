@@ -91,6 +91,7 @@ public class CoreProxy {
 
         clientGameMap.put(clientID, currentGame.getGameID());
         gameMap.put(currentGame.getGameID(), currentGame);
+        gameVO.clear();
     }
 
     /**Restituisce il gioco del client

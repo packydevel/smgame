@@ -21,12 +21,13 @@ public class Game implements Serializable {
     private GameEngine gameEngine;
     private Deck deck;
     private PlayerList playerList;
-    private Date creationDate,  lastSaveDate;
+    private Date creationDate, lastSaveDate;
 
     /**Costruttore vuoto
      *
      */
-    public Game() { }
+    public Game() {
+    }
 
     /**imposta la data di creazione
      *

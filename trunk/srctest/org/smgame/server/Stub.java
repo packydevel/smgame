@@ -30,42 +30,42 @@ public class Stub implements IStub {
     }
 
     @Override
-    public void createGame(UUID clientID, String gameName, GameMode gameMode, List<String> playerNameList, List<Boolean> playerTypeList) {
+    public void createGame(UUID clientID, String gameName, GameMode gameMode, List<String> playerNameList, List<Boolean> playerTypeList) throws RemoteException {
         CoreProxy.createGame(clientID, gameName, gameMode, playerNameList, playerTypeList);
     }
 
     @Override
-    public MainVO requestMainVO() {
+    public MainVO requestMainVO() throws RemoteException {
         return CoreProxy.requestMainVO();
     }
 
     @Override
-    public String getGameTitle(UUID clientID) {
+    public String getGameTitle(UUID clientID) throws RemoteException {
         return CoreProxy.getGameTitle(clientID);
     }
 
     @Override
-    public void requestCard(UUID clientID, int playerIndex, double bet) {
+    public void requestCard(UUID clientID, int playerIndex, double bet) throws RemoteException {
         CoreProxy.requestCard(clientID, playerIndex, bet);
     }
 
     @Override
-    public void declareGoodScore(UUID clientID, int playerIndex, double bet) {
+    public void declareGoodScore(UUID clientID, int playerIndex, double bet) throws RemoteException {
         CoreProxy.declareGoodScore(clientID, playerIndex, bet);
     }
 
     @Override
-    public MenuVO requestMenuVO(UUID clientID) {
+    public MenuVO requestMenuVO(UUID clientID) throws RemoteException {
         return CoreProxy.requestMenuVO(clientID);
     }
 
     @Override
-    public GameVO requestGameVO(UUID clientID) {
+    public GameVO requestGameVO(UUID clientID) throws RemoteException {
         return CoreProxy.requestGameVO(clientID);
     }
 
     @Override
-    public Object[][] requestDataReport(UUID clientID) {
+    public Object[][] requestDataReport(UUID clientID) throws RemoteException {
         return CoreProxy.requestDataReport(clientID);
     }
 
