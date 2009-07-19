@@ -266,7 +266,9 @@ public class ClientProxy {
                 stub = RMIClient.getStub();
                 return stub.requestMainVO();
             } catch (Exception e) {
-                return null;
+                mainVO.setMessageType(MessageType.ERROR);
+                mainVO.setMessage("Impossibile connettersi al Server!!!");
+                return mainVO;
             }
         }
     }
@@ -311,7 +313,9 @@ public class ClientProxy {
                 stub = RMIClient.getStub();
                 return stub.requestGameVO(clientID);
             } catch (Exception e) {
-                return null;
+                GameVO gameVO = new GameVO();
+                gameVO.setExceptionMessage("Impossibile connettersi al Server!!! E' possibile attendere o chiudere la Partita e provare a rigiocare in un secondo momento.");
+                return gameVO;
             }
         }
     }
