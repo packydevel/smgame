@@ -21,6 +21,7 @@ import org.smgame.client.ClientProxy;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
+@SuppressWarnings("serial")
 public class LoadGameJIF extends JInternalFrame implements ICustomDM {
 
     JTable gameJT;

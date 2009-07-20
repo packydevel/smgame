@@ -8,6 +8,7 @@ import org.smgame.core.CoreProxy;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
+@SuppressWarnings("serial")
 public class LoadGameATM extends AbstractTableModel {
 
     private final String[] columnNames = {"GameID", "Partita", "Tipo", "Data Creazione", "Data Ultimo Salvataggio"};

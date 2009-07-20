@@ -7,6 +7,7 @@ import java.util.EventObject;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
+@SuppressWarnings("serial")
 public class NewGameEvent extends EventObject {
 
     /**Costruttore

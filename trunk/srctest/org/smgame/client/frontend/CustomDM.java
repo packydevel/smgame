@@ -8,6 +8,7 @@ import javax.swing.JComponent;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
+@SuppressWarnings("serial")
 public class CustomDM extends DefaultDesktopManager {
 
     @Override

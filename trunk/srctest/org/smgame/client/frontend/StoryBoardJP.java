@@ -19,6 +19,7 @@ import javax.swing.table.TableColumn;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
+@SuppressWarnings("serial")
 public class StoryBoardJP extends JPanel{
 
     private JTable storyboardJT;
