@@ -11,6 +11,7 @@ import java.util.HashMap;
  */
 public class LoadGameVO implements Serializable {
 
+    private static final long serialVersionUID = 6415076116394106154L;
     private ArrayList<Long> gameIDList = new ArrayList<Long>();
     private HashMap<Long, String> gameNameMap = new HashMap<Long, String>();
     private HashMap<Long, String> gameModeMap = new HashMap<Long, String>();

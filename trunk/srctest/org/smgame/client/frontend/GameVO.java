@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 
 public class GameVO implements Serializable {
 
+    private static final long serialVersionUID = -7561966468991273552L;
     private ArrayList<Integer> playerList = new ArrayList<Integer>();
     private HashMap<Integer, String> playerNameMap = new HashMap<Integer, String>();
     private HashMap<Integer, Boolean> playerTypeMap = new HashMap<Integer, Boolean>();

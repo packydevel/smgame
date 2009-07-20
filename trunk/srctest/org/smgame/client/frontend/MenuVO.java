@@ -9,6 +9,8 @@ import java.util.HashMap;
  * @author Mignogna Luca     467644
  */
 public class MenuVO implements Serializable {
+
+    private static final long serialVersionUID = -1880449997986089858L;
     private HashMap<String, Boolean> itemEnabledMap = new HashMap<String, Boolean>();
 
     /**restituisce la mappa con gli item e i relativi booleani per l'abilitazione
