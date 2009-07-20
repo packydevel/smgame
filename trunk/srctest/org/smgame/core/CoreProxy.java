@@ -206,6 +206,7 @@ public class CoreProxy {
     /**Carica la map delle partite
      *
      */
+    @SuppressWarnings("unchecked")
     public static void loadGames() {
         try {
             File f = new File(new URI(fileName));

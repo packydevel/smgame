@@ -52,6 +52,7 @@ public class Logging {
      *
      * @param e eccezione Exception
      */
+    @SuppressWarnings("unchecked")
     public static void logExceptionSevere(Class c, Exception e){
         logger.severe(c.getName() + " - " + e.toString());
     }

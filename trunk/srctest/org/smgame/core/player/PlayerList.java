@@ -94,7 +94,7 @@ public class PlayerList implements Serializable {
      * @return nuovo mazziere
      */
     public Player firstKingSM(Player player) {
-        ArrayList<Player> tempList = new ArrayList(playerAL);
+        ArrayList<Player> tempList = new ArrayList<Player>(playerAL);
         int playerIndex = playerAL.indexOf(player);
 
         Collections.rotate(tempList, -playerIndex);
