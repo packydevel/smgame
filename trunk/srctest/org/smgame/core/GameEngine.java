@@ -199,7 +199,6 @@ public class GameEngine implements Serializable {
      */
     private void applyPaymentRule() {
         Double amount, bankAmountGoodScorePlayer = 0.00, bankAmountOverflowPlayer = 0.00;
-        Card card;
         Iterator<Player> playerListIterator;
         Player p;
 
@@ -307,7 +306,6 @@ public class GameEngine implements Serializable {
      *
      */
     public void startManche() {
-        Card card;
         Iterator<Player> playerListIterator;
         Player p;
 

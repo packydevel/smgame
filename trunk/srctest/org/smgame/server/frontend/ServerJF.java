@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -256,7 +255,6 @@ public class ServerJF extends JFrame implements WindowListener {
 
     /**azioni che deve fare il server in seguto alla ricezione di actionevent */
     private void serverAction(ActionEvent e) {
-        JFileChooser fileJFC;
 
         if (((JButton) e.getSource()).equals(startJB)) {
             RMIServer.getInstance().start();
