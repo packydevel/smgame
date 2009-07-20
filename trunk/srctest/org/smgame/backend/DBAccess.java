@@ -45,6 +45,8 @@ public class DBAccess {
      */
     public static Connection getConnection() throws ClassNotFoundException, SQLException, IOException, URISyntaxException {
         if ((conn == null) || (!conn.isValid(0))) {
+
+            @SuppressWarnings("unused")
             DBAccess dba = new DBAccess();
         }
         return conn;

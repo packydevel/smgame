@@ -51,7 +51,7 @@ public class GameJIF extends JInternalFrame implements ICustomDM {
     private HashMap<Integer, JPanel> playerActionMapJP; //Lista pannelli giocatore-carte
     private List<JLabel> playerCardsListJL;
     private GameVO gameVO;
-    private GridBagConstraints panelGBC, labelGBC, textFieldGBC, buttonGBC;
+    private GridBagConstraints panelGBC, labelGBC;
     private int size, currentIndex;
     private BetInputVerifier betInputVerifier = new BetInputVerifier();
     private DecimalFormat betValueFormatter;

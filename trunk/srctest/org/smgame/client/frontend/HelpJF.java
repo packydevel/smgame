@@ -26,6 +26,7 @@ public class HelpJF extends JFrame implements ActionListener, HyperlinkListener 
 
     private JPanel buttonJP, contentJP;
     private JTextPane editorPaneJEP;
+    @SuppressWarnings("unused")
     private JSplitPane splitPaneJSP;
     private JButton userGuideJB, refGuideJB, javadocJB;
     private String userGuidePDF, refGuidePDF, javadocIndex;
