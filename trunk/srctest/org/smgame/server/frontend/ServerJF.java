@@ -36,6 +36,7 @@ import org.smgame.server.RMIServer;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
+@SuppressWarnings("serial")
 public class ServerJF extends JFrame implements WindowListener {
 
     ServerVO serverVO;
