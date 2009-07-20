@@ -22,6 +22,7 @@ import org.smgame.util.ResourceLocator;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
+@SuppressWarnings("serial")
 public class HelpJF extends JFrame implements ActionListener, HyperlinkListener {
 
     private JPanel buttonJP, contentJP;

@@ -24,6 +24,7 @@ import org.jpedal.exception.PdfException;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
+@SuppressWarnings("serial")
 public class PDFViewerJP extends JPanel {
 
     /**the actual JPanel/decoder object*/

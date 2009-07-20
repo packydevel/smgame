@@ -19,6 +19,7 @@ import javax.swing.table.TableColumn;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
+@SuppressWarnings("serial")
 public class ScoreBoardJP extends JPanel {
 
     private JLabel typeEndJL;
@@ -104,6 +105,7 @@ public class ScoreBoardJP extends JPanel {
 } //end class
 
 /**Classe che restituisce la jlabel della cella tabella con determinati colori di testo */
+@SuppressWarnings("serial")
 class JLabelRenderer extends JLabel implements TableCellRenderer {
 
     Map<Integer, Color> colorLHM;

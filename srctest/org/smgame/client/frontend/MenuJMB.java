@@ -14,6 +14,7 @@ import javax.swing.KeyStroke;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
+@SuppressWarnings("serial")
 public class MenuJMB extends JMenuBar {
 
     private JMenu gameJM;
