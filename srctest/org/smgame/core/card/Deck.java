@@ -18,6 +18,7 @@ import org.smgame.util.ResourceLocator;
  */
 public class Deck implements Serializable {
 
+    private static final long serialVersionUID = -4922814648050788612L;
     private final double[] ALL_VALUE = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 0.5, 0.5, 0.5};//tutti i valori
     private final ArrayList<Card> CARDS = new ArrayList<Card>();
     private ArrayList<Card> onGameCardList = new ArrayList<Card>();
