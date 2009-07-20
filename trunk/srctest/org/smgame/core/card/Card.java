@@ -11,8 +11,8 @@ import org.smgame.util.ResourceLocator;
  * @author Mignogna Luca     467644
  */
 public class Card implements Serializable {
-    //variabili
-
+    
+    private static final long serialVersionUID = 3277855203858753026L;
     private Point point; //punto
     private Suit suit; //seme
     private ImageIcon frontImage;

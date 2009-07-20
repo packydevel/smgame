@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
  */
 public class JollyCard extends Card {
 
+    private static final long serialVersionUID = 6864904185042947614L;
     private static final double[] VALUES = {0.5, 1, 2, 3, 4, 5, 6, 7};
 
     /**Costruttore
