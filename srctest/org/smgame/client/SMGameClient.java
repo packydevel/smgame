@@ -32,6 +32,7 @@ public class SMGameClient extends JApplet {
             ClientProxy.getInstance().loadGames();
         } catch (Exception e) { }
 
+        @SuppressWarnings("unused")
         MainJF frame = new MainJF();
     }
 
@@ -58,7 +59,9 @@ public class SMGameClient extends JApplet {
                     UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
                 } catch (Exception e) { }
 
+                @SuppressWarnings("unused")
                 MainJF frame = new MainJF();
+                
             } //end run
         }); //end invokelater
 

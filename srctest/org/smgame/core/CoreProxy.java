@@ -3,9 +3,7 @@ package org.smgame.core;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URI;
@@ -175,8 +173,7 @@ public class CoreProxy {
 
     /**Salva partite
      *
-     * @throws java.io.FileNotFoundException
-     * @throws java.io.IOException
+     * @throws java.lang.Exception
      */
     private static void saveGames() {
         try {
