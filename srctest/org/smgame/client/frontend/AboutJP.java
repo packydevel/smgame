@@ -15,6 +15,7 @@ import org.smgame.util.ResourceLocator;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
+
 public class AboutJP extends JPanel {
 
     private JLabel headerJL,  footerJL;
