@@ -66,6 +66,7 @@ public class PDFViewerJP extends JPanel {
      *
      * @return true = pdf accessibile, false = password o criptazione presente
      */
+    @SuppressWarnings("unused")
     private boolean checkEncryption() {
 //    check if file is encrypted
         if (pdfDecoder.isEncrypted()) {

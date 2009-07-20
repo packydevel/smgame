@@ -32,7 +32,7 @@ import org.smgame.client.ClientProxy;
  */
 public class NewGameJIF extends JInternalFrame implements ICustomDM {
 
-    private JPanel playerJP, preferenceJP;
+    private JPanel playerJP;
     private GridBagConstraints labelGBC, textFieldGBC, comboBoxGBC, checkBoxGBC, buttonGBC;
     private JLabel playersNumberJL, cpuflagJL;
     private JComboBox playersNumberJCB;
@@ -42,7 +42,7 @@ public class NewGameJIF extends JInternalFrame implements ICustomDM {
     private JCheckBox cpuflagJCKB[];
     private JLabel gameNameJL;
     private JLabel playerJL[];
-    private JTextField gameNameJTF, mancheNumberJTF;
+    private JTextField gameNameJTF;
     private JTextField playerJTF[];
     private NewGameVO newGameVO = new NewGameVO();
     private int previousPlayersNumber = 0;
