@@ -20,6 +20,7 @@ import org.smgame.util.ScoreOverflowException;
  */
 public class GameEngine implements Serializable {
 
+    private static final long serialVersionUID = -1801631262866179793L;
     private Deck deck;
     private PlayerList playerList;
     private final int MANCHE_NUMBER = 10;

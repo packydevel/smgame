@@ -15,6 +15,7 @@ import java.util.Random;
  */
 public class PlayerList implements Serializable {
 
+    private static final long serialVersionUID = 8986020381664094141L;
     private LinkedList<Player> playerAL = new LinkedList<Player>();
 
     /**Costruttore vuoto
