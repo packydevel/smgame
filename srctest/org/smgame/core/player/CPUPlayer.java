@@ -37,7 +37,7 @@ public class CPUPlayer extends Player implements Serializable {
      * @return true/false
      */
     public boolean isGoodScore() {
-        double threshold = 0.00, hypotethicScore, i;
+        double threshold = 0.00, i;
         int allHypotheticValues, allGoodValues;
         Iterator<Player> playerListIterator;
         Player p;

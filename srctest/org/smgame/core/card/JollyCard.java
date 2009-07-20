@@ -28,7 +28,7 @@ public class JollyCard extends Card {
      * @return valore jolly
      */
     public static double getBestValue(Double score) {
-        Double value=VALUES[0], max = score;
+        Double value=VALUES[0];
 
         if (score > 7.5) {
             return 0.0;
