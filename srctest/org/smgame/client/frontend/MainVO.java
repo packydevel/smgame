@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 public class MainVO implements Serializable {
 
+    private static final long serialVersionUID = -8058016970678179925L;
     private MessageType messageType;
     private String message;
 

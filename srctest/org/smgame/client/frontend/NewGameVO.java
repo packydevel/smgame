@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 public class NewGameVO implements Serializable {
 
+    private static final long serialVersionUID = 2762602177455121144L;
     private MessageType messageType;
     private String message;
 

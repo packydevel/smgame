@@ -8,6 +8,8 @@ import java.util.LinkedHashMap;
  * @author Mignogna Luca     467644
  */
 public class StoryBoardVO extends MainVO {
+
+    private static final long serialVersionUID = -6505278910268474144L;
     private LinkedHashMap<Long, Object[][]> story;
 
     /**restituisce i dati dello storico per ogni giocatore
