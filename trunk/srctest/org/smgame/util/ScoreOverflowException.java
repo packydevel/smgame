@@ -7,6 +7,7 @@ import org.smgame.core.card.Card;
  * @author Traetta  Pasquale 450428
  * @author Mignogna Luca     467644
  */
+@SuppressWarnings("serial")
 public class ScoreOverflowException extends Exception {
 
     Card card;
