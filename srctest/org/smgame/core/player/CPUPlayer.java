@@ -13,6 +13,7 @@ import org.smgame.core.card.Suit;
  */
 public class CPUPlayer extends Player implements Serializable {
 
+    private static final long serialVersionUID = -2415885214858994607L;
     private final double MIN_SCORE = 4.5; //minimo punteggio
     private final HashMap<Double, Double> valueWeightMap = new HashMap<Double, Double>();
 

@@ -15,7 +15,8 @@ import org.smgame.core.card.Suit;
  * @author Mignogna Luca     467644
  */
 public class Player implements Serializable {
-    
+
+    private static final long serialVersionUID = 3131703553178249235L;
     protected String name; //nome giocatore
     protected double credit; //credito
     protected double lastWinLoseAmount; //ammontare della vincita/perdita relativa all'ultima giocata
