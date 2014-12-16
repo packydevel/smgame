@@ -44,7 +44,7 @@ public class GameSetting {
         players = 4;
         manches = 10;
         credit = MIN_CREDIT;
-        jolly = Deck.getInstance().getSelectedCard(Point.Re, Suit.Danari);
+        jolly = new Deck().getSelectedCard(Point.Re, Suit.Danari);
         smDAmblePaid = "double";
     }
 

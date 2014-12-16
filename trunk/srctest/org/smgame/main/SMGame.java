@@ -8,9 +8,9 @@ package org.smgame.main;
 public class SMGame {
 
     public static void main(String args[]) {
-        GameSetting gameSetting = new GameSetting();
+        GameSetting gameSetting = GameSetting.getInstance();
         gameSetting.setNumPlayers(4);
-        Game game = Game.create(gameSetting);
-        game.printTest();
+        Game game = Game.getInstance();
+        game.setGameSetting(gameSetting);
     }
 }

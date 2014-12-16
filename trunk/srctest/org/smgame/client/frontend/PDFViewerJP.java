@@ -44,7 +44,7 @@ public class PDFViewerJP extends JPanel {
     public PDFViewerJP(String name) {
         pdfDecoder = new PdfDecoder(true);
         //ensure non-embedded font map to sensible replacements
-        PdfDecoder.setFontReplacements(pdfDecoder);
+        //PdfDecoder.setFontReplacements(pdfDecoder);
         currentFile = name;//store file name for use in page changer
         try {
             //this opens the PDF and reads its internal details

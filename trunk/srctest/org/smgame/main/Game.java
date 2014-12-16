@@ -35,14 +35,13 @@ public class Game implements Serializable {
     }
 
     public void setDeck(Deck deck) {
-        this.deck = Deck.getInstance();
+        this.deck = deck;
     }
 
     public void generateGameEngine() {
-        deck=Deck.getInstance();
-        gameEngine = GameEngine.getInstance();
+        deck=new Deck();
+        gameEngine = new GameEngine();
         gameEngine.setDeck(deck);
-        gameEngine.setGameSetting(gameSetting);
         gameEngine.setPlayerList(playerList);
     }
 
@@ -92,7 +91,7 @@ public class Game implements Serializable {
     public void resetInstance() {
         deck.resetInstance();
         gameSetting.resetInstance();
-        gameEngine.resetInstance();
+        //gameEngine.resetInstance();
     }
 
     public GameEngine getGameEngine() {
@@ -101,12 +100,10 @@ public class Game implements Serializable {
 
     public void printTest() {
         System.out.println("Sequenza iniziale di Carte");
-        deck.print();
 
         System.out.println("");
 
         System.out.println("Sequenza di Carte dopo mescolamento:");
         deck.shuffle();
-        deck.print();
     }
 }

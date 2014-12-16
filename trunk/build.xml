@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SMGame" default="info" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+	<property name="HelloText" value="My First Ant Task" />
+	
+    <property name="source.dir" value="src" />
+	<property name="build.dir" value="bin" />
+    <property name="library.dir" value="lib" />	
+    <property name="target.dir" value="target" />
+	
+	<property file="build.properties" />
+	
+	<target name="info" description="Project Info">
+		<echo>Project Name: ${ant.project.name}</echo>
+		<echo>Base Directory Project: ${basedir}</echo>
+		<echo>Ant file: ${ant.file}</echo>
+		<echo>Ant version: ${ant.version}</echo>
+		<echo>Ant Java version: ${ant.java.version}</echo>
+	</target>
+	
+	<target name="test" description="Test ivy installation">
+		
+	</target>
+	
+	<path id="project-classpath">
+		<fileset dir="${library.dir}">
+	    	<include name="*.jar"/>
+		</fileset>
+		<pathelement path="${build.dir}"/>
+	</path>	
+	
+	<target name="deploy" depends="package">
+	</target>
+	
+	<target name="clean">
+        <delete>
+        	<fileset dir="${build.dir}">
+                <include name="**/*.class" />
+        	</fileset>
+        </delete>
+	</target>
+	
+	<target name="init-ivy" description="Ivy Initialization">
+		<ivy:settings file="ivysettings.xml" />
+		<ivy:info />
+	</target>
+	
+	<target name="resolve-ivy-dependencies" depends="init-ivy" description="Resolve dependencies with Ivy">
+		<ivy:resolve />
+		<ivy:retrieve sync="true" type="jar,bundle" overwriteMode="always" />
+	</target>
+	
+	<target name="build" depends="resolve-ivy-dependencies" description="Compile main source tree java files">
+		<mkdir dir="${build.dir}"/>
+		<javac destdir="${build.dir}" source="1.8" target="1.8" debug="true" deprecation="false" optimize="false" failonerror="true">
+			<src path="${source.dir}" />
+			<classpath refid="project-classpath" />
+		</javac>
+	</target>
+	
+	<target name="package" depends="clean, build" description="Create a jar for the SMGame Project">
+		<jar destfile="${target.dir}/SMGame.jar" includes="*.class" basedir="bin">
+			<manifest>
+		    	<attribute name="Main-Class" value="com.tutorialspoint.util.FaxUtil"/>
+			</manifest>
+		</jar>
+	</target>	
+</project>
