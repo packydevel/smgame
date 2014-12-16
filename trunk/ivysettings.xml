@@ -1,6 +1,6 @@
 <ivysettings>
 	<properties file="${ivy.settings.dir}/ivy.properties" />
-	<caches>
+	<caches defaultCacheDir="${ivy.cache}">
 		<cache name="mycache" basedir="${ivy.cache}" />
 	</caches>
     <settings defaultResolver="master-chain" />
